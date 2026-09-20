@@ -58,7 +58,7 @@ book:
         # - student_solutions.ipynb
   appendices: 
     - href: Assignment A.ipynb
-      text: "Assignment A: Python Iterables and Data Structures"
+      text: "Assignment A: Python Foundations"
     - href: Assignment B.ipynb
       text: "Assignment B: Reproducible Project Setup"
     - href: Assignment C.ipynb
