@@ -22,6 +22,6 @@ Throughout the quarter, this resource will be updated and refined to improve cla
 
 As a **living document**, your feedback and suggestions are always welcome. Contributions from students, instructors, and the broader academic community help make this book stronger and more effective.
 
-If you have ideas for improving the textbook, please share your feedback or suggestions using our dedicated [Textbook Improvement Form](https://edstem.org/us/courses/86347/discussion). Your input is invaluable in making this resource better for everyone.
+If you have ideas for improving the textbook, please share your feedback or suggestions using our dedicated [Textbook Improvement Form](https://edstem.org/us/courses/106716/discussion). Your input is invaluable in making this resource better for everyone.
 
 Thank you for joining us on this learning adventure. We hope this book becomes a valuable companion as you build your skills and confidence in data science with Python.
