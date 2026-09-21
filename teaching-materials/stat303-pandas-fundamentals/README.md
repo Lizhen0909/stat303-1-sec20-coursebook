@@ -1,6 +1,6 @@
 # Pandas Fundamentals practice kit
 
-Follow the [Pandas Fundamentals chapter](https://lizhen0909.github.io/stat303-1-sec20-coursebook/Pandas.html) and its [complete activity instructions](https://lizhen0909.github.io/stat303-1-sec20-coursebook/Pandas.html#practice-activity-select-transform-and-explain).
+Follow the [Pandas Fundamentals chapter](https://lizhen0909.github.io/stat303-1-sec20-coursebook/pandas_fundamentals.html) and its [complete activity instructions](https://lizhen0909.github.io/stat303-1-sec20-coursebook/pandas_fundamentals.html#practice-activity-select-transform-and-explain).
 
 1. Extract this folder inside your existing `stat303-setup` project and select the verified project Python environment. The examples require pandas; no additional package installation is needed after the setup chapters.
 2. Use `stat303-pandas-fundamentals` as the notebook's working directory. Both notebooks belong beside the lowercase `data/` folder; verify the supplied file check before starting.

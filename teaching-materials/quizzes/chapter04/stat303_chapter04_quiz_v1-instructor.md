@@ -20,7 +20,7 @@ Correct answer: **B**. The question conditions on an observed rating, so the den
 
 ## Final HTML upload — 16 points
 
-Submit `activity04.html`; follow [Chapter 4 Practice Activity](https://lizhen0909.github.io/stat303-1-sec20-coursebook/Pandas.html#practice-activity-select-transform-and-explain).
+Submit `activity04.html`; follow [Chapter 4 Practice Activity](https://lizhen0909.github.io/stat303-1-sec20-coursebook/pandas_fundamentals.html#practice-activity-select-transform-and-explain).
 
 - **Labels, positions, and object shapes (3 points):** 1 point: predictions and visible selection results; 1: correct label-versus-position explanation; 1: both shapes and Series-versus-DataFrame explanation.
 

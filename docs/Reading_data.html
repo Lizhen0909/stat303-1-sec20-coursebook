@@ -733,7 +733,7 @@ dtype: object</code></pre>
 </div>
 <p>Look for numeric types in columns such as <code>IMDB Rating</code> and <code>Production Budget</code>. Text may appear as <code>str</code>, <code>string</code>, or <code>object</code>, depending on the pandas version and how the data were read. <code>object</code> can also hold mixed kinds of values, so it is not a guarantee that every value is a string.</p>
 <p>A date-looking value does <strong>not</strong> establish a datetime dtype. In this default CSV import, <code>Release Date</code> remains text. Later, you can request date parsing with <code>parse_dates=['Release Date']</code> and verify the result. Similarly, a numeric-looking ID such as <code>00123</code> may need <code>dtype={'ID': 'string'}</code> to preserve leading zeros. The correct type depends on the meaning of the variable.</p>
-<p>Type inference is convenient, but it cannot decide whether an identifier should be averaged or whether a recorded budget is accurate. Detailed conversions are covered in the next chapter, <a href="Pandas.ipynb">Pandas Fundamentals</a>.</p>
+<p>Type inference is convenient, but it cannot decide whether an identifier should be averaged or whether a recorded budget is accurate. Detailed conversions are covered in the next chapter, <a href="./pandas_fundamentals.html">Pandas Fundamentals</a>.</p>
 </section>
 <section id="non-null-counts-and-missing-values" class="level3" data-number="3.4.4">
 <h3 data-number="3.4.4" class="anchored" data-anchor-id="non-null-counts-and-missing-values"><span class="header-section-number">3.4.4</span> Non-null Counts and Missing Values</h3>
@@ -1514,8 +1514,8 @@ Same column names and order: True</code></pre>
 <li>In a different dataset where the index contains meaningful IDs, explain why dropping it without first preserving those IDs could lose information.</li>
 </ul>
 </section>
-<section id="render-and-submit-your-html" class="level3" data-number="3.8.1">
-<h3 data-number="3.8.1" class="anchored" data-anchor-id="render-and-submit-your-html"><span class="header-section-number">3.8.1</span> Render and Submit Your HTML</h3>
+<section id="render-and-submit-your-html" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="render-and-submit-your-html">Render and Submit Your HTML</h3>
 <p>Restart the kernel, run all cells in order, resolve unexpected errors, and save. Add a brief Markdown completion note, then save again. The deliberately caught diagnostic in C may report a parser error; the corrected import must work.</p>
 <p>In the terminal, from <code>stat303-reading-data</code>, run:</p>
 <pre class="text"><code>quarto render activity03.ipynb --to html</code></pre>

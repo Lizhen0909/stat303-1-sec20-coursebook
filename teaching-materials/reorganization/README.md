@@ -1,13 +1,21 @@
 # Pandas and NumPy chapter reorganization
 
-The book now teaches Pandas Fundamentals → Pandas Intermediate → NumPy Fundamentals → NumPy Speedup Pandas. `_quarto.yml` selects the new files. All four original notebook files remain byte-for-byte unchanged; `original-sha256.json` records their hashes.
+The book now teaches Pandas Fundamentals → Pandas Intermediate → NumPy Fundamentals → NumPy Speedup Pandas. `_quarto.yml` selects the new files.
 
-| Original (preserved backup) | Active notebook | Change |
+All four original notebook files remain byte-for-byte unchanged, and `original-sha256.json` records their hashes. They live in `originals/` beside this document, each under its own original name, rather than in the repository root. Moving them there cleared the root of notebooks that were not part of the book and removed the need for the `_bk` suffix that `numpy_fundamentals.ipynb` had carried to avoid colliding with the active chapter. Verify them from the repository root with:
+
+```bash
+python3 -c "import json,hashlib,pathlib; d=pathlib.Path('teaching-materials/reorganization/originals'); [print(('MATCH' if hashlib.sha256((d/k).read_bytes()).hexdigest()==v else 'MISMATCH'), k) for k,v in json.load(open('teaching-materials/reorganization/original-sha256.json')).items()]"
+```
+
+| Original (in `originals/`) | Active notebook | Change |
 |---|---|---|
 | `Pandas.ipynb` | `pandas_fundamentals.ipynb` | Navigation and transition wording only |
 | `data_types_in_pandas.ipynb` | `reorganization/pandas_intermediate_superseded.ipynb` | Pandas-first transformations, no NumPy dependency in core examples; retained final-project NLP resource. Superseded as the active chapter; see **Published Intermediate revision** below |
-| `numpy_fundamentals_bk.ipynb` | `numpy_fundamentals.ipynb` | Copy with updated introduction, navigation, and explicit legacy assessment naming. The backup keeps the original bytes under a `_bk` name so the active chapter can hold the clean one |
+| `numpy_fundamentals.ipynb` | `numpy_fundamentals.ipynb` | Copy with updated introduction, navigation, and explicit legacy assessment naming. Same filename in both columns: the original is distinguished by living in `originals/` |
 | `vectorized_numpy.ipynb` | `numpy_speedup_pandas.ipynb` | Full pandas → NumPy → pandas workflow with correctness checks and measured performance |
+
+`Numpy.ipynb` and `pandas_numpy_workflow.ipynb` were deleted. Neither was in `_quarto.yml` and neither was a recorded original: the first was a superseded NumPy draft, and the second a near-twin of the active `numpy_pandas_workflow.ipynb` whose name differed only in word order, which made it easy to edit by mistake. Both remain in git history.
 
 ## Content destinations
 
