@@ -16,7 +16,7 @@ The book is organized to guide you step-by-step:
 - **Core Library Foundations (beginning with Chapter 3, Reading Data)**: Extend your Python programming skills with essential third-party libraries for data science.
 - **From Messy to Insight**: Prepare, combine, and explore data to answer meaningful questions.
 - **Assignments A–G**: Begin with [Assignment A](Assignment%20A.ipynb) for prerequisite Python practice, then [Assignment B](Assignment%20B.ipynb) for project setup, followed by Pandas, NumPy, visualization, cleaning, and wrangling. See Canvas for due dates.
-- **Appendix H — Geospatial Plotting**: optional reference for final projects that involve locations. It is not assigned and has no activity; read it when a project calls for a map.
+- **Geospatial Plotting appendix**: optional reference for final projects that involve locations. It is not assigned and has no activity; read it when a project calls for a map.
 
 Throughout the quarter, this resource will be updated and refined to improve clarity, depth, and alignment with our teaching objectives.
 

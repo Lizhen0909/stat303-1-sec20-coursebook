@@ -9,7 +9,8 @@ project:
     - downloads/pandas-intermediate-practice.zip
     - downloads/reading-data-practice.zip
     - downloads/setup-practice.zip
-    - downloads/assignment-b-setup.zip
+    # Released with Assignment B; see the appendices list below.
+    # - downloads/assignment-b-setup.zip
     - downloads/pandas-numpy-workflow-practice.zip
     - downloads/data-visualization-1-practice.zip
     - downloads/data-visualization-2-practice.zip
@@ -59,18 +60,29 @@ book:
   appendices: 
     - href: Assignment A.ipynb
       text: "Assignment A: Python Foundations"
-    - href: Assignment B.ipynb
-      text: "Assignment B: Reproducible Project Setup"
-    - href: Assignment C.ipynb
-      text: "Assignment C: Pandas"
-    - href: Assignment D.ipynb
-      text: "Assignment D: NumPy"
-    - href: Assignment E.ipynb
-      text: "Assignment E: Data Visualization"
-    - href: Assignment F.ipynb
-      text: "Assignment F: Data Cleaning and Preparation"
-    - href: Assignment G.ipynb
-      text: "Assignment G: Data Wrangling"
+    # Released one at a time as the course proceeds. To release an assignment,
+    # uncomment its two lines here. For Assignment B also uncomment the
+    # downloads/assignment-b-setup.zip resource above.
+    #
+    # index.qmd and python_venv.ipynb still link to Assignment B on purpose.
+    # While B is commented out those links render as "Assignment B.ipynb" and
+    # Quarto copies the notebook into docs/, which would hand students the whole
+    # assignment as a download. So after every rebuild, until B is released:
+    #     rm -f "docs/Assignment B.ipynb"
+    # The links repair themselves once B is uncommented here, because Quarto
+    # then rewrites them to Assignment B.html.
+    # - href: Assignment B.ipynb
+    #   text: "Assignment B: Reproducible Project Setup"
+    # - href: Assignment C.ipynb
+    #   text: "Assignment C: Pandas"
+    # - href: Assignment D.ipynb
+    #   text: "Assignment D: NumPy"
+    # - href: Assignment E.ipynb
+    #   text: "Assignment E: Data Visualization"
+    # - href: Assignment F.ipynb
+    #   text: "Assignment F: Data Cleaning and Preparation"
+    # - href: Assignment G.ipynb
+    #   text: "Assignment G: Data Wrangling"
     - geospatial_mapping.ipynb
     - Datasets.ipynb
     # - references.qmd
