@@ -72,7 +72,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./numpy_pandas_workflow.html" rel="next">
-<link href="./pandas_intermediate_claude.html" rel="prev">
+<link href="./pandas_intermediate.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -225,13 +225,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pandas_fundamentals_reorganized.html" class="sidebar-item-text sidebar-link">
+  <a href="./pandas_fundamentals.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Pandas Fundamentals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pandas_intermediate_claude.html" class="sidebar-item-text sidebar-link">
+  <a href="./pandas_intermediate.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pandas Intermediate</span></span></a>
   </div>
 </li>
@@ -1580,7 +1580,7 @@ std dev per quiz  : [3.61 3.61 3.61] shape (3,)</code></pre>
 </div>
 </div>
 <p><code>ddof=1</code> always returns the larger number, because the same total squared deviation is divided by the smaller denominator. The per-quiz call confirms that <code>axis</code> behaves as it does for <code>mean</code>: axis 0 disappears and one standard deviation is left per column. All three quizzes report the same spread only because in this small table every student sits the same distance from each quiz’s average.</p>
-<p>Neither default is wrong — the two libraries simply chose differently, and nothing warns you when a calculation moves between them. You met the pandas side of this in <a href="./pandas_fundamentals_reorganized.html">Pandas Fundamentals</a>, where <code>.std()</code> was described as the sample standard deviation. <strong>Whenever you report a standard deviation or a variance, pass <code>ddof</code> explicitly</strong> so your intent is on the page: <code>ddof=1</code> for a sample, <code>ddof=0</code> when you genuinely have the whole population.</p>
+<p>Neither default is wrong — the two libraries simply chose differently, and nothing warns you when a calculation moves between them. You met the pandas side of this in <a href="./pandas_fundamentals.html">Pandas Fundamentals</a>, where <code>.std()</code> was described as the sample standard deviation. <strong>Whenever you report a standard deviation or a variance, pass <code>ddof</code> explicitly</strong> so your intent is on the page: <code>ddof=1</code> for a sample, <code>ddof=0</code> when you genuinely have the whole population.</p>
 <p><strong>Check your understanding.</strong> You have the six scores above and want to describe the spread of the whole class those six students were sampled from. Which <code>ddof</code> do you pass, and is the result larger or smaller than NumPy’s default?</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
@@ -2330,7 +2330,7 @@ deviation from each student's own average:
 <h2 data-number="6.13" class="anchored" data-anchor-id="practice-activity-shapes-sales-and-search"><span class="header-section-number">6.13</span> Practice Activity: Shapes, Sales, and Search</h2>
 <p><strong>Goal:</strong> Use array shapes to calculate and interpret a small sales report.</p>
 <p><strong>File:</strong> <code>activity06.ipynb</code> from the <a href="downloads/numpy-fundamentals-practice.zip">practice kit</a>.</p>
-<p><strong>Submit:</strong> <code>activity06.html</code> through the NumPy Fundamentals Canvas quiz</p>
+<p><strong>Submit:</strong> <code>activity06.html</code> through the final upload question in the NumPy Fundamentals Canvas quiz.</p>
 <p><strong>This section contains the complete activity instructions.</strong> The starter supplies the inputs and work spaces. Optional benchmarks, the capital exercise, and other extensions are not required. These invented data describe units sold for one day, with stores in rows and products in columns:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb140"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a>stores <span class="op">=</span> np.array([<span class="st">'North'</span>, <span class="st">'South'</span>, <span class="st">'West'</span>])</span>
 <span id="cb140-2"><a href="#cb140-2" aria-hidden="true" tabindex="-1"></a>products <span class="op">=</span> np.array([<span class="st">'Notebook'</span>, <span class="st">'Pen'</span>, <span class="st">'Folder'</span>, <span class="st">'Marker'</span>])</span>
@@ -2407,7 +2407,7 @@ distance = 2 × R × arcsin(sqrt(h))</code></pre>
 <section id="before-you-move-on" class="level2" data-number="6.15">
 <h2 data-number="6.15" class="anchored" data-anchor-id="before-you-move-on"><span class="header-section-number">6.15</span> Before You Move On</h2>
 <p>You should be able to predict an operation’s shape, explain each axis, and distinguish a numerical value from its position. Check whether a selection shares data before editing it, and keep labels aligned when converting between pandas and NumPy. Seed a generator when you draw random values, pass <code>ddof</code> when you report a standard deviation, and say how many missing values a summary skipped.</p>
-<p>You have already practiced labeled transformations in <a href="./pandas_intermediate_claude.html">Pandas Intermediate</a>. Next, <a href="./numpy_pandas_workflow.html">NumPy and pandas in a Real Workflow</a> combines both libraries in a complete, measured data-science workflow.</p>
+<p>You have already practiced labeled transformations in <a href="./pandas_intermediate.html">Pandas Intermediate</a>. Next, <a href="./numpy_pandas_workflow.html">NumPy and pandas in a Real Workflow</a> combines both libraries in a complete, measured data-science workflow.</p>
 
 
 </section>
@@ -2815,7 +2815,7 @@ distance = 2 × R × arcsin(sqrt(h))</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./pandas_intermediate_claude.html" class="pagination-link" aria-label="Pandas Intermediate">
+      <a href="./pandas_intermediate.html" class="pagination-link" aria-label="Pandas Intermediate">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pandas Intermediate</span></span>
       </a>          
   </div>

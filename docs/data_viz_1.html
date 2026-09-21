@@ -228,13 +228,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pandas_fundamentals_reorganized.html" class="sidebar-item-text sidebar-link">
+  <a href="./pandas_fundamentals.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Pandas Fundamentals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pandas_intermediate_claude.html" class="sidebar-item-text sidebar-link">
+  <a href="./pandas_intermediate.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pandas Intermediate</span></span></a>
   </div>
 </li>
@@ -1092,7 +1092,7 @@ dtype: int64</code></pre>
 <h2 data-number="8.7" class="anchored" data-anchor-id="many-numeric-variables-the-correlation-heatmap"><span class="header-section-number">8.7</span> Many numeric variables: the correlation heatmap</h2>
 <p><strong>Question:</strong> the dataset has four numeric columns. Which pairs move together, and which don’t?</p>
 <p>A scatter plot handles one pair at a time. Four columns make six pairs, and drawing six scatter plots to find the interesting ones is tedious. The usual shortcut is to reduce each pair to a single number — its <strong>correlation</strong> — and then show all of those numbers at once as a heatmap.</p>
-<p>You already know how to produce those numbers: <a href="./pandas_intermediate_claude.html#exploring-relationships-with-.corr"><code>.corr()</code></a>, from the Pandas Intermediate chapter, returns the correlation of every pair of numeric columns as a DataFrame — a symmetric matrix with <code>1.00</code> down the diagonal and values running from −1 (perfect negative) through 0 (no linear relationship) to +1 (perfect positive). As a rough guide, magnitudes above 0.7 are strong, 0.3–0.7 moderate, and below 0.3 weak. What is new in this chapter is turning that table into a picture.</p>
+<p>You already know how to produce those numbers: <a href="./pandas_intermediate.html#exploring-relationships-with-.corr"><code>.corr()</code></a>, from the Pandas Intermediate chapter, returns the correlation of every pair of numeric columns as a DataFrame — a symmetric matrix with <code>1.00</code> down the diagonal and values running from −1 (perfect negative) through 0 (no linear relationship) to +1 (perfect positive). As a rough guide, magnitudes above 0.7 are strong, 0.3–0.7 moderate, and below 0.3 weak. What is new in this chapter is turning that table into a picture.</p>
 <p>One argument earns its place here. <code>numeric_only=True</code> tells <code>.corr()</code> to skip <code>species</code>, <code>island</code>, and <code>sex</code>, since correlation is only defined for numbers and the call fails without it — the same job the earlier chapter did by selecting the numeric columns first. <code>.round(2)</code> is only for readability:</p>
 <div id="2fce405f" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df.corr(numeric_only<span class="op">=</span><span class="va">True</span>).<span class="bu">round</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>

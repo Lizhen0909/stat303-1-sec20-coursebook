@@ -6,7 +6,7 @@ project:
     - downloads/numpy-fundamentals-practice.zip
     - .nojekyll
     - downloads/pandas-fundamentals-practice.zip
-    - downloads/pandas-intermediate-claude-practice.zip
+    - downloads/pandas-intermediate-practice.zip
     - downloads/reading-data-practice.zip
     - downloads/setup-practice.zip
     - downloads/assignment-b-setup.zip
@@ -40,8 +40,8 @@ book:
     - part: 'Core Library Foundations'
       chapters:
         - Reading_data.ipynb
-        - pandas_fundamentals_reorganized.ipynb
-        - pandas_intermediate_claude.ipynb
+        - pandas_fundamentals.ipynb
+        - pandas_intermediate.ipynb
         - numpy_fundamentals.ipynb
         - numpy_pandas_workflow.ipynb
         - href: data_viz_1.ipynb

@@ -228,13 +228,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pandas_fundamentals_reorganized.html" class="sidebar-item-text sidebar-link">
+  <a href="./pandas_fundamentals.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Pandas Fundamentals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pandas_intermediate_claude.html" class="sidebar-item-text sidebar-link">
+  <a href="./pandas_intermediate.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pandas Intermediate</span></span></a>
   </div>
 </li>
@@ -407,13 +407,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#summary-cheat-sheet" id="toc-summary-cheat-sheet" class="nav-link" data-scroll-target="#summary-cheat-sheet"><span class="header-section-number">7.11</span> Summary Cheat Sheet</a></li>
   <li><a href="#practice-activity-from-messy-file-to-labeled-report" id="toc-practice-activity-from-messy-file-to-labeled-report" class="nav-link" data-scroll-target="#practice-activity-from-messy-file-to-labeled-report"><span class="header-section-number">7.12</span> Practice Activity: From Messy File to Labeled Report</a>
   <ul class="collapse">
-  <li><a href="#a.-load-inspect-clean-stages-1-3" id="toc-a.-load-inspect-clean-stages-1-3" class="nav-link" data-scroll-target="#a.-load-inspect-clean-stages-1-3"><span class="header-section-number">7.12.1</span> A. Load, inspect, clean (Stages 1-3)</a></li>
-  <li><a href="#b.-derive-a-column-two-ways-stage-4" id="toc-b.-derive-a-column-two-ways-stage-4" class="nav-link" data-scroll-target="#b.-derive-a-column-two-ways-stage-4"><span class="header-section-number">7.12.2</span> B. Derive a column two ways (Stage 4)</a></li>
-  <li><a href="#c.-hand-off-to-numpy-stage-5" id="toc-c.-hand-off-to-numpy-stage-5" class="nav-link" data-scroll-target="#c.-hand-off-to-numpy-stage-5"><span class="header-section-number">7.12.3</span> C. Hand off to NumPy (Stage 5)</a></li>
-  <li><a href="#d.-return-to-pandas-stage-6" id="toc-d.-return-to-pandas-stage-6" class="nav-link" data-scroll-target="#d.-return-to-pandas-stage-6"><span class="header-section-number">7.12.4</span> D. Return to pandas (Stage 6)</a></li>
-  <li><a href="#e.-one-trap-demonstrated" id="toc-e.-one-trap-demonstrated" class="nav-link" data-scroll-target="#e.-one-trap-demonstrated"><span class="header-section-number">7.12.5</span> E. One trap, demonstrated</a></li>
-  <li><a href="#grading-rubric-out-of-15" id="toc-grading-rubric-out-of-15" class="nav-link" data-scroll-target="#grading-rubric-out-of-15"><span class="header-section-number">7.12.6</span> Grading Rubric (out of 15)</a></li>
-  <li><a href="#render-and-submit" id="toc-render-and-submit" class="nav-link" data-scroll-target="#render-and-submit"><span class="header-section-number">7.12.7</span> Render and Submit</a></li>
+  <li><a href="#a.-load-inspect-and-clean-stages-1-3" id="toc-a.-load-inspect-and-clean-stages-1-3" class="nav-link" data-scroll-target="#a.-load-inspect-and-clean-stages-1-3">A. Load, Inspect, and Clean (Stages 1-3)</a></li>
+  <li><a href="#b.-derive-a-column-two-ways-stage-4" id="toc-b.-derive-a-column-two-ways-stage-4" class="nav-link" data-scroll-target="#b.-derive-a-column-two-ways-stage-4">B. Derive a Column Two Ways (Stage 4)</a></li>
+  <li><a href="#c.-hand-off-to-numpy-stage-5" id="toc-c.-hand-off-to-numpy-stage-5" class="nav-link" data-scroll-target="#c.-hand-off-to-numpy-stage-5">C. Hand Off to NumPy (Stage 5)</a></li>
+  <li><a href="#d.-return-to-pandas-and-demonstrate-one-trap-stage-6" id="toc-d.-return-to-pandas-and-demonstrate-one-trap-stage-6" class="nav-link" data-scroll-target="#d.-return-to-pandas-and-demonstrate-one-trap-stage-6">D. Return to pandas, and Demonstrate One Trap (Stage 6)</a></li>
+  <li><a href="#render-and-submit" id="toc-render-and-submit" class="nav-link" data-scroll-target="#render-and-submit">Render and Submit</a></li>
   </ul></li>
   <li><a href="#extended-practice" id="toc-extended-practice" class="nav-link" data-scroll-target="#extended-practice"><span class="header-section-number">7.13</span> Extended Practice</a>
   <ul class="collapse">
@@ -1879,85 +1877,76 @@ DataFrame : [1. 2. 3.]  &lt;- untouched</code></pre>
 </section>
 <section id="practice-activity-from-messy-file-to-labeled-report" class="level2" data-number="7.12">
 <h2 data-number="7.12" class="anchored" data-anchor-id="practice-activity-from-messy-file-to-labeled-report"><span class="header-section-number">7.12</span> Practice Activity: From Messy File to Labeled Report</h2>
-<p>Follow the complete chapter instructions and add your predictions, code, outputs, and explanations to <code>activity07.ipynb</code>.</p>
-<p>You will run one small dataset through all six stages of the workflow. The setup cell writes a messy CSV (<code>inventory_raw.csv</code>) and builds a large <code>orders</code> table for timing.</p>
-<section id="a.-load-inspect-clean-stages-1-3" class="level3" data-number="7.12.1">
-<h3 data-number="7.12.1" class="anchored" data-anchor-id="a.-load-inspect-clean-stages-1-3"><span class="header-section-number">7.12.1</span> A. Load, inspect, clean (Stages 1-3)</h3>
+<p><strong>Goal:</strong> Run one small dataset through all six stages of the workflow and defend each handoff between pandas and NumPy.</p>
+<p><strong>File:</strong> <code>activity07.ipynb</code> from the <a href="downloads/pandas-numpy-workflow-practice.zip">practice kit</a>.</p>
+<p><strong>Submit:</strong> <code>activity07.html</code> through the final upload question in the NumPy and pandas in a Real Workflow Canvas quiz.</p>
+<p><strong>This section contains the complete activity instructions.</strong> The starter supplies every input and spaces to record your work. Open <code>activity07.ipynb</code> from the folder prepared in <a href="#set-up-your-chapter-files">Set Up Your Chapter Files</a>, using the same project environment. The worked examples and the Extended Practice below are preparation, not additional submission requirements.</p>
+<p>The setup cell writes the messy <code>inventory_raw.csv</code> used in Part A, builds the large <code>orders</code> table used for the Part B timings, and defines the <code>warehouse</code> table and the <code>unit_costs</code> vector used in Parts C and D.</p>
+<section id="a.-load-inspect-and-clean-stages-1-3" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="a.-load-inspect-and-clean-stages-1-3">A. Load, Inspect, and Clean (Stages 1-3)</h3>
 <ul>
-<li>Read <code>inventory_raw.csv</code> and print <code>.dtypes</code>. Say in one sentence, for each column that came in as text (<code>str</code>), <em>why</em> it did.</li>
+<li>Replace <code>Your Name</code> in the opening Raw cell’s <code>author</code> field. Run the setup cell; it must report that <code>inventory_raw.csv</code> was written.</li>
+<li>Read <code>inventory_raw.csv</code> and display <code>.dtypes</code>. For each column that came in as text, say in one sentence why it did.</li>
 <li>Repair all three problem columns so that <code>quantity</code> is an integer dtype, <code>cost</code> is a float dtype, and <code>restocked</code> is a datetime dtype.</li>
 <li>Report how many missing values existed and what you chose to do about them, with a one-sentence justification.</li>
 </ul>
 </section>
-<section id="b.-derive-a-column-two-ways-stage-4" class="level3" data-number="7.12.2">
-<h3 data-number="7.12.2" class="anchored" data-anchor-id="b.-derive-a-column-two-ways-stage-4"><span class="header-section-number">7.12.2</span> B. Derive a column two ways (Stage 4)</h3>
+<section id="b.-derive-a-column-two-ways-stage-4" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="b.-derive-a-column-two-ways-stage-4">B. Derive a Column Two Ways (Stage 4)</h3>
 <ul>
-<li>The rule: <code>value = quantity x cost</code>, then apply a bulk discount — 15% off when <code>quantity &gt;= 40</code>, 8% off when <code>quantity &gt;= 15</code>, nothing below that — and finally add a $12.50 handling fee to any item whose discounted value is under $200.</li>
+<li>The rule: <code>value = quantity * cost</code>, then a bulk discount of 15% when <code>quantity &gt;= 40</code> and 8% when <code>quantity &gt;= 15</code>, with no discount below that, and finally a $12.50 handling fee added to any item whose discounted value is under $200.</li>
 <li>Write it first as a row function with <code>.apply(axis=1)</code> on the large <code>orders</code> table, and time it with <code>%timeit</code>.</li>
 <li>Write it again vectorized, using <code>np.select</code> and <code>np.where</code>, and time that.</li>
-<li>Verify the two agree with <code>np.allclose</code>, then report the speedup ratio.</li>
+<li>Verify that the two agree with <code>np.allclose</code>, report the speedup ratio, and say which change actually produced the speedup.</li>
 </ul>
 </section>
-<section id="c.-hand-off-to-numpy-stage-5" class="level3" data-number="7.12.3">
-<h3 data-number="7.12.3" class="anchored" data-anchor-id="c.-hand-off-to-numpy-stage-5"><span class="header-section-number">7.12.3</span> C. Hand off to NumPy (Stage 5)</h3>
+<section id="c.-hand-off-to-numpy-stage-5" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="c.-hand-off-to-numpy-stage-5">C. Hand Off to NumPy (Stage 5)</h3>
 <ul>
-<li>Convert the four numeric warehouse columns of the provided <code>warehouse</code> table to a single 2-D array. Confirm the dtype is <strong>not</strong> <code>object</code>.</li>
-<li>Compute each warehouse’s total (one number per row) and each item’s total (one number per column), naming the axis you used and why.</li>
-<li>Using broadcasting, compute each cell’s share of its own <strong>row</strong> total, and verify every row of your result sums to 1.</li>
-<li>Using the <code>@</code> operator and the provided <code>unit_costs</code> vector, compute the total inventory value per warehouse.</li>
+<li>Convert the four numeric warehouse columns of the supplied <code>warehouse</code> table to a single 2D array. Confirm that the dtype is <strong>not</strong> <code>object</code>.</li>
+<li>Calculate each warehouse’s total (one number per row) and each item’s total (one number per column), naming the axis you used for each and why.</li>
+<li>Using broadcasting, calculate each cell’s share of its own <strong>row</strong> total, and verify that every row of the result sums to 1.</li>
+<li>Using the <code>@</code> operator and the supplied <code>unit_costs</code> vector, calculate the total inventory value per warehouse. Show the check that <code>unit_costs</code> is in the same order as your array’s columns.</li>
 </ul>
 </section>
-<section id="d.-return-to-pandas-stage-6" class="level3" data-number="7.12.4">
-<h3 data-number="7.12.4" class="anchored" data-anchor-id="d.-return-to-pandas-stage-6"><span class="header-section-number">7.12.4</span> D. Return to pandas (Stage 6)</h3>
+<section id="d.-return-to-pandas-and-demonstrate-one-trap-stage-6" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="d.-return-to-pandas-and-demonstrate-one-trap-stage-6">D. Return to pandas, and Demonstrate One Trap (Stage 6)</h3>
 <ul>
 <li>Rebuild your share matrix as a DataFrame carrying the original row and column labels, rounded to three decimals.</li>
 <li>Add your per-warehouse value as a new column on the <code>warehouse</code> table, and explain in one or two sentences why the positional assignment is safe <em>in this specific case</em>.</li>
+<li>Choose either Trap 2 (<code>NaN</code> semantics) or Trap 4 (positional alignment) from <a href="#four-conversion-traps">Four Conversion Traps</a>. Show the wrong answer and the corrected version side by side, and explain what a reader should check and why no error appears.</li>
 </ul>
 </section>
-<section id="e.-one-trap-demonstrated" class="level3" data-number="7.12.5">
-<h3 data-number="7.12.5" class="anchored" data-anchor-id="e.-one-trap-demonstrated"><span class="header-section-number">7.12.5</span> E. One trap, demonstrated</h3>
-<ul>
-<li>Pick either Trap 2 (<code>NaN</code> semantics) or Trap 4 (positional alignment). Write a short cell that demonstrates the wrong answer, then the corrected version, and explain what a reader should check to avoid it.</li>
-</ul>
-</section>
-<section id="grading-rubric-out-of-15" class="level3" data-number="7.12.6">
-<h3 data-number="7.12.6" class="anchored" data-anchor-id="grading-rubric-out-of-15"><span class="header-section-number">7.12.6</span> Grading Rubric (out of 15)</h3>
-<ul>
-<li>Part A: correct dtype repairs for all three columns, missing-value count reported, and a justified choice (3)</li>
-<li>Part B: correct row function and <code>.apply()</code> with a timing; correct vectorized version with a timing; <code>np.allclose</code> verification and a correctly computed ratio (4)</li>
-<li>Part C: non-<code>object</code> conversion confirmed, both axis totals correct with the axis explained, correct broadcasting with the row-sum check, and a correct matrix product (4)</li>
-<li>Part D: labeled DataFrame rebuilt with original index and columns, column assigned back, and a correct safety explanation (2)</li>
-<li>Part E: a working demonstration of the trap, the fix, and the check a reader should perform (1)</li>
-<li>Overall clarity and readability of the notebook (1)</li>
-</ul>
-</section>
-<section id="render-and-submit" class="level3" data-number="7.12.7">
-<h3 data-number="7.12.7" class="anchored" data-anchor-id="render-and-submit"><span class="header-section-number">7.12.7</span> Render and Submit</h3>
-<p>Render <code>activity07.ipynb</code> to <code>activity07.html</code> and inspect it to confirm all cells ran without errors and every output is visible. Submit <code>activity07.html</code> as your answer to the final upload question in the NumPy and pandas in a Real Workflow Canvas quiz.</p>
+<section id="render-and-submit" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="render-and-submit">Render and Submit</h3>
+<p>Restart the kernel, run all cells in order, resolve unexpected errors, and save. Include your predictions, outputs, and explanations for A-D, and a short Markdown completion note. From <code>stat303-pandas-numpy-workflow</code> in the terminal, run:</p>
+<pre class="text"><code>quarto render activity07.ipynb --to html</code></pre>
+<p>Follow the <a href="./vscode_setup.html#render-and-submit-with-quarto">Quarto refresher</a>: inspect the HTML and a copy opened outside the project folder, and confirm that every cell ran without errors, every output is visible, and your name is on the report. Upload only <code>activity07.html</code> to the NumPy and pandas in a Real Workflow Canvas quiz; keep your notebook locally.</p>
+<p><strong>HTML grading (16 points):</strong> dtype repairs, the missing-value count, and a justified choice (3); both versions of the derived column with their timings, the <code>np.allclose</code> check, and the speedup ratio (4); the non-<code>object</code> conversion, both axis totals with their axes named, broadcasting with the row-sum check, and the matrix product (4); the labeled DataFrame, the column assigned back with its safety explanation, and the demonstrated trap with its fix (4); name, readable report, and completion note (1).</p>
 </section>
 </section>
 <section id="extended-practice" class="level2" data-number="7.13">
 <h2 data-number="7.13" class="anchored" data-anchor-id="extended-practice"><span class="header-section-number">7.13</span> Extended Practice</h2>
 <p>Use a separate notebook beside your activity notebook. These longer exercises are additional practice, not requirements for the Canvas quiz. Include your code, outputs, and explanations.</p>
 <p>Start that notebook with the cell below. It rebuilds the 200,000-row <code>orders</code> table and the order-total rule from Stage 4, so your notebook runs correctly from a restart without borrowing anything from the chapter notebook.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">303</span>)</span>
-<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">200_000</span></span>
-<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>orders <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"store"</span>: rng.choice([<span class="st">"North"</span>, <span class="st">"South"</span>, <span class="st">"West"</span>], size<span class="op">=</span>n),</span>
-<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"units"</span>: rng.integers(<span class="dv">1</span>, <span class="dv">80</span>, size<span class="op">=</span>n),</span>
-<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"unit_price"</span>: rng.choice([<span class="fl">2.0</span>, <span class="fl">3.0</span>, <span class="fl">4.0</span>, <span class="fl">5.0</span>], size<span class="op">=</span>n),</span>
-<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"is_member"</span>: rng.random(size<span class="op">=</span>n) <span class="op">&lt;</span> <span class="fl">0.30</span>,</span>
-<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a>gross <span class="op">=</span> orders[<span class="st">"units"</span>] <span class="op">*</span> orders[<span class="st">"unit_price"</span>]</span>
-<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a>rate <span class="op">=</span> np.select([gross <span class="op">&gt;=</span> <span class="dv">250</span>, gross <span class="op">&gt;=</span> <span class="dv">100</span>], [<span class="fl">0.10</span>, <span class="fl">0.05</span>], default<span class="op">=</span><span class="fl">0.0</span>)</span>
-<span id="cb55-16"><a href="#cb55-16" aria-hidden="true" tabindex="-1"></a>rate <span class="op">=</span> rate <span class="op">+</span> orders[<span class="st">"is_member"</span>] <span class="op">*</span> <span class="fl">0.05</span></span>
-<span id="cb55-17"><a href="#cb55-17" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> gross <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> rate)</span>
-<span id="cb55-18"><a href="#cb55-18" aria-hidden="true" tabindex="-1"></a>orders[<span class="st">"total"</span>] <span class="op">=</span> net <span class="op">+</span> np.where(net <span class="op">&gt;=</span> <span class="dv">500</span>, <span class="fl">0.0</span>, <span class="fl">19.99</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">303</span>)</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">200_000</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>orders <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"store"</span>: rng.choice([<span class="st">"North"</span>, <span class="st">"South"</span>, <span class="st">"West"</span>], size<span class="op">=</span>n),</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"units"</span>: rng.integers(<span class="dv">1</span>, <span class="dv">80</span>, size<span class="op">=</span>n),</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"unit_price"</span>: rng.choice([<span class="fl">2.0</span>, <span class="fl">3.0</span>, <span class="fl">4.0</span>, <span class="fl">5.0</span>], size<span class="op">=</span>n),</span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"is_member"</span>: rng.random(size<span class="op">=</span>n) <span class="op">&lt;</span> <span class="fl">0.30</span>,</span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a>gross <span class="op">=</span> orders[<span class="st">"units"</span>] <span class="op">*</span> orders[<span class="st">"unit_price"</span>]</span>
+<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a>rate <span class="op">=</span> np.select([gross <span class="op">&gt;=</span> <span class="dv">250</span>, gross <span class="op">&gt;=</span> <span class="dv">100</span>], [<span class="fl">0.10</span>, <span class="fl">0.05</span>], default<span class="op">=</span><span class="fl">0.0</span>)</span>
+<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a>rate <span class="op">=</span> rate <span class="op">+</span> orders[<span class="st">"is_member"</span>] <span class="op">*</span> <span class="fl">0.05</span></span>
+<span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> gross <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> rate)</span>
+<span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a>orders[<span class="st">"total"</span>] <span class="op">=</span> net <span class="op">+</span> np.where(net <span class="op">&gt;=</span> <span class="dv">500</span>, <span class="fl">0.0</span>, <span class="fl">19.99</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <section id="per-store-summaries-with-boolean-masks" class="level3" data-number="7.13.1">
 <h3 data-number="7.13.1" class="anchored" data-anchor-id="per-store-summaries-with-boolean-masks"><span class="header-section-number">7.13.1</span> Per-Store Summaries with Boolean Masks</h3>
 <p>Compute the mean order total for each store two ways: once with a pandas Boolean mask per store, and once by converting <code>total</code> and <code>store</code> to arrays and masking those. Compare the results with <code>np.allclose</code>, then explain which version you would put in a report and why. Which parts of the bookkeeping did you have to do by hand in the array version?</p>
@@ -1965,7 +1954,7 @@ DataFrame : [1. 2. 3.]  &lt;- untouched</code></pre>
 <section id="per-record-thresholds" class="level3" data-number="7.13.2">
 <h3 data-number="7.13.2" class="anchored" data-anchor-id="per-record-thresholds"><span class="header-section-number">7.13.2</span> Per-Record Thresholds</h3>
 <p>Flag every order whose total is in the top 20% <em>for its own store</em>. Build one array of per-record thresholds by computing the 80th percentile within each store’s mask, then do the comparison itself as a single NumPy comparison of two arrays. Confirm that the row order of the threshold array still matches the row order of the totals array, and explain what would go wrong if it did not.</p>
-<p><strong>Hint — the method you need.</strong> <code>np.percentile(values, 80)</code> returns the value below which 80% of the observations fall, so an order is in the top 20% of its store when its total is at least that store’s own 80th percentile. The function takes an array and one or more percentages between 0 and 100; it returns <code>nan</code> if any input value is missing, so use <code>np.nanpercentile()</code> when that is a possibility; and it accepts an <code>axis</code> argument when you want one threshold per row or per column rather than one for the whole array. NumPy Fundamentals introduces it briefly under <a href="./numpy_fundamentals.html#more-summaries-median-percentiles-and-spread">More Summaries: Median, Percentiles, and Spread</a>, and the <a href="https://numpy.org/doc/stable/reference/generated/numpy.percentile.html"><code>numpy.percentile</code> reference</a> documents every argument.</p>
+<p><strong>Hint — the method you need.</strong> <code>np.percentile(values, 80)</code> returns the value below which 80% of the observations fall, so an order is in the top 20% of its store when its total is at least that store’s own 80th percentile. The function takes an array and one or more percentages between 0 and 100; it returns <code>nan</code> if any input value is missing, so use <code>np.nanpercentile()</code> when that is a possibility; and it accepts an <code>axis</code> argument when you want one threshold per row or per column rather than one for the whole array. NumPy Fundamentals introduces it briefly under <a href="./numpy_fundamentals.html#more-summaries-median-percentiles-and-range">More Summaries: Median, Percentiles, and Range</a>, and the <a href="https://numpy.org/doc/stable/reference/generated/numpy.percentile.html"><code>numpy.percentile</code> reference</a> documents every argument.</p>
 </section>
 <section id="a-conversion-that-does-not-pay" class="level3" data-number="7.13.3">
 <h3 data-number="7.13.3" class="anchored" data-anchor-id="a-conversion-that-does-not-pay"><span class="header-section-number">7.13.3</span> A Conversion That Does Not Pay</h3>

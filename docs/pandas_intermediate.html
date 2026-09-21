@@ -72,7 +72,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./numpy_fundamentals.html" rel="next">
-<link href="./pandas_fundamentals_reorganized.html" rel="prev">
+<link href="./pandas_fundamentals.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -127,7 +127,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Reading_data.html">Core Library Foundations</a></li><li class="breadcrumb-item"><a href="./pandas_intermediate_claude.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pandas Intermediate</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Reading_data.html">Core Library Foundations</a></li><li class="breadcrumb-item"><a href="./pandas_intermediate.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pandas Intermediate</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -228,13 +228,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pandas_fundamentals_reorganized.html" class="sidebar-item-text sidebar-link">
+  <a href="./pandas_fundamentals.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Pandas Fundamentals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pandas_intermediate_claude.html" class="sidebar-item-text sidebar-link active">
+  <a href="./pandas_intermediate.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pandas Intermediate</span></span></a>
   </div>
 </li>
@@ -396,7 +396,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Reading_data.html">Core Library Foundations</a></li><li class="breadcrumb-item"><a href="./pandas_intermediate_claude.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pandas Intermediate</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Reading_data.html">Core Library Foundations</a></li><li class="breadcrumb-item"><a href="./pandas_intermediate.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pandas Intermediate</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pandas Intermediate</span></h1>
 <p class="subtitle lead">Transformations, Alignment, and Custom Logic</p>
@@ -416,7 +416,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>In <a href="./pandas_fundamentals_reorganized.html">Pandas Fundamentals</a>, you learned how to select, filter, sort, and summarize the data a DataFrame already contains. This chapter shifts the focus from exploring existing data to generating <em>new</em> insights: deriving new columns, calculating summaries across multiple dimensions, and measuring relationships between variables.</p>
+<p>In <a href="./pandas_fundamentals.html">Pandas Fundamentals</a>, you learned how to select, filter, sort, and summarize the data a DataFrame already contains. This chapter shifts the focus from exploring existing data to generating <em>new</em> insights: deriving new columns, calculating summaries across multiple dimensions, and measuring relationships between variables.</p>
 <p>We will approach this in three stages, with each step giving you more computational control:</p>
 <ol type="1">
 <li><strong>Vectorized Arithmetic:</strong> Applying mathematical operations to entire columns at once.</li>
@@ -433,10 +433,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <section id="set-up-your-practice-files" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="set-up-your-practice-files"><span class="header-section-number">5.1</span> Set Up the Chapter Files</h2>
-<p>Download the <a href="downloads/pandas-intermediate-claude-practice.zip">Pandas Intermediate practice kit</a>, extract it, and place <code>stat303-pandas-intermediate-claude</code> inside your existing <code>stat303-setup</code> project. Select the project environment verified in the setup chapters. The examples need pandas, which you already installed.</p>
+<p>Download the <a href="downloads/pandas-intermediate-practice.zip">Pandas Intermediate practice kit</a>, extract it, and place <code>stat303-pandas-intermediate</code> inside your existing <code>stat303-setup</code> project. Select the project environment verified in the setup chapters. The examples need pandas, which you already installed.</p>
 <pre class="text"><code>stat303-setup/
 ├── .venv/
-└── stat303-pandas-intermediate-claude/
+└── stat303-pandas-intermediate/
     ├── pandas_intermediate_examples.ipynb
     ├── activity05.ipynb
     └── README.md</code></pre>
@@ -535,7 +535,7 @@ pandas version: 3.0.5</code></pre>
 </section>
 <section id="summaries-across-a-row-with-axis1" class="level3" data-number="5.2.3">
 <h3 data-number="5.2.3" class="anchored" data-anchor-id="summaries-across-a-row-with-axis1"><span class="header-section-number">5.2.3</span> Summaries across a row with <code>axis=1</code></h3>
-<p><a href="./pandas_fundamentals_reorganized.html#choose-a-direction-with-axis">Pandas Fundamentals</a> introduced <code>axis</code> as the direction a summary collapses. That same choice lets you turn a summary into a new column. Methods like <code>.sum()</code>, <code>.mean()</code>, <code>.max()</code>, and <code>.min()</code> default to working <strong>down each column</strong> — one result per column — while <code>axis=1</code> works <strong>across each row</strong>, giving one result per row that lines up with the data:</p>
+<p><a href="./pandas_fundamentals.html#choose-a-direction-with-axis">Pandas Fundamentals</a> introduced <code>axis</code> as the direction a summary collapses. That same choice lets you turn a summary into a new column. Methods like <code>.sum()</code>, <code>.mean()</code>, <code>.max()</code>, and <code>.min()</code> default to working <strong>down each column</strong> — one result per column — while <code>axis=1</code> works <strong>across each row</strong>, giving one result per row that lines up with the data:</p>
 <div id="8d2ae256" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;python&quot;}}" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>quarterly_sales <span class="op">=</span> pd.DataFrame({</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Q1'</span>: [<span class="dv">100</span>, <span class="dv">150</span>, <span class="dv">200</span>, <span class="dv">120</span>, <span class="dv">180</span>],</span>
@@ -1720,7 +1720,7 @@ Name: Industry, dtype: str</code></pre>
 </section>
 <section id="render-and-submit" class="level3" data-number="5.9.1">
 <h3 data-number="5.9.1" class="anchored" data-anchor-id="render-and-submit"><span class="header-section-number">5.9.1</span> Render and Submit</h3>
-<p>Restart the kernel, run all cells in order, resolve errors, and save. Add a short Markdown completion note, then save again. From <code>stat303-pandas-intermediate-claude</code> in the terminal, run:</p>
+<p>Restart the kernel, run all cells in order, resolve errors, and save. Add a short Markdown completion note, then save again. From <code>stat303-pandas-intermediate</code> in the terminal, run:</p>
 <pre class="text"><code>quarto render activity05.ipynb --to html</code></pre>
 <p>Follow the <a href="./vscode_setup.html#render-and-submit-with-quarto">Quarto refresher</a>: inspect the HTML and a copy opened outside the project folder. Check your name, predictions, code, outputs, and explanations for A–D. When assigned, upload only <code>activity05.html</code> to the Pandas Intermediate Canvas quiz; keep your notebook locally.</p>
 <p><strong>HTML grading (16 points):</strong> calculated variables, explicit inputs, and units (4); alignment and justified <code>fill_value</code> choices (4); recoding and custom logic (4); correlation and interpretation (3); name, readable report, and completion note (1).</p>
@@ -2139,7 +2139,7 @@ Name: Industry, dtype: str</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./pandas_fundamentals_reorganized.html" class="pagination-link" aria-label="Pandas Fundamentals">
+      <a href="./pandas_fundamentals.html" class="pagination-link" aria-label="Pandas Fundamentals">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Pandas Fundamentals</span></span>
       </a>          
   </div>

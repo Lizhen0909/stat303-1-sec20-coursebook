@@ -4,9 +4,9 @@ The book now teaches Pandas Fundamentals → Pandas Intermediate → NumPy Funda
 
 | Original (preserved backup) | Active notebook | Change |
 |---|---|---|
-| `Pandas.ipynb` | `pandas_fundamentals_reorganized.ipynb` | Navigation and transition wording only |
-| `data_types_in_pandas.ipynb` | `pandas_intermediate.ipynb` | Pandas-first transformations, no NumPy dependency in core examples; retained final-project NLP resource |
-| `numpy_fundamentals.ipynb` | `numpy_fundamentals_reorganized.ipynb` | Copy with updated introduction, navigation, and explicit legacy assessment naming |
+| `Pandas.ipynb` | `pandas_fundamentals.ipynb` | Navigation and transition wording only |
+| `data_types_in_pandas.ipynb` | `reorganization/pandas_intermediate_superseded.ipynb` | Pandas-first transformations, no NumPy dependency in core examples; retained final-project NLP resource. Superseded as the active chapter; see **Published Intermediate revision** below |
+| `numpy_fundamentals_bk.ipynb` | `numpy_fundamentals.ipynb` | Copy with updated introduction, navigation, and explicit legacy assessment naming. The backup keeps the original bytes under a `_bk` name so the active chapter can hold the clean one |
 | `vectorized_numpy.ipynb` | `numpy_speedup_pandas.ipynb` | Full pandas → NumPy → pandas workflow with correctness checks and measured performance |
 
 ## Content destinations
@@ -37,4 +37,6 @@ Activity filenames now match Quarto's chapter numbering: Pandas Intermediate use
 
 ## Published Intermediate revision
 
-The active Pandas Intermediate chapter is now `pandas_intermediate_claude.ipynb`, adapted from the supplied transformations Markdown, with a Fundamentals-style setup and activity. Its student kit is `downloads/pandas-intermediate-claude-practice.zip`. The earlier `pandas_intermediate.ipynb` and rendered page remain available for supplementary ranking, sorting, string/date, performance, and NLP references.
+The active Pandas Intermediate chapter is `pandas_intermediate.ipynb`, adapted from the supplied transformations Markdown, with a Fundamentals-style setup and activity. Its student kit is `downloads/pandas-intermediate-practice.zip`.
+
+Chapter filenames are published URLs, so the drafting suffixes were removed. The chapter formerly named with a `_reorganized` suffix is now `pandas_fundamentals.ipynb`, and the one formerly named with a `_claude` suffix is now `pandas_intermediate.ipynb`. The practice kit lost the same suffix and is now `stat303-pandas-intermediate`, shipped as `pandas-intermediate-practice.zip`. The earlier Intermediate draft that previously held the `pandas_intermediate.ipynb` name now lives beside this document as `pandas_intermediate_superseded.ipynb`. It is not part of the book and is not rendered, so it has no published page; it remains here only as a source for supplementary ranking, sorting, string/date, performance, and NLP material.

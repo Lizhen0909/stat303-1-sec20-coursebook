@@ -8,7 +8,7 @@ environment. NumPy and pandas are required. Use this folder as the notebook
 working directory.
 
 - workflow_examples.ipynb is the chapter's worked examples with saved outputs, stage by stage. Its links open the published textbook rather than neighbouring chapter files. Running it writes `sales_raw.csv` into this folder; that file is the chapter's own messy input, created on purpose so the notebook needs no shipped data.
-- activity07.ipynb is an unfinished student starter; complete the chapter's A–E tasks. Its first cell builds every input the activity needs: it writes `inventory_raw.csv` into this folder, creates the 200,000-row `orders` table used for the Part B timings, and defines the `warehouse` table and the `unit_costs` vector used in Parts C and D.
+- activity07.ipynb is an unfinished student starter; complete the chapter's A–D tasks. Its first cell builds every input the activity needs: it writes `inventory_raw.csv` into this folder, creates the 200,000-row `orders` table used for the Part B timings, and defines the `warehouse` table and the `unit_costs` vector used in Parts C and D.
 
 No data files ship with this kit. Both notebooks create whatever they read.
 
