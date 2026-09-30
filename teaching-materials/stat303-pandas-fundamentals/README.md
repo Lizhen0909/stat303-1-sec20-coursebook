@@ -2,7 +2,7 @@
 
 Follow the [Pandas Fundamentals chapter](https://lizhen0909.github.io/stat303-1-sec20-coursebook/pandas_fundamentals.html) and its [complete activity instructions](https://lizhen0909.github.io/stat303-1-sec20-coursebook/pandas_fundamentals.html#practice-activity-select-transform-and-explain).
 
-1. Extract this folder inside your existing `stat303-setup` project and select the verified project Python environment. The examples require pandas; no additional package installation is needed after the setup chapters.
+1. Extract this folder inside `stat303-1/chapters/`, the course folder you built in Assignment B. Open `stat303-1` in VS Code and select the course environment (`stat303-1/.venv`). The examples require pandas; no additional package installation is needed after the setup chapters.
 2. Use `stat303-pandas-fundamentals` as the notebook's working directory. Both notebooks belong beside the lowercase `data/` folder; verify the supplied file check before starting.
 3. Run `pandas_examples.ipynb` for the worked lesson. Complete your own `activity04.ipynb` for the Canvas quiz; the chapter's A–D sections are the authoritative instructions.
 4. Restart the activity notebook's kernel, run all cells, and save. From this folder in the terminal, run `quarto render activity04.ipynb --to html`. Inspect the HTML and a copy opened outside the folder, then submit only `activity04.html`.

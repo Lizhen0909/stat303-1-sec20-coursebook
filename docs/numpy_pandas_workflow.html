@@ -322,14 +322,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./Assignment B.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Assignment B: Reproducible Project Setup</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./geospatial_mapping.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Geospatial Plotting for Final Projects</span></span></a>
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Geospatial Plotting for Final Projects</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Datasets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Datasets &amp; Templates</span></span></a>
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Datasets &amp; Templates</span></span></a>
   </div>
 </li>
       </ul>
@@ -422,13 +428,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <section id="set-up-your-chapter-files" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="set-up-your-chapter-files"><span class="header-section-number">7.1</span> Set Up Your Chapter Files</h2>
-<p>Download the <a href="downloads/pandas-numpy-workflow-practice.zip">NumPy and pandas Workflow practice kit</a>. Extract <code>stat303-pandas-numpy-workflow</code> inside the <code>stat303-setup</code> project from the setup chapters and select that project’s verified Python environment.</p>
-<pre class="text"><code>stat303-setup/
+<p>Download the <a href="downloads/pandas-numpy-workflow-practice.zip">NumPy and pandas Workflow practice kit</a>. Extract <code>stat303-pandas-numpy-workflow</code> inside the <code>chapters</code> folder of your <code>stat303-1</code> course folder, open <code>stat303-1</code> in VS Code, and select the course environment. The terminal opens in <code>stat303-1</code>, so move it into the kit with <code>cd chapters</code> and then <code>cd stat303-pandas-numpy-workflow</code> before you render the activity.</p>
+<pre class="text"><code>stat303-1/
 ├── .venv/
-└── stat303-pandas-numpy-workflow/
-    ├── workflow_examples.ipynb
-    ├── activity07.ipynb
-    └── README.md</code></pre>
+├── assignments/
+└── chapters/
+    └── stat303-pandas-numpy-workflow/
+        ├── workflow_examples.ipynb
+        ├── activity07.ipynb
+        └── README.md</code></pre>
 <p>Run <code>workflow_examples.ipynb</code> for the lesson and complete <code>activity07.ipynb</code> for your own activity report. Use <code>stat303-pandas-numpy-workflow</code> as the notebook working folder. This chapter ships no data files: the worked examples write the small messy CSV they then clean, and the activity notebook builds its own inputs in its first cell.</p>
 <div id="83746756" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:31.978412Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:31.978256Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:32.366770Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:32.366355Z&quot;}}" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>

@@ -12,7 +12,7 @@ In this first course, you will:
 The book is organized to guide you step-by-step:
 
 - **Review of STAT 201: Python Foundations**: Review Python basics and data structures from STAT 201 in two unnumbered chapters. You can use your existing STAT 201 setup for this review. For additional practice, visit the [STAT 201 ebook](https://lizhen0909.github.io/Intro_to_programming_for_data_sci/).
-- **Setting Up for Data Science (Chapters 1–2)**: Work in Jupyter notebooks inside VS Code, refresh the Quarto HTML submission workflow, and manage project environments and local data paths. Each chapter ends with a practice activity; [Assignment B](Assignment%20B.ipynb) applies the complete workflow in a new project.
+- **Setting Up for Data Science (Chapters 1–2)**: Work in Jupyter notebooks inside VS Code, refresh the Quarto HTML submission workflow, and manage project environments and local data paths. Each chapter ends with a practice activity; [Assignment B](Assignment%20B.ipynb) applies the complete workflow by building the course folder you use for the rest of the quarter.
 - **Core Library Foundations (beginning with Chapter 3, Reading Data)**: Extend your Python programming skills with essential third-party libraries for data science.
 - **From Messy to Insight**: Prepare, combine, and explore data to answer meaningful questions.
 - **Assignments A–G**: Begin with [Assignment A](Assignment%20A.ipynb) for prerequisite Python practice, then [Assignment B](Assignment%20B.ipynb) for project setup, followed by Pandas, NumPy, visualization, cleaning, and wrangling. See Canvas for due dates.

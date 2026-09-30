@@ -3,9 +3,10 @@
 Follow [NumPy and pandas in a Real Workflow](https://lizhen0909.github.io/stat303-1-sec20-coursebook/numpy_pandas_workflow.html)
 and its [complete activity instructions](https://lizhen0909.github.io/stat303-1-sec20-coursebook/numpy_pandas_workflow.html#practice-activity-from-messy-file-to-labeled-report).
 
-Extract this folder inside your stat303-setup project and select its verified
-environment. NumPy and pandas are required. Use this folder as the notebook
-working directory.
+Extract this folder inside `stat303-1/chapters/`, the course folder you built in
+Assignment B. Open `stat303-1` in VS Code and select the course environment
+(`stat303-1/.venv`). NumPy and pandas are required. Use this folder as the
+notebook working directory.
 
 - workflow_examples.ipynb is the chapter's worked examples with saved outputs, stage by stage. Its links open the published textbook rather than neighbouring chapter files. Running it writes `sales_raw.csv` into this folder; that file is the chapter's own messy input, created on purpose so the notebook needs no shipped data.
 - activity07.ipynb is an unfinished student starter; complete the chapter's A–D tasks. Its first cell builds every input the activity needs: it writes `inventory_raw.csv` into this folder, creates the 200,000-row `orders` table used for the Part B timings, and defines the `warehouse` table and the `unit_costs` vector used in Parts C and D.

@@ -17,7 +17,7 @@ The initial `docs/` pages are copied unchanged from the original published repos
 
 - Assignment A reviews prerequisite Python skills.
 - Chapters 1–2 cover VS Code, a Quarto refresher, project environments, packages, and paths.
-- Assignment B applies setup in a separate project; download `downloads/assignment-b-setup.zip`.
+- Assignment B has students build the `stat303-1` course folder (one shared `.venv`, with `chapters/` and `assignments/`) that every later kit goes into; download `downloads/assignment-b-setup.zip`. Kit sources live in `teaching-materials/`.
 - Assignments C–G cover Pandas, NumPy, visualization, cleaning/preparation, and wrangling (formerly B–F).
 - `downloads/setup-practice.zip` contains only the two chapter practice notebooks and their data.
 - Chapters 4–5 have local practice kits: `downloads/pandas-fundamentals-practice.zip` and `downloads/numpy-fundamentals-practice.zip`. Each contains a worked notebook and an unfinished activity starter.

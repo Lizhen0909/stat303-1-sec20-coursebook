@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Lizhen Shi">
 
-<title>Data Science I with python</title>
+<title>Appendix B — Reproducible Project Setup Assignment – Data Science I with python</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -37,7 +36,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./python_basics.html" rel="next">
+<link href="./geospatial_mapping.html" rel="next">
+<link href="./Assignment A.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -89,7 +89,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Assignment A.html">Appendices</a></li><li class="breadcrumb-item"><a href="./Assignment B.html"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Assignment B: Reproducible Project Setup</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -123,7 +123,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
@@ -284,7 +284,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Assignment B.html" class="sidebar-item-text sidebar-link">
+  <a href="./Assignment B.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Assignment B: Reproducible Project Setup</span></span></a>
   </div>
 </li>
@@ -312,29 +312,59 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
+  <li><a href="#instructions" id="toc-instructions" class="nav-link active" data-scroll-target="#instructions">Instructions</a></li>
+  <li><a href="#build-and-organize-the-course-folder-20-points" id="toc-build-and-organize-the-course-folder-20-points" class="nav-link" data-scroll-target="#build-and-organize-the-course-folder-20-points">1. Build and Organize the Course Folder (20 points)</a>
+  <ul class="collapse">
+  <li><a href="#folder-evidence-8-points" id="toc-folder-evidence-8-points" class="nav-link" data-scroll-target="#folder-evidence-8-points">1.1 Folder evidence (8 points)</a></li>
+  <li><a href="#write-a-folder-guide-6-points" id="toc-write-a-folder-guide-6-points" class="nav-link" data-scroll-target="#write-a-folder-guide-6-points">1.2 Write a folder guide (6 points)</a></li>
+  <li><a href="#explain-the-design-6-points" id="toc-explain-the-design-6-points" class="nav-link" data-scroll-target="#explain-the-design-6-points">1.3 Explain the design (6 points)</a></li>
+  </ul></li>
+  <li><a href="#create-and-verify-the-course-environment-20-points" id="toc-create-and-verify-the-course-environment-20-points" class="nav-link" data-scroll-target="#create-and-verify-the-course-environment-20-points">2. Create and Verify the Course Environment (20 points)</a>
+  <ul class="collapse">
+  <li><a href="#the-course-environment-6-points" id="toc-the-course-environment-6-points" class="nav-link" data-scroll-target="#the-course-environment-6-points">2.1 The course environment (6 points)</a></li>
+  <li><a href="#check-before-installing-6-points" id="toc-check-before-installing-6-points" class="nav-link" data-scroll-target="#check-before-installing-6-points">2.2 Check before installing (6 points)</a></li>
+  <li><a href="#connect-the-notebook-8-points" id="toc-connect-the-notebook-8-points" class="nav-link" data-scroll-target="#connect-the-notebook-8-points">2.3 Connect the notebook (8 points)</a></li>
+  </ul></li>
+  <li><a href="#install-and-verify-packages-12-points" id="toc-install-and-verify-packages-12-points" class="nav-link" data-scroll-target="#install-and-verify-packages-12-points">3. Install and Verify Packages (12 points)</a>
+  <ul class="collapse">
+  <li><a href="#terminal-installation-4-points" id="toc-terminal-installation-4-points" class="nav-link" data-scroll-target="#terminal-installation-4-points">3.1 Terminal installation (4 points)</a></li>
+  <li><a href="#notebook-installation-3-points" id="toc-notebook-installation-3-points" class="nav-link" data-scroll-target="#notebook-installation-3-points">3.2 Notebook installation (3 points)</a></li>
+  <li><a href="#verify-the-imports-5-points" id="toc-verify-the-imports-5-points" class="nav-link" data-scroll-target="#verify-the-imports-5-points">3.3 Verify the imports (5 points)</a></li>
+  </ul></li>
+  <li><a href="#navigate-folders-and-locate-the-data-20-points" id="toc-navigate-folders-and-locate-the-data-20-points" class="nav-link" data-scroll-target="#navigate-folders-and-locate-the-data-20-points">4. Navigate Folders and Locate the Data (20 points)</a>
+  <ul class="collapse">
+  <li><a href="#compare-two-working-directories-8-points" id="toc-compare-two-working-directories-8-points" class="nav-link" data-scroll-target="#compare-two-working-directories-8-points">4.1 Compare two working directories (8 points)</a></li>
+  <li><a href="#construct-and-verify-a-path-6-points" id="toc-construct-and-verify-a-path-6-points" class="nav-link" data-scroll-target="#construct-and-verify-a-path-6-points">4.2 Construct and verify a path (6 points)</a></li>
+  <li><a href="#reach-a-file-in-another-kit-6-points" id="toc-reach-a-file-in-another-kit-6-points" class="nav-link" data-scroll-target="#reach-a-file-in-another-kit-6-points">4.3 Reach a file in another kit (6 points)</a></li>
+  </ul></li>
+  <li><a href="#record-dependencies-and-diagnose-a-problem-13-points" id="toc-record-dependencies-and-diagnose-a-problem-13-points" class="nav-link" data-scroll-target="#record-dependencies-and-diagnose-a-problem-13-points">5. Record Dependencies and Diagnose a Problem (13 points)</a>
+  <ul class="collapse">
+  <li><a href="#requirements-record-7-points" id="toc-requirements-record-7-points" class="nav-link" data-scroll-target="#requirements-record-7-points">5.1 Requirements record (7 points)</a></li>
+  <li><a href="#diagnose-an-incorrect-filename-6-points" id="toc-diagnose-an-incorrect-filename-6-points" class="nav-link" data-scroll-target="#diagnose-an-incorrect-filename-6-points">5.2 Diagnose an incorrect filename (6 points)</a></li>
+  </ul></li>
+  <li><a href="#run-and-interpret-the-supplied-analysis-10-points" id="toc-run-and-interpret-the-supplied-analysis-10-points" class="nav-link" data-scroll-target="#run-and-interpret-the-supplied-analysis-10-points">6. Run and Interpret the Supplied Analysis (10 points)</a>
+  <ul class="collapse">
+  <li><a href="#verify-the-result-4-points" id="toc-verify-the-result-4-points" class="nav-link" data-scroll-target="#verify-the-result-4-points">6.1 Verify the result (4 points)</a></li>
+  <li><a href="#interpret-the-figure-6-points" id="toc-interpret-the-figure-6-points" class="nav-link" data-scroll-target="#interpret-the-figure-6-points">6.2 Interpret the figure (6 points)</a></li>
+  </ul></li>
+  <li><a href="#prepare-the-html-submission-5-points" id="toc-prepare-the-html-submission-5-points" class="nav-link" data-scroll-target="#prepare-the-html-submission-5-points">7. Prepare the HTML Submission (5 points)</a></li>
+  <li><a href="#points-summary" id="toc-points-summary" class="nav-link" data-scroll-target="#points-summary">Points Summary</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Assignment A.html">Appendices</a></li><li class="breadcrumb-item"><a href="./Assignment B.html"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Assignment B: Reproducible Project Setup</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Data Science I with python</h1>
-<p class="subtitle lead">STAT 303-1-Sec20</p>
+<h1 class="title">Appendix B — Reproducible Project Setup Assignment</h1>
+<p class="subtitle lead">Assignment B</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Lizhen Shi </p>
-          </div>
-  </div>
     
   
     
@@ -345,28 +375,222 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<p>Welcome to <strong>STAT 303-1 (Data Science with Python I), Section 20</strong> at Northwestern University.</p>
-<p>This book combines foundational concepts with hands-on practice. Its overall organization was adapted from earlier course materials developed by Professor Arvind Krishna. The chapters, examples, assignments, and technical guidance have since been revised and expanded for the current course.</p>
-<p>In this first course, you will:</p>
+<section id="instructions" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions">Instructions</h2>
+<ol type="1">
+<li><p>Complete this assignment after Chapters 1–2 and their practice activities, and before you start the Chapter 3 practice kit. It is worth <strong>100 points</strong>. <strong>See Canvas for the due date.</strong></p></li>
+<li><p>You may discuss approaches with classmates, but write your own code and explanations and record evidence from your own computer. Put Python computations in Code cells and explanations and copied terminal evidence in Markdown cells.</p></li>
+<li><p>In this assignment you build the <strong>course folder</strong> that will hold every chapter practice kit and every assignment for the rest of the quarter, with one Python environment that all of them share. <a href="downloads/assignment-b-setup.zip">Download the Assignment B project kit</a>; Question 1 tells you where to put it. Work in the supplied <code>assignment_b.ipynb</code>.</p></li>
+<li><p><strong>This page contains the complete assignment instructions.</strong> The starter notebook contains numbered answer spaces and supplied demonstration code. Keep those sections in order and answer every numbered part below.</p></li>
+<li><p>Submit <strong>one file, <code>assignment_b.html</code></strong>, to the <strong>Assignment B submission in Canvas</strong>. Keep the whole course folder on your computer, including its <code>.venv</code>, <code>requirements.txt</code>, and <code>README.md</code>; you will use it all quarter. Do not submit your <code>.venv</code> folder or the ZIP. You may replace your personal username in copied paths with <code>[username]</code>, retaining enough detail to identify the project and environment.</p></li>
+<li><p>The data are fictional library-branch visit counts for one illustrative day. Pandas and plotting code are supplied in the notebook; you are assessing and explaining the workflow, not being asked to write unfamiliar analysis code.</p></li>
+<li><p><strong>Generative AI.</strong> You may use generative AI tools (ChatGPT, Claude, GitHub Copilot, and similar) to understand concepts, interpret error messages, and debug code you have written. You may not use them to produce the code or written answers you submit. The test: you should be able to explain every line you submit and reproduce it without assistance. Disclose any use in a short note at the end of your submission. Honest disclosure carries no penalty on its own; undisclosed use is an academic integrity violation under the course syllabus.</p></li>
+</ol>
+<p>When you finish, your course folder will look like this:</p>
+<pre class="text"><code>stat303-1/
+├── .venv/                    ← the course environment (Question 2)
+├── README.md                 ← your guide to this folder (Question 1)
+├── requirements.txt          ← the environment's package record (Question 5)
+├── assignments/
+│   ├── assignment-a/         ← your completed Assignment A (no data needed)
+│   │   ├── Assignment A.ipynb
+│   │   └── Assignment A.html
+│   └── assignment-b/         ← the extracted kit
+│       ├── assignment_b.ipynb
+│       ├── README.md
+│       └── data/
+│           └── library_visits.csv
+└── chapters/
+    └── stat303-setup/        ← moved here from Chapters 1–2
+        ├── activity01.ipynb
+        ├── activity02.ipynb
+        ├── ...               (the other files you created there)
+        └── data/
+            └── station_readings.csv</code></pre>
+<p>From Chapter 3 on, each chapter’s practice kit goes in <code>chapters/</code>, and each assignment gets its own folder in <code>assignments/</code>, even when it has no data. You will always open <code>stat303-1</code> in VS Code and use its one <code>.venv</code>.</p>
+<p>Use the <a href="./vscode_setup.html#render-and-submit-with-quarto">Chapter 1 Quarto refresher</a> and <a href="./python_venv.html#create-a-course-environment">Chapter 2 environment instructions</a> as references. The Quarto VS Code extension is optional; the Quarto application performs rendering.</p>
+</section>
+<section id="build-and-organize-the-course-folder-20-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="build-and-organize-the-course-folder-20-points">1. Build and Organize the Course Folder (20 points)</h2>
+<p>Do these steps in order, using Finder on macOS or File Explorer on Windows to create, delete, and move folders. <strong>Close VS Code first</strong>, so that nothing is still using the Chapter 2 environment while you change its folder.</p>
+<ol type="1">
+<li><strong>Choose a location.</strong> Pick a place that cloud storage does not sync, such as your home folder. Avoid the iCloud-synced Desktop and Documents folders on macOS and OneDrive-synced folders on Windows: sync tools can upload, offload, or lock the thousands of small files inside <code>.venv</code>, and that breaks the environment.</li>
+<li><strong>Create the folders.</strong> Create a folder named <code>stat303-1</code>, and inside it create two folders named <code>chapters</code> and <code>assignments</code>. Use these exact lowercase names, with no spaces.</li>
+<li><strong>Retire the Chapter 2 environment.</strong> Inside your <code>stat303-setup</code> folder, delete the <code>.venv</code> folder. Keep everything else in <code>stat303-setup</code>, including your activity notebooks, HTML files, data, and <code>requirements.txt</code>.</li>
+<li><strong>Move the Chapter 2 folder.</strong> Move <code>stat303-setup</code> into <code>stat303-1/chapters/</code>.</li>
+<li><strong>Place the assignment kit.</strong> Extract the Assignment B ZIP and move the extracted <code>assignment-b</code> folder into <code>stat303-1/assignments/</code>. Check that you did not create a nested <code>assignment-b/assignment-b/</code> folder.</li>
+<li><strong>File Assignment A.</strong> Inside <code>assignments</code>, create a folder named <code>assignment-a</code> and move your completed Assignment A notebook and its rendered HTML into it. Assignment A has no data, but it still gets its own folder, so that every assignment follows the same rule and its notebook and rendered output stay together.</li>
+<li><strong>Open the course folder.</strong> In VS Code, choose <strong>File → Open Folder</strong> and open <code>stat303-1</code> itself, not <code>assignments</code> or <code>assignment-b</code>. From now on, this is the folder you open for every chapter and assignment.</li>
+</ol>
+<section id="folder-evidence-8-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="folder-evidence-8-points">1.1 Folder evidence (8 points)</h3>
+<p>Add your name to the notebook. Open a terminal in VS Code; it starts in <code>stat303-1</code>, the folder you opened. Show the current directory, then list the contents of <code>stat303-1</code>, <code>chapters</code>, and <code>assignments</code> without leaving <code>stat303-1</code>. To list a folder without entering it, put its name after the listing command: <code>ls chapters</code> on macOS, <code>Get-ChildItem chapters</code> in PowerShell, or <code>dir chapters</code> in Command Prompt. Copy the commands and output into your answer. State where you placed <code>stat303-1</code> and why that location is not synced by cloud storage.</p>
+<p>The root listing does not need <code>.venv</code>, <code>README.md</code>, or <code>requirements.txt</code> yet; you create them in later questions.</p>
+<p><em>Credit: three listings showing the required structure, 5 points; location and reason, 2 points; name, 1 point.</em></p>
+</section>
+<section id="write-a-folder-guide-6-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="write-a-folder-guide-6-points">1.2 Write a folder guide (6 points)</h3>
+<p>In VS Code’s Explorer, create a file named <code>README.md</code> directly inside <code>stat303-1</code>, next to <code>chapters</code> and <code>assignments</code>. Write a short guide, in your own words, that a classmate could follow to use the folder. It must say:</p>
 <ul>
-<li>Learn to use essential Python libraries for data science, including but not limited to <strong>NumPy</strong>, <strong>Pandas</strong>, and <strong>Matplotlib</strong>. These three are the main focus, but you will also be introduced to other useful libraries and tools as needed for real-world data analysis.</li>
-<li>Develop skills in <strong>Exploratory Data Analysis (EDA)</strong>, transforming messy, real-world datasets into meaningful insights through visualization, summarization, and pattern discovery</li>
+<li>which folder to open in VS Code;</li>
+<li>where the course environment and its <code>requirements.txt</code> live, and that <code>.venv</code> is never moved or copied;</li>
+<li>where a new chapter practice kit goes;</li>
+<li>where a new assignment goes, including one that has no data;</li>
+<li>that each kit keeps its notebooks beside its own <code>data/</code> folder when it has one.</li>
 </ul>
-<p>The book is organized to guide you step-by-step:</p>
+<p>Paste the text of your finished <code>README.md</code> into your answer inside a <code>```text</code> block, so that it displays exactly as written.</p>
+<p><em>Credit: five required points, 1 point each; clear, complete sentences, 1 point.</em></p>
+</section>
+<section id="explain-the-design-6-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="explain-the-design-6-points">1.3 Explain the design (6 points)</h3>
+<p>Answer in your own words:</p>
+<ol type="1">
+<li>Why does the course use one <code>.venv</code> at the root of <code>stat303-1</code>, instead of a separate environment inside each chapter kit?</li>
+<li>The <a href="https://docs.python.org/3/library/venv.html">Python <code>venv</code> documentation</a> says that virtual environments are not movable or copyable, because an environment records the absolute location where it was created. Use this to explain why you deleted the Chapter 2 <code>.venv</code> instead of moving it along with <code>stat303-setup</code>. How will your Chapter 2 notebooks get a working environment now?</li>
+<li>Why does each kit keep its own <code>data/</code> folder, instead of all kits sharing one data folder at the root of <code>stat303-1</code>? Consider the relative path <code>Path("data") / "station_readings.csv"</code> and the folder each notebook starts in.</li>
+</ol>
+<p><em>Credit: three explanations, 2 points each.</em></p>
+</section>
+</section>
+<section id="create-and-verify-the-course-environment-20-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="create-and-verify-the-course-environment-20-points">2. Create and Verify the Course Environment (20 points)</h2>
+<section id="the-course-environment-6-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="the-course-environment-6-points">2.1 The course environment (6 points)</h3>
+<p>Create a <code>.venv</code> directly inside <code>stat303-1</code>, not inside <code>assignments</code>, <code>assignment-b</code>, or a chapter kit, using an existing appropriate Python installation and either Chapter 2 method. With <code>stat303-1</code> open in VS Code, both methods create <code>.venv</code> in the right place as long as the terminal is in <code>stat303-1</code>. Record which existing Python you used and the creation method (VS Code or terminal). Explain why the course folder gets its own environment rather than reusing the one you used in STAT 201, and how that helps when another course needs different package versions.</p>
+<p><em>Credit: creation method and source Python, 3 points; isolation explanation, 3 points.</em></p>
+</section>
+<section id="check-before-installing-6-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="check-before-installing-6-points">2.2 Check before installing (6 points)</h3>
+<p>Activate the environment using the command for your shell, or use Chapter 2’s direct-executable method. <strong>Before installing packages</strong>, answer the three questions: Where am I typing? Which Python am I using? Which folder is current?</p>
+<p>Record your shell, the activation command or direct-executable method, and the commands and outputs identifying the Python executable and current directory. Explain which part of the Python path identifies the course folder’s <code>.venv</code>.</p>
+<p><em>Credit: method and shell, 2 points; three answers, 3 points; executable-path interpretation, 1 point.</em></p>
+</section>
+<section id="connect-the-notebook-8-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="connect-the-notebook-8-points">2.3 Connect the notebook (8 points)</h3>
+<p>After installing the required packages in Question 3, open <code>assignments/assignment-b/assignment_b.ipynb</code> and select the course <code>.venv</code> as its kernel. In a notebook code cell, display the Python version, executable path, and current working directory. Compare the notebook executable with the terminal executable and explain how you know both refer to the course environment. Explain why choosing a workspace interpreter alone is not sufficient to verify the notebook kernel.</p>
+<p><em>Credit: notebook output, 3 points; comparison and evidence, 3 points; interpreter/kernel distinction, 2 points.</em></p>
+</section>
+</section>
+<section id="install-and-verify-packages-12-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="install-and-verify-packages-12-points">3. Install and Verify Packages (12 points)</h2>
+<section id="terminal-installation-4-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="terminal-installation-4-points">3.1 Terminal installation (4 points)</h3>
+<p>Use the VS Code terminal to install <code>ipykernel</code>, <code>numpy</code>, <code>pandas</code>, and <code>matplotlib</code> into the course environment. Record the command and explain why <code>python -m pip</code> (or the verified full Python executable followed by <code>-m pip</code>) targets the intended environment.</p>
+<p><em>Credit: command, 2 points; explanation, 2 points.</em></p>
+</section>
+<section id="notebook-installation-3-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="notebook-installation-3-points">3.2 Notebook installation (3 points)</h3>
+<p>After selecting the course kernel, install Seaborn with <code>%pip</code> in a temporary notebook code cell. Record the command and explain which environment it targets. Restart the kernel if needed, then remove the temporary installation cell so a fresh run does not reinstall packages. Keep the command in Markdown.</p>
+<p><em>Credit: command recorded in Markdown with the cell removed, 1 point; target environment, 2 points.</em></p>
+</section>
+<section id="verify-the-imports-5-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="verify-the-imports-5-points">3.3 Verify the imports (5 points)</h3>
+<p>In a code cell, import NumPy, Pandas, Matplotlib, and Seaborn and print their version numbers. Explain your first diagnostic step if an installation succeeds in the terminal but the notebook cannot import the package.</p>
+<p><em>Credit: four successful imports and version outputs, 3 points; diagnosis, 2 points. Package versions may differ across computers.</em></p>
+</section>
+</section>
+<section id="navigate-folders-and-locate-the-data-20-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="navigate-folders-and-locate-the-data-20-points">4. Navigate Folders and Locate the Data (20 points)</h2>
+<section id="compare-two-working-directories-8-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="compare-two-working-directories-8-points">4.1 Compare two working directories (8 points)</h3>
+<p>The terminal and the notebook now start in different folders: the terminal starts in <code>stat303-1</code>, the folder you opened, while the notebook starts in the folder that contains it. Record the notebook’s current directory and the terminal’s. In the terminal, move into <code>assignments/assignment-b/data</code> one folder at a time, show the terminal’s directory, and list the CSV file. <strong>While the terminal is still inside <code>data</code>, check the notebook directory again.</strong> Record the evidence and explain why the two processes can have different current directories. Return the terminal to <code>stat303-1</code> and verify it.</p>
+<p><em>Credit: navigation and CSV listing, 3 points; directory comparison and explanation, 3 points; verified return, 2 points.</em></p>
+</section>
+<section id="construct-and-verify-a-path-6-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="construct-and-verify-a-path-6-points">4.2 Construct and verify a path (6 points)</h3>
+<p>Use <code>pathlib</code> in the notebook to construct the relative path to <code>data/library_visits.csv</code>. Display its resolved path and confirm that it is a file before reading it. Explain what the relative path is relative to, and distinguish it from the displayed absolute path.</p>
+<p><em>Credit: path construction, resolved path, and successful file check, 4 points; explanation, 2 points.</em></p>
+</section>
+<section id="reach-a-file-in-another-kit-6-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="reach-a-file-in-another-kit-6-points">4.3 Reach a file in another kit (6 points)</h3>
+<p>The Chapter 2 data file now sits at <code>chapters/stat303-setup/data/station_readings.csv</code> inside the course folder. In the notebook, build a relative <code>Path</code> from the notebook’s working directory to that file, using <code>..</code> to climb out of <code>assignment-b</code> and then <code>assignments</code>. Display the resolved path, confirm with <code>.is_file()</code> that the move kept the file where you expect, and print its first three lines as in Chapter 2. Explain what each <code>..</code> does.</p>
+<p>This check verifies your reorganization. In regular chapter work, each notebook reads only from its own kit’s <code>data/</code> folder.</p>
+<p><em>Credit: path, resolved path, successful file check, and three lines, 3 points; explanation, 3 points.</em></p>
+</section>
+</section>
+<section id="record-dependencies-and-diagnose-a-problem-13-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="record-dependencies-and-diagnose-a-problem-13-points">5. Record Dependencies and Diagnose a Problem (13 points)</h2>
+<section id="requirements-record-7-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="requirements-record-7-points">5.1 Requirements record (7 points)</h3>
+<p>With the terminal back in <code>stat303-1</code> and using the course Python, export <code>requirements.txt</code> to the root of the course folder. Record the command and where the file was created. Open it, copy two actual package/version entries into Markdown, and explain what the file records. State one reason it does not guarantee identical behavior on every computer. Your Python version is already recorded in Question 2.</p>
+<p><em>Credit: export command and location, 3 points; two entries and interpretation, 2 points; limitation, 2 points.</em></p>
+</section>
+<section id="diagnose-an-incorrect-filename-6-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="diagnose-an-incorrect-filename-6-points">5.2 Diagnose an incorrect filename (6 points)</h3>
+<p>Create a separate path for an intentionally nonexistent filename in <code>data</code>. Predict the result of <code>.is_file()</code>, run the check, and explain the observed result. Describe how you would diagnose this result if you expected the file to exist, then demonstrate that the original correct path still returns <code>True</code>. Do not rename/delete data or deliberately leave an exception in the notebook.</p>
+<p><em>Credit: prediction and false check, 2 points; diagnosis, 2 points; correct-path verification, 2 points.</em></p>
+</section>
+</section>
+<section id="run-and-interpret-the-supplied-analysis-10-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="run-and-interpret-the-supplied-analysis-10-points">6. Run and Interpret the Supplied Analysis (10 points)</h2>
+<p>Run the supplied data-reading and plotting cells. They display the six records, calculate the mean number of visits, and create a labeled bar chart. Keep their output in your report.</p>
+<section id="verify-the-result-4-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="verify-the-result-4-points">6.1 Verify the result (4 points)</h3>
+<p>Report the number of records and mean visits shown by the supplied code. Check that the table and plot use the same branch identifiers.</p>
+</section>
+<section id="interpret-the-figure-6-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="interpret-the-figure-6-points">6.2 Interpret the figure (6 points)</h3>
+<p>Explain what each axis represents and identify the branch with the most visits and the branch with the fewest. Explain why these fictional counts for one day do not establish a general pattern for real libraries.</p>
+<p><em>Credit: axes, 2 points; largest and smallest branches, 2 points; limitation, 2 points. You do not need to rewrite the Pandas or plotting code.</em></p>
+</section>
+</section>
+<section id="prepare-the-html-submission-5-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="prepare-the-html-submission-5-points">7. Prepare the HTML Submission (5 points)</h2>
+<p>Restart the selected kernel, run all cells in order, resolve unexpected errors, and save. Record a brief fresh-run verification note. Render from the assignment folder. The terminal starts in <code>stat303-1</code>, so first move it there with <code>cd assignments</code> and then <code>cd assignment-b</code>, and check the current directory. Then run:</p>
+<pre class="text"><code>quarto render assignment_b.ipynb --to html</code></pre>
+<p>Open <code>assignment_b.html</code>, then copy the HTML alone into another folder and open that copy. Check that your explanations, code, table, and plot are visible. Add a short verification statement to the notebook, save, and render again so it appears in the final report. Upload the final HTML to Assignment B in Canvas.</p>
+<p>Formatting points follow the existing assignment style:</p>
 <ul>
-<li><strong>Review of STAT 201: Python Foundations</strong>: Review Python basics and data structures from STAT 201 in two unnumbered chapters. You can use your existing STAT 201 setup for this review. For additional practice, visit the <a href="https://lizhen0909.github.io/Intro_to_programming_for_data_sci/">STAT 201 ebook</a>.</li>
-<li><strong>Setting Up for Data Science (Chapters 1–2)</strong>: Work in Jupyter notebooks inside VS Code, refresh the Quarto HTML submission workflow, and manage project environments and local data paths. Each chapter ends with a practice activity; <a href="./Assignment B.html">Assignment B</a> applies the complete workflow by building the course folder you use for the rest of the quarter.</li>
-<li><strong>Core Library Foundations (beginning with Chapter 3, Reading Data)</strong>: Extend your Python programming skills with essential third-party libraries for data science.</li>
-<li><strong>From Messy to Insight</strong>: Prepare, combine, and explore data to answer meaningful questions.</li>
-<li><strong>Assignments A–G</strong>: Begin with <a href="./Assignment A.html">Assignment A</a> for prerequisite Python practice, then <a href="./Assignment B.html">Assignment B</a> for project setup, followed by Pandas, NumPy, visualization, cleaning, and wrangling. See Canvas for due dates.</li>
-<li><strong>Geospatial Plotting appendix</strong>: optional reference for final projects that involve locations. It is not assigned and has no activity; read it when a project calls for a map.</li>
+<li>A Quarto-rendered HTML file that opens with its table, plot, and final verification note (2 points).</li>
+<li>Relevant, concise output without unnecessary installation logs or large extraneous printouts (1 point).</li>
+<li>Final written answers in Markdown (1 point).</li>
+<li>No unnecessary/redundant code or text; required code runs in order (1 point).</li>
 </ul>
-<p>Throughout the quarter, this resource will be updated and refined to improve clarity, depth, and alignment with our teaching objectives.</p>
-<p>As a <strong>living document</strong>, your feedback and suggestions are always welcome. Contributions from students, instructors, and the broader academic community help make this book stronger and more effective.</p>
-<p>If you have ideas for improving the textbook, please share your feedback or suggestions using our dedicated <a href="https://edstem.org/us/courses/106716/discussion">Textbook Improvement Form</a>. Your input is invaluable in making this resource better for everyone.</p>
-<p>Thank you for joining us on this learning adventure. We hope this book becomes a valuable companion as you build your skills and confidence in data science with Python.</p>
+</section>
+<section id="points-summary" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="points-summary">Points Summary</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Section</th>
+<th style="text-align: right;">Points</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. Course folder</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr class="even">
+<td>2. Environment</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr class="odd">
+<td>3. Packages</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="even">
+<td>4. Navigation and paths</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr class="odd">
+<td>5. Dependencies and diagnosis</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="even">
+<td>6. Supplied analysis and interpretation</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="odd">
+<td>7. HTML submission</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td><strong>Total</strong></td>
+<td style="text-align: right;"><strong>100</strong></td>
+</tr>
+</tbody>
+</table>
 
 
 </section>
@@ -774,10 +998,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./Assignment A.html" class="pagination-link" aria-label="Assignment A: Python Foundations">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Assignment A: Python Foundations</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./python_basics.html" class="pagination-link" aria-label="Python Basics">
-        <span class="nav-page-text">Python Basics</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./geospatial_mapping.html" class="pagination-link" aria-label="Geospatial Plotting for Final Projects">
+        <span class="nav-page-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Geospatial Plotting for Final Projects</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

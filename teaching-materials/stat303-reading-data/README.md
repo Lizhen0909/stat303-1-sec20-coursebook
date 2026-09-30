@@ -4,8 +4,8 @@ Use the [Reading Data chapter](https://lizhen0909.github.io/stat303-1-sec20-cour
 
 ## Open and run
 
-1. Extract this folder and place it inside the existing `stat303-setup` project.
-2. Select the project Python environment verified in the setup chapters. The core examples and activity need pandas; no NumPy knowledge or additional package installation is required.
+1. Extract this folder and place it inside `stat303-1/chapters/`, the course folder you built in Assignment B. Open `stat303-1` in VS Code.
+2. Select the course environment (`stat303-1/.venv`) as the notebook kernel. The core examples and activity need pandas; no NumPy knowledge or additional package installation is required.
 3. Use `stat303-reading-data` as the notebook's working directory. Both notebooks belong beside the lowercase `data/` folder. Use `Path.cwd()` and the supplied file check to verify the location.
 4. Run `reading_examples.ipynb` to follow the worked examples. Complete your own `activity03.ipynb` using the chapter's A–D instructions.
 5. Restart, run all, and save your activity. From this folder in the terminal, run `quarto render activity03.ipynb --to html`. Inspect the result and upload only `activity03.html` to the Canvas quiz.

@@ -322,14 +322,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./Assignment B.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Assignment B: Reproducible Project Setup</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./geospatial_mapping.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Geospatial Plotting for Final Projects</span></span></a>
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Geospatial Plotting for Final Projects</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Datasets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Datasets &amp; Templates</span></span></a>
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Datasets &amp; Templates</span></span></a>
   </div>
 </li>
       </ul>
@@ -391,20 +397,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <section id="set-up-the-chapter-files" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="set-up-the-chapter-files"><span class="header-section-number">3.1</span> Set Up the Chapter Files</h2>
-<p>Download and extract the <a href="downloads/reading-data-practice.zip">Reading Data practice kit</a>. Place <code>stat303-reading-data</code> inside the <code>stat303-setup</code> project you used in the previous chapters. Select that project’s verified Python environment as the notebook kernel; it should already contain pandas.</p>
-<pre class="text"><code>stat303-setup/
+<p>Download and extract the <a href="downloads/reading-data-practice.zip">Reading Data practice kit</a>. Place <code>stat303-reading-data</code> inside the <code>chapters</code> folder of the <code>stat303-1</code> course folder you built in Assignment B. Open <code>stat303-1</code> in VS Code and select the course environment as the notebook kernel; it should already contain pandas. The terminal opens in <code>stat303-1</code>, so move it into the kit with <code>cd chapters</code> and then <code>cd stat303-reading-data</code> before you render the activity.</p>
+<pre class="text"><code>stat303-1/
 ├── .venv/
-└── stat303-reading-data/
-    ├── reading_examples.ipynb
-    ├── activity03.ipynb
-    ├── README.md
-    └── data/
-        ├── movie_ratings.csv
-        ├── movie_ratings_semicolon.txt
-        ├── movies_preview.json
-        ├── movies_preview.html
-        ├── Top 10 Albums By Year.csv
-        └── bestseller_books.txt</code></pre>
+├── assignments/
+└── chapters/
+    └── stat303-reading-data/
+        ├── reading_examples.ipynb
+        ├── activity03.ipynb
+        ├── README.md
+        └── data/
+            ├── movie_ratings.csv
+            ├── movie_ratings_semicolon.txt
+            ├── movies_preview.json
+            ├── movies_preview.html
+            ├── Top 10 Albums By Year.csv
+            └── bestseller_books.txt</code></pre>
 <p>Use <strong><code>reading_examples.ipynb</code> to run the worked examples</strong> and <strong><code>activity03.ipynb</code> for your own activity report</strong>. Both notebooks belong beside <code>data/</code>. Keep the input files there; exports will be saved beside the notebooks under new filenames.</p>
 <p>Use <code>movie_ratings.csv</code> for the chapter’s worked examples and activity. The semicolon-delimited file contains the same records so you can practice diagnosing and correcting a delimiter problem. The JSON and HTML previews contain five selected records and three columns for the format comparison. The kit also includes the album and book files used in extended practice.</p>
 <p>Run this first in the examples notebook:</p>

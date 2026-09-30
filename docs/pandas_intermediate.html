@@ -322,14 +322,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./Assignment B.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Assignment B: Reproducible Project Setup</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./geospatial_mapping.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Geospatial Plotting for Final Projects</span></span></a>
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Geospatial Plotting for Final Projects</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Datasets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Datasets &amp; Templates</span></span></a>
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Datasets &amp; Templates</span></span></a>
   </div>
 </li>
       </ul>
@@ -397,13 +403,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <section id="set-up-your-practice-files" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="set-up-your-practice-files"><span class="header-section-number">5.1</span> Set Up the Chapter Files</h2>
-<p>Download the <a href="downloads/pandas-intermediate-practice.zip">Pandas Intermediate practice kit</a>, extract it, and place <code>stat303-pandas-intermediate</code> inside your existing <code>stat303-setup</code> project. Select the project environment verified in the setup chapters. The examples need pandas, which you already installed.</p>
-<pre class="text"><code>stat303-setup/
+<p>Download the <a href="downloads/pandas-intermediate-practice.zip">Pandas Intermediate practice kit</a>, extract it, and place <code>stat303-pandas-intermediate</code> inside the <code>chapters</code> folder of your <code>stat303-1</code> course folder. Open <code>stat303-1</code> in VS Code and select the course environment. The examples need pandas, which you already installed. The terminal opens in <code>stat303-1</code>, so move it into the kit with <code>cd chapters</code> and then <code>cd stat303-pandas-intermediate</code> before you render the activity.</p>
+<pre class="text"><code>stat303-1/
 ├── .venv/
-└── stat303-pandas-intermediate/
-    ├── pandas_intermediate_examples.ipynb
-    ├── activity05.ipynb
-    └── README.md</code></pre>
+├── assignments/
+└── chapters/
+    └── stat303-pandas-intermediate/
+        ├── pandas_intermediate_examples.ipynb
+        ├── activity05.ipynb
+        └── README.md</code></pre>
 <p>Use <code>pandas_intermediate_examples.ipynb</code> for worked examples and <code>activity05.ipynb</code> for your practice activity report. Run both notebooks with the extracted folder as the working directory.</p>
 <div id="4ee73031" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;python&quot;}}" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>

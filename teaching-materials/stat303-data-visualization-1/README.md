@@ -3,9 +3,10 @@
 Follow [Data Visualization I: Choosing and Drawing a Single Plot](https://lizhen0909.github.io/stat303-1-sec20-coursebook/data_viz_1.html)
 and its [complete activity instructions](https://lizhen0909.github.io/stat303-1-sec20-coursebook/data_viz_1.html#practice-activity-choose-draw-and-defend-a-plot).
 
-Extract this folder inside your stat303-setup project and select its verified
-environment. pandas, matplotlib, and seaborn are required. Use this folder as the
-notebook working directory.
+Extract this folder inside `stat303-1/chapters/`, the course folder you built in
+Assignment B. Open `stat303-1` in VS Code and select the course environment
+(`stat303-1/.venv`). pandas, matplotlib, and seaborn are required. Use this folder
+as the notebook working directory.
 
 - data_viz_1_examples.ipynb is the chapter's worked examples with every plot saved, in chapter order. Its links open the published textbook rather than neighbouring chapter files.
 - activity08.ipynb is an unfinished student starter; complete the chapter's A–D tasks. Its setup cell imports the three libraries and loads the penguins data, so there is nothing else to prepare.

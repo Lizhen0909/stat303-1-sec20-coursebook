@@ -322,14 +322,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./Assignment B.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Assignment B: Reproducible Project Setup</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./geospatial_mapping.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Geospatial Plotting for Final Projects</span></span></a>
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Geospatial Plotting for Final Projects</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Datasets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Datasets &amp; Templates</span></span></a>
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Datasets &amp; Templates</span></span></a>
   </div>
 </li>
       </ul>
@@ -449,13 +455,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Complete the <a href="#practice-activity-build-and-defend-a-multi-panel-figure">practice activity</a> after the worked examples.</p>
 <section id="set-up-your-chapter-files" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="set-up-your-chapter-files"><span class="header-section-number">9.1</span> Set Up Your Chapter Files</h2>
-<p>Download the <a href="downloads/data-visualization-2-practice.zip">Data Visualization II practice kit</a>. Extract <code>stat303-data-visualization-2</code> inside the <code>stat303-setup</code> project from the setup chapters and select that project’s verified Python environment.</p>
-<pre class="text"><code>stat303-setup/
+<p>Download the <a href="downloads/data-visualization-2-practice.zip">Data Visualization II practice kit</a>. Extract <code>stat303-data-visualization-2</code> inside the <code>chapters</code> folder of your <code>stat303-1</code> course folder, open <code>stat303-1</code> in VS Code, and select the course environment. The terminal opens in <code>stat303-1</code>, so move it into the kit with <code>cd chapters</code> and then <code>cd stat303-data-visualization-2</code> before you render the activity.</p>
+<pre class="text"><code>stat303-1/
 ├── .venv/
-└── stat303-data-visualization-2/
-    ├── data_viz_2_examples.ipynb
-    ├── activity09.ipynb
-    └── README.md</code></pre>
+├── assignments/
+└── chapters/
+    └── stat303-data-visualization-2/
+        ├── data_viz_2_examples.ipynb
+        ├── activity09.ipynb
+        └── README.md</code></pre>
 <p>Run <code>data_viz_2_examples.ipynb</code> for the lesson and complete <code>activity09.ipynb</code> for your own activity report, with <code>stat303-data-visualization-2</code> as the notebook working folder.</p>
 <p><strong>This kit has no <code>data/</code> folder, and nothing belongs in one.</strong> As in the previous chapter, every figure uses the Palmer penguins dataset that comes with seaborn, which <code>sns.load_dataset("penguins")</code> hands you in one line. The first call downloads the file and caches it on your computer, so you need a network connection once; after that it loads from the cache. If you would rather read it from a file of your own, the note under <a href="./data_viz_1.html#the-data">The data</a> in the previous chapter shows the one-line change.</p>
 <p>The three libraries and the aliases <code>pd</code>, <code>plt</code>, and <code>sns</code> are the same as in <a href="./data_viz_1.html">Data Visualization I</a>.</p>

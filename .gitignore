@@ -9,3 +9,9 @@ venv/
 
 /.quarto/
 **/*.quarto_ipynb
+
+# Stray standalone Quarto renders in the repo root (the book renders into docs/).
+# Preview unreleased pages from a scratch folder outside the repo instead.
+/*.html
+/*_files/
+!/workflow_enhance.html

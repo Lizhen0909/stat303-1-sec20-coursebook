@@ -2,7 +2,7 @@
 
 Follow [Pandas Intermediate (Chapter 5)](https://lizhen0909.github.io/stat303-1-sec20-coursebook/pandas_intermediate.html) and its [complete activity instructions](https://lizhen0909.github.io/stat303-1-sec20-coursebook/pandas_intermediate.html#practice-activity-calculate-align-and-explain).
 
-Extract this folder inside your stat303-setup project and select its verified environment. pandas is the only analysis dependency, and no package installation beyond the setup chapters is required. Use this folder as the notebook working directory.
+Extract this folder inside `stat303-1/chapters/`, the course folder you built in Assignment B. Open `stat303-1` in VS Code and select the course environment (`stat303-1/.venv`). pandas is the only analysis dependency, and no package installation beyond the setup chapters is required. Use this folder as the notebook working directory.
 
 - pandas_intermediate_examples.ipynb is the chapter's worked lesson with saved outputs. Its links open the published textbook rather than neighbouring chapter files.
 - activity05.ipynb is an unfinished student starter; complete the chapter's A–D tasks. Its supplied cell creates every input the activity needs: the `sales` table for Part A, the `quarter_sales` and `adjustments` tables whose labels drive the Part B alignment work, the `department_labels` mapping used in Part C, and the six-row `campaigns` table used in Part D.

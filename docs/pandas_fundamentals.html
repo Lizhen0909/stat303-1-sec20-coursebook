@@ -322,14 +322,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./Assignment B.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Assignment B: Reproducible Project Setup</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./geospatial_mapping.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Geospatial Plotting for Final Projects</span></span></a>
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Geospatial Plotting for Final Projects</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Datasets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Datasets &amp; Templates</span></span></a>
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Datasets &amp; Templates</span></span></a>
   </div>
 </li>
       </ul>
@@ -396,17 +402,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <section id="set-up-your-practice-files" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="set-up-your-practice-files"><span class="header-section-number">4.1</span> Set Up the Chapter Files</h2>
-<p>Download the <a href="downloads/pandas-fundamentals-practice.zip">Pandas Fundamentals practice kit</a>, extract it, and place <code>stat303-pandas-fundamentals</code> inside your existing <code>stat303-setup</code> project. Select the project environment verified in the setup chapters. The examples need pandas, which you already installed.</p>
-<pre class="text"><code>stat303-setup/
+<p>Download the <a href="downloads/pandas-fundamentals-practice.zip">Pandas Fundamentals practice kit</a>, extract it, and place <code>stat303-pandas-fundamentals</code> inside the <code>chapters</code> folder of your <code>stat303-1</code> course folder. Open <code>stat303-1</code> in VS Code and select the course environment. The examples need pandas, which you already installed. The terminal opens in <code>stat303-1</code>, so move it into the kit with <code>cd chapters</code> and then <code>cd stat303-pandas-fundamentals</code> before you render the activity.</p>
+<pre class="text"><code>stat303-1/
 ├── .venv/
-└── stat303-pandas-fundamentals/
-    ├── pandas_examples.ipynb
-    ├── activity04.ipynb
-    ├── README.md
-    └── data/
-        ├── movie_ratings.csv
-        ├── Top 10 Albums By Year.csv
-        └── STAT303-1 survey for data analysis.csv</code></pre>
+├── assignments/
+└── chapters/
+    └── stat303-pandas-fundamentals/
+        ├── pandas_examples.ipynb
+        ├── activity04.ipynb
+        ├── README.md
+        └── data/
+            ├── movie_ratings.csv
+            ├── Top 10 Albums By Year.csv
+            └── STAT303-1 survey for data analysis.csv</code></pre>
 <p>Use <code>pandas_examples.ipynb</code> for worked examples and <code>activity04.ipynb</code> for your practice report. Both should run with <code>stat303-pandas-fundamentals</code> as the notebook’s working directory. Keep the input files unchanged.</p>
 <div id="pandas-002" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-11T19:17:56.587656Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-11T19:17:56.587511Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-11T19:17:56.692585Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-11T19:17:56.692098Z&quot;}}" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
@@ -2817,7 +2825,7 @@ Same DataFrame: True
 <h3 class="unnumbered anchored" data-anchor-id="d.-summarize-and-explain-your-denominator">D. Summarize and Explain Your Denominator</h3>
 <ul>
 <li>From the <strong>full original <code>movies</code> DataFrame</strong>, keep the records with observed <code>IMDB Rating</code>. Count the records with rating at least 8 and the total with observed ratings. Display both counts and their ratio, guarding against a zero denominator.</li>
-<li>Report the number of missing ratings in the full original <code>movies</code> DataFrame, even if it is zero. If some ratings were missing, explain which records would be excluded from the numerator and denominator, and why a missing rating should not be treated as a rating below 8.</li>
+<li>Report the number of missing ratings in the full original <code>movies</code> DataFrame, even if it is zero. Explain why your denominator differs from the number of movies selected in B. If some ratings were missing, explain which records would be excluded from the numerator and denominator, and why a missing rating should not be treated as a rating below 8.</li>
 <li>Report the median <code>gross_budget_gap_millions</code> in <code>report</code> and interpret it for the selected movie records, using the correct units. Do not generalize it to all movies.</li>
 </ul>
 </section>

@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://lizhen0909.github.io/stat303-1-sec20-coursebook/index.html</loc>
-    <lastmod>2026-09-21T13:45:14.973Z</lastmod>
+    <lastmod>2026-09-30T11:45:37.356Z</lastmod>
   </url>
   <url>
     <loc>https://lizhen0909.github.io/stat303-1-sec20-coursebook/python_basics.html</loc>
@@ -18,35 +18,35 @@
   </url>
   <url>
     <loc>https://lizhen0909.github.io/stat303-1-sec20-coursebook/python_venv.html</loc>
-    <lastmod>2026-09-21T13:40:46.010Z</lastmod>
+    <lastmod>2026-09-30T11:45:37.348Z</lastmod>
   </url>
   <url>
     <loc>https://lizhen0909.github.io/stat303-1-sec20-coursebook/Reading_data.html</loc>
-    <lastmod>2026-09-21T13:34:40.572Z</lastmod>
+    <lastmod>2026-09-30T11:44:52.210Z</lastmod>
   </url>
   <url>
     <loc>https://lizhen0909.github.io/stat303-1-sec20-coursebook/pandas_fundamentals.html</loc>
-    <lastmod>2026-09-21T13:34:33.746Z</lastmod>
+    <lastmod>2026-09-30T11:44:52.211Z</lastmod>
   </url>
   <url>
     <loc>https://lizhen0909.github.io/stat303-1-sec20-coursebook/pandas_intermediate.html</loc>
-    <lastmod>2026-09-21T13:34:33.746Z</lastmod>
+    <lastmod>2026-09-30T11:44:52.212Z</lastmod>
   </url>
   <url>
     <loc>https://lizhen0909.github.io/stat303-1-sec20-coursebook/numpy_fundamentals.html</loc>
-    <lastmod>2026-09-21T13:12:02.461Z</lastmod>
+    <lastmod>2026-09-30T11:44:52.213Z</lastmod>
   </url>
   <url>
     <loc>https://lizhen0909.github.io/stat303-1-sec20-coursebook/numpy_pandas_workflow.html</loc>
-    <lastmod>2026-09-21T13:22:16.609Z</lastmod>
+    <lastmod>2026-09-30T11:45:00.175Z</lastmod>
   </url>
   <url>
     <loc>https://lizhen0909.github.io/stat303-1-sec20-coursebook/data_viz_1.html</loc>
-    <lastmod>2026-09-21T13:12:02.472Z</lastmod>
+    <lastmod>2026-09-30T11:45:00.182Z</lastmod>
   </url>
   <url>
     <loc>https://lizhen0909.github.io/stat303-1-sec20-coursebook/data_viz_2.html</loc>
-    <lastmod>2026-09-19T13:26:39.296Z</lastmod>
+    <lastmod>2026-09-30T11:45:00.190Z</lastmod>
   </url>
   <url>
     <loc>https://lizhen0909.github.io/stat303-1-sec20-coursebook/Data_cleaning.html</loc>
@@ -70,7 +70,11 @@
   </url>
   <url>
     <loc>https://lizhen0909.github.io/stat303-1-sec20-coursebook/Assignment A.html</loc>
-    <lastmod>2026-09-28T00:14:12.496Z</lastmod>
+    <lastmod>2026-09-28T00:16:46.169Z</lastmod>
+  </url>
+  <url>
+    <loc>https://lizhen0909.github.io/stat303-1-sec20-coursebook/Assignment B.html</loc>
+    <lastmod>2026-09-30T11:50:06.499Z</lastmod>
   </url>
   <url>
     <loc>https://lizhen0909.github.io/stat303-1-sec20-coursebook/geospatial_mapping.html</loc>
