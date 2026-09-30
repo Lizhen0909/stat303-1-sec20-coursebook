@@ -60,7 +60,7 @@ book:
     - href: Assignment A.ipynb
       text: "Assignment A: Python Foundations"
     - href: Assignment B.ipynb
-      text: "Assignment B: Reproducible Project Setup"
+      text: "Assignment B: Setting Up Your Course Workspace"
     # Released one at a time as the course proceeds. To release an assignment,
     # uncomment its two lines here and add any kit ZIP to the resources above.
     # A chapter that links to an unreleased assignment makes Quarto copy that

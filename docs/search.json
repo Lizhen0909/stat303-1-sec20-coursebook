@@ -465,7 +465,7 @@
     "href": "python_venv.html#next-assignment-b",
     "title": "2  Project Environments, Packages, and File Paths",
     "section": "2.12 Next: Assignment B",
-    "text": "2.12 Next: Assignment B\nAfter the two chapter practice activities, complete Assignment B: Setting Up a Reproducible Python Project. In it you build the stat303-1 course folder that holds every chapter practice kit and assignment for the rest of the quarter, with one environment shared by all of them, and you move this chapter’s stat303-setup folder into it. Keep stat303-setup until then. Assignment B has its own project kit and a 100-point assessment. Follow the assignment page for the complete instructions and submit its HTML through the Canvas assignment, separately from the chapter quiz.\nReferences: Python venv, IPython %pip, pathlib, pip dependency resolution.",
+    "text": "2.12 Next: Assignment B\nAfter the two chapter practice activities, complete Assignment B: Setting Up Your Course Workspace. In it you build the stat303-1 course folder that holds every chapter practice kit and assignment for the rest of the quarter, with one environment shared by all of them, and you move this chapter’s stat303-setup folder into it. Keep stat303-setup until then. Assignment B has its own project kit and a 100-point assessment. Follow the assignment page for the complete instructions and submit its HTML through the Canvas assignment, separately from the chapter quiz.\nReferences: Python venv, IPython %pip, pathlib, pip dependency resolution.",
     "crumbs": [
       "Setting Up for Data Science",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Project Environments, Packages, and File Paths</span>"
@@ -2124,111 +2124,111 @@
   {
     "objectID": "Assignment B.html",
     "href": "Assignment B.html",
-    "title": "Appendix B — Reproducible Project Setup Assignment",
+    "title": "Appendix B — Assignment B: Setting Up Your Course Workspace",
     "section": "",
     "text": "Instructions\nWhen you finish, your course folder will look like this:\nFrom Chapter 3 on, each chapter’s practice kit goes in chapters/, and each assignment gets its own folder in assignments/, even when it has no data. You will always open stat303-1 in VS Code and use its one .venv.\nUse the Chapter 1 Quarto refresher and Chapter 2 environment instructions as references. The Quarto VS Code extension is optional; the Quarto application performs rendering.",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Assignment B: Reproducible Project Setup</span>"
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Assignment B: Setting Up Your Course Workspace</span>"
     ]
   },
   {
     "objectID": "Assignment B.html#instructions",
     "href": "Assignment B.html#instructions",
-    "title": "Appendix B — Reproducible Project Setup Assignment",
+    "title": "Appendix B — Assignment B: Setting Up Your Course Workspace",
     "section": "",
     "text": "Complete this assignment after Chapters 1–2 and their practice activities, and before you start the Chapter 3 practice kit. It is worth 100 points. See Canvas for the due date.\nYou may discuss approaches with classmates, but write your own code and explanations and record evidence from your own computer. Put Python computations in Code cells and explanations and copied terminal evidence in Markdown cells.\nIn this assignment you build the course folder that will hold every chapter practice kit and every assignment for the rest of the quarter, with one Python environment that all of them share. Download the Assignment B project kit; Question 1 tells you where to put it. Work in the supplied assignment_b.ipynb.\nThis page contains the complete assignment instructions. The starter notebook contains numbered answer spaces and supplied demonstration code. Keep those sections in order and answer every numbered part below.\nSubmit one file, assignment_b.html, to the Assignment B submission in Canvas. Keep the whole course folder on your computer, including its .venv, requirements.txt, and README.md; you will use it all quarter. Do not submit your .venv folder or the ZIP. You may replace your personal username in copied paths with [username], retaining enough detail to identify the project and environment.\nThe data are fictional library-branch visit counts for one illustrative day. Pandas and plotting code are supplied in the notebook; you are assessing and explaining the workflow, not being asked to write unfamiliar analysis code.\nGenerative AI. You may use generative AI tools (ChatGPT, Claude, GitHub Copilot, and similar) to understand concepts, interpret error messages, and debug code you have written. You may not use them to produce the code or written answers you submit. The test: you should be able to explain every line you submit and reproduce it without assistance. Disclose any use in a short note at the end of your submission. Honest disclosure carries no penalty on its own; undisclosed use is an academic integrity violation under the course syllabus.\n\n\nstat303-1/\n├── .venv/                    ← the course environment (Question 2)\n├── README.md                 ← your guide to this folder (Question 1)\n├── requirements.txt          ← the environment's package record (Question 5)\n├── assignments/\n│   ├── assignment-a/         ← your completed Assignment A (no data needed)\n│   │   ├── Assignment A.ipynb\n│   │   └── Assignment A.html\n│   └── assignment-b/         ← the extracted kit\n│       ├── assignment_b.ipynb\n│       ├── README.md\n│       └── data/\n│           └── library_visits.csv\n└── chapters/\n    └── stat303-setup/        ← moved here from Chapters 1–2\n        ├── activity01.ipynb\n        ├── activity02.ipynb\n        ├── ...               (the other files you created there)\n        └── data/\n            └── station_readings.csv",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Assignment B: Reproducible Project Setup</span>"
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Assignment B: Setting Up Your Course Workspace</span>"
     ]
   },
   {
     "objectID": "Assignment B.html#build-and-organize-the-course-folder-20-points",
     "href": "Assignment B.html#build-and-organize-the-course-folder-20-points",
-    "title": "Appendix B — Reproducible Project Setup Assignment",
+    "title": "Appendix B — Assignment B: Setting Up Your Course Workspace",
     "section": "1. Build and Organize the Course Folder (20 points)",
     "text": "1. Build and Organize the Course Folder (20 points)\nDo these steps in order, using Finder on macOS or File Explorer on Windows to create, delete, and move folders. Close VS Code first, so that nothing is still using the Chapter 2 environment while you change its folder.\n\nChoose a location. Pick a place that cloud storage does not sync, such as your home folder. Avoid the iCloud-synced Desktop and Documents folders on macOS and OneDrive-synced folders on Windows: sync tools can upload, offload, or lock the thousands of small files inside .venv, and that breaks the environment.\nCreate the folders. Create a folder named stat303-1, and inside it create two folders named chapters and assignments. Use these exact lowercase names, with no spaces.\nRetire the Chapter 2 environment. Inside your stat303-setup folder, delete the .venv folder. Keep everything else in stat303-setup, including your activity notebooks, HTML files, data, and requirements.txt.\nMove the Chapter 2 folder. Move stat303-setup into stat303-1/chapters/.\nPlace the assignment kit. Extract the Assignment B ZIP and move the extracted assignment-b folder into stat303-1/assignments/. Check that you did not create a nested assignment-b/assignment-b/ folder.\nFile Assignment A. Inside assignments, create a folder named assignment-a and move your completed Assignment A notebook and its rendered HTML into it. Assignment A has no data, but it still gets its own folder, so that every assignment follows the same rule and its notebook and rendered output stay together.\nOpen the course folder. In VS Code, choose File → Open Folder and open stat303-1 itself, not assignments or assignment-b. From now on, this is the folder you open for every chapter and assignment.\n\n\n1.1 Folder evidence (8 points)\nAdd your name to the notebook. Open a terminal in VS Code; it starts in stat303-1, the folder you opened. Show the current directory, then list the contents of stat303-1, chapters, and assignments without leaving stat303-1. To list a folder without entering it, put its name after the listing command: ls chapters on macOS, Get-ChildItem chapters in PowerShell, or dir chapters in Command Prompt. Copy the commands and output into your answer. State where you placed stat303-1 and why that location is not synced by cloud storage.\nThe root listing does not need .venv, README.md, or requirements.txt yet; you create them in later questions.\nCredit: three listings showing the required structure, 5 points; location and reason, 2 points; name, 1 point.\n\n\n1.2 Write a folder guide (6 points)\nIn VS Code’s Explorer, create a file named README.md directly inside stat303-1, next to chapters and assignments. Write a short guide, in your own words, that a classmate could follow to use the folder. It must say:\n\nwhich folder to open in VS Code;\nwhere the course environment and its requirements.txt live, and that .venv is never moved or copied;\nwhere a new chapter practice kit goes;\nwhere a new assignment goes, including one that has no data;\nthat each kit keeps its notebooks beside its own data/ folder when it has one.\n\nPaste the text of your finished README.md into your answer inside a ```text block, so that it displays exactly as written.\nCredit: five required points, 1 point each; clear, complete sentences, 1 point.\n\n\n1.3 Explain the design (6 points)\nAnswer in your own words:\n\nWhy does the course use one .venv at the root of stat303-1, instead of a separate environment inside each chapter kit?\nThe Python venv documentation says that virtual environments are not movable or copyable, because an environment records the absolute location where it was created. Use this to explain why you deleted the Chapter 2 .venv instead of moving it along with stat303-setup. How will your Chapter 2 notebooks get a working environment now?\nWhy does each kit keep its own data/ folder, instead of all kits sharing one data folder at the root of stat303-1? Consider the relative path Path(\"data\") / \"station_readings.csv\" and the folder each notebook starts in.\n\nCredit: three explanations, 2 points each.",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Assignment B: Reproducible Project Setup</span>"
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Assignment B: Setting Up Your Course Workspace</span>"
     ]
   },
   {
     "objectID": "Assignment B.html#create-and-verify-the-course-environment-20-points",
     "href": "Assignment B.html#create-and-verify-the-course-environment-20-points",
-    "title": "Appendix B — Reproducible Project Setup Assignment",
+    "title": "Appendix B — Assignment B: Setting Up Your Course Workspace",
     "section": "2. Create and Verify the Course Environment (20 points)",
     "text": "2. Create and Verify the Course Environment (20 points)\n\n2.1 The course environment (6 points)\nCreate a .venv directly inside stat303-1, not inside assignments, assignment-b, or a chapter kit, using an existing appropriate Python installation and either Chapter 2 method. With stat303-1 open in VS Code, both methods create .venv in the right place as long as the terminal is in stat303-1. Record which existing Python you used and the creation method (VS Code or terminal). Explain why the course folder gets its own environment rather than reusing the one you used in STAT 201, and how that helps when another course needs different package versions.\nCredit: creation method and source Python, 3 points; isolation explanation, 3 points.\n\n\n2.2 Check before installing (6 points)\nActivate the environment using the command for your shell, or use Chapter 2’s direct-executable method. Before installing packages, answer the three questions: Where am I typing? Which Python am I using? Which folder is current?\nRecord your shell, the activation command or direct-executable method, and the commands and outputs identifying the Python executable and current directory. Explain which part of the Python path identifies the course folder’s .venv.\nCredit: method and shell, 2 points; three answers, 3 points; executable-path interpretation, 1 point.\n\n\n2.3 Connect the notebook (8 points)\nAfter installing the required packages in Question 3, open assignments/assignment-b/assignment_b.ipynb and select the course .venv as its kernel. In a notebook code cell, display the Python version, executable path, and current working directory. Compare the notebook executable with the terminal executable and explain how you know both refer to the course environment. Explain why choosing a workspace interpreter alone is not sufficient to verify the notebook kernel.\nCredit: notebook output, 3 points; comparison and evidence, 3 points; interpreter/kernel distinction, 2 points.",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Assignment B: Reproducible Project Setup</span>"
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Assignment B: Setting Up Your Course Workspace</span>"
     ]
   },
   {
     "objectID": "Assignment B.html#install-and-verify-packages-12-points",
     "href": "Assignment B.html#install-and-verify-packages-12-points",
-    "title": "Appendix B — Reproducible Project Setup Assignment",
+    "title": "Appendix B — Assignment B: Setting Up Your Course Workspace",
     "section": "3. Install and Verify Packages (12 points)",
     "text": "3. Install and Verify Packages (12 points)\n\n3.1 Terminal installation (4 points)\nUse the VS Code terminal to install ipykernel, numpy, pandas, and matplotlib into the course environment. Record the command and explain why python -m pip (or the verified full Python executable followed by -m pip) targets the intended environment.\nCredit: command, 2 points; explanation, 2 points.\n\n\n3.2 Notebook installation (3 points)\nAfter selecting the course kernel, install Seaborn with %pip in a temporary notebook code cell. Record the command and explain which environment it targets. Restart the kernel if needed, then remove the temporary installation cell so a fresh run does not reinstall packages. Keep the command in Markdown.\nCredit: command recorded in Markdown with the cell removed, 1 point; target environment, 2 points.\n\n\n3.3 Verify the imports (5 points)\nIn a code cell, import NumPy, Pandas, Matplotlib, and Seaborn and print their version numbers. Explain your first diagnostic step if an installation succeeds in the terminal but the notebook cannot import the package.\nCredit: four successful imports and version outputs, 3 points; diagnosis, 2 points. Package versions may differ across computers.",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Assignment B: Reproducible Project Setup</span>"
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Assignment B: Setting Up Your Course Workspace</span>"
     ]
   },
   {
     "objectID": "Assignment B.html#navigate-folders-and-locate-the-data-20-points",
     "href": "Assignment B.html#navigate-folders-and-locate-the-data-20-points",
-    "title": "Appendix B — Reproducible Project Setup Assignment",
+    "title": "Appendix B — Assignment B: Setting Up Your Course Workspace",
     "section": "4. Navigate Folders and Locate the Data (20 points)",
     "text": "4. Navigate Folders and Locate the Data (20 points)\n\n4.1 Compare two working directories (8 points)\nThe terminal and the notebook now start in different folders: the terminal starts in stat303-1, the folder you opened, while the notebook starts in the folder that contains it. Record the notebook’s current directory and the terminal’s. In the terminal, move into assignments/assignment-b/data one folder at a time, show the terminal’s directory, and list the CSV file. While the terminal is still inside data, check the notebook directory again. Record the evidence and explain why the two processes can have different current directories. Return the terminal to stat303-1 and verify it.\nCredit: navigation and CSV listing, 3 points; directory comparison and explanation, 3 points; verified return, 2 points.\n\n\n4.2 Construct and verify a path (6 points)\nUse pathlib in the notebook to construct the relative path to data/library_visits.csv. Display its resolved path and confirm that it is a file before reading it. Explain what the relative path is relative to, and distinguish it from the displayed absolute path.\nCredit: path construction, resolved path, and successful file check, 4 points; explanation, 2 points.\n\n\n4.3 Reach a file in another kit (6 points)\nThe Chapter 2 data file now sits at chapters/stat303-setup/data/station_readings.csv inside the course folder. In the notebook, build a relative Path from the notebook’s working directory to that file, using .. to climb out of assignment-b and then assignments. Display the resolved path, confirm with .is_file() that the move kept the file where you expect, and print its first three lines as in Chapter 2. Explain what each .. does.\nThis check verifies your reorganization. In regular chapter work, each notebook reads only from its own kit’s data/ folder.\nCredit: path, resolved path, successful file check, and three lines, 3 points; explanation, 3 points.",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Assignment B: Reproducible Project Setup</span>"
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Assignment B: Setting Up Your Course Workspace</span>"
     ]
   },
   {
     "objectID": "Assignment B.html#record-dependencies-and-diagnose-a-problem-13-points",
     "href": "Assignment B.html#record-dependencies-and-diagnose-a-problem-13-points",
-    "title": "Appendix B — Reproducible Project Setup Assignment",
+    "title": "Appendix B — Assignment B: Setting Up Your Course Workspace",
     "section": "5. Record Dependencies and Diagnose a Problem (13 points)",
     "text": "5. Record Dependencies and Diagnose a Problem (13 points)\n\n5.1 Requirements record (7 points)\nWith the terminal back in stat303-1 and using the course Python, export requirements.txt to the root of the course folder. Record the command and where the file was created. Open it, copy two actual package/version entries into Markdown, and explain what the file records. State one reason it does not guarantee identical behavior on every computer. Your Python version is already recorded in Question 2.\nCredit: export command and location, 3 points; two entries and interpretation, 2 points; limitation, 2 points.\n\n\n5.2 Diagnose an incorrect filename (6 points)\nCreate a separate path for an intentionally nonexistent filename in data. Predict the result of .is_file(), run the check, and explain the observed result. Describe how you would diagnose this result if you expected the file to exist, then demonstrate that the original correct path still returns True. Do not rename/delete data or deliberately leave an exception in the notebook.\nCredit: prediction and false check, 2 points; diagnosis, 2 points; correct-path verification, 2 points.",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Assignment B: Reproducible Project Setup</span>"
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Assignment B: Setting Up Your Course Workspace</span>"
     ]
   },
   {
     "objectID": "Assignment B.html#run-and-interpret-the-supplied-analysis-10-points",
     "href": "Assignment B.html#run-and-interpret-the-supplied-analysis-10-points",
-    "title": "Appendix B — Reproducible Project Setup Assignment",
+    "title": "Appendix B — Assignment B: Setting Up Your Course Workspace",
     "section": "6. Run and Interpret the Supplied Analysis (10 points)",
     "text": "6. Run and Interpret the Supplied Analysis (10 points)\nRun the supplied data-reading and plotting cells. They display the six records, calculate the mean number of visits, and create a labeled bar chart. Keep their output in your report.\n\n6.1 Verify the result (4 points)\nReport the number of records and mean visits shown by the supplied code. Check that the table and plot use the same branch identifiers.\n\n\n6.2 Interpret the figure (6 points)\nExplain what each axis represents and identify the branch with the most visits and the branch with the fewest. Explain why these fictional counts for one day do not establish a general pattern for real libraries.\nCredit: axes, 2 points; largest and smallest branches, 2 points; limitation, 2 points. You do not need to rewrite the Pandas or plotting code.",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Assignment B: Reproducible Project Setup</span>"
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Assignment B: Setting Up Your Course Workspace</span>"
     ]
   },
   {
     "objectID": "Assignment B.html#prepare-the-html-submission-5-points",
     "href": "Assignment B.html#prepare-the-html-submission-5-points",
-    "title": "Appendix B — Reproducible Project Setup Assignment",
+    "title": "Appendix B — Assignment B: Setting Up Your Course Workspace",
     "section": "7. Prepare the HTML Submission (5 points)",
     "text": "7. Prepare the HTML Submission (5 points)\nRestart the selected kernel, run all cells in order, resolve unexpected errors, and save. Record a brief fresh-run verification note. Render from the assignment folder. The terminal starts in stat303-1, so first move it there with cd assignments and then cd assignment-b, and check the current directory. Then run:\nquarto render assignment_b.ipynb --to html\nOpen assignment_b.html, then copy the HTML alone into another folder and open that copy. Check that your explanations, code, table, and plot are visible. Add a short verification statement to the notebook, save, and render again so it appears in the final report. Upload the final HTML to Assignment B in Canvas.\nFormatting points follow the existing assignment style:\n\nA Quarto-rendered HTML file that opens with its table, plot, and final verification note (2 points).\nRelevant, concise output without unnecessary installation logs or large extraneous printouts (1 point).\nFinal written answers in Markdown (1 point).\nNo unnecessary/redundant code or text; required code runs in order (1 point).",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Assignment B: Reproducible Project Setup</span>"
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Assignment B: Setting Up Your Course Workspace</span>"
     ]
   },
   {
     "objectID": "Assignment B.html#points-summary",
     "href": "Assignment B.html#points-summary",
-    "title": "Appendix B — Reproducible Project Setup Assignment",
+    "title": "Appendix B — Assignment B: Setting Up Your Course Workspace",
     "section": "Points Summary",
     "text": "Points Summary\n\n\n\nSection\nPoints\n\n\n\n\n1. Course folder\n20\n\n\n2. Environment\n20\n\n\n3. Packages\n12\n\n\n4. Navigation and paths\n20\n\n\n5. Dependencies and diagnosis\n13\n\n\n6. Supplied analysis and interpretation\n10\n\n\n7. HTML submission\n5\n\n\nTotal\n100",
     "crumbs": [
       "Appendices",
-      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Assignment B: Reproducible Project Setup</span>"
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Assignment B: Setting Up Your Course Workspace</span>"
     ]
   },
   {
