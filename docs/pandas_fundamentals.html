@@ -420,9 +420,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>movie_path <span class="op">=</span> Path(<span class="st">'data'</span>) <span class="op">/</span> <span class="st">'movie_ratings.csv'</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>movie_path <span class="op">=</span> <span class="st">'data/movie_ratings.csv'</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Working folder:'</span>, Path.cwd().name)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Movie file found:'</span>, movie_path.is_file())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Movie file found:'</span>, Path(movie_path).is_file())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Working folder: stat303-pandas-fundamentals
 Movie file found: True</code></pre>
@@ -2825,7 +2825,7 @@ Same DataFrame: True
 <h3 class="unnumbered anchored" data-anchor-id="d.-summarize-and-explain-your-denominator">D. Summarize and Explain Your Denominator</h3>
 <ul>
 <li>From the <strong>full original <code>movies</code> DataFrame</strong>, keep the records with observed <code>IMDB Rating</code>. Count the records with rating at least 8 and the total with observed ratings. Display both counts and their ratio, guarding against a zero denominator.</li>
-<li>Report the number of missing ratings in the full original <code>movies</code> DataFrame, even if it is zero. Explain why your denominator differs from the number of movies selected in B. If some ratings were missing, explain which records would be excluded from the numerator and denominator, and why a missing rating should not be treated as a rating below 8.</li>
+<li>Report the number of missing ratings in the full original <code>movies</code> DataFrame, even if it is zero. If some ratings were missing, explain which records would be excluded from the numerator and denominator, and why a missing rating should not be treated as a rating below 8.</li>
 <li>Report the median <code>gross_budget_gap_millions</code> in <code>report</code> and interpret it for the selected movie records, using the correct units. Do not generalize it to all movies.</li>
 </ul>
 </section>
@@ -2856,7 +2856,7 @@ Same DataFrame: True
 <h3 data-number="4.12.2" class="anchored" data-anchor-id="survey-responses"><span class="header-section-number">4.12.2</span> Survey Responses</h3>
 <p>Begin with <code>shape</code>, <code>columns.tolist()</code>, and a few rows. For each proportion, write the eligible group in words before coding; then show the numerator and denominator. For the follower comparison, inspect missing counts before splitting the ordered records. These checks make the analysis reproducible without supplying its answers.</p>
 <p>Read <code>data/STAT303-1 survey for data analysis.csv</code>. Inspect the header before renaming. This historical file already uses short names for many variables. Its parties question has a long name; use the following mapping after inspecting it:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb100"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>survey <span class="op">=</span> pd.read_csv(Path(<span class="st">'data'</span>) <span class="op">/</span> <span class="st">'STAT303-1 survey for data analysis.csv'</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb100"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>survey <span class="op">=</span> pd.read_csv(<span class="st">'data/STAT303-1 survey for data analysis.csv'</span>)</span>
 <span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>survey <span class="op">=</span> survey.rename(columns<span class="op">=</span>{</span>
 <span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'On average (approx.) how many parties a month do you attend during the school year? Enter a whole number (0, 1, 2, 3, 4, ...)'</span>: <span class="st">'parties_per_month'</span></span>
 <span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
