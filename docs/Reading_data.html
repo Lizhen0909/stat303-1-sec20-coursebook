@@ -413,8 +413,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             ├── movies_preview.html
             ├── Top 10 Albums By Year.csv
             └── bestseller_books.txt</code></pre>
-<p>Use <strong><code>reading_examples.ipynb</code> to run the worked examples</strong> and <strong><code>activity03.ipynb</code> for your own activity report</strong>. Both notebooks belong beside <code>data/</code>. Keep the input files there; exports will be saved beside the notebooks under new filenames.</p>
-<p>Use <code>movie_ratings.csv</code> for the chapter’s worked examples and activity. The semicolon-delimited file contains the same records so you can practice diagnosing and correcting a delimiter problem. The JSON and HTML previews contain five selected records and three columns for the format comparison. The kit also includes the album and book files used in extended practice.</p>
+<p>Use <strong><code>reading_examples.ipynb</code> to run the worked examples</strong> and <strong><code>activity03.ipynb</code> for your own activity report</strong>. Both notebooks read their datasets from the <code>data/</code> folder. Keep the input files there; exports will be saved beside the notebooks under new filenames.</p>
+<p><code>movie_ratings.csv</code> is the dataset for the chapter’s worked examples and activity. <code>movie_ratings_semicolon.txt</code> contains the same records with semicolon delimiters, so you can practice diagnosing and correcting a delimiter problem. The JSON and HTML previews contain five selected records and three columns for the format comparison. The kit also includes the album and book files used in extended practice.</p>
 <p>Run this first in the examples notebook:</p>
 <div id="reading-002" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-11T18:37:05.605466Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-11T18:37:05.605269Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-11T18:37:13.433187Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-11T18:37:13.432833Z&quot;}}" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
@@ -428,8 +428,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Movie CSV found: True</code></pre>
 </div>
 </div>
-<p>The working folder should be <code>stat303-reading-data</code>, and the file check should be <code>True</code>. A relative path is resolved from the <strong>notebook’s working directory</strong>, which can differ from the terminal’s current folder.</p>
-<p>If the check is <code>False</code>, run <code>Path.cwd()</code> to inspect the full path. Confirm that you extracted the ZIP and used the exact folder and filename, including capitalization. If necessary, change the notebook’s directory once with <code>os.chdir("actual/path/to/stat303-reading-data")</code> after <code>import os</code>, using your actual path. Rerun the file check before proceeding. Changing directories in the terminal does not move a running notebook.</p>
+<p>The working folder should be <code>stat303-reading-data</code>, and the file check should be <code>True</code>. If it is not, correct the notebook’s working directory as described in <a href="./python_venv.html#move-to-the-folder-you-need">Move to the Folder You Need</a> in Chapter 2, then rerun the file check until it returns <code>True</code> before proceeding. Changing directories in the terminal does not change the notebook’s working directory.</p>
 </section>
 <section id="recognize-the-structure" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="recognize-the-structure"><span class="header-section-number">3.2</span> Recognize the Structure Before Reading</h2>
