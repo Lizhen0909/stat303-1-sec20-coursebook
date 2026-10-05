@@ -2315,7 +2315,7 @@ deviation from each student's own average:
 <h3 class="unnumbered anchored" data-anchor-id="a.-predict-shapes-and-select-values">A. Predict Shapes and Select Values</h3>
 <ul>
 <li>Replace <code>Your Name</code> in the opening Raw cell’s <code>author</code> field. Run the supplied imports and inputs.</li>
-<li>Display <code>units.shape</code>, <code>units.ndim</code>, <code>units.size</code>, and <code>units.dtype</code>; explain both axes.</li>
+<li>Display <code>units.shape</code>, <code>units.ndim</code>, <code>units.size</code>, and <code>units.dtype</code>; explain both axes. (Hint: use the same interpretation of the axes as was used earlier in the chapter for the <code>units</code> array.)</li>
 <li>Before running them, predict the values and shapes of <code>units[:, 1]</code> and <code>units[:, 1:2]</code>. Run both and explain why their dimensions differ.</li>
 <li>Select the first two stores and the last two products with one two-dimensional slice. Display its values and shape.</li>
 </ul>
@@ -2333,7 +2333,7 @@ deviation from each student's own average:
 <ul>
 <li>Use <strong>unadjusted <code>revenue</code></strong> throughout this part. Calculate one revenue total per store and one per product with the appropriate axes. Display names beside totals and explain the shapes and dollar units.</li>
 <li>Find the store with the largest total using <code>argmax</code> and the store with the smallest total using <code>argmin</code>. Report each position, store name, and value.</li>
-<li>Find the largest individual store-product revenue with <code>np.max</code>. Use <code>np.where(revenue == revenue.max())</code> to report every tied store-product pair (store name, product name, value). Explain how the two-array result here extends the single-array tuple you saw in <a href="#min-max-search">Finding Minimum and Maximum Values and Positions</a> to a 2D array, and state the tie rule.</li>
+<li>Find the largest individual store-product revenue value with <code>np.max</code>. Use <code>np.where(revenue == revenue.max())</code> to find every tie. For each tie, report the store name, product name, and value. (Hint: it may be helpful to use a for loop with <code>zip()</code>). Explain how the two-array result here extends the single-array tuple you saw in <a href="#min-max-search">Finding Minimum and Maximum Values and Positions</a> to a 2D array.</li>
 </ul>
 </section>
 <section id="d.-edit-safely-and-add-a-store" class="level3 unnumbered">
