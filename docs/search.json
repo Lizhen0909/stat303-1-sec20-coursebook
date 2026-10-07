@@ -487,7 +487,7 @@
     "href": "Reading_data.html#set-up-the-chapter-files",
     "title": "3  Reading Data",
     "section": "",
-    "text": "stat303-1/\n├── .venv/\n├── assignments/\n└── chapters/\n    └── stat303-reading-data/\n        ├── reading_examples.ipynb\n        ├── activity03.ipynb\n        ├── README.md\n        └── data/\n            ├── movie_ratings.csv\n            ├── movie_ratings_semicolon.txt\n            ├── movies_preview.json\n            ├── movies_preview.html\n            ├── Top 10 Albums By Year.csv\n            └── bestseller_books.txt",
+    "text": "NoteNot finished Assignment B yet?\n\n\n\nYou can start this chapter before your stat303-1 folder exists. For now, place stat303-reading-data inside the stat303-setup folder from Chapter 2, open stat303-setup in VS Code, and select its .venv as the notebook kernel; it already contains pandas. The terminal then opens in stat303-setup, so move it into the kit with cd stat303-reading-data. After Assignment B moves stat303-setup into stat303-1/chapters/, move stat303-reading-data out of stat303-setup so that it sits directly inside chapters, as shown below. The notebooks find their files relative to the kit folder, so they keep working after the move.\n\n\nstat303-1/\n├── .venv/\n├── assignments/\n└── chapters/\n    └── stat303-reading-data/\n        ├── reading_examples.ipynb\n        ├── activity03.ipynb\n        ├── README.md\n        └── data/\n            ├── movie_ratings.csv\n            ├── movie_ratings_semicolon.txt\n            ├── movies_preview.json\n            ├── movies_preview.html\n            ├── Top 10 Albums By Year.csv\n            └── bestseller_books.txt",
     "crumbs": [
       "Core Library Foundations",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Reading Data</span>"
@@ -608,7 +608,7 @@
     "href": "pandas_fundamentals.html#set-up-your-practice-files",
     "title": "4  Pandas Fundamentals",
     "section": "",
-    "text": "stat303-1/\n├── .venv/\n├── assignments/\n└── chapters/\n    └── stat303-pandas-fundamentals/\n        ├── pandas_examples.ipynb\n        ├── activity04.ipynb\n        ├── README.md\n        └── data/\n            ├── movie_ratings.csv\n            ├── Top 10 Albums By Year.csv\n            └── STAT303-1 survey for data analysis.csv",
+    "text": "NoteNot finished Assignment B yet?\n\n\n\nYou can start this chapter before your stat303-1 folder exists. For now, place stat303-pandas-fundamentals inside the stat303-setup folder from Chapter 2, open stat303-setup in VS Code, and select its .venv as the notebook kernel; it already contains pandas. The terminal then opens in stat303-setup, so move it into the kit with cd stat303-pandas-fundamentals. After Assignment B moves stat303-setup into stat303-1/chapters/, move stat303-pandas-fundamentals out of stat303-setup so that it sits directly inside chapters, as shown below. The notebooks find their files relative to the kit folder, so they keep working after the move.\n\n\nstat303-1/\n├── .venv/\n├── assignments/\n└── chapters/\n    └── stat303-pandas-fundamentals/\n        ├── pandas_examples.ipynb\n        ├── activity04.ipynb\n        ├── README.md\n        └── data/\n            ├── movie_ratings.csv\n            ├── Top 10 Albums By Year.csv\n            └── STAT303-1 survey for data analysis.csv",
     "crumbs": [
       "Core Library Foundations",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Pandas Fundamentals</span>"
