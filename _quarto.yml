@@ -10,6 +10,7 @@ project:
     - downloads/reading-data-practice.zip
     - downloads/setup-practice.zip
     - downloads/assignment-b-setup.zip
+    - downloads/assignment-c-kit.zip
     - downloads/pandas-numpy-workflow-practice.zip
     - downloads/data-visualization-1-practice.zip
     - downloads/data-visualization-2-practice.zip
@@ -66,8 +67,8 @@ book:
     # A chapter that links to an unreleased assignment makes Quarto copy that
     # notebook into docs/ as a download, so check docs/ for "Assignment *.ipynb"
     # after each rebuild.
-    # - href: Assignment C.ipynb
-    #   text: "Assignment C: Pandas"
+    - href: Assignment C.ipynb
+      text: "Assignment C: Pandas"
     # - href: Assignment D.ipynb
     #   text: "Assignment D: NumPy"
     # - href: Assignment E.ipynb
