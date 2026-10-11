@@ -53,7 +53,7 @@ ax.text(8.85, 1.95, "one row per country", ha="center", fontsize=10.5, style="it
 # Arrows
 ax.add_patch(FancyArrowPatch((3.25, 3.4), (6.75, 3.4), arrowstyle="-|>", mutation_scale=22,
                              linewidth=2.5, color=PURPLE))
-ax.text(5.0, 3.6, "pivot_table()", ha="center", fontsize=12.5, fontweight="bold", family="DejaVu Sans Mono", color=PURPLE)
+ax.text(5.0, 3.6, "pivot()", ha="center", fontsize=12.5, fontweight="bold", family="DejaVu Sans Mono", color=PURPLE)
 ax.text(5.0, 3.05, "year values become columns", ha="center", fontsize=10, color=INK)
 ax.add_patch(FancyArrowPatch((6.75, 2.2), (3.25, 2.2), arrowstyle="-|>", mutation_scale=22,
                              linewidth=2.5, color=GOLD))
