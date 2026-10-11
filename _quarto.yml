@@ -18,6 +18,7 @@ project:
     - downloads/data-preparation-practice.zip
     - downloads/data-aggregation-practice.zip
     - downloads/data-reshaping-practice.zip
+    - downloads/combining-datasets-practice.zip
 
 
 book:  

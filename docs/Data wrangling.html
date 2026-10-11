@@ -114,35 +114,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -385,76 +356,38 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction-why-combine-datasets" id="toc-introduction-why-combine-datasets" class="nav-link active" data-scroll-target="#introduction-why-combine-datasets"><span class="header-section-number">14.1</span> Introduction: Why Combine Datasets?</a>
-  <ul>
-  <li><a href="#common-scenarios-requiring-data-combination" id="toc-common-scenarios-requiring-data-combination" class="nav-link" data-scroll-target="#common-scenarios-requiring-data-combination"><span class="header-section-number">14.1.1</span> Common Scenarios Requiring Data Combination</a></li>
-  <li><a href="#the-three-main-combination-methods" id="toc-the-three-main-combination-methods" class="nav-link" data-scroll-target="#the-three-main-combination-methods"><span class="header-section-number">14.1.2</span> The Three Main Combination Methods</a></li>
-  <li><a href="#setup-loading-required-libraries" id="toc-setup-loading-required-libraries" class="nav-link" data-scroll-target="#setup-loading-required-libraries"><span class="header-section-number">14.1.3</span> Setup: Loading Required Libraries</a></li>
-  </ul></li>
-  <li><a href="#method-1-merging-with-merge" id="toc-method-1-merging-with-merge" class="nav-link" data-scroll-target="#method-1-merging-with-merge"><span class="header-section-number">14.2</span> Method 1: Merging with <code>merge()</code></a>
-  <ul>
-  <li><a href="#basic-syntax" id="toc-basic-syntax" class="nav-link" data-scroll-target="#basic-syntax"><span class="header-section-number">14.2.1</span> Basic Syntax</a></li>
-  <li><a href="#example-datasets-lord-of-the-rings-fellowship" id="toc-example-datasets-lord-of-the-rings-fellowship" class="nav-link" data-scroll-target="#example-datasets-lord-of-the-rings-fellowship"><span class="header-section-number">14.2.2</span> Example Datasets: Lord of the Rings Fellowship</a></li>
-  <li><a href="#example-1-basic-merge-with-automatic-key-detection" id="toc-example-1-basic-merge-with-automatic-key-detection" class="nav-link" data-scroll-target="#example-1-basic-merge-with-automatic-key-detection"><span class="header-section-number">14.2.3</span> Example 1: Basic Merge with Automatic Key Detection</a></li>
-  <li><a href="#example-2-merging-with-different-column-names" id="toc-example-2-merging-with-different-column-names" class="nav-link" data-scroll-target="#example-2-merging-with-different-column-names"><span class="header-section-number">14.2.4</span> Example 2: Merging with Different Column Names</a></li>
-  <li><a href="#example-3-merging-on-multiple-columns" id="toc-example-3-merging-on-multiple-columns" class="nav-link" data-scroll-target="#example-3-merging-on-multiple-columns"><span class="header-section-number">14.2.5</span> Example 3: Merging on Multiple Columns</a></li>
-  <li><a href="#understanding-join-types-the-how-parameter" id="toc-understanding-join-types-the-how-parameter" class="nav-link" data-scroll-target="#understanding-join-types-the-how-parameter"><span class="header-section-number">14.2.6</span> Understanding Join Types: The <code>how</code> Parameter</a>
+  <li><a href="#set-up-your-chapter-files" id="toc-set-up-your-chapter-files" class="nav-link active" data-scroll-target="#set-up-your-chapter-files"><span class="header-section-number">14.1</span> Set Up Your Chapter Files</a></li>
+  <li><a href="#why-combine-datasets" id="toc-why-combine-datasets" class="nav-link" data-scroll-target="#why-combine-datasets"><span class="header-section-number">14.2</span> Why combine datasets</a></li>
+  <li><a href="#stack-rows-pd.concat" id="toc-stack-rows-pd.concat" class="nav-link" data-scroll-target="#stack-rows-pd.concat"><span class="header-section-number">14.3</span> Stack rows: <code>pd.concat()</code></a></li>
+  <li><a href="#match-rows-on-a-key-merge" id="toc-match-rows-on-a-key-merge" class="nav-link" data-scroll-target="#match-rows-on-a-key-merge"><span class="header-section-number">14.4</span> Match rows on a key: <code>merge()</code></a>
   <ul class="collapse">
-  <li><a href="#inner-join-default-only-matching-rows" id="toc-inner-join-default-only-matching-rows" class="nav-link" data-scroll-target="#inner-join-default-only-matching-rows"><span class="header-section-number">14.2.6.1</span> Inner Join (Default): Only Matching Rows</a></li>
-  <li><a href="#left-join-keep-all-left-dataframe-rows" id="toc-left-join-keep-all-left-dataframe-rows" class="nav-link" data-scroll-target="#left-join-keep-all-left-dataframe-rows"><span class="header-section-number">14.2.6.2</span> Left Join: Keep All Left DataFrame Rows</a></li>
-  <li><a href="#right-join-keep-all-right-dataframe-rows" id="toc-right-join-keep-all-right-dataframe-rows" class="nav-link" data-scroll-target="#right-join-keep-all-right-dataframe-rows"><span class="header-section-number">14.2.6.3</span> Right Join: Keep All Right DataFrame Rows</a></li>
-  <li><a href="#outer-join-keep-all-rows-from-both-dataframes" id="toc-outer-join-keep-all-rows-from-both-dataframes" class="nav-link" data-scroll-target="#outer-join-keep-all-rows-from-both-dataframes"><span class="header-section-number">14.2.6.4</span> Outer Join: Keep All Rows from Both DataFrames</a></li>
+  <li><a href="#several-key-columns" id="toc-several-key-columns" class="nav-link" data-scroll-target="#several-key-columns"><span class="header-section-number">14.4.1</span> Several key columns</a></li>
+  <li><a href="#keys-with-different-names" id="toc-keys-with-different-names" class="nav-link" data-scroll-target="#keys-with-different-names"><span class="header-section-number">14.4.2</span> Keys with different names</a></li>
+  <li><a href="#which-rows-survive-how" id="toc-which-rows-survive-how" class="nav-link" data-scroll-target="#which-rows-survive-how"><span class="header-section-number">14.4.3</span> Which rows survive: <code>how=</code></a></li>
   </ul></li>
-  </ul></li>
-  <li><a href="#method-2-joining-with-join" id="toc-method-2-joining-with-join" class="nav-link" data-scroll-target="#method-2-joining-with-join"><span class="header-section-number">14.3</span> Method 2: Joining with <code>join()</code></a>
-  <ul>
-  <li><a href="#key-difference-merge-vs-join" id="toc-key-difference-merge-vs-join" class="nav-link" data-scroll-target="#key-difference-merge-vs-join"><span class="header-section-number">14.3.1</span> Key Difference: <code>merge()</code> vs <code>join()</code></a></li>
-  <li><a href="#important-handling-overlapping-columns" id="toc-important-handling-overlapping-columns" class="nav-link" data-scroll-target="#important-handling-overlapping-columns"><span class="header-section-number">14.3.2</span> Important: Handling Overlapping Columns</a></li>
-  <li><a href="#setting-a-meaningful-index-for-joining" id="toc-setting-a-meaningful-index-for-joining" class="nav-link" data-scroll-target="#setting-a-meaningful-index-for-joining"><span class="header-section-number">14.3.3</span> Setting a Meaningful Index for Joining</a></li>
-  <li><a href="#changing-join-type-in-join" id="toc-changing-join-type-in-join" class="nav-link" data-scroll-target="#changing-join-type-in-join"><span class="header-section-number">14.3.4</span> Changing Join Type in <code>join()</code></a></li>
-  </ul></li>
-  <li><a href="#method-3-concatenating-with-concat" id="toc-method-3-concatenating-with-concat" class="nav-link" data-scroll-target="#method-3-concatenating-with-concat"><span class="header-section-number">14.4</span> Method 3: Concatenating with <code>concat()</code></a>
-  <ul>
-  <li><a href="#the-two-directions-axis-parameter" id="toc-the-two-directions-axis-parameter" class="nav-link" data-scroll-target="#the-two-directions-axis-parameter"><span class="header-section-number">14.4.1</span> The Two Directions: <code>axis</code> Parameter</a></li>
-  <li><a href="#concatenating-along-rows-vertical-stacking" id="toc-concatenating-along-rows-vertical-stacking" class="nav-link" data-scroll-target="#concatenating-along-rows-vertical-stacking"><span class="header-section-number">14.4.2</span> Concatenating Along Rows (Vertical Stacking)</a>
+  <li><a href="#check-a-merge" id="toc-check-a-merge" class="nav-link" data-scroll-target="#check-a-merge"><span class="header-section-number">14.5</span> Check a merge</a>
   <ul class="collapse">
-  <li><a href="#simple-example-with-fellowship-data" id="toc-simple-example-with-fellowship-data" class="nav-link" data-scroll-target="#simple-example-with-fellowship-data"><span class="header-section-number">14.4.2.1</span> Simple Example with Fellowship Data</a></li>
-  <li><a href="#real-world-example-combining-continental-data" id="toc-real-world-example-combining-continental-data" class="nav-link" data-scroll-target="#real-world-example-combining-continental-data"><span class="header-section-number">14.4.2.2</span> Real-World Example: Combining Continental Data</a></li>
+  <li><a href="#the-row-count-and-keys-that-repeat" id="toc-the-row-count-and-keys-that-repeat" class="nav-link" data-scroll-target="#the-row-count-and-keys-that-repeat"><span class="header-section-number">14.5.1</span> The row count, and keys that repeat</a></li>
+  <li><a href="#many-rows-to-one-a-lookup-table" id="toc-many-rows-to-one-a-lookup-table" class="nav-link" data-scroll-target="#many-rows-to-one-a-lookup-table"><span class="header-section-number">14.5.2</span> Many rows to one: a lookup table</a></li>
+  <li><a href="#missing-values-from-unmatched-keys" id="toc-missing-values-from-unmatched-keys" class="nav-link" data-scroll-target="#missing-values-from-unmatched-keys"><span class="header-section-number">14.5.3</span> Missing values from unmatched keys</a></li>
   </ul></li>
-  <li><a href="#horizontal-concatenation-combining-columns" id="toc-horizontal-concatenation-combining-columns" class="nav-link" data-scroll-target="#horizontal-concatenation-combining-columns"><span class="header-section-number">14.4.3</span> Horizontal Concatenation (Combining Columns)</a>
+  <li><a href="#summary-cheat-sheet" id="toc-summary-cheat-sheet" class="nav-link" data-scroll-target="#summary-cheat-sheet"><span class="header-section-number">14.6</span> Summary Cheat Sheet</a></li>
+  <li><a href="#practice-activity-stack-match-and-check" id="toc-practice-activity-stack-match-and-check" class="nav-link" data-scroll-target="#practice-activity-stack-match-and-check"><span class="header-section-number">14.7</span> Practice Activity: Stack, Match, and Check</a>
   <ul class="collapse">
-  <li><a href="#handling-duplicate-column-names" id="toc-handling-duplicate-column-names" class="nav-link" data-scroll-target="#handling-duplicate-column-names"><span class="header-section-number">14.4.3.1</span> Handling Duplicate Column Names</a></li>
+  <li><a href="#a.-stack-five-files" id="toc-a.-stack-five-files" class="nav-link" data-scroll-target="#a.-stack-five-files">A. Stack Five Files</a></li>
+  <li><a href="#b.-match-countries-to-capitals" id="toc-b.-match-countries-to-capitals" class="nav-link" data-scroll-target="#b.-match-countries-to-capitals">B. Match Countries to Capitals</a></li>
+  <li><a href="#c.-inner-against-outer" id="toc-c.-inner-against-outer" class="nav-link" data-scroll-target="#c.-inner-against-outer">C. Inner Against Outer</a></li>
+  <li><a href="#d.-check-the-keys" id="toc-d.-check-the-keys" class="nav-link" data-scroll-target="#d.-check-the-keys">D. Check the Keys</a></li>
+  <li><a href="#render-and-submit" id="toc-render-and-submit" class="nav-link" data-scroll-target="#render-and-submit">Render and Submit</a></li>
   </ul></li>
-  </ul></li>
-  <li><a href="#summary-choosing-the-right-method" id="toc-summary-choosing-the-right-method" class="nav-link" data-scroll-target="#summary-choosing-the-right-method"><span class="header-section-number">14.5</span> Summary: Choosing the Right Method</a>
-  <ul>
-  <li><a href="#decision-tree" id="toc-decision-tree" class="nav-link" data-scroll-target="#decision-tree"><span class="header-section-number">14.5.1</span> Decision Tree:</a></li>
-  </ul></li>
-  <li><a href="#handling-missing-values-after-combining-datasets" id="toc-handling-missing-values-after-combining-datasets" class="nav-link" data-scroll-target="#handling-missing-values-after-combining-datasets"><span class="header-section-number">14.6</span> Handling Missing Values After Combining Datasets</a>
-  <ul>
-  <li><a href="#why-missing-values-occur" id="toc-why-missing-values-occur" class="nav-link" data-scroll-target="#why-missing-values-occur"><span class="header-section-number">14.6.1</span> Why Missing Values Occur</a></li>
-  <li><a href="#strategies-for-handling-missing-values" id="toc-strategies-for-handling-missing-values" class="nav-link" data-scroll-target="#strategies-for-handling-missing-values"><span class="header-section-number">14.6.2</span> Strategies for Handling Missing Values</a>
+  <li><a href="#extended-practice" id="toc-extended-practice" class="nav-link" data-scroll-target="#extended-practice"><span class="header-section-number">14.8</span> Extended Practice</a>
   <ul class="collapse">
-  <li><a href="#strategy-1-keep-the-missing-values" id="toc-strategy-1-keep-the-missing-values" class="nav-link" data-scroll-target="#strategy-1-keep-the-missing-values"><span class="header-section-number">14.6.2.1</span> Strategy 1: Keep the Missing Values</a></li>
-  <li><a href="#strategy-2-fill-with-default-values" id="toc-strategy-2-fill-with-default-values" class="nav-link" data-scroll-target="#strategy-2-fill-with-default-values"><span class="header-section-number">14.6.2.2</span> Strategy 2: Fill with Default Values</a></li>
-  <li><a href="#strategy-3-drop-rows-with-missing-values" id="toc-strategy-3-drop-rows-with-missing-values" class="nav-link" data-scroll-target="#strategy-3-drop-rows-with-missing-values"><span class="header-section-number">14.6.2.3</span> Strategy 3: Drop Rows with Missing Values</a></li>
-  <li><a href="#strategy-4-use-a-different-join-type" id="toc-strategy-4-use-a-different-join-type" class="nav-link" data-scroll-target="#strategy-4-use-a-different-join-type"><span class="header-section-number">14.6.2.4</span> Strategy 4: Use a Different Join Type</a></li>
+  <li><a href="#repair-the-names" id="toc-repair-the-names" class="nav-link" data-scroll-target="#repair-the-names"><span class="header-section-number">14.8.1</span> Repair the Names</a></li>
+  <li><a href="#capitals-and-life-expectancy" id="toc-capitals-and-life-expectancy" class="nav-link" data-scroll-target="#capitals-and-life-expectancy"><span class="header-section-number">14.8.2</span> Capitals and Life Expectancy</a></li>
+  <li><a href="#stack-then-summarize" id="toc-stack-then-summarize" class="nav-link" data-scroll-target="#stack-then-summarize"><span class="header-section-number">14.8.3</span> Stack, Then Summarize</a></li>
+  <li><a href="#merge-two-summaries" id="toc-merge-two-summaries" class="nav-link" data-scroll-target="#merge-two-summaries"><span class="header-section-number">14.8.4</span> Merge Two Summaries</a></li>
   </ul></li>
-  <li><a href="#practical-example-handling-missing-values" id="toc-practical-example-handling-missing-values" class="nav-link" data-scroll-target="#practical-example-handling-missing-values"><span class="header-section-number">14.6.3</span> Practical Example: Handling Missing Values</a></li>
-  <li><a href="#best-practices-for-missing-value-handling" id="toc-best-practices-for-missing-value-handling" class="nav-link" data-scroll-target="#best-practices-for-missing-value-handling"><span class="header-section-number">14.6.4</span> Best Practices for Missing Value Handling</a></li>
-  </ul></li>
-  <li><a href="#independent-study" id="toc-independent-study" class="nav-link" data-scroll-target="#independent-study"><span class="header-section-number">14.7</span> Independent Study</a>
-  <ul>
-  <li><a href="#merging-gdp-per-capita-and-population-datasets" id="toc-merging-gdp-per-capita-and-population-datasets" class="nav-link" data-scroll-target="#merging-gdp-per-capita-and-population-datasets"><span class="header-section-number">14.7.1</span> Merging GDP per capita and population datasets</a>
-  <ul class="collapse">
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">14.7.1.1</span> </a></li>
-  </ul></li>
-  <li><a href="#merging-datasets-with-similar-values-in-the-key-column" id="toc-merging-datasets-with-similar-values-in-the-key-column" class="nav-link" data-scroll-target="#merging-datasets-with-similar-values-in-the-key-column"><span class="header-section-number">14.7.2</span> Merging datasets with <em>similar</em> values in the <em>key</em> column</a>
-  <ul class="collapse">
-  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"><span class="header-section-number">14.7.2.1</span> </a></li>
-  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2"><span class="header-section-number">14.7.2.2</span> </a></li>
-  </ul></li>
-  </ul></li>
+  <li><a href="#before-you-move-on" id="toc-before-you-move-on" class="nav-link" data-scroll-target="#before-you-move-on"><span class="header-section-number">14.9</span> Before You Move On</a></li>
   </ul>
 </nav>
     </div>
@@ -480,127 +413,108 @@ window.Quarto = {
 </header>
 
 
-<div id="be941967" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display">
-
-<div style="display: flex; gap: 20px;">
-    <img src="https://pandas.pydata.org/docs/_images/merging_join_multi_df.png" width="650">
+<p><a href="./Data_reshaping.html">Data Reshaping</a> ended with a condition: two tables can be joined row by row only once each row means the same thing in both. This chapter does the joining. Real analyses rarely start from a single table. The information you need is split across files — one per region or per year, one holding measurements and another holding descriptions — and the first job is often to put it back together.</p>
+<p>There are two basic ways to combine tables. When they hold the same kind of rows, you stack them. When they hold different information about the same things, you match their rows on a shared key. Matching is where the surprises live: rows that find no partner, keys that appear twice, names spelled differently in two sources. So, as in the last two chapters, the habit to build is checking the result before you trust it.</p>
+<p>By the end of this chapter you should be able to:</p>
+<ul>
+<li>Stack tables that share their columns with <code>pd.concat()</code>, record which piece each row came from, and check the row count.</li>
+<li>Combine tables that share a key with <code>merge()</code>, on one or several key columns, including keys with different names (<code>left_on=</code>, <code>right_on=</code>).</li>
+<li>Choose <code>how=</code> (<code>"inner"</code>, <code>"left"</code>, <code>"right"</code>, <code>"outer"</code>), predict which rows survive, and use <code>indicator=True</code> to see where each row came from.</li>
+<li>Check a merge before trusting it: compare row counts, enforce key uniqueness with <code>validate=</code>, and decide what the missing values from unmatched keys mean.</li>
+</ul>
+<p>Complete the <a href="#practice-activity-stack-match-and-check">practice activity</a> after the worked examples.</p>
+<section id="set-up-your-chapter-files" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="set-up-your-chapter-files"><span class="header-section-number">14.1</span> Set Up Your Chapter Files</h2>
+<p>Download the <a href="downloads/combining-datasets-practice.zip">Combining Datasets practice kit</a>. Extract <code>stat303-combining-datasets</code> inside the <code>chapters</code> folder of your <code>stat303-1</code> course folder, open <code>stat303-1</code> in VS Code, and select the course environment. The terminal opens in <code>stat303-1</code>, so move it into the kit with <code>cd chapters</code> and then <code>cd stat303-combining-datasets</code> before you render the activity.</p>
+<pre class="text"><code>stat303-1/
+├── .venv/
+├── assignments/
+└── chapters/
+    └── stat303-combining-datasets/
+        ├── combining_datasets_examples.ipynb
+        ├── activity14.ipynb
+        ├── README.md
+        └── data/
+            ├── gdp_lifeExpec_Africa.csv
+            ├── gdp_lifeExpec_Americas.csv
+            ├── gdp_lifeExpec_Asia.csv
+            ├── gdp_lifeExpec_Europe.csv
+            ├── gdp_lifeExpec_Oceania.csv
+            └── country-capital-lat-long-population.csv</code></pre>
+<p>Run <code>combining_datasets_examples.ipynb</code> for the lesson and complete <code>activity14.ipynb</code> for your own activity report, with <code>stat303-combining-datasets</code> as the notebook working folder. Every file is read with a relative path such as <code>"data/gdp_lifeExpec_Asia.csv"</code>, so the notebooks find their data only when that folder is the working folder.</p>
+<div id="combine-imports" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</div>
-</div>
-<section id="introduction-why-combine-datasets" class="level2" data-number="14.1">
-<h2 data-number="14.1" class="anchored" data-anchor-id="introduction-why-combine-datasets"><span class="header-section-number">14.1</span> Introduction: Why Combine Datasets?</h2>
-<p>In real-world data analysis, information is rarely contained in a single dataset. You’ll often need to <strong>combine multiple datasets</strong> from different sources to get a complete picture. This process is fundamental to data analysis and goes by several names:</p>
-<ul>
-<li><strong>Merging</strong> - joining datasets based on common keys</li>
-<li><strong>Joining</strong> - combining datasets using indices</li>
-<li><strong>Concatenating</strong> - stacking datasets vertically or horizontally</li>
-</ul>
-<section id="common-scenarios-requiring-data-combination" class="level3" data-number="14.1.1">
-<h3 data-number="14.1.1" class="anchored" data-anchor-id="common-scenarios-requiring-data-combination"><span class="header-section-number">14.1.1</span> Common Scenarios Requiring Data Combination</h3>
-<p><strong>1. Distributed Information</strong></p>
-<ul>
-<li>Customer demographics in one table, purchase history in another</li>
-<li>Product details separate from sales transactions</li>
-<li>Survey responses split across multiple files</li>
-</ul>
-<p><strong>2. Data from Multiple Sources</strong></p>
-<ul>
-<li>Internal company data + external market data</li>
-<li>Multiple databases (HR, Sales, Inventory)</li>
-<li>Different time periods stored in separate files</li>
-</ul>
-<p><strong>3. Analytical Requirements</strong></p>
-<ul>
-<li>Enriching existing data with additional attributes</li>
-<li>Comparing data across different groups or time periods</li>
-<li>Building comprehensive datasets for machine learning</li>
-</ul>
+<p><strong>Environment check:</strong> This chapter uses NumPy, pandas, matplotlib, and seaborn, all of which are already in the course environment. If an import fails, check the selected notebook kernel first: it must be the course environment, <code>stat303-1/.venv</code>, as in <a href="./python_venv.html#install-packages-in-the-intended-environment">Project Environments, Packages, and File Paths</a>.</p>
 </section>
-<section id="the-three-main-combination-methods" class="level3" data-number="14.1.2">
-<h3 data-number="14.1.2" class="anchored" data-anchor-id="the-three-main-combination-methods"><span class="header-section-number">14.1.2</span> The Three Main Combination Methods</h3>
-<p>Pandas provides three powerful functions for combining datasets, each suited to different scenarios:</p>
+<section id="why-combine-datasets" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="why-combine-datasets"><span class="header-section-number">14.2</span> Why combine datasets</h2>
+<p><strong>Why combine?</strong></p>
+<ul>
+<li><strong>Information is distributed.</strong> Customer details live in one table and purchases in another; product descriptions are separate from sales; a survey’s answers are split across several files.</li>
+<li><strong>Data comes from several sources.</strong> Internal records meet external data — a company’s sales with public economic indicators, or a course’s grades with its attendance log.</li>
+<li><strong>Data is split for storage.</strong> One file per month, per region, or per year is common, and an analysis across all of them needs them in one table.</li>
+<li><strong>An analysis needs more columns.</strong> Adding a population, a region, or a category from a second table makes new comparisons possible.</li>
+</ul>
+<p>Two operations cover nearly every case:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 18%">
-<col style="width: 23%">
-<col style="width: 23%">
-<col style="width: 34%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>Method</th>
-<th>Function</th>
-<th>Use Case</th>
-<th>Key Parameter</th>
+<th>Operation</th>
+<th>Tool</th>
+<th>The tables share</th>
+<th>Result</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>Merge</strong></td>
-<td><code>merge()</code></td>
-<td>Combine datasets with common columns (like SQL JOIN)</td>
-<td><code>on=</code> (column name)</td>
+<td><strong>Stack</strong></td>
+<td><code>pd.concat()</code></td>
+<td>The same columns, different rows</td>
+<td>More rows</td>
 </tr>
 <tr class="even">
-<td><strong>Join</strong></td>
-<td><code>join()</code></td>
-<td>Combine datasets using their indices</td>
-<td><code>lsuffix=</code>, <code>rsuffix=</code></td>
-</tr>
-<tr class="odd">
-<td><strong>Concatenate</strong></td>
-<td><code>concat()</code></td>
-<td>Stack datasets vertically or horizontally</td>
-<td><code>axis=</code> (0 or 1)</td>
+<td><strong>Match</strong></td>
+<td><code>df.merge()</code></td>
+<td>A key column, different information</td>
+<td>More columns, rows paired by key</td>
 </tr>
 </tbody>
 </table>
-<p>In this chapter, we’ll explore each method with practical examples, understand when to use which approach, and learn how to handle common challenges like missing values and duplicate columns.</p>
 </section>
-<section id="setup-loading-required-libraries" class="level3" data-number="14.1.3">
-<h3 data-number="14.1.3" class="anchored" data-anchor-id="setup-loading-required-libraries"><span class="header-section-number">14.1.3</span> Setup: Loading Required Libraries</h3>
-<p>Let’s start by importing the necessary libraries and loading our example datasets.</p>
-<div id="e7906b66" class="cell" data-execution_count="21">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Display settings for better output</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_columns'</span>, <span class="va">None</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.width'</span>, <span class="va">None</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-</section>
-<section id="method-1-merging-with-merge" class="level2" data-number="14.2">
-<h2 data-number="14.2" class="anchored" data-anchor-id="method-1-merging-with-merge"><span class="header-section-number">14.2</span> Method 1: Merging with <code>merge()</code></h2>
-<p>The <code>merge()</code> function is pandas’ most versatile tool for combining datasets. It works similarly to <strong>SQL JOIN operations</strong>, combining DataFrames based on one or more <strong>common columns</strong> (called keys).</p>
-<section id="basic-syntax" class="level3" data-number="14.2.1">
-<h3 data-number="14.2.1" class="anchored" data-anchor-id="basic-syntax"><span class="header-section-number">14.2.1</span> Basic Syntax</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pd.merge(left_df, right_df, on<span class="op">=</span><span class="st">'key_column'</span>, how<span class="op">=</span><span class="st">'inner'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Or using the DataFrame method:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>left_df.merge(right_df, on<span class="op">=</span><span class="st">'key_column'</span>, how<span class="op">=</span><span class="st">'inner'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Let’s see this in action!</p>
-</section>
-<section id="example-datasets-lord-of-the-rings-fellowship" class="level3" data-number="14.2.2">
-<h3 data-number="14.2.2" class="anchored" data-anchor-id="example-datasets-lord-of-the-rings-fellowship"><span class="header-section-number">14.2.2</span> Example Datasets: Lord of the Rings Fellowship</h3>
-<p>Throughout this chapter, we’ll use multiple datasets that contain complementary information, we’ll combine using different methods.</p>
-<p>Let’s first load the <strong>primary dataset</strong> containing basic fellowship member information:</p>
-<div id="13d7701d" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the primary dataset</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df_existing <span class="op">=</span> pd.read_csv(<span class="st">'./datasets/LOTR.csv'</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Dataset shape: </span><span class="sc">{</span>df_existing<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Columns: </span><span class="sc">{</span><span class="bu">list</span>(df_existing.columns)<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>df_existing.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="stack-rows-pd.concat" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="stack-rows-pd.concat"><span class="header-section-number">14.3</span> Stack rows: <code>pd.concat()</code></h2>
+<p>The Gapminder data from the last two chapters arrives here in pieces: one file per continent, each with the same five columns. Combining them is stacking, and <code>pd.concat()</code>, which you met adding a row in Data Reshaping, does it for a whole list of tables.</p>
+<p>None of the files has a <code>continent</code> column — the continent is in the file name. Adding it as each file is read keeps that information once the pieces are stacked. A <code>for</code> loop reads each file, adds the column, and collects the pieces in a list:</p>
+<div id="combine-concat" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pieces <span class="op">=</span> []</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> continent <span class="kw">in</span> [<span class="st">"Africa"</span>, <span class="st">"Americas"</span>, <span class="st">"Asia"</span>, <span class="st">"Europe"</span>, <span class="st">"Oceania"</span>]:</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    piece <span class="op">=</span> pd.read_csv(<span class="ss">f"data/gdp_lifeExpec_</span><span class="sc">{</span>continent<span class="sc">}</span><span class="ss">.csv"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    piece[<span class="st">"continent"</span>] <span class="op">=</span> continent</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(continent, piece.shape)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    pieces.append(piece)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>gapminder <span class="op">=</span> pd.concat(pieces, ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"stacked:"</span>, gapminder.shape)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>gapminder.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Dataset shape: (4, 3)
-Columns: ['FellowshipID', 'FirstName', 'Skills']
-</code></pre>
+<pre><code>Africa (624, 6)
+Americas (300, 6)
+Asia (396, 6)
+Europe (360, 6)
+Oceania (24, 6)
+stacked: (1704, 6)</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="2">
 <div>
 
 
@@ -608,99 +522,59 @@ Columns: ['FellowshipID', 'FirstName', 'Skills']
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">FellowshipID</th>
-<th data-quarto-table-cell-role="th">FirstName</th>
-<th data-quarto-table-cell-role="th">Skills</th>
+<th data-quarto-table-cell-role="th">country</th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">lifeExp</th>
+<th data-quarto-table-cell-role="th">pop</th>
+<th data-quarto-table-cell-role="th">gdpPercap</th>
+<th data-quarto-table-cell-role="th">continent</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">0</th>
-<td>1001</td>
-<td>Frodo</td>
-<td>Hiding</td>
+<td>Algeria</td>
+<td>1952</td>
+<td>43.077</td>
+<td>9279525</td>
+<td>2449.008185</td>
+<td>Africa</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">1</th>
-<td>1002</td>
-<td>Samwise</td>
-<td>Gardening</td>
+<td>Algeria</td>
+<td>1957</td>
+<td>45.685</td>
+<td>10270856</td>
+<td>3013.976023</td>
+<td>Africa</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">2</th>
-<td>1003</td>
-<td>Gandalf</td>
-<td>Spells</td>
+<td>Algeria</td>
+<td>1962</td>
+<td>48.303</td>
+<td>11000948</td>
+<td>2550.816880</td>
+<td>Africa</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">3</th>
-<td>1004</td>
-<td>Pippin</td>
-<td>Fireworks</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<p>Now let’s load the <strong>external dataset</strong> containing additional information about the fellowship members:</p>
-<div id="b22e86eb" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the external dataset</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df_external <span class="op">=</span> pd.read_csv(<span class="st">"./datasets/LOTR 2.csv"</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Dataset shape: </span><span class="sc">{</span>df_external<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Columns: </span><span class="sc">{</span><span class="bu">list</span>(df_external.columns)<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>df_external.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Dataset shape: (5, 3)
-Columns: ['FellowshipID', 'FirstName', 'Age']
-</code></pre>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="5">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">FellowshipID</th>
-<th data-quarto-table-cell-role="th">FirstName</th>
-<th data-quarto-table-cell-role="th">Age</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>1001</td>
-<td>Frodo</td>
-<td>50</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>1002</td>
-<td>Samwise</td>
-<td>39</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
-<td>1006</td>
-<td>Legolas</td>
-<td>2931</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>1007</td>
-<td>Elrond</td>
-<td>6520</td>
+<td>Algeria</td>
+<td>1967</td>
+<td>51.407</td>
+<td>12760499</td>
+<td>3246.991771</td>
+<td>Africa</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">4</th>
-<td>1008</td>
-<td>Barromir</td>
-<td>51</td>
+<td>Algeria</td>
+<td>1972</td>
+<td>54.518</td>
+<td>14760787</td>
+<td>4182.663766</td>
+<td>Africa</td>
 </tr>
 </tbody>
 </table>
@@ -708,33 +582,76 @@ Columns: ['FellowshipID', 'FirstName', 'Age']
 </div>
 </div>
 </div>
-<p><strong>Observation:</strong> Both datasets contain information about fellowship members, but they may have:</p>
-<ul>
-<li><strong>Common columns</strong> that can serve as keys for merging (like <code>FellowshipID</code> or <code>Name</code>)</li>
-<li><strong>Different sets of attributes</strong> that complement each other</li>
-<li><strong>Potentially different numbers of rows</strong> (not all members may appear in both datasets)</li>
-</ul>
-<p>Our goal is to combine these datasets to create a comprehensive view of the fellowship.</p>
-</section>
-<section id="example-1-basic-merge-with-automatic-key-detection" class="level3" data-number="14.2.3">
-<h3 data-number="14.2.3" class="anchored" data-anchor-id="example-1-basic-merge-with-automatic-key-detection"><span class="header-section-number">14.2.3</span> Example 1: Basic Merge with Automatic Key Detection</h3>
-<p>When both DataFrames have columns with the same name, <code>merge()</code> automatically uses them as keys:</p>
-<div id="ee4b8a4f" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge using automatic key detection</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df_merged <span class="op">=</span> pd.merge(df_existing, df_external)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Original datasets: </span><span class="sc">{</span>df_existing<span class="sc">.</span>shape<span class="sc">}</span><span class="ss"> + </span><span class="sc">{</span>df_external<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Merged dataset: </span><span class="sc">{</span>df_merged<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Merged columns: </span><span class="sc">{</span><span class="bu">list</span>(df_merged.columns)<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>df_merged.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>624 + 300 + 396 + 360 + 24 = 1,704 rows: the stacked table has exactly the rows of its pieces, which is the check to make after any stack. <code>ignore_index=True</code> numbers the stacked rows 0 to 1,703; without it, each piece keeps its own numbering and row labels repeat.</p>
+<p><code>concat()</code> lines up columns <strong>by name</strong>. A column that some pieces lack is filled with <code>NaN</code> in the rows from those pieces. Suppose the Africa file had spelled one column differently:</p>
+<div id="combine-concat-mismatch" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>renamed <span class="op">=</span> pieces[<span class="dv">0</span>].rename(columns<span class="op">=</span>{<span class="st">"lifeExp"</span>: <span class="st">"life_expectancy"</span>})   <span class="co"># the Africa piece</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>mixed <span class="op">=</span> pd.concat([renamed] <span class="op">+</span> pieces[<span class="dv">1</span>:], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mixed.columns.tolist())</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>mixed[[<span class="st">"lifeExp"</span>, <span class="st">"life_expectancy"</span>]].isna().<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Original datasets: (4, 3) + (5, 3)
-Merged dataset: (2, 4)
-
-Merged columns: ['FellowshipID', 'FirstName', 'Skills', 'Age']
-</code></pre>
+<pre><code>['country', 'year', 'life_expectancy', 'pop', 'gdpPercap', 'continent', 'lifeExp']</code></pre>
 </div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>lifeExp             624
+life_expectancy    1080
+dtype: int64</code></pre>
+</div>
+</div>
+<p>No error, the right number of rows, and life expectancy split across two half-empty columns: <code>lifeExp</code> is missing for Africa’s 624 rows and <code>life_expectancy</code> for the other 1,080. Any analysis of <code>lifeExp</code> would silently leave out Africa. After stacking files you did not make yourself, check <code>columns</code> and count missing values per column.</p>
+<p>The correctly stacked table goes straight into the tools of the last chapters:</p>
+<div id="combine-concat-plot" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="fl">4.5</span>), layout<span class="op">=</span><span class="st">"constrained"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>sns.lineplot(data<span class="op">=</span>gapminder, x<span class="op">=</span><span class="st">"year"</span>, y<span class="op">=</span><span class="st">"lifeExp"</span>, hue<span class="op">=</span><span class="st">"continent"</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>             errorbar<span class="op">=</span><span class="va">None</span>, marker<span class="op">=</span><span class="st">"o"</span>, ax<span class="op">=</span>ax)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"Year"</span>, ylabel<span class="op">=</span><span class="st">"Mean life expectancy (years)"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>       title<span class="op">=</span><span class="st">"Five files, one table, one plot"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Data wrangling_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><code>lineplot</code> averages the countries of each continent in each year, as <code>groupby()</code> did in Data Grouping and Aggregation; <code>errorbar=None</code> leaves out the confidence bands. Without the <code>continent</code> column added during the loop, this plot would be impossible.</p>
+</section>
+<section id="match-rows-on-a-key-merge" class="level2" data-number="14.4">
+<h2 data-number="14.4" class="anchored" data-anchor-id="match-rows-on-a-key-merge"><span class="header-section-number">14.4</span> Match rows on a key: <code>merge()</code></h2>
+<p>Stacking needs tables with the same columns. Matching needs something different: a <strong>key</strong>, a column whose values identify the same thing in both tables. Two small tables about members of the Fellowship from <em>The Lord of the Rings</em> show how it works. One lists skills, the other ages, and both identify members by <code>FellowshipID</code>:</p>
+<div id="combine-fellowship" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>skills <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FellowshipID"</span>: [<span class="dv">1001</span>, <span class="dv">1002</span>, <span class="dv">1003</span>, <span class="dv">1004</span>],</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FirstName"</span>: [<span class="st">"Frodo"</span>, <span class="st">"Samwise"</span>, <span class="st">"Gandalf"</span>, <span class="st">"Pippin"</span>],</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Skills"</span>: [<span class="st">"Hiding"</span>, <span class="st">"Gardening"</span>, <span class="st">"Spells"</span>, <span class="st">"Fireworks"</span>],</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>ages <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FellowshipID"</span>: [<span class="dv">1001</span>, <span class="dv">1002</span>, <span class="dv">1006</span>, <span class="dv">1007</span>, <span class="dv">1008</span>],</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FirstName"</span>: [<span class="st">"Frodo"</span>, <span class="st">"Samwise"</span>, <span class="st">"Legolas"</span>, <span class="st">"Elrond"</span>, <span class="st">"Boromir"</span>],</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Age"</span>: [<span class="dv">50</span>, <span class="dv">39</span>, <span class="dv">2931</span>, <span class="dv">6520</span>, <span class="dv">51</span>],</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(skills, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ages)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   FellowshipID FirstName     Skills
+0          1001     Frodo     Hiding
+1          1002   Samwise  Gardening
+2          1003   Gandalf     Spells
+3          1004    Pippin  Fireworks 
+
+   FellowshipID FirstName   Age
+0          1001     Frodo    50
+1          1002   Samwise    39
+2          1006   Legolas  2931
+3          1007    Elrond  6520
+4          1008   Boromir    51</code></pre>
+</div>
+</div>
+<p>Frodo and Samwise appear in both tables; Gandalf and Pippin only in <code>skills</code>; Legolas, Elrond, and Boromir only in <code>ages</code>. <code>merge()</code> pairs rows whose key values are equal:</p>
+<div id="combine-merge-on-id" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>skills.merge(ages, on<span class="op">=</span><span class="st">"FellowshipID"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
@@ -744,8 +661,9 @@ Merged columns: ['FellowshipID', 'FirstName', 'Skills', 'Age']
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th">FellowshipID</th>
-<th data-quarto-table-cell-role="th">FirstName</th>
+<th data-quarto-table-cell-role="th">FirstName_x</th>
 <th data-quarto-table-cell-role="th">Skills</th>
+<th data-quarto-table-cell-role="th">FirstName_y</th>
 <th data-quarto-table-cell-role="th">Age</th>
 </tr>
 </thead>
@@ -755,6 +673,7 @@ Merged columns: ['FellowshipID', 'FirstName', 'Skills', 'Age']
 <td>1001</td>
 <td>Frodo</td>
 <td>Hiding</td>
+<td>Frodo</td>
 <td>50</td>
 </tr>
 <tr class="even">
@@ -762,6 +681,7 @@ Merged columns: ['FellowshipID', 'FirstName', 'Skills', 'Age']
 <td>1002</td>
 <td>Samwise</td>
 <td>Gardening</td>
+<td>Samwise</td>
 <td>39</td>
 </tr>
 </tbody>
@@ -770,20 +690,12 @@ Merged columns: ['FellowshipID', 'FirstName', 'Skills', 'Age']
 </div>
 </div>
 </div>
-<p><strong>Alternative Syntax:</strong> You can also use the DataFrame method, which is more readable in method chains:</p>
-<div id="805082cb" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using DataFrame.merge() method (equivalent to above)</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df_merged_method <span class="op">=</span> df_existing.merge(df_external)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Results are identical: </span><span class="sc">{</span>df_merged<span class="sc">.</span>equals(df_merged_method)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Merged dataset shape: </span><span class="sc">{</span>df_merged_method<span class="sc">.</span>shape<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>df_merged_method.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Results are identical: True
-Merged dataset shape: (2, 4)
-</code></pre>
-</div>
+<p>Two rows: by default <code>merge()</code> keeps only keys found in <strong>both</strong> tables. Notice <code>FirstName_x</code> and <code>FirstName_y</code>. Both tables have a <code>FirstName</code> column that is not part of the key, so pandas keeps both and adds suffixes: <code>_x</code> from the left table, <code>_y</code> from the right. Here the two columns agree, because a name belongs to its ID.</p>
+<section id="several-key-columns" class="level3" data-number="14.4.1">
+<h3 data-number="14.4.1" class="anchored" data-anchor-id="several-key-columns"><span class="header-section-number">14.4.1</span> Several key columns</h3>
+<p>When two tables share more than one identifying column, list them all in <code>on=</code>. Rows then pair only when every key matches, and the shared columns appear once:</p>
+<div id="combine-merge-two-keys" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>skills.merge(ages, on<span class="op">=</span>[<span class="st">"FellowshipID"</span>, <span class="st">"FirstName"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 
@@ -819,135 +731,14 @@ Merged dataset shape: (2, 4)
 </div>
 </div>
 </div>
+<p>Several key columns are common: a sale is identified by store <strong>and</strong> date, a grade by student <strong>and</strong> course, a Gapminder row by country <strong>and</strong> year.</p>
 </section>
-<section id="example-2-merging-with-different-column-names" class="level3" data-number="14.2.4">
-<h3 data-number="14.2.4" class="anchored" data-anchor-id="example-2-merging-with-different-column-names"><span class="header-section-number">14.2.4</span> Example 2: Merging with Different Column Names</h3>
-<p>What if the key columns have <strong>different names</strong> in each DataFrame? Use the <code>left_on</code> and <code>right_on</code> parameters to specify which columns to match.</p>
-<div id="45408738" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: Suppose the external dataset uses 'ID' instead of 'FellowshipID'</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's create a version with a different column name to demonstrate</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>df_external_renamed <span class="op">=</span> df_external.rename(columns<span class="op">=</span>{<span class="st">'FellowshipID'</span>: <span class="st">'ID'</span>})</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"External dataset columns after renaming:"</span>)</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(df_external_renamed.columns))</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Now merge using left_on and right_on</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>df_merged_diff <span class="op">=</span> pd.merge(</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    df_existing, </span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    df_external_renamed,</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    left_on<span class="op">=</span><span class="st">'FellowshipID'</span>,   <span class="co"># Column name in left DataFrame</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    right_on<span class="op">=</span><span class="st">'ID'</span>              <span class="co"># Column name in right DataFrame</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Merged dataset shape: </span><span class="sc">{</span>df_merged_diff<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Merged columns: </span><span class="sc">{</span><span class="bu">list</span>(df_merged_diff.columns)<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>df_merged_diff.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p><strong>Important observations:</strong></p>
-<ul>
-<li>Notice that <strong>both</strong> key columns (<code>FellowshipID</code> and <code>ID</code>) appear in the result</li>
-<li>They contain identical values (the matched keys)</li>
-<li>You can drop one of them after merging: <code>df_merged_diff.drop('ID', axis=1)</code></li>
-</ul>
-<p><strong>Common use case:</strong> Merging data from different sources where column naming conventions differ (e.g., <code>customer_id</code> vs <code>cust_id</code>, <code>date</code> vs <code>timestamp</code>).</p>
-</section>
-<section id="example-3-merging-on-multiple-columns" class="level3" data-number="14.2.5">
-<h3 data-number="14.2.5" class="anchored" data-anchor-id="example-3-merging-on-multiple-columns"><span class="header-section-number">14.2.5</span> Example 3: Merging on Multiple Columns</h3>
-<p>Sometimes you need to match rows based on <strong>multiple columns</strong> together (composite keys). This is common when a single column isn’t unique.</p>
-<div id="40dc6b4c" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: Merge on both Name AND Race to ensure exact matches</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>df_multi_key <span class="op">=</span> pd.merge(</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    df_existing, </span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    df_external,</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    on<span class="op">=</span>[<span class="st">'Name'</span>, <span class="st">'Race'</span>]  <span class="co"># Both columns must match</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Merged on multiple keys: </span><span class="sc">{</span>df_multi_key<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Merging on multiple columns ensures rows match on ALL specified keys</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>df_multi_key.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p><strong>Real-world examples of composite keys:</strong></p>
-<ul>
-<li><strong>Sales transactions:</strong> Match on both <code>Store_ID</code> AND <code>Date</code> (same store can have sales on different dates)</li>
-<li><strong>Student grades:</strong> Match on <code>Student_ID</code> AND <code>Course_ID</code> (same student takes multiple courses)</li>
-<li><strong>Time series data:</strong> Match on <code>Location</code> AND <code>Timestamp</code> (multiple locations measured over time)</li>
-</ul>
-<p><strong>Syntax variations:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using on= (when column names are the same)</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>pd.merge(df1, df2, on<span class="op">=</span>[<span class="st">'col1'</span>, <span class="st">'col2'</span>])</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Using left_on= and right_on= (when column names differ)</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>pd.merge(df1, df2, left_on<span class="op">=</span>[<span class="st">'id'</span>, <span class="st">'date'</span>], right_on<span class="op">=</span>[<span class="st">'ID'</span>, <span class="st">'timestamp'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="understanding-join-types-the-how-parameter" class="level3" data-number="14.2.6">
-<h3 data-number="14.2.6" class="anchored" data-anchor-id="understanding-join-types-the-how-parameter"><span class="header-section-number">14.2.6</span> Understanding Join Types: The <code>how</code> Parameter</h3>
-<p>By default, <code>merge()</code> performs an <strong>inner join</strong>, which keeps only rows where the key exists in <strong>both</strong> DataFrames. However, you can control this behavior using the <code>how</code> parameter.</p>
-<p><strong>The Four Join Types:</strong></p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 23%">
-<col style="width: 17%">
-<col style="width: 36%">
-<col style="width: 21%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Join Type</th>
-<th><code>how=</code></th>
-<th>Keeps Rows From</th>
-<th>Use Case</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Inner</strong></td>
-<td><code>'inner'</code></td>
-<td>Both (intersection)</td>
-<td>Only matching records</td>
-</tr>
-<tr class="even">
-<td><strong>Left</strong></td>
-<td><code>'left'</code></td>
-<td>All from left + matches from right</td>
-<td>Keep all primary data</td>
-</tr>
-<tr class="odd">
-<td><strong>Right</strong></td>
-<td><code>'right'</code></td>
-<td>All from right + matches from left</td>
-<td>Keep all secondary data</td>
-</tr>
-<tr class="even">
-<td><strong>Outer</strong></td>
-<td><code>'outer'</code></td>
-<td>Both (union)</td>
-<td>Keep everything</td>
-</tr>
-</tbody>
-</table>
-<div style="text-align: center;">
-<p><img src="https://miro.medium.com/v2/resize:fit:752/0*ZGDgg-0SznYlwiij.png" alt="Join Types Visualization" width="500px"></p>
-</div>
-<p>Let’s explore each type with examples.</p>
-<section id="inner-join-default-only-matching-rows" class="level4" data-number="14.2.6.1">
-<h4 data-number="14.2.6.1" class="anchored" data-anchor-id="inner-join-default-only-matching-rows"><span class="header-section-number">14.2.6.1</span> Inner Join (Default): Only Matching Rows</h4>
-<p>An <strong>inner join</strong> returns only the rows where the key exists in both DataFrames. This is the default behavior.</p>
-<div id="e2da9e77" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inner join - explicitly specified (same as default)</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>df_inner <span class="op">=</span> pd.merge(df_existing, df_external, how<span class="op">=</span><span class="st">'inner'</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Inner join result: </span><span class="sc">{</span>df_inner<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Only rows with matching keys in BOTH datasets are kept</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>df_inner.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Inner join result: (2, 4)
-Only rows with matching keys in BOTH datasets are kept
-</code></pre>
-</div>
+<section id="keys-with-different-names" class="level3" data-number="14.4.2">
+<h3 data-number="14.4.2" class="anchored" data-anchor-id="keys-with-different-names"><span class="header-section-number">14.4.2</span> Keys with different names</h3>
+<p>Two sources rarely name their key the same way: <code>FellowshipID</code> in one file, <code>ID</code> in another. <code>left_on=</code> and <code>right_on=</code> name the key in each table:</p>
+<div id="combine-merge-left-right-on" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ages_renamed <span class="op">=</span> ages.rename(columns<span class="op">=</span>{<span class="st">"FellowshipID"</span>: <span class="st">"ID"</span>})</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>skills.merge(ages_renamed, left_on<span class="op">=</span><span class="st">"FellowshipID"</span>, right_on<span class="op">=</span><span class="st">"ID"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 
@@ -957,8 +748,10 @@ Only rows with matching keys in BOTH datasets are kept
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th">FellowshipID</th>
-<th data-quarto-table-cell-role="th">FirstName</th>
+<th data-quarto-table-cell-role="th">FirstName_x</th>
 <th data-quarto-table-cell-role="th">Skills</th>
+<th data-quarto-table-cell-role="th">ID</th>
+<th data-quarto-table-cell-role="th">FirstName_y</th>
 <th data-quarto-table-cell-role="th">Age</th>
 </tr>
 </thead>
@@ -968,6 +761,8 @@ Only rows with matching keys in BOTH datasets are kept
 <td>1001</td>
 <td>Frodo</td>
 <td>Hiding</td>
+<td>1001</td>
+<td>Frodo</td>
 <td>50</td>
 </tr>
 <tr class="even">
@@ -975,6 +770,8 @@ Only rows with matching keys in BOTH datasets are kept
 <td>1002</td>
 <td>Samwise</td>
 <td>Gardening</td>
+<td>1002</td>
+<td>Samwise</td>
 <td>39</td>
 </tr>
 </tbody>
@@ -983,57 +780,63 @@ Only rows with matching keys in BOTH datasets are kept
 </div>
 </div>
 </div>
-<p><strong>When to use inner join:</strong></p>
-<p>Use inner join when you need <strong>complete information</strong> from both datasets for your analysis.</p>
-<p><strong>Real-world examples:</strong></p>
-<ol type="1">
-<li><p><strong>Analyzing vaccination impact on COVID infection rates</strong></p>
-<ul>
-<li>Dataset 1: COVID infection rates by country</li>
-<li>Dataset 2: Vaccination counts by country</li>
-<li><strong>Why inner join?</strong> You can’t analyze the relationship unless you have BOTH metrics for a country. Countries missing either value can’t contribute to the analysis.</li>
-</ul></li>
-<li><p><strong>Customer purchase analysis</strong></p>
-<ul>
-<li>Dataset 1: Customer demographics</li>
-<li>Dataset 2: Purchase transactions</li>
-<li><strong>Why inner join?</strong> To analyze how demographics relate to purchases, you need both demographic info AND purchase history.</li>
-</ul></li>
-<li><p><strong>A/B testing results</strong></p>
-<ul>
-<li>Dataset 1: User group assignments (control/treatment)</li>
-<li>Dataset 2: Conversion outcomes</li>
-<li><strong>Why inner join?</strong> Only users with both group assignment AND outcome data can be included in the test analysis.</li>
-</ul></li>
-</ol>
+<p>Both key columns survive, holding identical values; drop one afterwards with <code>.drop(columns="ID")</code>.</p>
 </section>
-<section id="left-join-keep-all-left-dataframe-rows" class="level4" data-number="14.2.6.2">
-<h4 data-number="14.2.6.2" class="anchored" data-anchor-id="left-join-keep-all-left-dataframe-rows"><span class="header-section-number">14.2.6.2</span> Left Join: Keep All Left DataFrame Rows</h4>
-<p>A <strong>left join</strong> returns <strong>all rows from the left DataFrame</strong> and matching rows from the right DataFrame. Non-matching rows from the right will have <code>NaN</code> values.</p>
-<div id="8fd0c8a5" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Left join - keep all rows from left (existing) dataset</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>df_left <span class="op">=</span> pd.merge(df_existing, df_external, how<span class="op">=</span><span class="st">'left'</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Left DataFrame shape: </span><span class="sc">{</span>df_existing<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Right DataFrame shape: </span><span class="sc">{</span>df_external<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Left join result: </span><span class="sc">{</span>df_left<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">All rows from LEFT dataset are kept, even if no match in RIGHT</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Show rows with missing values from the right dataset</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>missing_count <span class="op">=</span> df_left.isnull().<span class="bu">any</span>(axis<span class="op">=</span><span class="dv">1</span>).<span class="bu">sum</span>()</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Rows with NaN values (no match in right dataset): </span><span class="sc">{</span>missing_count<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>df_left.head(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Left DataFrame shape: (4, 3)
-Right DataFrame shape: (5, 3)
-Left join result: (4, 4)
-
-All rows from LEFT dataset are kept, even if no match in RIGHT
-
-Rows with NaN values (no match in right dataset): 2
-</code></pre>
+<section id="which-rows-survive-how" class="level3" data-number="14.4.3">
+<h3 data-number="14.4.3" class="anchored" data-anchor-id="which-rows-survive-how"><span class="header-section-number">14.4.3</span> Which rows survive: <code>how=</code></h3>
+<p>The rows that find no partner are where most mistakes happen. <code>how=</code> decides what happens to them:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/join-types.png" class="img-fluid figure-img" width="900"></p>
+<figcaption>The four join types on the fellowship tables. Purple rows have a key in both tables, blue rows only in the left table, gold rows only in the right; NaN marks values with no partner.</figcaption>
+</figure>
 </div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><code>how=</code></th>
+<th>Keeps</th>
+<th><code>NaN</code> appears in</th>
+<th>Rows here</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>"inner"</code> (default)</td>
+<td>Keys in both tables</td>
+<td>Nowhere</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td><code>"left"</code></td>
+<td>Every left key</td>
+<td>Right-hand columns of unmatched rows</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td><code>"right"</code></td>
+<td>Every right key</td>
+<td>Left-hand columns of unmatched rows</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td><code>"outer"</code></td>
+<td>Every key in either table</td>
+<td>Both sides</td>
+<td>7</td>
+</tr>
+</tbody>
+</table>
+<p>The counts are worth confirming in code, and <code>indicator=True</code> adds a <code>_merge</code> column that says where each row came from:</p>
+<div id="combine-indicator" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fellowship <span class="op">=</span> skills.merge(ages, on<span class="op">=</span>[<span class="st">"FellowshipID"</span>, <span class="st">"FirstName"</span>], how<span class="op">=</span><span class="st">"outer"</span>, indicator<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>fellowship</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 
@@ -1046,6 +849,7 @@ Rows with NaN values (no match in right dataset): 2
 <th data-quarto-table-cell-role="th">FirstName</th>
 <th data-quarto-table-cell-role="th">Skills</th>
 <th data-quarto-table-cell-role="th">Age</th>
+<th data-quarto-table-cell-role="th">_merge</th>
 </tr>
 </thead>
 <tbody>
@@ -1055,6 +859,7 @@ Rows with NaN values (no match in right dataset): 2
 <td>Frodo</td>
 <td>Hiding</td>
 <td>50.0</td>
+<td>both</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">1</th>
@@ -1062,6 +867,7 @@ Rows with NaN values (no match in right dataset): 2
 <td>Samwise</td>
 <td>Gardening</td>
 <td>39.0</td>
+<td>both</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">2</th>
@@ -1069,6 +875,7 @@ Rows with NaN values (no match in right dataset): 2
 <td>Gandalf</td>
 <td>Spells</td>
 <td>NaN</td>
+<td>left_only</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">3</th>
@@ -1076,208 +883,7 @@ Rows with NaN values (no match in right dataset): 2
 <td>Pippin</td>
 <td>Fireworks</td>
 <td>NaN</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<p><strong>When to use left join:</strong></p>
-<p>Use left join when the <strong>left dataset contains your primary data</strong> that must be retained, while the right dataset provides supplementary information that may be missing for some records.</p>
-<p><strong>Real-world examples:</strong></p>
-<ol type="1">
-<li><p><strong>COVID infection rates + government effectiveness scores</strong></p>
-<ul>
-<li>Left: COVID infection rates (critical, hard to impute)</li>
-<li>Right: Government effectiveness scores (can be estimated from GDP, crime rate, etc.)</li>
-<li><strong>Why left join?</strong> Keep all countries with infection rate data. Missing government scores can be imputed later using correlated variables.</li>
-</ul></li>
-<li><p><strong>Customer demographics + credit card spending</strong></p>
-<ul>
-<li>Left: Customer demographics (all customers)</li>
-<li>Right: Credit card transactions (only customers who made purchases)</li>
-<li><strong>Why left join?</strong> Keep all customers, even those with no purchases. Missing spend can be filled with 0 (indicating no transactions).</li>
-</ul></li>
-<li><p><strong>Employee records + performance reviews</strong></p>
-<ul>
-<li>Left: All employee records</li>
-<li>Right: Recent performance reviews (not all employees reviewed yet)</li>
-<li><strong>Why left join?</strong> Maintain complete employee roster. Missing reviews can be handled separately (e.g., “Pending” status).</li>
-</ul></li>
-</ol>
-<p><strong>Key principle:</strong> Use left join when you can’t afford to lose the left dataset’s records, and missing right-side values can be reasonably handled (imputed, filled with defaults, or marked as missing).</p>
-</section>
-<section id="right-join-keep-all-right-dataframe-rows" class="level4" data-number="14.2.6.3">
-<h4 data-number="14.2.6.3" class="anchored" data-anchor-id="right-join-keep-all-right-dataframe-rows"><span class="header-section-number">14.2.6.3</span> Right Join: Keep All Right DataFrame Rows</h4>
-<p>A <strong>right join</strong> is the mirror image of a left join—it returns <strong>all rows from the right DataFrame</strong> and matching rows from the left DataFrame.</p>
-<div id="03a633ee" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Right join - keep all rows from right (external) dataset  </span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>df_right <span class="op">=</span> pd.merge(df_existing, df_external, how<span class="op">=</span><span class="st">'right'</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Left DataFrame shape: </span><span class="sc">{</span>df_existing<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Right DataFrame shape: </span><span class="sc">{</span>df_external<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Right join result: </span><span class="sc">{</span>df_right<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">All rows from RIGHT dataset are kept, even if no match in LEFT</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>df_right.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Left DataFrame shape: (4, 3)
-Right DataFrame shape: (5, 3)
-Right join result: (5, 4)
-
-All rows from RIGHT dataset are kept, even if no match in LEFT
-</code></pre>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="10">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">FellowshipID</th>
-<th data-quarto-table-cell-role="th">FirstName</th>
-<th data-quarto-table-cell-role="th">Skills</th>
-<th data-quarto-table-cell-role="th">Age</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>1001</td>
-<td>Frodo</td>
-<td>Hiding</td>
-<td>50</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>1002</td>
-<td>Samwise</td>
-<td>Gardening</td>
-<td>39</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
-<td>1006</td>
-<td>Legolas</td>
-<td>NaN</td>
-<td>2931</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>1007</td>
-<td>Elrond</td>
-<td>NaN</td>
-<td>6520</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">4</th>
-<td>1008</td>
-<td>Barromir</td>
-<td>NaN</td>
-<td>51</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<p><strong>When to use right join:</strong></p>
-<p>Right join serves the same purpose as left join, just with the DataFrames swapped. In practice:</p>
-<ul>
-<li><strong>Most analysts prefer left join</strong> because it’s more intuitive (reads left-to-right)</li>
-<li><strong>Right join is rarely used</strong> - you can always swap the DataFrames and use left join instead</li>
-</ul>
-<p><strong>Example equivalence:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># These produce the same result:</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>df_right <span class="op">=</span> pd.merge(df_A, df_B, how<span class="op">=</span><span class="st">'right'</span>)  <span class="co"># Right join</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>df_left <span class="op">=</span> pd.merge(df_B, df_A, how<span class="op">=</span><span class="st">'left'</span>)    <span class="co"># Equivalent left join</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>When you might see right join:</strong></p>
-<ul>
-<li>Legacy code or specific coding style preferences</li>
-<li>SQL background where RIGHT JOIN might be more familiar</li>
-<li>Method chaining where the order is determined by workflow</li>
-</ul>
-<p><strong>Best practice:</strong> Stick with left join and arrange your DataFrames accordingly—it makes code more readable and maintainable.</p>
-</section>
-<section id="outer-join-keep-all-rows-from-both-dataframes" class="level4" data-number="14.2.6.4">
-<h4 data-number="14.2.6.4" class="anchored" data-anchor-id="outer-join-keep-all-rows-from-both-dataframes"><span class="header-section-number">14.2.6.4</span> Outer Join: Keep All Rows from Both DataFrames</h4>
-<p>An <strong>outer join</strong> (also called a <strong>full outer join</strong>) returns <strong>all rows from both DataFrames</strong>, with <code>NaN</code> values where matches don’t exist. This is the most inclusive join type—no data is lost.</p>
-<div id="eb135e3d" class="cell" data-scrolled="false" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Outer join - keep all rows from BOTH datasets</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>df_outer <span class="op">=</span> pd.merge(df_existing, df_external, how<span class="op">=</span><span class="st">'outer'</span>)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Left DataFrame shape: </span><span class="sc">{</span>df_existing<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Right DataFrame shape: </span><span class="sc">{</span>df_external<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Outer join result: </span><span class="sc">{</span>df_outer<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">All rows from BOTH datasets are kept, with NaN for non-matches</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for missing values</span></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Missing values per column:"</span>)</span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_outer.isnull().<span class="bu">sum</span>())</span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>df_outer</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Left DataFrame shape: (4, 3)
-Right DataFrame shape: (5, 3)
-Outer join result: (7, 4)
-
-All rows from BOTH datasets are kept, with NaN for non-matches
-
-Missing values per column:
-FellowshipID    0
-FirstName       0
-Skills          3
-Age             2
-dtype: int64
-</code></pre>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="11">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">FellowshipID</th>
-<th data-quarto-table-cell-role="th">FirstName</th>
-<th data-quarto-table-cell-role="th">Skills</th>
-<th data-quarto-table-cell-role="th">Age</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>1001</td>
-<td>Frodo</td>
-<td>Hiding</td>
-<td>50.0</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>1002</td>
-<td>Samwise</td>
-<td>Gardening</td>
-<td>39.0</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
-<td>1003</td>
-<td>Gandalf</td>
-<td>Spells</td>
-<td>NaN</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>1004</td>
-<td>Pippin</td>
-<td>Fireworks</td>
-<td>NaN</td>
+<td>left_only</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">4</th>
@@ -1285,6 +891,7 @@ dtype: int64
 <td>Legolas</td>
 <td>NaN</td>
 <td>2931.0</td>
+<td>right_only</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">5</th>
@@ -1292,13 +899,15 @@ dtype: int64
 <td>Elrond</td>
 <td>NaN</td>
 <td>6520.0</td>
+<td>right_only</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">6</th>
 <td>1008</td>
-<td>Barromir</td>
+<td>Boromir</td>
 <td>NaN</td>
 <td>51.0</td>
+<td>right_only</td>
 </tr>
 </tbody>
 </table>
@@ -1306,102 +915,79 @@ dtype: int64
 </div>
 </div>
 </div>
-<p><strong>When to use outer join:</strong></p>
-<p>Use outer join when you <strong>cannot afford to lose any data</strong> from either dataset, even if it means having incomplete records.</p>
-<p><strong>Real-world examples:</strong></p>
-<ol type="1">
-<li><p><strong>Course surveys from multiple time points</strong></p>
-<ul>
-<li>Dataset 1: Mid-semester survey responses</li>
-<li>Dataset 2: End-of-semester survey responses</li>
-<li><strong>Why outer join?</strong> Students who responded to either survey provide valuable feedback. Keep all responses, even from students who only completed one survey. Analyze response patterns and sentiment across all participants.</li>
-</ul></li>
-<li><p><strong>Multi-source customer data integration</strong></p>
-<ul>
-<li>Dataset 1: Online purchase records</li>
-<li>Dataset 2: In-store purchase records</li>
-<li><strong>Why outer join?</strong> Customers may shop through one channel only. Keep all customers to understand total customer base and channel preferences.</li>
-</ul></li>
-<li><p><strong>Scientific study with partial data</strong></p>
-<ul>
-<li>Dataset 1: Lab test results</li>
-<li>Dataset 2: Clinical observations</li>
-<li><strong>Why outer join?</strong> Some subjects may have only lab results or only clinical observations due to scheduling, dropouts, or data collection issues. Keep all subjects to maximize sample size and identify patterns in data availability.</li>
-</ul></li>
-<li><p><strong>Data quality auditing</strong></p>
-<ul>
-<li>Dataset 1: Expected records (should exist)</li>
-<li>Dataset 2: Actual records (what we have)</li>
-<li><strong>Why outer join?</strong> Identify both missing expected records (in left but not right) and unexpected extra records (in right but not left) for data quality assessment.</li>
-</ul></li>
-</ol>
-<p><strong>Key principle:</strong> Use outer join when completeness trumps having matched pairs, and you’ll handle missing values appropriately in subsequent analysis.</p>
-</section>
-</section>
-</section>
-<section id="method-2-joining-with-join" class="level2" data-number="14.3">
-<h2 data-number="14.3" class="anchored" data-anchor-id="method-2-joining-with-join"><span class="header-section-number">14.3</span> Method 2: Joining with <code>join()</code></h2>
-<p>While <code>merge()</code> combines DataFrames based on <strong>column values</strong>, the <code>join()</code> method combines them based on their <strong>indices</strong>. This is particularly useful when your DataFrames are already indexed by a meaningful key (like customer ID, timestamp, etc.).</p>
-<section id="key-difference-merge-vs-join" class="level3" data-number="14.3.1">
-<h3 data-number="14.3.1" class="anchored" data-anchor-id="key-difference-merge-vs-join"><span class="header-section-number">14.3.1</span> Key Difference: <code>merge()</code> vs <code>join()</code></h3>
+<div id="combine-indicator-counts" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fellowship[<span class="st">"_merge"</span>].value_counts()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>_merge
+right_only    3
+left_only     2
+both          2
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<p><code>both</code>, <code>left_only</code>, and <code>right_only</code> are the three colours of the diagram. Counting the <code>_merge</code> column is the quickest way to see how well two tables matched: a merge you expected to pair almost everything, but that shows many <code>left_only</code> rows, is usually a sign that the keys are written differently in the two tables.</p>
+<p><strong>Which <code>how=</code> to use.</strong></p>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
 <thead>
 <tr class="header">
-<th>Aspect</th>
-<th><code>merge()</code></th>
-<th><code>join()</code></th>
+<th><code>how=</code></th>
+<th>Use when</th>
+<th>Examples</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>Joins on</strong></td>
-<td>Column values</td>
-<td>Index values</td>
+<td><code>"inner"</code></td>
+<td>The analysis needs both pieces of information for every row</td>
+<td>Relating vaccination rates to infection rates: only countries with both can contribute. An A/B test: only users with both a group assignment and an outcome count.</td>
 </tr>
 <tr class="even">
-<td><strong>Default join</strong></td>
-<td>Inner</td>
-<td>Left</td>
+<td><code>"left"</code></td>
+<td>The left table is your primary data and every row must stay</td>
+<td>All customers with their purchases: a customer with no purchases spent $0. All employees with their reviews: an employee not yet reviewed is “pending”, not missing.</td>
 </tr>
 <tr class="odd">
-<td><strong>Syntax</strong></td>
-<td>More explicit</td>
-<td>More concise</td>
+<td><code>"outer"</code></td>
+<td>Nothing may be lost from either table</td>
+<td>Mid- and end-of-semester surveys: keep every student who answered either one. Auditing expected against actual records: find what is missing on each side.</td>
 </tr>
 <tr class="even">
-<td><strong>Use when</strong></td>
-<td>Keys are in columns</td>
-<td>Keys are in index</td>
+<td><code>"right"</code></td>
+<td>The right table is primary</td>
+<td>The same as a left join with the tables swapped; writing it as a left join, primary table first, usually reads more clearly.</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="important-handling-overlapping-columns" class="level3" data-number="14.3.2">
-<h3 data-number="14.3.2" class="anchored" data-anchor-id="important-handling-overlapping-columns"><span class="header-section-number">14.3.2</span> Important: Handling Overlapping Columns</h3>
-<p>Unlike <code>merge()</code>, <code>join()</code> requires you to specify <strong>suffixes</strong> for overlapping column names (it has no default). This is done with the <code>lsuffix</code> and <code>rsuffix</code> parameters.</p>
-<p>Let’s see what happens without suffixes:</p>
-<p>The code above will raise an error because both DataFrames have overlapping column names, and <code>join()</code> doesn’t know how to handle them without suffixes.</p>
-<p><strong>Let’s fix this by adding suffixes:</strong></p>
-<div id="368567a9" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Join with suffixes to handle overlapping column names</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>df_joined <span class="op">=</span> df_existing.join(</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    df_external, </span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    lsuffix<span class="op">=</span><span class="st">'_existing'</span>,  <span class="co"># Suffix for left DataFrame columns</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    rsuffix<span class="op">=</span><span class="st">'_external'</span>    <span class="co"># Suffix for right DataFrame columns</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Joined dataset shape: </span><span class="sc">{</span>df_joined<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Columns with suffixes:"</span>)</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>([col <span class="cf">for</span> col <span class="kw">in</span> df_joined.columns <span class="cf">if</span> <span class="st">'_existing'</span> <span class="kw">in</span> col <span class="kw">or</span> <span class="st">'_external'</span> <span class="kw">in</span> col])</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>df_joined.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="check-a-merge" class="level2" data-number="14.5">
+<h2 data-number="14.5" class="anchored" data-anchor-id="check-a-merge"><span class="header-section-number">14.5</span> Check a merge</h2>
+<p>A merge can return a table of the right shape that is quietly wrong. Three checks catch most problems: the row count, the uniqueness of the keys, and the missing values that unmatched keys leave behind.</p>
+<section id="the-row-count-and-keys-that-repeat" class="level3" data-number="14.5.1">
+<h3 data-number="14.5.1" class="anchored" data-anchor-id="the-row-count-and-keys-that-repeat"><span class="header-section-number">14.5.1</span> The row count, and keys that repeat</h3>
+<p>Suppose life expectancy and GDP arrived in two separate tables, both keyed by country and year:</p>
+<div id="combine-split" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>life <span class="op">=</span> gapminder[[<span class="st">"country"</span>, <span class="st">"year"</span>, <span class="st">"lifeExp"</span>]]</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>money <span class="op">=</span> gapminder[[<span class="st">"country"</span>, <span class="st">"year"</span>, <span class="st">"gdpPercap"</span>]]</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>both_keys <span class="op">=</span> life.merge(money, on<span class="op">=</span>[<span class="st">"country"</span>, <span class="st">"year"</span>])</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(life.shape, money.shape, <span class="st">"-&gt;"</span>, both_keys.shape)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Joined dataset shape: (4, 6)
-
-Columns with suffixes:
-['FellowshipID_existing', 'FirstName_existing', 'FellowshipID_external', 'FirstName_external']
-</code></pre>
+<pre><code>(1704, 3) (1704, 3) -&gt; (1704, 4)</code></pre>
+</div>
+</div>
+<p>1,704 rows in, 1,704 rows out: every country-year found exactly one partner. Now the same merge with an incomplete key, <code>country</code> alone:</p>
+<div id="combine-explode" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>country_only <span class="op">=</span> life.merge(money, on<span class="op">=</span><span class="st">"country"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(country_only.shape)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>country_only.head(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(20448, 5)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <div>
@@ -1411,11 +997,149 @@ Columns with suffixes:
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">FellowshipID_existing</th>
-<th data-quarto-table-cell-role="th">FirstName_existing</th>
+<th data-quarto-table-cell-role="th">country</th>
+<th data-quarto-table-cell-role="th">year_x</th>
+<th data-quarto-table-cell-role="th">lifeExp</th>
+<th data-quarto-table-cell-role="th">year_y</th>
+<th data-quarto-table-cell-role="th">gdpPercap</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>Algeria</td>
+<td>1952</td>
+<td>43.077</td>
+<td>1952</td>
+<td>2449.008185</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>Algeria</td>
+<td>1952</td>
+<td>43.077</td>
+<td>1957</td>
+<td>3013.976023</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>Algeria</td>
+<td>1952</td>
+<td>43.077</td>
+<td>1962</td>
+<td>2550.816880</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>20,448 rows: twelve times too many, and no error. Each country has 12 rows in each table, so every row in <code>life</code> pairs with all 12 rows of the same country in <code>money</code>, and 12 × 12 = 144 rows per country × 142 countries = 20,448. The <code>year_x</code> and <code>year_y</code> columns are the giveaway: a 1952 life expectancy sits beside a 2007 GDP. A <strong>key</strong> must identify one row; <code>country</code> alone does not.</p>
+<p><code>validate=</code> tells <code>merge()</code> what you expect and raises an error when the keys disagree. <code>"one_to_one"</code> means each key appears at most once in each table; <code>"many_to_one"</code> means the right table’s keys are unique, as for a lookup table. A <code>try</code>/<code>except</code> block shows the error and lets the notebook keep running:</p>
+<div id="combine-validate" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    life.merge(money, on<span class="op">=</span><span class="st">"country"</span>, validate<span class="op">=</span><span class="st">"one_to_one"</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> pd.errors.MergeError <span class="im">as</span> error:</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"MergeError:"</span>, <span class="bu">str</span>(error).splitlines()[<span class="dv">0</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>MergeError: Merge keys are not unique in either left or right dataset; not a one-to-one merge.</code></pre>
+</div>
+</div>
+<p>The same check passes for the correct key, <code>on=["country", "year"]</code>. Add <code>validate=</code> whenever you know how the tables should relate; it turns a silent row explosion into an error you cannot miss. Before merging, <code>df.duplicated(subset=key).sum()</code>, from <a href="./Data_cleaning.html">Data Cleaning</a>, counts repeated keys in each table.</p>
+</section>
+<section id="many-rows-to-one-a-lookup-table" class="level3" data-number="14.5.2">
+<h3 data-number="14.5.2" class="anchored" data-anchor-id="many-rows-to-one-a-lookup-table"><span class="header-section-number">14.5.2</span> Many rows to one: a lookup table</h3>
+<p>The most common merge in practice attaches a small <strong>lookup table</strong> to many rows: a region for each state, a price for each product code, a group summary for each member. Each row of the large table matches exactly one row of the lookup table, while each lookup row matches many — the <code>"many_to_one"</code> relationship.</p>
+<p>A summary from <a href="./Data aggregation.html">Data Grouping and Aggregation</a> makes a lookup table: mean life expectancy for each continent and year, 60 rows. <code>rename()</code> gives its value column a distinct name before the merge:</p>
+<div id="combine-lookup" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>continent_mean <span class="op">=</span> (gapminder.groupby([<span class="st">"continent"</span>, <span class="st">"year"</span>])[<span class="st">"lifeExp"</span>].mean()</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                  .reset_index()</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                  .rename(columns<span class="op">=</span>{<span class="st">"lifeExp"</span>: <span class="st">"continent_lifeExp"</span>}))</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>with_mean <span class="op">=</span> gapminder.merge(continent_mean, on<span class="op">=</span>[<span class="st">"continent"</span>, <span class="st">"year"</span>],</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>                            how<span class="op">=</span><span class="st">"left"</span>, validate<span class="op">=</span><span class="st">"many_to_one"</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(continent_mean.shape, <span class="st">"-&gt;"</span>, with_mean.shape)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(60, 3) -&gt; (1704, 7)</code></pre>
+</div>
+</div>
+<p><code>validate="many_to_one"</code> passes because each continent-year appears once in the lookup table, and the row count is still 1,704: every country row gained one value and none was duplicated. That is the check for any lookup merge — the row count must not change.</p>
+<p>Each country can now be compared with its continent in the same year:</p>
+<div id="combine-lookup-gap" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>with_mean[<span class="st">"gap"</span>] <span class="op">=</span> with_mean[<span class="st">"lifeExp"</span>] <span class="op">-</span> with_mean[<span class="st">"continent_lifeExp"</span>]</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>(with_mean.sort_values(<span class="st">"gap"</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    [[<span class="st">"country"</span>, <span class="st">"continent"</span>, <span class="st">"year"</span>, <span class="st">"lifeExp"</span>, <span class="st">"continent_lifeExp"</span>, <span class="st">"gap"</span>]]</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    .head(<span class="dv">3</span>).<span class="bu">round</span>(<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">country</th>
+<th data-quarto-table-cell-role="th">continent</th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">lifeExp</th>
+<th data-quarto-table-cell-role="th">continent_lifeExp</th>
+<th data-quarto-table-cell-role="th">gap</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">464</th>
+<td>Rwanda</td>
+<td>Africa</td>
+<td>1992</td>
+<td>23.6</td>
+<td>53.6</td>
+<td>-30.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">965</th>
+<td>Cambodia</td>
+<td>Asia</td>
+<td>1977</td>
+<td>31.2</td>
+<td>59.6</td>
+<td>-28.4</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">934</th>
+<td>Afghanistan</td>
+<td>Asia</td>
+<td>2002</td>
+<td>42.1</td>
+<td>69.2</td>
+<td>-27.1</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>The largest gaps below a continent’s mean are Rwanda in 1992, 30 years below Africa’s mean in the years of its civil war and genocide; Cambodia in 1977, under the Khmer Rouge; and Afghanistan in 2002. The <code>continent_lifeExp</code> column is exactly what <code>groupby(["continent", "year"])["lifeExp"].transform("mean")</code> gave in Data Grouping and Aggregation. <code>transform()</code> is the shortcut when the summary comes from the same table; merging a summary back is the general pattern, and it works when the lookup table comes from somewhere else.</p>
+</section>
+<section id="missing-values-from-unmatched-keys" class="level3" data-number="14.5.3">
+<h3 data-number="14.5.3" class="anchored" data-anchor-id="missing-values-from-unmatched-keys"><span class="header-section-number">14.5.3</span> Missing values from unmatched keys</h3>
+<p>A left or outer merge fills the columns of unmatched rows with <code>NaN</code>. Unlike the gaps in Data Cleaning, these mean something specific: <em>this key was not found in the other table</em>. The right handling depends on what absence means.</p>
+<div id="combine-unmatched" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>left_join <span class="op">=</span> skills.merge(ages, on<span class="op">=</span>[<span class="st">"FellowshipID"</span>, <span class="st">"FirstName"</span>], how<span class="op">=</span><span class="st">"left"</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>left_join</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">FellowshipID</th>
+<th data-quarto-table-cell-role="th">FirstName</th>
 <th data-quarto-table-cell-role="th">Skills</th>
-<th data-quarto-table-cell-role="th">FellowshipID_external</th>
-<th data-quarto-table-cell-role="th">FirstName_external</th>
 <th data-quarto-table-cell-role="th">Age</th>
 </tr>
 </thead>
@@ -1425,151 +1149,27 @@ Columns with suffixes:
 <td>1001</td>
 <td>Frodo</td>
 <td>Hiding</td>
-<td>1001</td>
-<td>Frodo</td>
-<td>50</td>
+<td>50.0</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">1</th>
 <td>1002</td>
 <td>Samwise</td>
 <td>Gardening</td>
-<td>1002</td>
-<td>Samwise</td>
-<td>39</td>
+<td>39.0</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">2</th>
 <td>1003</td>
 <td>Gandalf</td>
 <td>Spells</td>
-<td>1006</td>
-<td>Legolas</td>
-<td>2931</td>
+<td>NaN</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">3</th>
 <td>1004</td>
 <td>Pippin</td>
 <td>Fireworks</td>
-<td>1007</td>
-<td>Elrond</td>
-<td>6520</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<p><strong>Key Observations:</strong></p>
-<ol type="1">
-<li><strong>Default behavior:</strong> <code>join()</code> performs a <strong>left join</strong> by default (keeps all rows from the left DataFrame)</li>
-<li><strong>Index-based:</strong> Rows are matched using the DataFrame indices (0, 1, 2, …)</li>
-<li><strong>Suffixes required:</strong> Overlapping column names get the specified suffixes</li>
-</ol>
-<p>This works, but notice we’re joining on the <strong>default integer index</strong> (0, 1, 2, …), which may not be meaningful. Let’s make this more useful by setting a proper index.</p>
-</section>
-<section id="setting-a-meaningful-index-for-joining" class="level3" data-number="14.3.3">
-<h3 data-number="14.3.3" class="anchored" data-anchor-id="setting-a-meaningful-index-for-joining"><span class="header-section-number">14.3.3</span> Setting a Meaningful Index for Joining</h3>
-<p>For <code>join()</code> to be truly useful, we should set a <strong>meaningful column as the index</strong> (like <code>FellowshipID</code>). This way, rows are matched based on actual business logic, not arbitrary row numbers.</p>
-<div id="fdec7ce7" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set 'FellowshipID' as the index for both DataFrames</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>df_existing_indexed <span class="op">=</span> df_existing.set_index(<span class="st">'FellowshipID'</span>)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>df_external_indexed <span class="op">=</span> df_external.set_index(<span class="st">'FellowshipID'</span>)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Left DataFrame (indexed by Fellowship ID):"</span>)</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_existing_indexed.head())</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Right DataFrame (indexed by FellowshipID):"</span>)</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_external_indexed.head())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Left DataFrame (indexed by Fellowship ID):
-             FirstName     Skills
-FellowshipID                     
-1001             Frodo     Hiding
-1002           Samwise  Gardening
-1003           Gandalf     Spells
-1004            Pippin  Fireworks
-
-Right DataFrame (indexed by FellowshipID):
-             FirstName   Age
-FellowshipID                
-1001             Frodo    50
-1002           Samwise    39
-1006           Legolas  2931
-1007            Elrond  6520
-1008          Barromir    51</code></pre>
-</div>
-</div>
-<div id="7d7986d8" class="cell" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now join using the FellowshipID index</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>df_joined_indexed <span class="op">=</span> df_existing_indexed.join(</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    df_external_indexed, </span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    lsuffix<span class="op">=</span><span class="st">'_existing'</span>,</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    rsuffix<span class="op">=</span><span class="st">'_external'</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Joined dataset shape: </span><span class="sc">{</span>df_joined_indexed<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Index name: </span><span class="sc">{</span>df_joined_indexed<span class="sc">.</span>index<span class="sc">.</span>name<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Now rows are matched by FellowshipID, not arbitrary row numbers!</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>df_joined_indexed</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Joined dataset shape: (4, 4)
-
-Index name: FellowshipID
-
-Now rows are matched by FellowshipID, not arbitrary row numbers!
-</code></pre>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="14">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">FirstName_existing</th>
-<th data-quarto-table-cell-role="th">Skills</th>
-<th data-quarto-table-cell-role="th">FirstName_external</th>
-<th data-quarto-table-cell-role="th">Age</th>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">FellowshipID</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">1001</th>
-<td>Frodo</td>
-<td>Hiding</td>
-<td>Frodo</td>
-<td>50.0</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">1002</th>
-<td>Samwise</td>
-<td>Gardening</td>
-<td>Samwise</td>
-<td>39.0</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">1003</th>
-<td>Gandalf</td>
-<td>Spells</td>
-<td>NaN</td>
-<td>NaN</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">1004</th>
-<td>Pippin</td>
-<td>Fireworks</td>
-<td>NaN</td>
 <td>NaN</td>
 </tr>
 </tbody>
@@ -1578,880 +1178,187 @@ Now rows are matched by FellowshipID, not arbitrary row numbers!
 </div>
 </div>
 </div>
-<p><strong>Perfect!</strong> Now the join is meaningful:</p>
+<p>Gandalf’s and Pippin’s ages are <code>NaN</code> because the <code>ages</code> table has no row for them, not because their age is zero. Three choices, from Data Cleaning:</p>
 <ul>
-<li>Rows are matched by <code>FellowshipID</code> (a business key)</li>
-<li>All rows from the left DataFrame are kept (default left join)</li>
-<li><code>NaN</code> values appear where <code>FellowshipID</code> doesn’t exist in the right DataFrame</li>
-<li>The index preserves the key for easy lookup</li>
+<li><strong>Keep</strong> the <code>NaN</code> when absence is informative and should be reported, as here: the ages table is incomplete.</li>
+<li><strong>Fill</strong> when absence has a known meaning: a customer with no purchase rows spent $0, so <code>fillna(0)</code> is correct for spend, though it would be wrong for age.</li>
+<li><strong>Drop</strong> with <code>dropna(subset=[...])</code> when an analysis needs both values — which is the same as having used an inner join.</li>
 </ul>
-</section>
-<section id="changing-join-type-in-join" class="level3" data-number="14.3.4">
-<h3 data-number="14.3.4" class="anchored" data-anchor-id="changing-join-type-in-join"><span class="header-section-number">14.3.4</span> Changing Join Type in <code>join()</code></h3>
-<p>Just like <code>merge()</code>, you can specify the join type using the <code>how</code> parameter:</p>
-<div id="29a91205" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Examples of different join types with join()</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Inner join:"</span>)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_existing_indexed.join(df_external_indexed, how<span class="op">=</span><span class="st">'inner'</span>, lsuffix<span class="op">=</span><span class="st">'_L'</span>, rsuffix<span class="op">=</span><span class="st">'_R'</span>).shape)</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Outer join:"</span>)</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_existing_indexed.join(df_external_indexed, how<span class="op">=</span><span class="st">'outer'</span>, lsuffix<span class="op">=</span><span class="st">'_L'</span>, rsuffix<span class="op">=</span><span class="st">'_R'</span>).shape)</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Right join:"</span>)</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_existing_indexed.join(df_external_indexed, how<span class="op">=</span><span class="st">'right'</span>, lsuffix<span class="op">=</span><span class="st">'_L'</span>, rsuffix<span class="op">=</span><span class="st">'_R'</span>).shape)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Inner join:
-(2, 4)
-
-Outer join:
-(7, 4)
-
-Right join:
-(5, 4)</code></pre>
+<p>Whichever you choose, count how many rows were unmatched before deciding.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span><code>join()</code> and <code>concat(axis=1)</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You will also meet <code>df.join(other)</code>, which matches rows on the <strong>index</strong> rather than on a column, and <code>pd.concat([a, b], axis=1)</code>, which places tables side by side by index. Both do work <code>merge()</code> can do once the key is an ordinary column, which is how this book writes it: <code>merge()</code> names the key, so the match is visible in the code.</p>
 </div>
 </div>
 </section>
 </section>
-<section id="method-3-concatenating-with-concat" class="level2" data-number="14.4">
-<h2 data-number="14.4" class="anchored" data-anchor-id="method-3-concatenating-with-concat"><span class="header-section-number">14.4</span> Method 3: Concatenating with <code>concat()</code></h2>
-<p>While <code>merge()</code> and <code>join()</code> combine DataFrames by matching keys or indices, <code>concat()</code> simply <strong>stacks DataFrames together</strong> either vertically (one on top of another) or horizontally (side by side). Think of it as physically gluing DataFrames together.</p>
-<section id="the-two-directions-axis-parameter" class="level3" data-number="14.4.1">
-<h3 data-number="14.4.1" class="anchored" data-anchor-id="the-two-directions-axis-parameter"><span class="header-section-number">14.4.1</span> The Two Directions: <code>axis</code> Parameter</h3>
+<section id="summary-cheat-sheet" class="level2" data-number="14.6">
+<h2 data-number="14.6" class="anchored" data-anchor-id="summary-cheat-sheet"><span class="header-section-number">14.6</span> Summary Cheat Sheet</h2>
+<p><strong>Stacking.</strong></p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 23%">
-<col style="width: 28%">
-<col style="width: 21%">
-<col style="width: 26%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
-<th><code>axis=</code></th>
-<th>Direction</th>
-<th>Effect</th>
-<th>Use Case</th>
+<th>Goal</th>
+<th>Code</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>0</strong> (default)</td>
-<td>Vertical</td>
-<td>Rows on top of rows</td>
-<td>Combining data from multiple time periods</td>
+<td>Stack tables with the same columns</td>
+<td><code>pd.concat([a, b, c], ignore_index=True)</code></td>
 </tr>
 <tr class="even">
-<td><strong>1</strong></td>
-<td>Horizontal</td>
-<td>Columns side by side</td>
-<td>Adding new features/attributes</td>
+<td>Record each piece’s source</td>
+<td><code>piece["source"] = name</code> before stacking</td>
+</tr>
+<tr class="odd">
+<td>Check the result</td>
+<td>rows equal the sum of the pieces; inspect <code>columns</code></td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="concatenating-along-rows-vertical-stacking" class="level3" data-number="14.4.2">
-<h3 data-number="14.4.2" class="anchored" data-anchor-id="concatenating-along-rows-vertical-stacking"><span class="header-section-number">14.4.2</span> Concatenating Along Rows (Vertical Stacking)</h3>
-<p>The default behavior (<code>axis=0</code>) stacks DataFrames vertically—adding more rows.</p>
-<section id="simple-example-with-fellowship-data" class="level4" data-number="14.4.2.1">
-<h4 data-number="14.4.2.1" class="anchored" data-anchor-id="simple-example-with-fellowship-data"><span class="header-section-number">14.4.2.1</span> Simple Example with Fellowship Data</h4>
-<p>Let’s start with a simple example using our LOTR datasets to understand the basics:</p>
-<div id="b9ac851c" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split our LOTR data into two groups to demonstrate concatenation</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>lotr_df1 <span class="op">=</span> df_existing.head(<span class="dv">5</span>)  <span class="co"># First 5 fellowship members</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>lotr_df2 <span class="op">=</span> df_existing.tail(<span class="dv">4</span>)  <span class="co"># Last 4 fellowship members</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"First group:"</span>)</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lotr_df1)</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Second group:"</span>)</span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lotr_df2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="16ce9791" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Concatenate vertically (default: axis=0) - stack rows</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>lotr_combined <span class="op">=</span> pd.concat([lotr_df1, lotr_df2])</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"First group: </span><span class="sc">{</span>lotr_df1<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Second group: </span><span class="sc">{</span>lotr_df2<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Combined: </span><span class="sc">{</span>lotr_combined<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Rows are simply stacked on top of each other:</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>lotr_combined</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p><strong>Key points about vertical concatenation:</strong></p>
-<ul>
-<li>Rows are simply stacked (group 1 rows, then group 2 rows)</li>
-<li>Index values may be duplicated (notice indices 0-4 appear, then 5-8)</li>
-<li>All columns from both DataFrames are kept</li>
-<li>No key matching occurs—just physical stacking</li>
-</ul>
-<p><strong>Use <code>ignore_index=True</code> to create a new sequential index:</strong></p>
-<div id="7ed07b71" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reset index to create sequential numbering</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>lotr_combined_reset <span class="op">=</span> pd.concat([lotr_df1, lotr_df2], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"With ignore_index=True, we get a clean sequential index:</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>lotr_combined_reset</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="real-world-example-combining-continental-data" class="level4" data-number="14.4.2.2">
-<h4 data-number="14.4.2.2" class="anchored" data-anchor-id="real-world-example-combining-continental-data"><span class="header-section-number">14.4.2.2</span> Real-World Example: Combining Continental Data</h4>
-<p>Now let’s see a practical real-world use case: combining GDP and life expectancy data that’s been split across multiple files by continent. This is a common scenario when data is stored in separate files for organizational purposes.</p>
-<div id="0e1cad63" class="cell" data-execution_count="16">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>data_asia <span class="op">=</span> pd.read_csv(<span class="st">'./Datasets/gdp_lifeExpec_Asia.csv'</span>)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>data_europe <span class="op">=</span> pd.read_csv(<span class="st">'./Datasets/gdp_lifeExpec_Europe.csv'</span>)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>data_africa <span class="op">=</span> pd.read_csv(<span class="st">'./Datasets/gdp_lifeExpec_Africa.csv'</span>)</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>data_oceania <span class="op">=</span> pd.read_csv(<span class="st">'./Datasets/gdp_lifeExpec_Oceania.csv'</span>)</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>data_americas <span class="op">=</span> pd.read_csv(<span class="st">'./Datasets/gdp_lifeExpec_Americas.csv'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="15aad44e" class="cell" data-execution_count="17">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Appending all the data files, i.e., stacking them on top of each other</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>data_all_continents <span class="op">=</span> pd.concat([data_asia,data_europe,data_africa,data_oceania,data_americas],keys <span class="op">=</span> [<span class="st">'Asia'</span>,<span class="st">'Europe'</span>,<span class="st">'Africa'</span>,<span class="st">'Oceania'</span>,<span class="st">'Americas'</span>])</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>data_all_continents</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">country</th>
-<th data-quarto-table-cell-role="th">year</th>
-<th data-quarto-table-cell-role="th">lifeExp</th>
-<th data-quarto-table-cell-role="th">pop</th>
-<th data-quarto-table-cell-role="th">gdpPercap</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th rowspan="5" data-quarto-table-cell-role="th" data-valign="top">Asia</th>
-<th data-quarto-table-cell-role="th">0</th>
-<td>Afghanistan</td>
-<td>1952</td>
-<td>28.801</td>
-<td>8425333</td>
-<td>779.445314</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>Afghanistan</td>
-<td>1957</td>
-<td>30.332</td>
-<td>9240934</td>
-<td>820.853030</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
-<td>Afghanistan</td>
-<td>1962</td>
-<td>31.997</td>
-<td>10267083</td>
-<td>853.100710</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>Afghanistan</td>
-<td>1967</td>
-<td>34.020</td>
-<td>11537966</td>
-<td>836.197138</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">4</th>
-<td>Afghanistan</td>
-<td>1972</td>
-<td>36.088</td>
-<td>13079460</td>
-<td>739.981106</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">...</th>
-<th data-quarto-table-cell-role="th">...</th>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<th rowspan="5" data-quarto-table-cell-role="th" data-valign="top">Americas</th>
-<th data-quarto-table-cell-role="th">295</th>
-<td>Venezuela</td>
-<td>1987</td>
-<td>70.190</td>
-<td>17910182</td>
-<td>9883.584648</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">296</th>
-<td>Venezuela</td>
-<td>1992</td>
-<td>71.150</td>
-<td>20265563</td>
-<td>10733.926310</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">297</th>
-<td>Venezuela</td>
-<td>1997</td>
-<td>72.146</td>
-<td>22374398</td>
-<td>10165.495180</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">298</th>
-<td>Venezuela</td>
-<td>2002</td>
-<td>72.766</td>
-<td>24287670</td>
-<td>8605.047831</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">299</th>
-<td>Venezuela</td>
-<td>2007</td>
-<td>73.747</td>
-<td>26084662</td>
-<td>11415.805690</td>
-</tr>
-</tbody>
-</table>
-
-<p>1704 rows × 5 columns</p>
-</div>
-</div>
-</div>
-<p>Let’s have the continent as a column as we need to use that in the visualization.</p>
-<div id="46a27d26" class="cell" data-execution_count="18">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>data_all_continents.reset_index(inplace <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>data_all_continents.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">level_0</th>
-<th data-quarto-table-cell-role="th">level_1</th>
-<th data-quarto-table-cell-role="th">country</th>
-<th data-quarto-table-cell-role="th">year</th>
-<th data-quarto-table-cell-role="th">lifeExp</th>
-<th data-quarto-table-cell-role="th">pop</th>
-<th data-quarto-table-cell-role="th">gdpPercap</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>Asia</td>
-<td>0</td>
-<td>Afghanistan</td>
-<td>1952</td>
-<td>28.801</td>
-<td>8425333</td>
-<td>779.445314</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>Asia</td>
-<td>1</td>
-<td>Afghanistan</td>
-<td>1957</td>
-<td>30.332</td>
-<td>9240934</td>
-<td>820.853030</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
-<td>Asia</td>
-<td>2</td>
-<td>Afghanistan</td>
-<td>1962</td>
-<td>31.997</td>
-<td>10267083</td>
-<td>853.100710</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>Asia</td>
-<td>3</td>
-<td>Afghanistan</td>
-<td>1967</td>
-<td>34.020</td>
-<td>11537966</td>
-<td>836.197138</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">4</th>
-<td>Asia</td>
-<td>4</td>
-<td>Afghanistan</td>
-<td>1972</td>
-<td>36.088</td>
-<td>13079460</td>
-<td>739.981106</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<div id="0e6e4d88" class="cell" data-execution_count="19">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>data_all_continents.drop(columns <span class="op">=</span> <span class="st">'level_1'</span>,inplace <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>data_all_continents.rename(columns <span class="op">=</span> {<span class="st">'level_0'</span>:<span class="st">'continent'</span>},inplace <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>data_all_continents.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">continent</th>
-<th data-quarto-table-cell-role="th">country</th>
-<th data-quarto-table-cell-role="th">year</th>
-<th data-quarto-table-cell-role="th">lifeExp</th>
-<th data-quarto-table-cell-role="th">pop</th>
-<th data-quarto-table-cell-role="th">gdpPercap</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>Asia</td>
-<td>Afghanistan</td>
-<td>1952</td>
-<td>28.801</td>
-<td>8425333</td>
-<td>779.445314</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>Asia</td>
-<td>Afghanistan</td>
-<td>1957</td>
-<td>30.332</td>
-<td>9240934</td>
-<td>820.853030</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
-<td>Asia</td>
-<td>Afghanistan</td>
-<td>1962</td>
-<td>31.997</td>
-<td>10267083</td>
-<td>853.100710</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>Asia</td>
-<td>Afghanistan</td>
-<td>1967</td>
-<td>34.020</td>
-<td>11537966</td>
-<td>836.197138</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">4</th>
-<td>Asia</td>
-<td>Afghanistan</td>
-<td>1972</td>
-<td>36.088</td>
-<td>13079460</td>
-<td>739.981106</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<div id="6187fc8f" class="cell" data-execution_count="22">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#change of life expectancy over time for different continents</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> sns.FacetGrid(data_all_continents,col <span class="op">=</span> <span class="st">'continent'</span>,col_wrap <span class="op">=</span> <span class="dv">3</span>,height <span class="op">=</span> <span class="fl">4.5</span>,aspect <span class="op">=</span> <span class="dv">1</span>)<span class="co">#height = 3,aspect = 0.8)</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>a.<span class="bu">map</span>(sns.lineplot,<span class="st">'year'</span>,<span class="st">'lifeExp'</span>)</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>a.add_legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Data wrangling_files/figure-html/cell-25-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>In the above example, datasets were appended (or stacked on top of each other).</p>
-<p>Datasets can also be concatenated side-by-side (by providing the argument axis = 1 with the concat() function) as we saw with the merge function.</p>
-</section>
-</section>
-<section id="horizontal-concatenation-combining-columns" class="level3" data-number="14.4.3">
-<h3 data-number="14.4.3" class="anchored" data-anchor-id="horizontal-concatenation-combining-columns"><span class="header-section-number">14.4.3</span> Horizontal Concatenation (Combining Columns)</h3>
-<p>Setting <code>axis=1</code> combines DataFrames side-by-side by aligning their <strong>indices</strong>.</p>
-<div id="3d33644b" class="cell" data-execution_count="23">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Concatenate horizontally (axis=1) - combine columns</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> pd.concat([df_existing, df_external], axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>result</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="23">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">FellowshipID</th>
-<th data-quarto-table-cell-role="th">FirstName</th>
-<th data-quarto-table-cell-role="th">Skills</th>
-<th data-quarto-table-cell-role="th">FellowshipID</th>
-<th data-quarto-table-cell-role="th">FirstName</th>
-<th data-quarto-table-cell-role="th">Age</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>1001.0</td>
-<td>Frodo</td>
-<td>Hiding</td>
-<td>1001</td>
-<td>Frodo</td>
-<td>50</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>1002.0</td>
-<td>Samwise</td>
-<td>Gardening</td>
-<td>1002</td>
-<td>Samwise</td>
-<td>39</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
-<td>1003.0</td>
-<td>Gandalf</td>
-<td>Spells</td>
-<td>1006</td>
-<td>Legolas</td>
-<td>2931</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>1004.0</td>
-<td>Pippin</td>
-<td>Fireworks</td>
-<td>1007</td>
-<td>Elrond</td>
-<td>6520</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">4</th>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>1008</td>
-<td>Barromir</td>
-<td>51</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<p><strong>Notice:</strong></p>
-<ul>
-<li>DataFrames are placed side-by-side</li>
-<li><strong>Index values are used for alignment</strong> (matching FellowshipIDs are aligned)</li>
-<li>Non-matching indices result in NaN values</li>
-<li>This is similar to an outer join on the index</li>
-</ul>
-<p><strong>When to use horizontal concat:</strong></p>
-<ul>
-<li>Adding new features/columns to existing data</li>
-<li>Combining results from different analyses on the same observations</li>
-<li>Building feature matrices for machine learning (each DataFrame contains different feature sets)</li>
-</ul>
-<section id="handling-duplicate-column-names" class="level4" data-number="14.4.3.1">
-<h4 data-number="14.4.3.1" class="anchored" data-anchor-id="handling-duplicate-column-names"><span class="header-section-number">14.4.3.1</span> Handling Duplicate Column Names</h4>
-<p>When concatenating horizontally with duplicate column names, pandas keeps both columns:</p>
-<div id="5221a6a7" class="cell" data-execution_count="24">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># See column names when both DataFrames have 'Name'</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>result.columns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="24">
-<pre><code>Index(['FellowshipID', 'FirstName', 'Skills', 'FellowshipID', 'FirstName',
-       'Age'],
-      dtype='object')</code></pre>
-</div>
-</div>
-<p>Both <code>Name</code> columns are kept, which can be confusing. You can use the <code>keys</code> parameter to create hierarchical column names:</p>
-<div id="7370a52d" class="cell" data-execution_count="25">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use keys to label which DataFrame each column came from</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>result_labeled <span class="op">=</span> pd.concat([df_existing, df_external], axis<span class="op">=</span><span class="dv">1</span>, keys<span class="op">=</span>[<span class="st">'Fellowship'</span>, <span class="st">'Extended'</span>])</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>result_labeled</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="25">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th colspan="3" data-quarto-table-cell-role="th" data-halign="left">Fellowship</th>
-<th colspan="3" data-quarto-table-cell-role="th" data-halign="left">Extended</th>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">FellowshipID</th>
-<th data-quarto-table-cell-role="th">FirstName</th>
-<th data-quarto-table-cell-role="th">Skills</th>
-<th data-quarto-table-cell-role="th">FellowshipID</th>
-<th data-quarto-table-cell-role="th">FirstName</th>
-<th data-quarto-table-cell-role="th">Age</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>1001.0</td>
-<td>Frodo</td>
-<td>Hiding</td>
-<td>1001</td>
-<td>Frodo</td>
-<td>50</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>1002.0</td>
-<td>Samwise</td>
-<td>Gardening</td>
-<td>1002</td>
-<td>Samwise</td>
-<td>39</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
-<td>1003.0</td>
-<td>Gandalf</td>
-<td>Spells</td>
-<td>1006</td>
-<td>Legolas</td>
-<td>2931</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>1004.0</td>
-<td>Pippin</td>
-<td>Fireworks</td>
-<td>1007</td>
-<td>Elrond</td>
-<td>6520</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">4</th>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>1008</td>
-<td>Barromir</td>
-<td>51</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<p>Now you can clearly see which DataFrame each column came from. This creates a <strong>MultiIndex</strong> for columns (we’ll cover this in detail in future chapters).</p>
-</section>
-</section>
-</section>
-<section id="summary-choosing-the-right-method" class="level2" data-number="14.5">
-<h2 data-number="14.5" class="anchored" data-anchor-id="summary-choosing-the-right-method"><span class="header-section-number">14.5</span> Summary: Choosing the Right Method</h2>
-<p>Now that we’ve covered all three methods for combining DataFrames, here’s how to choose:</p>
+<p><strong>Matching.</strong></p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 18%">
-<col style="width: 21%">
-<col style="width: 28%">
-<col style="width: 31%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
-<th><strong>Method</strong></th>
-<th><strong>Best For</strong></th>
-<th><strong>Key Feature</strong></th>
-<th><strong>Common Pitfall</strong></th>
+<th>Goal</th>
+<th>Code</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>merge()</code></td>
-<td>Combining on <strong>shared column(s)</strong></td>
-<td>Flexible join types (inner/left/right/outer)</td>
-<td>Forgetting to specify join type (defaults to inner)</td>
+<td>Match on one key</td>
+<td><code>left.merge(right, on="key")</code></td>
 </tr>
 <tr class="even">
-<td><code>join()</code></td>
-<td>Combining on <strong>index</strong> values</td>
-<td>Quick syntax for index-based joins</td>
-<td>Index must be set up properly beforehand</td>
+<td>Match on several keys</td>
+<td><code>left.merge(right, on=["k1", "k2"])</code></td>
 </tr>
 <tr class="odd">
-<td><code>concat()</code></td>
-<td>Stacking DataFrames with <strong>same structure</strong></td>
-<td>Simple vertical/horizontal stacking</td>
-<td>Doesn’t match on keys (just stacks/aligns)</td>
+<td>Keys with different names</td>
+<td><code>left.merge(right, left_on="id", right_on="ID")</code></td>
+</tr>
+<tr class="even">
+<td>Keep unmatched rows</td>
+<td><code>how="left"</code>, <code>"right"</code>, or <code>"outer"</code> (default <code>"inner"</code>)</td>
+</tr>
+<tr class="odd">
+<td>See where each row came from</td>
+<td><code>indicator=True</code>, then <code>df["_merge"].value_counts()</code></td>
+</tr>
+<tr class="even">
+<td>Enforce how keys relate</td>
+<td><code>validate="one_to_one"</code> or <code>"many_to_one"</code></td>
+</tr>
+<tr class="odd">
+<td>Count repeated keys first</td>
+<td><code>df.duplicated(subset=["key"]).sum()</code></td>
+</tr>
+<tr class="even">
+<td>Attach a lookup table</td>
+<td><code>big.merge(lookup, on="key", how="left", validate="many_to_one")</code>; rows unchanged</td>
 </tr>
 </tbody>
 </table>
-<section id="decision-tree" class="level3" data-number="14.5.1">
-<h3 data-number="14.5.1" class="anchored" data-anchor-id="decision-tree"><span class="header-section-number">14.5.1</span> Decision Tree:</h3>
-<ol type="1">
-<li><p><strong>Do you need to match rows based on values in columns?</strong></p>
-<ul>
-<li>Yes → Use <code>merge()</code> (specify join type and <code>on=</code> parameter)</li>
-</ul></li>
-<li><p><strong>Do you need to match rows based on index values?</strong></p>
-<ul>
-<li>Yes → Use <code>join()</code> (ensure indices are meaningful)</li>
-</ul></li>
-<li><p><strong>Do you just need to stack DataFrames?</strong></p>
-<ul>
-<li>Vertically (add more rows) → Use <code>concat(axis=0)</code></li>
-<li>Horizontally (add more columns) → Use <code>concat(axis=1)</code> (aligns on index)</li>
-</ul></li>
-</ol>
+<p>The rule to remember: <strong>after every merge, compare the row count with what you expected and count where the rows came from.</strong></p>
 </section>
-</section>
-<section id="handling-missing-values-after-combining-datasets" class="level2" data-number="14.6">
-<h2 data-number="14.6" class="anchored" data-anchor-id="handling-missing-values-after-combining-datasets"><span class="header-section-number">14.6</span> Handling Missing Values After Combining Datasets</h2>
-<p>When you combine datasets using <code>merge()</code>, <code>join()</code>, or <code>concat()</code>, you often introduce <strong>missing values (NaN)</strong> for unmatched entries. Understanding <em>why</em> these appear and <em>how</em> to handle them is crucial for maintaining data quality.</p>
-<section id="why-missing-values-occur" class="level3" data-number="14.6.1">
-<h3 data-number="14.6.1" class="anchored" data-anchor-id="why-missing-values-occur"><span class="header-section-number">14.6.1</span> Why Missing Values Occur</h3>
-<p>Missing values appear for different reasons depending on the join type:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 28%">
-<col style="width: 47%">
-<col style="width: 23%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Join Type</th>
-<th>When NaN Appears</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Left Join</strong></td>
-<td>Right DataFrame has no match for left keys</td>
-<td>Customer exists but has no purchases → purchase columns = NaN</td>
-</tr>
-<tr class="even">
-<td><strong>Right Join</strong></td>
-<td>Left DataFrame has no match for right keys</td>
-<td>Purchase exists but customer deleted → customer columns = NaN</td>
-</tr>
-<tr class="odd">
-<td><strong>Outer Join</strong></td>
-<td>Either DataFrame has no match</td>
-<td>Missing data from both sides</td>
-</tr>
-<tr class="even">
-<td><strong>concat (axis=1)</strong></td>
-<td>Indices don’t align</td>
-<td>Different row indices → NaN where no alignment</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Inner joins never produce NaN</strong> from the join operation itself (only matched rows are kept).</p>
-</section>
-<section id="strategies-for-handling-missing-values" class="level3" data-number="14.6.2">
-<h3 data-number="14.6.2" class="anchored" data-anchor-id="strategies-for-handling-missing-values"><span class="header-section-number">14.6.2</span> Strategies for Handling Missing Values</h3>
-<p>The right strategy depends on <strong>why the data is missing</strong> and <strong>what you’re analyzing</strong>.</p>
-<section id="strategy-1-keep-the-missing-values" class="level4" data-number="14.6.2.1">
-<h4 data-number="14.6.2.1" class="anchored" data-anchor-id="strategy-1-keep-the-missing-values"><span class="header-section-number">14.6.2.1</span> Strategy 1: Keep the Missing Values</h4>
-<p><strong>When to use:</strong> Missing values are meaningful and represent “absence” of something.</p>
-<p><strong>Example:</strong> Customer purchase analysis with left join</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># All customers + their purchases (if any)</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>df_customer_purchases <span class="op">=</span> customers.merge(purchases, on<span class="op">=</span><span class="st">'CustomerID'</span>, how<span class="op">=</span><span class="st">'left'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Interpretation:</strong></p>
+<section id="practice-activity-stack-match-and-check" class="level2" data-number="14.7">
+<h2 data-number="14.7" class="anchored" data-anchor-id="practice-activity-stack-match-and-check"><span class="header-section-number">14.7</span> Practice Activity: Stack, Match, and Check</h2>
+<p><strong>Goal:</strong> Combine real files by stacking and by matching, and use the checks to find what did not combine cleanly.</p>
+<p><strong>File:</strong> <code>activity14.ipynb</code> from the <a href="downloads/combining-datasets-practice.zip">practice kit</a>.</p>
+<p><strong>Submit:</strong> <code>activity14.html</code> through the final upload question in the Combining Datasets Canvas quiz.</p>
+<p><strong>This section contains the complete activity instructions.</strong> The starter loads the data and supplies spaces to record your work. Open <code>activity14.ipynb</code> from the folder prepared in <a href="#set-up-your-chapter-files">Set Up Your Chapter Files</a>, using the same project environment. The worked examples above are preparation, not additional submission requirements.</p>
+<p>The starter reads the five continent files into a dictionary, <code>pieces</code>, keyed by continent name, and loads <code>capitals</code>, a table of countries with their capital cities.</p>
+<section id="a.-stack-five-files" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="a.-stack-five-files">A. Stack Five Files</h3>
 <ul>
-<li>NaN in purchase columns = Customer hasn’t made a purchase yet</li>
-<li>This is <strong>informative</strong> - these customers might be new or inactive</li>
-<li>Analysis: “What percentage of customers have never purchased?” requires keeping NaN</li>
+<li>Replace <code>Your Name</code> in the opening Raw cell’s <code>author</code> field. Run the setup cell; it must report five continent tables and <code>capitals</code> with shape <code>(234, 6)</code>.</li>
+<li>Add a <code>continent</code> column to each piece and stack them with <code>pd.concat(..., ignore_index=True)</code> into one table, <code>gapminder</code>.</li>
+<li>Show that the stacked row count equals the sum of the pieces, and that <code>gapminder</code> has no missing values.</li>
 </ul>
-<p><strong>Action:</strong> Keep NaN and analyze it as a category (e.g., <code>df['Purchase'].isna().sum()</code>)</p>
 </section>
-<section id="strategy-2-fill-with-default-values" class="level4" data-number="14.6.2.2">
-<h4 data-number="14.6.2.2" class="anchored" data-anchor-id="strategy-2-fill-with-default-values"><span class="header-section-number">14.6.2.2</span> Strategy 2: Fill with Default Values</h4>
-<p><strong>When to use:</strong> Missing values should be interpreted as zero or a default state.</p>
-<p><strong>Example:</strong> Sales data where no transaction = zero sales</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill missing sales with 0</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>df_merged[<span class="st">'TotalSales'</span>] <span class="op">=</span> df_merged[<span class="st">'TotalSales'</span>].fillna(<span class="dv">0</span>)</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>df_merged[<span class="st">'TransactionCount'</span>] <span class="op">=</span> df_merged[<span class="st">'TransactionCount'</span>].fillna(<span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Common fill values:</strong></p>
+<section id="b.-match-countries-to-capitals" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="b.-match-countries-to-capitals">B. Match Countries to Capitals</h3>
 <ul>
-<li><code>0</code> - for counts, amounts, quantities</li>
-<li><code>'None'</code> or <code>'Unknown'</code> - for categorical data</li>
-<li><code>False</code> - for boolean flags</li>
-<li>Mean/median - for numerical features (use with caution!)</li>
+<li>Make <code>gapminder_2007</code>, the rows for 2007, and merge it with <code>capitals</code> using <code>how="left"</code>, <code>left_on="country"</code>, <code>right_on="Country"</code>, and <code>indicator=True</code>.</li>
+<li>Report how many countries matched and how many did not, and list the unmatched countries.</li>
+<li>Choose two unmatched countries, find how each is written in <code>capitals</code>, and explain why the merge missed them.</li>
 </ul>
-<p><strong>Caution:</strong> Only fill when you’re certain what the missing value <em>means</em>.</p>
 </section>
-<section id="strategy-3-drop-rows-with-missing-values" class="level4" data-number="14.6.2.3">
-<h4 data-number="14.6.2.3" class="anchored" data-anchor-id="strategy-3-drop-rows-with-missing-values"><span class="header-section-number">14.6.2.3</span> Strategy 3: Drop Rows with Missing Values</h4>
-<p><strong>When to use:</strong> Analysis requires complete information from both datasets.</p>
-<p><strong>Example:</strong> Analyzing relationship between two variables (need both)</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop rows where either GDP or Population is missing</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>df_complete <span class="op">=</span> df_merged.dropna(subset<span class="op">=</span>[<span class="st">'GDP'</span>, <span class="st">'Population'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Options:</strong></p>
+<section id="c.-inner-against-outer" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="c.-inner-against-outer">C. Inner Against Outer</h3>
 <ul>
-<li><code>dropna()</code> - drop rows with <em>any</em> NaN</li>
-<li><code>dropna(subset=['col1', 'col2'])</code> - drop only if specific columns have NaN</li>
-<li><code>dropna(thresh=5)</code> - drop only if fewer than 5 non-NaN values</li>
+<li>Repeat the merge with <code>how="inner"</code> and with <code>how="outer"</code>, and report the row count of each.</li>
+<li>Explain each count in terms of the rows in <code>gapminder_2007</code>, the rows in <code>capitals</code>, and the number that matched.</li>
 </ul>
-<p><strong>Caution:</strong> You’re losing data! Document how many rows were dropped and why.</p>
 </section>
-<section id="strategy-4-use-a-different-join-type" class="level4" data-number="14.6.2.4">
-<h4 data-number="14.6.2.4" class="anchored" data-anchor-id="strategy-4-use-a-different-join-type"><span class="header-section-number">14.6.2.4</span> Strategy 4: Use a Different Join Type</h4>
-<p><strong>When to use:</strong> You’re getting NaN because you used the wrong join type!</p>
-<p><strong>Example:</strong> Used outer join but only need matching rows</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wrong: Creates many NaN values</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>df_outer <span class="op">=</span> pd.merge(df1, df2, how<span class="op">=</span><span class="st">'outer'</span>)  <span class="co"># 1000 rows, 50% NaN</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Better: Use inner join to keep only complete matches</span></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>df_inner <span class="op">=</span> pd.merge(df1, df2, how<span class="op">=</span><span class="st">'inner'</span>)  <span class="co"># 600 rows, 0% NaN</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Before handling missing values, ask:</strong> 1. Did I use the right join type for my analysis question? 2. Should I actually be using inner join instead of left/outer? 3. Are the missing values telling me about data quality issues?</p>
-</section>
-</section>
-<section id="practical-example-handling-missing-values" class="level3" data-number="14.6.3">
-<h3 data-number="14.6.3" class="anchored" data-anchor-id="practical-example-handling-missing-values"><span class="header-section-number">14.6.3</span> Practical Example: Handling Missing Values</h3>
-<p>Let’s see these strategies in action with our fellowship data:</p>
-<div id="81af4eab" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an outer join to see missing values</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>df_outer_example <span class="op">=</span> pd.merge(df_existing, df_external, how<span class="op">=</span><span class="st">'outer'</span>)</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Outer join result:"</span>)</span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total rows: </span><span class="sc">{</span><span class="bu">len</span>(df_outer_example)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Missing values per column:"</span>)</span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_outer_example.isnull().<span class="bu">sum</span>())</span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Rows with ANY missing value: </span><span class="sc">{</span>df_outer_example<span class="sc">.</span>isnull()<span class="sc">.</span><span class="bu">any</span>(axis<span class="op">=</span><span class="dv">1</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>df_outer_example</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Now let’s apply different strategies:</p>
-<div id="c4652922" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Strategy 1: Identify WHERE the missing values are</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Rows with missing 'Race' (from left dataset):"</span>)</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_outer_example[df_outer_example[<span class="st">'Race'</span>].isna()][[<span class="st">'Name'</span>, <span class="st">'Race'</span>, <span class="st">'Birthplace'</span>]])</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Rows with missing 'Birthplace' (from right dataset):"</span>)</span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_outer_example[df_outer_example[<span class="st">'Birthplace'</span>].isna()][[<span class="st">'Name'</span>, <span class="st">'Race'</span>, <span class="st">'Birthplace'</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="b4c8a282" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Strategy 2: Drop incomplete rows (for complete-case analysis)</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>df_complete <span class="op">=</span> df_outer_example.dropna()</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Original rows: </span><span class="sc">{</span><span class="bu">len</span>(df_outer_example)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Complete rows: </span><span class="sc">{</span><span class="bu">len</span>(df_complete)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Rows dropped: </span><span class="sc">{</span><span class="bu">len</span>(df_outer_example) <span class="op">-</span> <span class="bu">len</span>(df_complete)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>df_complete</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="02460aec" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Strategy 3: Fill with meaningful defaults</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>df_filled <span class="op">=</span> df_outer_example.copy()</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>df_filled[<span class="st">'Birthplace'</span>] <span class="op">=</span> df_filled[<span class="st">'Birthplace'</span>].fillna(<span class="st">'Unknown'</span>)</span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"After filling missing 'Birthplace' with 'Unknown':"</span>)</span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_filled[[<span class="st">'Name'</span>, <span class="st">'Birthplace'</span>]])</span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Missing 'Birthplace' values: </span><span class="sc">{</span>df_filled[<span class="st">'Birthplace'</span>]<span class="sc">.</span>isna()<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="best-practices-for-missing-value-handling" class="level3" data-number="14.6.4">
-<h3 data-number="14.6.4" class="anchored" data-anchor-id="best-practices-for-missing-value-handling"><span class="header-section-number">14.6.4</span> Best Practices for Missing Value Handling</h3>
-<p><strong>1. Investigate First</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Always check WHERE and WHY values are missing</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>df.isnull().<span class="bu">sum</span>()  <span class="co"># Count per column</span></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>df[df[<span class="st">'column'</span>].isna()]  <span class="co"># See the actual rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>2. Document Your Decisions</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Good: Document what you did and why</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Filled missing GDP with 0 because these are countries with no economic data reported</span></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'GDP'</span>] <span class="op">=</span> df[<span class="st">'GDP'</span>].fillna(<span class="dv">0</span>)</span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Also good: Create a flag for missing values before filling</span></span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'GDP_was_missing'</span>] <span class="op">=</span> df[<span class="st">'GDP'</span>].isna()</span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'GDP'</span>] <span class="op">=</span> df[<span class="st">'GDP'</span>].fillna(df[<span class="st">'GDP'</span>].median())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>3. Consider the Impact</strong></p>
+<section id="d.-check-the-keys" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="d.-check-the-keys">D. Check the Keys</h3>
 <ul>
-<li><strong>Dropping rows:</strong> Reduces sample size, may introduce bias</li>
-<li><strong>Filling with defaults:</strong> May distort statistics (mean, correlations)</li>
-<li><strong>Keeping NaN:</strong> Requires careful handling in analysis/visualization</li>
+<li>Count the repeated values in <code>capitals["Country"]</code> with <code>duplicated()</code>, and show the repeated rows.</li>
+<li>Show that the Part B merge raises a <code>MergeError</code> with <code>validate="many_to_one"</code> (catch it with <code>try</code>/<code>except</code>), then remove the repeat with <code>drop_duplicates(subset="Country")</code> and show that the validated merge succeeds.</li>
 </ul>
-<p><strong>4. Choose Join Type Carefully</strong></p>
-<p>The best way to handle missing values is often to <strong>prevent them</strong> by using the right join type for your analysis question!</p>
-<p><strong>Remember:</strong> Missing values after combining datasets are <strong>expected and normal</strong>. The key is understanding what they mean and handling them appropriately for your specific analysis goals.</p>
+</section>
+<section id="render-and-submit" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="render-and-submit">Render and Submit</h3>
+<p>Restart the kernel, run all cells in order, resolve unexpected errors, and save. Include your outputs and explanations for A–D, and a short Markdown completion note. From <code>stat303-combining-datasets</code> in the terminal, run:</p>
+<pre class="text"><code>quarto render activity14.ipynb --to html</code></pre>
+<p>Follow the <a href="./vscode_setup.html#render-and-submit-with-quarto">Quarto refresher</a>: inspect the HTML and a copy opened outside the project folder, and confirm that every output appears and your name is on the report. Upload only <code>activity14.html</code> to the Combining Datasets Canvas quiz; keep your notebook locally.</p>
+<p><strong>HTML grading (16 points):</strong> the stacked table with its row and missing-value checks (4); the left merge, the matched and unmatched counts, and the two explained mismatches (4); inner and outer row counts with their explanation (4); the repeated key, the validated merge failing and then succeeding (3); name, readable report, and completion note (1).</p>
 </section>
 </section>
-<section id="independent-study" class="level2" data-number="14.7">
-<h2 data-number="14.7" class="anchored" data-anchor-id="independent-study"><span class="header-section-number">14.7</span> Independent Study</h2>
-<section id="merging-gdp-per-capita-and-population-datasets" class="level3" data-number="14.7.1">
-<h3 data-number="14.7.1" class="anchored" data-anchor-id="merging-gdp-per-capita-and-population-datasets"><span class="header-section-number">14.7.1</span> Merging GDP per capita and population datasets</h3>
-<p>In this independent study on <strong>data reshaping</strong>, we have provided two datasets:<br>
-- <code>gdp_per_capita_data</code><br>
-- <code>population_data</code></p>
-<p>This exercise builds on the results from the previous section.</p>
-<p><strong>Task:</strong><br>
-Merge <code>gdp_per_capita_data</code> with <code>population_data</code> to combine each country’s <strong>population</strong> and <strong>GDP per capita</strong> into a single DataFrame.<br>
-Finally, print the <strong>first two rows</strong> of the merged DataFrame.</p>
-<p>Assume that:</p>
+<section id="extended-practice" class="level2" data-number="14.8">
+<h2 data-number="14.8" class="anchored" data-anchor-id="extended-practice"><span class="header-section-number">14.8</span> Extended Practice</h2>
+<p>These longer exercises are additional practice, not requirements for the Canvas quiz. Work in a separate notebook beside your activity and load the data the way the chapter does. Include your code, outputs, and explanations.</p>
+<section id="repair-the-names" class="level3" data-number="14.8.1">
+<h3 data-number="14.8.1" class="anchored" data-anchor-id="repair-the-names"><span class="header-section-number">14.8.1</span> Repair the Names</h3>
+<p>Build a small table that maps each unmatched Gapminder name to its spelling in <code>capitals</code> (for example, <code>"United States"</code> to <code>"United States of America"</code>), use it to add a corrected key column to <code>gapminder_2007</code>, and repeat the left merge. How many countries still fail to match, and why?</p>
+</section>
+<section id="capitals-and-life-expectancy" class="level3" data-number="14.8.2">
+<h3 data-number="14.8.2" class="anchored" data-anchor-id="capitals-and-life-expectancy"><span class="header-section-number">14.8.2</span> Capitals and Life Expectancy</h3>
+<p>After the repaired merge, plot life expectancy in 2007 against the latitude of each country’s capital, coloured by continent. Is there a pattern? What would you check before claiming one?</p>
+</section>
+<section id="stack-then-summarize" class="level3" data-number="14.8.3">
+<h3 data-number="14.8.3" class="anchored" data-anchor-id="stack-then-summarize"><span class="header-section-number">14.8.3</span> Stack, Then Summarize</h3>
+<p>Stack the five continent files without adding a <code>continent</code> column, then try to compute mean life expectancy by continent. What information was lost, and how else could you recover it from the files?</p>
+</section>
+<section id="merge-two-summaries" class="level3" data-number="14.8.4">
+<h3 data-number="14.8.4" class="anchored" data-anchor-id="merge-two-summaries"><span class="header-section-number">14.8.4</span> Merge Two Summaries</h3>
+<p>Compute mean life expectancy by continent and year in one table and total population by continent and year in another, using <code>groupby()</code>. Merge them on both keys with <code>validate="one_to_one"</code>, and plot one against the other.</p>
+</section>
+</section>
+<section id="before-you-move-on" class="level2" data-number="14.9">
+<h2 data-number="14.9" class="anchored" data-anchor-id="before-you-move-on"><span class="header-section-number">14.9</span> Before You Move On</h2>
+<p>The habit to carry forward is checking every combination. A stack should have exactly the rows of its pieces. A merge should have the rows you predicted from its keys and its <code>how=</code>, and <code>indicator=True</code> and <code>validate=</code> turn the ways it can go wrong — unmatched keys, keys that repeat — into numbers and errors you can see. None of these mistakes raises an error on its own; a merged table looks complete whether or not it is right.</p>
+<p>The other habit is asking what an absence means. A <code>NaN</code> from an unmatched key says the other table had no row, which is different from a value of zero and different from a measurement that was never taken.</p>
+<p>For any combination you make, you should be able to answer five questions:</p>
 <ol type="1">
-<li><p>We want to keep the GDP per capita of all countries in the merged dataset, even if their population in unavailable in the population dataset. For countries whose population in unavailable, their <code>Population</code> column will show <code>NA</code>.</p></li>
-<li><p>We want to discard an observation of a country if its GDP per capita is unavailable.</p></li>
+<li>Are you stacking tables with the same columns, or matching tables on a key?</li>
+<li>What is the key, and does it identify exactly one row in each table?</li>
+<li>Which <code>how=</code> did you choose, and how many rows did you expect?</li>
+<li>How many rows matched, and why did the others not?</li>
+<li>What do the missing values from unmatched keys mean, and what did you do with them?</li>
 </ol>
-<section id="section" class="level4" data-number="14.7.1.1">
-<h4 data-number="14.7.1.1" class="anchored" data-anchor-id="section"><span class="header-section-number">14.7.1.1</span> </h4>
-<p>For how many countries in <code>gdp_per_capita_data</code> does the population seem to be unavailable in <code>population_data</code>? Note that you don’t need to clean country names any further than cleaned by the functions provided.</p>
-<p>Print the observations of <code>gdp_per_capita_data</code> with missing <code>Population</code>.</p>
-</section>
-</section>
-<section id="merging-datasets-with-similar-values-in-the-key-column" class="level3" data-number="14.7.2">
-<h3 data-number="14.7.2" class="anchored" data-anchor-id="merging-datasets-with-similar-values-in-the-key-column"><span class="header-section-number">14.7.2</span> Merging datasets with <em>similar</em> values in the <em>key</em> column</h3>
-<p>We suspect that population of more countries may be available in <code>population_data</code>. However, due to unclean country names, the observations could not merge. For example, the country <em>Guinea Bissau</em> is mentioned as <em>GuineaBissau</em> in <code>gdp_per_capita_data</code> and <em>Guinea-Bissau</em> in <code>population_data</code>. To resolve this issue, we’ll use a different approach to merge datasts. We’ll merge the population of a country to an observation in the GDP per capita dataset, whose name in <code>population_data</code> is the most <em>‘similar’</em> to the name of the country in <code>gdp_per_capita_data</code>.</p>
-<section id="section-1" class="level4" data-number="14.7.2.1">
-<h4 data-number="14.7.2.1" class="anchored" data-anchor-id="section-1"><span class="header-section-number">14.7.2.1</span> </h4>
-<p>Proceed as follows:</p>
-<ol type="1">
-<li><p>For each country in <code>gdp_per_capita_data</code>, find the <code>country</code> with the most <em>‘similar’</em> name in <code>population_data</code>, based on the similarity score. Use the lambda function provided below to compute the similarity score between two strings <em>(The higher the score, the more similar are the strings. The similarity score is <span class="math inline">\(1.0\)</span> if two strings are exactly the same).</em></p></li>
-<li><p>Merge the population of the most <em>‘similar’</em> country to the country in <code>gdp_per_capita_data</code>. The merged dataset must include 5 columns - the country name as it appears in <code>gdp_per_capita_data</code>, the GDP per capita, the country name of the most <em>‘similar’</em> country as it appears in <code>population_data</code>, the population of that country, and the similarity score between the country names.</p></li>
-<li><p>After creating the merged dataset, <strong>print</strong> the rows of the dataset that have similarity scores less than 1.</p></li>
-</ol>
-<p>Use the function below to compute the similarity score between the <code>Country</code> names of the two datasets:</p>
-<p><code>from difflib import SequenceMatcher</code></p>
-<p><code>similar = lambda a,b: SequenceMatcher(None, a, b).ratio()</code></p>
-<p><strong>Note: You may use one <code>for</code> loop only for this particular question. However, it would be perfect if don’t use a <code>for</code> loop</strong></p>
-<p><strong>Hint:</strong></p>
-<ol type="1">
-<li><p>Define a function that computes the index of the observation having the most <em>‘similar’</em> country name in <code>population_data</code> for an observation in <code>gdp_per_capita_data</code>. The function returns a Series consisting of the most <em>‘similar’</em> country name, its population, and its similarity score <em>(This function can be written with only one line in its body, excluding the return statement and the definition statement. However, you may use as many lines as you wish)</em>.</p></li>
-<li><p>Apply the function on the <code>Country</code> column of <code>gdp_per_capita_data</code>. A DataFrame will be obtained.</p></li>
-<li><p>Concatenate the DataFrame obtained in (2) with <code>gdp_per_capita_data</code> with the pandas <code>concat()</code> function.</p></li>
-</ol>
-</section>
-<section id="section-2" class="level4" data-number="14.7.2.2">
-<h4 data-number="14.7.2.2" class="anchored" data-anchor-id="section-2"><span class="header-section-number">14.7.2.2</span> </h4>
-<p>In the dataset obtained in the previous question, for all observations where similarity score is less than 0.8, replace the population with Nan.</p>
-<p>Print the observations of the dataset having missing values of population.</p>
+<p>This chapter completes the path the book has followed: reading data, cleaning it, preparing it, summarizing it by group, reshaping it, and now combining it. The assignments in the appendices bring these steps together on larger datasets.</p>
+<p>References: <a href="https://pandas.pydata.org/docs/user_guide/merging.html">pandas: merge, join, concatenate and compare</a>, <a href="https://pandas.pydata.org/docs/reference/api/pandas.concat.html"><code>pd.concat</code></a>, <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.merge.html"><code>DataFrame.merge</code></a>, <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.join.html"><code>DataFrame.join</code></a>, and <a href="https://pandas.pydata.org/docs/reference/api/pandas.errors.MergeError.html"><code>pandas.errors.MergeError</code></a>.</p>
 
 
-</section>
-</section>
 </section>
 
 </main> <!-- /main -->
