@@ -14,6 +14,7 @@ project:
     - downloads/pandas-numpy-workflow-practice.zip
     - downloads/data-visualization-1-practice.zip
     - downloads/data-visualization-2-practice.zip
+    - downloads/data-cleaning-practice.zip
 
 
 book:  
