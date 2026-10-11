@@ -16,6 +16,7 @@ project:
     - downloads/data-visualization-2-practice.zip
     - downloads/data-cleaning-practice.zip
     - downloads/data-preparation-practice.zip
+    - downloads/data-aggregation-practice.zip
 
 
 book:  
