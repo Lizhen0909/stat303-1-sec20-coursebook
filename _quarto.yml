@@ -17,6 +17,7 @@ project:
     - downloads/data-cleaning-practice.zip
     - downloads/data-preparation-practice.zip
     - downloads/data-aggregation-practice.zip
+    - downloads/data-reshaping-practice.zip
 
 
 book:  
