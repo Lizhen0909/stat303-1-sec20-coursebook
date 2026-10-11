@@ -1124,9 +1124,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="the-catch-ax-does-not-work-on-figure-level-functions" class="level3" data-number="9.6.4">
 <h3 data-number="9.6.4" class="anchored" data-anchor-id="the-catch-ax-does-not-work-on-figure-level-functions"><span class="header-section-number">9.6.4</span> The catch: <code>ax=</code> does not work on figure-level functions</h3>
-<p>Because a figure-level function creates its own Figure, it cannot draw into a panel that already exists. Passing <code>ax=</code> is an error:</p>
+<p>Because a figure-level function creates its own Figure, it cannot draw into a panel that already exists. Passing <code>ax=</code> does not raise an error, which makes the mistake easy to miss. Seaborn prints a <code>UserWarning</code> saying that <code>displot</code> is a figure-level function and does not accept <code>ax=</code>, ignores the argument, and draws a separate new figure. The panel you meant to fill stays empty:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>sns.displot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">"body_mass_g"</span>, ax<span class="op">=</span>axes[<span class="dv">0</span>])   <span class="co"># TypeError</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>sns.displot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">"body_mass_g"</span>, ax<span class="op">=</span>axes[<span class="dv">0</span>])   <span class="co"># warning; axes[0] stays empty</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1137,7 +1137,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This error comes up often, and the fix is always to ask whether you need the figure-level function at all:</p>
+<p>This mistake comes up often, and the fix is always to ask whether you need the figure-level function at all:</p>
 <ul>
 <li><strong>Putting a seaborn plot into a grid you built?</strong> Use the <strong>axes-level</strong> function with <code>ax=</code>: <code>histplot</code> not <code>displot</code>, <code>scatterplot</code> not <code>relplot</code>, <code>boxplot</code> not <code>catplot</code>, <code>regplot</code> not <code>lmplot</code>.</li>
 <li><strong>Want seaborn to build the grid for you, by splitting on a column?</strong> Use the <strong>figure-level</strong> function with <code>col=</code> / <code>row=</code>, and let it own the figure.</li>
