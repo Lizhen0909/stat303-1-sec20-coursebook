@@ -449,6 +449,16 @@ pandas version: 3.0.5</code></pre>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>business_df[<span class="st">'Total_Cost'</span>]    <span class="op">=</span> business_df[<span class="st">'Units_Sold'</span>] <span class="op">*</span> business_df[<span class="st">'Cost_per_Unit'</span>]</span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>business_df[<span class="st">'Gross_Profit'</span>]  <span class="op">=</span> business_df[<span class="st">'Total_Revenue'</span>] <span class="op">-</span> business_df[<span class="st">'Total_Cost'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<div id="fig-vectorized-columns" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Three single-column tables side by side, Units_Sold times Price_per_Unit equals Total_Revenue, for Laptop, Phone, Tablet, Watch, and Headphones. The Phone row is highlighted: 300 times 800 equals 240,000. The other results are 180,000, 120,000, 200,000, and 50,000.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-vectorized-columns-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/pandas-intermediate-vectorized-columns.png" class="img-fluid figure-img" style="width:100.0%" alt="Three single-column tables side by side, Units_Sold times Price_per_Unit equals Total_Revenue, for Laptop, Phone, Tablet, Watch, and Headphones. The Phone row is highlighted: 300 times 800 equals 240,000. The other results are 180,000, 120,000, 200,000, and 50,000.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-vectorized-columns-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.1: One expression fills the whole column: pandas multiplies each product’s <code>Units_Sold</code> by that same product’s <code>Price_per_Unit</code>. The highlighted row shows one of the five products.
+</figcaption>
+</figure>
+</div>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -602,6 +612,16 @@ pandas version: 3.0.5</code></pre>
 </div>
 </div>
 </div>
+<div id="fig-axis-direction" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two copies of the quarterly sales table for Product_A to Product_E. On the left, arrows point down each quarter column to a result row of 750, 790, 830, and 890. On the right, arrows point across each product row to a Total column of 460, 620, 860, 540, and 780.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-axis-direction-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/pandas-intermediate-axis-direction.png" class="img-fluid figure-img" style="width:100.0%" alt="Two copies of the quarterly sales table for Product_A to Product_E. On the left, arrows point down each quarter column to a result row of 750, 790, 830, and 890. On the right, arrows point across each product row to a Total column of 460, 620, 860, 540, and 780.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-axis-direction-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.2: The same four quarter columns summed in two directions. The default <code>axis=0</code> collapses the rows and returns one total per quarter; <code>axis=1</code> collapses the columns and returns one total per product, which lines up with the rows and can be stored as a new column.
+</figcaption>
+</figure>
+</div>
 <p><strong>Select the input columns explicitly.</strong> Otherwise, a newly added total would be included in the next average or range. Here all four quarterly values are observed; inspect missing values before interpreting a partial total.</p>
 </section>
 </section>
@@ -685,6 +705,16 @@ pandas version: 3.0.5</code></pre>
 </div>
 </div>
 </div>
+<div id="fig-alignment-nan" class="quarto-float quarto-figure quarto-figure-center anchored" alt="df1 has rows 0 to 2 and columns A and B. df2 has rows 1 to 4 and columns B and C. The result has rows 0 to 4 and columns A to C. Only row 1, column B (50 plus 5 equals 55) and row 2, column B (60 plus 10 equals 70) have values; all other result cells are NaN.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-alignment-nan-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/pandas-intermediate-alignment-nan.png" class="img-fluid figure-img" style="width:90.0%" alt="df1 has rows 0 to 2 and columns A and B. df2 has rows 1 to 4 and columns B and C. The result has rows 0 to 4 and columns A to C. Only row 1, column B (50 plus 5 equals 55) and row 2, column B (60 plus 10 equals 70) have values; all other result cells are NaN.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-alignment-nan-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.3: <code>df1 + df2</code> keeps every row label (0–4) and every column label (A–C) from either input. Only the highlighted cells, column <code>B</code> at rows 1 and 2, have a partner on both sides; every other cell becomes <code>NaN</code>.
+</figcaption>
+</figure>
+</div>
 <p>Every cell where a label exists in only one DataFrame becomes <code>NaN</code> — column <code>A</code> only exists in <code>df1</code>, so the entire column is missing in the result.</p>
 </section>
 <section id="taking-control-with-.add-.sub-.mul-.div" class="level3" data-number="5.3.3">
@@ -742,6 +772,17 @@ pandas version: 3.0.5</code></pre>
 
 </div>
 </div>
+</div>
+<p>The cell above displays only its last line, the subtraction. <a href="#fig-fill-value" class="quarto-xref">Figure&nbsp;<span>5.4</span></a> shows what the addition on the first line produces.</p>
+<div id="fig-fill-value" class="quarto-float quarto-figure quarto-figure-center anchored" alt="The same df1 and df2 as before, now combined with add and fill_value equal to 0. Row 1 and row 2 of column B are still 55 and 70. Cells present in only one input keep their value: column A is 10, 20, 30 for rows 0 to 2; row 0, column B is 40; column B is 15 and 20 for rows 3 and 4; column C is 100, 200, 300, 400 for rows 1 to 4. Row 0, column C and rows 3 and 4 of column A are still NaN.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fill-value-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/pandas-intermediate-fill-value.png" class="img-fluid figure-img" style="width:90.0%" alt="The same df1 and df2 as before, now combined with add and fill_value equal to 0. Row 1 and row 2 of column B are still 55 and 70. Cells present in only one input keep their value: column A is 10, 20, 30 for rows 0 to 2; row 0, column B is 40; column B is 15 and 20 for rows 3 and 4; column C is 100, 200, 300, 400 for rows 1 to 4. Row 0, column C and rows 3 and 4 of column A are still NaN.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fill-value-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.4: The result of <code>df1.add(df2, fill_value=0)</code>, the first line of the cell above. A cell that exists in only one input is filled with 0 before adding, so it keeps the value it has; a cell that exists in neither input stays <code>NaN</code>.
+</figcaption>
+</figure>
 </div>
 <table class="caption-top table">
 <colgroup>
@@ -882,6 +923,17 @@ pandas version: 3.0.5</code></pre>
 <section id="a-single-pair" class="level3" data-number="5.4.2">
 <h3 data-number="5.4.2" class="anchored" data-anchor-id="a-single-pair"><span class="header-section-number">5.4.2</span> A single pair</h3>
 <p>If you only care about two specific columns, call <code>.corr()</code> directly on one Series with another as the argument:</p>
+<p><a href="#fig-correlation-patterns" class="quarto-xref">Figure&nbsp;<span>5.5</span></a> shows what these values look like in a scatterplot.</p>
+<div id="fig-correlation-patterns" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Four scatterplots. First, points rising from lower left to upper right, r equals 0.96. Second, points falling from upper left to lower right, r equals minus 0.93. Third, points scattered with no visible pattern, r equals minus 0.02. Fourth, points forming a U-shaped curve, r equals minus 0.03.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-correlation-patterns-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/pandas-intermediate-correlation-patterns.png" class="img-fluid figure-img" style="width:100.0%" alt="Four scatterplots. First, points rising from lower left to upper right, r equals 0.96. Second, points falling from upper left to lower right, r equals minus 0.93. Third, points scattered with no visible pattern, r equals minus 0.02. Fourth, points forming a U-shaped curve, r equals minus 0.03.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-correlation-patterns-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.5: Sixty simulated points in each panel, with the Pearson correlation pandas computes for them. The sign gives the direction of the cloud and the size gives how closely it follows a straight line. The last panel has a strong pattern but a correlation near 0, because the pattern is a curve rather than a line.
+</figcaption>
+</figure>
+</div>
 <div id="8b927222" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;python&quot;}}" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sales_data[<span class="st">'Advertising_Spend'</span>].corr(sales_data[<span class="st">'Sales_Revenue'</span>])</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># A strong positive linear relationship in these six invented observations.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1099,6 +1151,16 @@ pandas version: 3.0.5</code></pre>
 </div>
 </div>
 </div>
+<div id="fig-apply-rows" class="quarto-float quarto-figure quarto-figure-center anchored" alt="financial_df has three rows. Row 0, with Revenue 1,000 and Expenses 980, is pulled out as a Series and passed to cap_expenses, which computes min of 980 and 1,000 times 0.95, equal to 950. The result column Capped_Expenses holds 950, 1,200, and 760.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-apply-rows-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/pandas-intermediate-apply-rows.png" class="img-fluid figure-img" style="width:95.0%" alt="financial_df has three rows. Row 0, with Revenue 1,000 and Expenses 980, is pulled out as a Series and passed to cap_expenses, which computes min of 980 and 1,000 times 0.95, equal to 950. The result column Capped_Expenses holds 950, 1,200, and 760.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-apply-rows-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.6: With <code>axis=1</code>, <code>apply()</code> calls <code>cap_expenses</code> once for each row. Each call receives that row as a Series, so <code>row['Revenue']</code> and <code>row['Expenses']</code> work, and the value it returns becomes that row’s entry in the new column.
+</figcaption>
+</figure>
+</div>
 <div id="877ea6b7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;python&quot;}}" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>scores_df <span class="op">=</span> pd.DataFrame({<span class="st">'score'</span>: [<span class="dv">72</span>, <span class="dv">95</span>, <span class="dv">80</span>, <span class="dv">88</span>]})</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>scores_df[<span class="st">'category'</span>] <span class="op">=</span> scores_df[<span class="st">'score'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">'High'</span> <span class="cf">if</span> x <span class="op">&gt;</span> <span class="dv">80</span> <span class="cf">else</span> <span class="st">'Low'</span>)</span>
@@ -1178,6 +1240,16 @@ dtype: str</code></pre>
 2              Other
 dtype: str</code></pre>
 </div>
+</div>
+<div id="fig-map-vs-replace" class="quarto-float quarto-figure quarto-figure-center anchored" alt="The Series s holds Tech, Retail, and Other. A dictionary named labels maps Tech to Technology and Retail to Consumer Retail and has no key for Other. s.map(labels) gives Technology, Consumer Retail, NaN. s.replace(labels) gives Technology, Consumer Retail, Other.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-map-vs-replace-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/pandas-intermediate-map-vs-replace.png" class="img-fluid figure-img" style="width:100.0%" alt="The Series s holds Tech, Retail, and Other. A dictionary named labels maps Tech to Technology and Retail to Consumer Retail and has no key for Other. s.map(labels) gives Technology, Consumer Retail, NaN. s.replace(labels) gives Technology, Consumer Retail, Other.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map-vs-replace-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.7: The same dictionary used two ways. <code>map()</code> looks up every value, so <code>Other</code>, which has no key, becomes <code>NaN</code>. <code>replace()</code> changes only the values that have a key and leaves <code>Other</code> as it was.
+</figcaption>
+</figure>
 </div>
 <p><strong>Using <code>replace()</code> on the earlier DataFrame column:</strong> Replace <code>Tech</code> and <code>Retail</code>; keep <code>Healthcare</code> and <code>Finance</code> unchanged.</p>
 <div id="f7cba0b8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;python&quot;}}">
