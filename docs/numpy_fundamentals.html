@@ -1711,33 +1711,52 @@ Shapes: (2, 3) @ (3, 2) -&gt; (2, 2)</code></pre>
 </section>
 <section id="missing-values" class="level2" data-number="6.7">
 <h2 data-number="6.7" class="anchored" data-anchor-id="missing-values"><span class="header-section-number">6.7</span> Missing Values: Working with <code>nan</code></h2>
-<p>Real data has holes. NumPy marks a missing number with <code>np.nan</code> (“not a number”), which you have already met once: <code>np.genfromtxt</code> fills gaps with it. Two properties of <code>nan</code> drive everything else — it is a <strong>float</strong>, so any array holding one is a float array, and it <strong>propagates</strong>, so an ordinary aggregation over missing data returns <code>nan</code> rather than an answer:</p>
-<div id="numpy-lesson-521" class="cell" data-execution_count="48">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb97"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>with_missing <span class="op">=</span> np.array([<span class="fl">80.0</span>, np.nan, <span class="fl">75.0</span>, <span class="fl">92.0</span>])</span>
-<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(with_missing.dtype)</span>
-<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'mean       :'</span>, with_missing.mean())      <span class="co"># one nan poisons the whole result</span></span>
-<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'np.nanmean :'</span>, np.nanmean(with_missing))  <span class="co"># skips it, averages the other 3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Every aggregation in the previous section assumed that each position in the array held a number. Real data has holes: a student misses a quiz, an instrument drops a reading, a spreadsheet cell is left blank. NumPy marks such a hole with <code>np.nan</code> (“not a number”), and you have already created one — in <a href="#loading-from-files">Loading from Files</a>, the blank field in <code>messy_scores.csv</code> came back as <code>nan</code>. This section covers the three things you then do about it: spot the holes with <code>np.isnan()</code>, summarize around them with the <code>nan</code>-aware aggregations, and report how many values each summary actually used.</p>
+<p>Start with how <code>nan</code> behaves. It is a <strong>float</strong>, so a single <code>nan</code> makes the whole array a float array, and it <strong>propagates</strong>, so any ordinary aggregation that touches it returns <code>nan</code> instead of an answer:</p>
+<div id="missing-values-propagate" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb97"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>quiz_missing <span class="op">=</span> np.array([[<span class="fl">88.0</span>, <span class="fl">92.0</span>, <span class="fl">79.0</span>],     <span class="co"># student 0: all three quizzes recorded</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>                         [np.nan, <span class="fl">85.0</span>, <span class="fl">90.0</span>],   <span class="co"># student 1: missed quiz 0</span></span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>                         [<span class="fl">75.0</span>, np.nan, <span class="fl">68.0</span>]])  <span class="co"># student 2: missed quiz 1</span></span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'dtype            :'</span>, quiz_missing.dtype)</span>
+<span id="cb97-6"><a href="#cb97-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'mean of all      :'</span>, quiz_missing.mean())</span>
+<span id="cb97-7"><a href="#cb97-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'mean per student :'</span>, quiz_missing.mean(axis<span class="op">=</span><span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>float64
-mean       : nan
-np.nanmean : 82.33333333333333</code></pre>
+<pre><code>dtype            : float64
+mean of all      : nan
+mean per student : [86.33333333         nan         nan]</code></pre>
 </div>
 </div>
-<p>Most summaries have a <code>nan</code>-skipping twin: <code>np.nansum</code>, <code>np.nanmean</code>, <code>np.nanstd</code>, <code>np.nanmedian</code>, <code>np.nanmin</code>, <code>np.nanmax</code>, <code>np.nanargmax</code>. They all take <code>axis</code> the same way, and <code>np.nanstd</code> and <code>np.nanvar</code> take <code>ddof</code> as well, so the convention you chose in <a href="#ddof">Standard Deviation, Variance, and <code>ddof</code></a> still has to be passed explicitly when values are missing.</p>
-<p>To find or remove the missing values you need <code>np.isnan()</code>, because <code>nan</code> is the one value that is not equal to itself — <code>==</code> will never match it:</p>
-<div id="numpy-lesson-523" class="cell" data-execution_count="49">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb99"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.nan <span class="op">==</span> np.nan)                        <span class="co"># False -- never compare with ==</span></span>
-<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.isnan(with_missing))                  <span class="co"># the mask you actually want</span></span>
-<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'how many missing:'</span>, np.isnan(with_missing).<span class="bu">sum</span>())</span>
-<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'complete values :'</span>, with_missing[<span class="op">~</span>np.isnan(with_missing)])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Propagation is strict: the overall mean is <code>nan</code>, and so is the row average of each student with a gap, even though five of their six quizzes are recorded. Comparisons do not rescue you either, because <code>nan</code> is the one value that is not equal to itself, and every comparison involving it is <code>False</code>. Finding the holes takes <code>np.isnan()</code>, which returns a Boolean mask of exactly the missing positions:</p>
+<div id="missing-values-detect" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb99"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.nan <span class="op">==</span> np.nan)                 <span class="co"># False -- nan is not even equal to itself</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(quiz_missing <span class="op">&gt;</span> <span class="dv">80</span>)                <span class="co"># a missing entry reads False, same as a real 79</span></span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>missing <span class="op">=</span> np.isnan(quiz_missing)        <span class="co"># the mask that actually finds the holes</span></span>
+<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'missing per student:'</span>, missing.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'complete values    :'</span>, quiz_missing[<span class="op">~</span>missing])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>False
-[False  True False False]
-how many missing: 1
-complete values : [80. 75. 92.]</code></pre>
+[[ True  True False]
+ [False  True  True]
+ [False False False]]
+missing per student: [0 1 1]
+complete values    : [88. 92. 79. 85. 90. 75. 68.]</code></pre>
 </div>
 </div>
-<p><strong>Decide what a missing value means before you drop it.</strong> <code>np.nanmean</code> silently averages whatever is left, so report how many values it skipped alongside the result. Dropping missing data changes what your average is the average <em>of</em>, and that belongs in your write-up, not just in your code.</p>
+<p>Two details in that output are worth naming. In <code>quiz_missing &gt; 80</code>, student 1’s missing quiz and student 0’s genuine 79 both read <code>False</code>, so a plain Boolean mask cannot separate “below 80” from “not recorded” — only <code>np.isnan()</code> can. And <code>quiz_missing[~missing]</code> returns a <em>flat</em> 1D array of seven values: once different rows lose different numbers of entries, no grid shape can hold the result, so dropping the holes destroys the student-by-quiz layout.</p>
+<p>That is why you usually leave the <code>nan</code> in place and summarize around it instead. Each aggregation from earlier in the chapter has a <code>nan</code>-aware twin — a vectorized reduction that skips missing entries rather than propagating them: <code>np.nansum</code>, <code>np.nanmean</code>, <code>np.nanmedian</code>, <code>np.nanstd</code>, <code>np.nanvar</code>, <code>np.nanmin</code>, <code>np.nanmax</code>, and <code>np.nanargmax</code>. They accept <code>axis</code> exactly the way their plain counterparts do, and <code>np.nanstd</code> and <code>np.nanvar</code> still default to <code>ddof=0</code>, so the convention from <a href="#ddof">Standard Deviation, Variance, and <code>ddof</code></a> must be passed here as well:</p>
+<div id="missing-values-nan-funcs" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb101"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'mean per student   :'</span>, np.nanmean(quiz_missing, axis<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'sd per student     :'</span>, np.nanstd(quiz_missing, axis<span class="op">=</span><span class="dv">1</span>, ddof<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'quizzes averaged   :'</span>, (<span class="op">~</span>missing).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>mean per student   : [86.33333333 87.5        71.5       ]
+sd per student     : [6.65832812 3.53553391 4.94974747]
+quizzes averaged   : [3 2 2]</code></pre>
+</div>
+</div>
+<p><strong>Report the count alongside the summary.</strong> <code>np.nanmean</code> gives student 1 an 87.5 and student 2 a 71.5, but each of those averages two quizzes while student 0’s 86.3 averages three, and nothing in the three numbers says so. The counted row is what makes them comparable, which is why it belongs in the write-up next to the means: an average of <em>what</em>, over <em>how many</em> values. Dropping a missing quiz is itself a decision, and it is the one <code>np.nanmean</code> makes for you by default. If a missed quiz in this course counts as a zero, or disqualifies the student from the comparison, say so and compute it that way instead.</p>
 </section>
 <section id="advanced-selection-methods" class="level2" data-number="6.8">
 <h2 data-number="6.8" class="anchored" data-anchor-id="advanced-selection-methods"><span class="header-section-number">6.8</span> Advanced Selection Methods</h2>
@@ -1746,11 +1765,11 @@ complete values : [80. 75. 92.]</code></pre>
 <h3 data-number="6.8.1" class="anchored" data-anchor-id="conditional-where"><span class="header-section-number">6.8.1</span> Conditional Choices with <code>np.where()</code></h3>
 <p>Reuse <code>exam_scores</code> from the Boolean mask examples. A Boolean mask such as <code>exam_scores[exam_scores &gt;= 60]</code> keeps only the matching values. In contrast, <strong><code>np.where(condition, value_if_true, value_if_false)</code></strong> chooses a value at every position, allowing us to label all scores without writing a Python loop:</p>
 <div id="numpy-where-labels" class="cell" data-execution_count="50">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb101"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>pass_labels <span class="op">=</span> np.where(passing, <span class="st">'Pass'</span>, <span class="st">'Needs review'</span>)</span>
-<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Scores:'</span>, exam_scores)</span>
-<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Selected scores:'</span>, exam_scores[passing])</span>
-<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Labels:'</span>, pass_labels)</span>
-<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Shapes:'</span>, exam_scores.shape, pass_labels.shape)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb103"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>pass_labels <span class="op">=</span> np.where(passing, <span class="st">'Pass'</span>, <span class="st">'Needs review'</span>)</span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Scores:'</span>, exam_scores)</span>
+<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Selected scores:'</span>, exam_scores[passing])</span>
+<span id="cb103-4"><a href="#cb103-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Labels:'</span>, pass_labels)</span>
+<span id="cb103-5"><a href="#cb103-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Shapes:'</span>, exam_scores.shape, pass_labels.shape)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Scores: [55 82 91 47 76 88]
 Selected scores: [82 91 76 88]
@@ -1761,10 +1780,10 @@ Shapes: (6,) (6,)</code></pre>
 <p>The condition and the two choices must have broadcast-compatible shapes. Here, the scalar strings are broadcast across the six scores, so the labels have the same shape as <code>exam_scores</code>. The operation creates a new array; it does not change <code>exam_scores</code>.</p>
 <p>With <strong>only a condition</strong>, <code>np.where(condition)</code> instead returns the <strong>positions</strong> where the condition is true. Its result is a tuple with one index array per dimension. For this one-dimensional example, <code>[0]</code> retrieves the single array of positions:</p>
 <div id="numpy-where-positions" class="cell" data-execution_count="51">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb103"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Index tuple:'</span>, np.where(passing))</span>
-<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>passing_positions <span class="op">=</span> np.where(passing)[<span class="dv">0</span>]</span>
-<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Positions:'</span>, passing_positions)</span>
-<span id="cb103-4"><a href="#cb103-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Scores at those positions:'</span>, exam_scores[passing_positions])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb105"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Index tuple:'</span>, np.where(passing))</span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a>passing_positions <span class="op">=</span> np.where(passing)[<span class="dv">0</span>]</span>
+<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Positions:'</span>, passing_positions)</span>
+<span id="cb105-4"><a href="#cb105-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Scores at those positions:'</span>, exam_scores[passing_positions])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Index tuple: (array([1, 2, 4, 5]),)
 Positions: [1 2 4 5]
@@ -1777,10 +1796,10 @@ Scores at those positions: [82 91 76 88]</code></pre>
 <p>Use <strong><code>np.select(conditions, choices, default=...)</code></strong> when there are more than two possible outcomes. Supply an ordered list of Boolean conditions and a matching list of choices. At each position, NumPy uses the choice for the <strong>first true condition</strong>; if none is true, it uses <code>default</code>.</p>
 <p>Classify the same scores into three groups: 90 or above, 60–89, and below 60:</p>
 <div id="numpy-select-labels" class="cell" data-execution_count="52">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb105"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>conditions <span class="op">=</span> [exam_scores <span class="op">&gt;=</span> <span class="dv">90</span>, exam_scores <span class="op">&gt;=</span> <span class="dv">60</span>]</span>
-<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a>choices <span class="op">=</span> [<span class="st">'High score'</span>, <span class="st">'Pass'</span>]</span>
-<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a>score_groups <span class="op">=</span> np.select(conditions, choices, default<span class="op">=</span><span class="st">'Needs review'</span>)</span>
-<span id="cb105-4"><a href="#cb105-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(score_groups)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb107"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>conditions <span class="op">=</span> [exam_scores <span class="op">&gt;=</span> <span class="dv">90</span>, exam_scores <span class="op">&gt;=</span> <span class="dv">60</span>]</span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>choices <span class="op">=</span> [<span class="st">'High score'</span>, <span class="st">'Pass'</span>]</span>
+<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a>score_groups <span class="op">=</span> np.select(conditions, choices, default<span class="op">=</span><span class="st">'Needs review'</span>)</span>
+<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(score_groups)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>['Needs review' 'Pass' 'High score' 'Needs review' 'Pass' 'Pass']</code></pre>
 </div>
@@ -1837,10 +1856,10 @@ Scores at those positions: [82 91 76 88]</code></pre>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>82 is <code>Strong</code>: it fails <code>&gt;= 90</code> but passes <code>&gt;= 80</code>, and the first true condition wins.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb107"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>conditions <span class="op">=</span> [exam_scores <span class="op">&gt;=</span> <span class="dv">90</span>, exam_scores <span class="op">&gt;=</span> <span class="dv">80</span>, exam_scores <span class="op">&gt;=</span> <span class="dv">60</span>]</span>
-<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>choices <span class="op">=</span> [<span class="st">'High'</span>, <span class="st">'Strong'</span>, <span class="st">'Pass'</span>]</span>
-<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a>np.select(conditions, choices, default<span class="op">=</span><span class="st">'Needs review'</span>)</span>
-<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ['Needs review' 'Strong' 'High' 'Needs review' 'Pass' 'Strong']</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb109"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>conditions <span class="op">=</span> [exam_scores <span class="op">&gt;=</span> <span class="dv">90</span>, exam_scores <span class="op">&gt;=</span> <span class="dv">80</span>, exam_scores <span class="op">&gt;=</span> <span class="dv">60</span>]</span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>choices <span class="op">=</span> [<span class="st">'High'</span>, <span class="st">'Strong'</span>, <span class="st">'Pass'</span>]</span>
+<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a>np.select(conditions, choices, default<span class="op">=</span><span class="st">'Needs review'</span>)</span>
+<span id="cb109-4"><a href="#cb109-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ['Needs review' 'Strong' 'High' 'Needs review' 'Pass' 'Strong']</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Note that the conditions must stay in descending order. Listing <code>&gt;= 60</code> first would label every passing score <code>Pass</code>.</p>
 </div>
 </div>
@@ -1850,10 +1869,10 @@ Scores at those positions: [82 91 76 88]</code></pre>
 <h3 data-number="6.8.3" class="anchored" data-anchor-id="min-max-search"><span class="header-section-number">6.8.3</span> Finding Minimum and Maximum Values and Positions</h3>
 <p><code>min()</code> and <code>max()</code> (or <code>np.min</code>/<code>np.max</code>) tell you the <em>value</em>. <code>argmin()</code> and <code>argmax()</code> tell you <em>where</em> that value lives — its position.</p>
 <div id="numpy-lesson-066" class="cell" data-execution_count="53">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb108"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>scores_row <span class="op">=</span> np.array([<span class="dv">72</span>, <span class="dv">95</span>, <span class="dv">68</span>, <span class="dv">95</span>, <span class="dv">81</span>])</span>
-<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(scores_row.<span class="bu">max</span>())      <span class="co"># 95   -- the highest score</span></span>
-<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(scores_row.argmax())   <span class="co"># 1    -- the position of the first 95</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb110"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>scores_row <span class="op">=</span> np.array([<span class="dv">72</span>, <span class="dv">95</span>, <span class="dv">68</span>, <span class="dv">95</span>, <span class="dv">81</span>])</span>
+<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(scores_row.<span class="bu">max</span>())      <span class="co"># 95   -- the highest score</span></span>
+<span id="cb110-4"><a href="#cb110-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(scores_row.argmax())   <span class="co"># 1    -- the position of the first 95</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>95
 1</code></pre>
@@ -1861,8 +1880,8 @@ Scores at those positions: [82 91 76 88]</code></pre>
 </div>
 <p><strong>Ties matter.</strong> <code>argmax</code>/<code>argmin</code> return only the <em>first</em> position where the extreme value occurs — they never tell you there was a tie. If you need every tied position, use a boolean mask instead:</p>
 <div id="numpy-lesson-068" class="cell" data-execution_count="54">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb110"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(scores_row.argmax())                        <span class="co"># 1 (only the first match)</span></span>
-<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.where(scores_row <span class="op">==</span> scores_row.<span class="bu">max</span>()))   <span class="co"># (array([1, 3]),) -- both positions</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb112"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(scores_row.argmax())                        <span class="co"># 1 (only the first match)</span></span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.where(scores_row <span class="op">==</span> scores_row.<span class="bu">max</span>()))   <span class="co"># (array([1, 3]),) -- both positions</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1
 (array([1, 3]),)</code></pre>
@@ -1871,8 +1890,8 @@ Scores at those positions: [82 91 76 88]</code></pre>
 <p>This distinction matters in statistics: if you’re identifying “the top student” and there’s a tie, <code>argmax</code> will silently hand you just one of them. Decide deliberately whether ties should be broken, reported, or investigated further — don’t let <code>argmax</code> make that decision for you by accident.</p>
 <p>With 2D arrays, <code>argmax</code> and friends accept <code>axis</code> too, following the same collapsing logic you met in <a href="#aggregate-functions">Aggregate Functions</a>:</p>
 <div id="numpy-lesson-070" class="cell" data-execution_count="55">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb112"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(grades.argmax(axis<span class="op">=</span><span class="dv">1</span>))   <span class="co"># best quiz position for each student</span></span>
-<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(grades.<span class="bu">max</span>(axis<span class="op">=</span><span class="dv">0</span>))      <span class="co"># best score on each quiz</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb114"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(grades.argmax(axis<span class="op">=</span><span class="dv">1</span>))   <span class="co"># best quiz position for each student</span></span>
+<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(grades.<span class="bu">max</span>(axis<span class="op">=</span><span class="dv">0</span>))      <span class="co"># best score on each quiz</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1 0]
 [95 92 91]</code></pre>
@@ -1883,10 +1902,10 @@ Scores at those positions: [82 91 76 88]</code></pre>
 <h3 data-number="6.8.4" class="anchored" data-anchor-id="finding-the-top-k-with-np.argsort"><span class="header-section-number">6.8.4</span> Finding the Top-k with <code>np.argsort()</code></h3>
 <p><code>argmax</code>/<code>argmin</code> only ever hand you a single position. Often you want the top (or bottom) <em>k</em> values instead — say, the 3 highest test scores. That’s what <code>np.argsort</code> is for: it returns the positions that would put the array in ascending order — not the sorted values themselves.</p>
 <div id="numpy-lesson-072" class="cell" data-execution_count="56">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb114"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>tied_scores <span class="op">=</span> np.array([<span class="dv">3</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">10</span>])</span>
-<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>order <span class="op">=</span> np.argsort(tied_scores)     <span class="co"># positions, ascending by value</span></span>
-<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(order)</span>
-<span id="cb114-4"><a href="#cb114-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tied_scores[order])           <span class="co"># the actual sorted values</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb116"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>tied_scores <span class="op">=</span> np.array([<span class="dv">3</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">10</span>])</span>
+<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a>order <span class="op">=</span> np.argsort(tied_scores)     <span class="co"># positions, ascending by value</span></span>
+<span id="cb116-3"><a href="#cb116-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(order)</span>
+<span id="cb116-4"><a href="#cb116-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tied_scores[order])           <span class="co"># the actual sorted values</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[0 2 1 3]
 [ 3  7 10 10]</code></pre>
@@ -1894,31 +1913,31 @@ Scores at those positions: [82 91 76 88]</code></pre>
 </div>
 <p>To get the smallest <em>k</em>, just take the first <em>k</em> positions from that ascending order:</p>
 <div id="numpy-lesson-074" class="cell" data-execution_count="57">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb116"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a>smallest_k_idx <span class="op">=</span> np.argsort(tied_scores)[:k]</span>
-<span id="cb116-3"><a href="#cb116-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tied_scores[smallest_k_idx])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb118"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a>smallest_k_idx <span class="op">=</span> np.argsort(tied_scores)[:k]</span>
+<span id="cb118-3"><a href="#cb118-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tied_scores[smallest_k_idx])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[3 7]</code></pre>
 </div>
 </div>
 <p>For the <strong>largest</strong> <em>k</em>, take the last <em>k</em> positions and reverse them:</p>
 <div id="numpy-lesson-076" class="cell" data-execution_count="58">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb118"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>largest_k_idx <span class="op">=</span> np.argsort(tied_scores)[<span class="op">-</span>k:][::<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tied_scores[largest_k_idx])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb120"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>largest_k_idx <span class="op">=</span> np.argsort(tied_scores)[<span class="op">-</span>k:][::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tied_scores[largest_k_idx])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[10 10]</code></pre>
 </div>
 </div>
 <p><strong>Ties and <code>kind='stable'</code>.</strong> By default, when values tie, <code>argsort</code> doesn’t promise which tied position comes first. Pass <code>kind='stable'</code> to guarantee that tied values keep their original relative order — important whenever “who was recorded first” should break a tie, e.g., ranking students who scored identically:</p>
 <div id="numpy-lesson-078" class="cell" data-execution_count="59">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb120"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>order <span class="op">=</span> np.argsort(tied_scores, kind<span class="op">=</span><span class="st">'stable'</span>)</span>
-<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(order)</span>
-<span id="cb120-3"><a href="#cb120-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-4"><a href="#cb120-4" aria-hidden="true" tabindex="-1"></a><span class="co"># For these signed numeric scores, sort the negatives for descending order.</span></span>
-<span id="cb120-5"><a href="#cb120-5" aria-hidden="true" tabindex="-1"></a><span class="co"># This keeps original order among ties; reversing an ascending sort does not.</span></span>
-<span id="cb120-6"><a href="#cb120-6" aria-hidden="true" tabindex="-1"></a>stable_largest_idx <span class="op">=</span> np.argsort(<span class="op">-</span>tied_scores, kind<span class="op">=</span><span class="st">'stable'</span>)[:k]</span>
-<span id="cb120-7"><a href="#cb120-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(stable_largest_idx)</span>
-<span id="cb120-8"><a href="#cb120-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tied_scores[stable_largest_idx])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb122"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>order <span class="op">=</span> np.argsort(tied_scores, kind<span class="op">=</span><span class="st">'stable'</span>)</span>
+<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(order)</span>
+<span id="cb122-3"><a href="#cb122-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-4"><a href="#cb122-4" aria-hidden="true" tabindex="-1"></a><span class="co"># For these signed numeric scores, sort the negatives for descending order.</span></span>
+<span id="cb122-5"><a href="#cb122-5" aria-hidden="true" tabindex="-1"></a><span class="co"># This keeps original order among ties; reversing an ascending sort does not.</span></span>
+<span id="cb122-6"><a href="#cb122-6" aria-hidden="true" tabindex="-1"></a>stable_largest_idx <span class="op">=</span> np.argsort(<span class="op">-</span>tied_scores, kind<span class="op">=</span><span class="st">'stable'</span>)[:k]</span>
+<span id="cb122-7"><a href="#cb122-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(stable_largest_idx)</span>
+<span id="cb122-8"><a href="#cb122-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tied_scores[stable_largest_idx])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[0 2 1 3]
 [1 3]
@@ -1930,16 +1949,16 @@ Scores at those positions: [82 91 76 88]</code></pre>
 <h4 data-number="6.8.4.1" class="anchored" data-anchor-id="d-arrays-row-wise-or-column-wise"><span class="header-section-number">6.8.4.1</span> 2D Arrays: Row-wise or Column-wise</h4>
 <p>For a 2D array, <code>argsort</code> accepts <code>axis</code> just like the aggregation functions in <a href="#aggregate-functions">Aggregate Functions</a> — sorting happens <em>along</em> that axis, independently for every row or column.</p>
 <div id="numpy-lesson-081" class="cell" data-execution_count="60">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb122"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>test_scores <span class="op">=</span> np.array([[<span class="dv">85</span>, <span class="dv">92</span>, <span class="dv">78</span>, <span class="dv">95</span>],</span>
-<span id="cb122-2"><a href="#cb122-2" aria-hidden="true" tabindex="-1"></a>                        [<span class="dv">88</span>, <span class="dv">76</span>, <span class="dv">91</span>, <span class="dv">82</span>],</span>
-<span id="cb122-3"><a href="#cb122-3" aria-hidden="true" tabindex="-1"></a>                        [<span class="dv">95</span>, <span class="dv">89</span>, <span class="dv">84</span>, <span class="dv">90</span>]])</span>
-<span id="cb122-4"><a href="#cb122-4" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb122-5"><a href="#cb122-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-6"><a href="#cb122-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Row-wise: each student's own top-2 test columns</span></span>
-<span id="cb122-7"><a href="#cb122-7" aria-hidden="true" tabindex="-1"></a>row_order <span class="op">=</span> np.argsort(test_scores, axis<span class="op">=</span><span class="dv">1</span>)        <span class="co"># ascending, per row</span></span>
-<span id="cb122-8"><a href="#cb122-8" aria-hidden="true" tabindex="-1"></a>top2_cols_per_row <span class="op">=</span> row_order[:, <span class="op">-</span>k:][:, ::<span class="op">-</span><span class="dv">1</span>]     <span class="co"># last k columns, reversed</span></span>
-<span id="cb122-9"><a href="#cb122-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Ascending column order, per row:</span><span class="ch">\n</span><span class="st">'</span>, row_order)</span>
-<span id="cb122-10"><a href="#cb122-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Top-2 column positions, per row:</span><span class="ch">\n</span><span class="st">'</span>, top2_cols_per_row)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb124"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a>test_scores <span class="op">=</span> np.array([[<span class="dv">85</span>, <span class="dv">92</span>, <span class="dv">78</span>, <span class="dv">95</span>],</span>
+<span id="cb124-2"><a href="#cb124-2" aria-hidden="true" tabindex="-1"></a>                        [<span class="dv">88</span>, <span class="dv">76</span>, <span class="dv">91</span>, <span class="dv">82</span>],</span>
+<span id="cb124-3"><a href="#cb124-3" aria-hidden="true" tabindex="-1"></a>                        [<span class="dv">95</span>, <span class="dv">89</span>, <span class="dv">84</span>, <span class="dv">90</span>]])</span>
+<span id="cb124-4"><a href="#cb124-4" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb124-5"><a href="#cb124-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-6"><a href="#cb124-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Row-wise: each student's own top-2 test columns</span></span>
+<span id="cb124-7"><a href="#cb124-7" aria-hidden="true" tabindex="-1"></a>row_order <span class="op">=</span> np.argsort(test_scores, axis<span class="op">=</span><span class="dv">1</span>)        <span class="co"># ascending, per row</span></span>
+<span id="cb124-8"><a href="#cb124-8" aria-hidden="true" tabindex="-1"></a>top2_cols_per_row <span class="op">=</span> row_order[:, <span class="op">-</span>k:][:, ::<span class="op">-</span><span class="dv">1</span>]     <span class="co"># last k columns, reversed</span></span>
+<span id="cb124-9"><a href="#cb124-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Ascending column order, per row:</span><span class="ch">\n</span><span class="st">'</span>, row_order)</span>
+<span id="cb124-10"><a href="#cb124-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Top-2 column positions, per row:</span><span class="ch">\n</span><span class="st">'</span>, top2_cols_per_row)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Ascending column order, per row:
  [[2 0 1 3]
@@ -1953,9 +1972,9 @@ Top-2 column positions, per row:
 </div>
 <p>To pull out the actual <em>values</em> at those positions, pair the row-position array with the column-index array so NumPy knows which row each column index belongs to:</p>
 <div id="numpy-lesson-083" class="cell" data-execution_count="61">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb124"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> np.arange(test_scores.shape[<span class="dv">0</span>])[:, <span class="va">None</span>]   <span class="co"># column vector: [[0],[1],[2]]</span></span>
-<span id="cb124-2"><a href="#cb124-2" aria-hidden="true" tabindex="-1"></a>top2_vals_per_row <span class="op">=</span> test_scores[rows, top2_cols_per_row]</span>
-<span id="cb124-3"><a href="#cb124-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(top2_vals_per_row)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb126"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> np.arange(test_scores.shape[<span class="dv">0</span>])[:, <span class="va">None</span>]   <span class="co"># column vector: [[0],[1],[2]]</span></span>
+<span id="cb126-2"><a href="#cb126-2" aria-hidden="true" tabindex="-1"></a>top2_vals_per_row <span class="op">=</span> test_scores[rows, top2_cols_per_row]</span>
+<span id="cb126-3"><a href="#cb126-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(top2_vals_per_row)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[95 92]
  [91 88]
@@ -1998,10 +2017,10 @@ Top-2 column positions, per row:
 <h3 data-number="6.9.2" class="anchored" data-anchor-id="core-reshaping-methods-reshape"><span class="header-section-number">6.9.2</span> Core Reshaping Methods: <code>reshape()</code></h3>
 <p><code>.reshape()</code> rearranges the same data into a new shape, without changing the values or their order — only how they’re grouped. The total <code>size</code> must stay the same.</p>
 <div id="numpy-lesson-113" class="cell" data-execution_count="62">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb126"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a>flat <span class="op">=</span> np.arange(<span class="dv">12</span>)          <span class="co"># shape (12,)</span></span>
-<span id="cb126-2"><a href="#cb126-2" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> flat.reshape(<span class="dv">3</span>, <span class="dv">4</span>)     <span class="co"># 3 rows, 4 columns</span></span>
-<span id="cb126-3"><a href="#cb126-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(flat)</span>
-<span id="cb126-4"><a href="#cb126-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(grid)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb128"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a>flat <span class="op">=</span> np.arange(<span class="dv">12</span>)          <span class="co"># shape (12,)</span></span>
+<span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> flat.reshape(<span class="dv">3</span>, <span class="dv">4</span>)     <span class="co"># 3 rows, 4 columns</span></span>
+<span id="cb128-3"><a href="#cb128-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(flat)</span>
+<span id="cb128-4"><a href="#cb128-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(grid)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[ 0  1  2  3  4  5  6  7  8  9 10 11]
 [[ 0  1  2  3]
@@ -2011,11 +2030,11 @@ Top-2 column positions, per row:
 </div>
 <p>Common use: turning a 1D result (like the row-mean from the <a href="#broadcasting-by-meaning">broadcasting quick check</a>) into a column so it broadcasts correctly against rows:</p>
 <div id="numpy-lesson-115" class="cell" data-execution_count="63">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb128"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a>row_avg <span class="op">=</span> quiz_scores.mean(axis<span class="op">=</span><span class="dv">1</span>)   <span class="co"># shape (3,)</span></span>
-<span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a>row_avg <span class="op">=</span> row_avg.reshape(<span class="dv">3</span>, <span class="dv">1</span>)      <span class="co"># shape (3, 1) -- now a column</span></span>
-<span id="cb128-3"><a href="#cb128-3" aria-hidden="true" tabindex="-1"></a>centered <span class="op">=</span> quiz_scores <span class="op">-</span> row_avg     <span class="co"># broadcasts correctly across each row</span></span>
-<span id="cb128-4"><a href="#cb128-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'row_avg shape:'</span>, row_avg.shape)</span>
-<span id="cb128-5"><a href="#cb128-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(centered)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb130"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a>row_avg <span class="op">=</span> quiz_scores.mean(axis<span class="op">=</span><span class="dv">1</span>)   <span class="co"># shape (3,)</span></span>
+<span id="cb130-2"><a href="#cb130-2" aria-hidden="true" tabindex="-1"></a>row_avg <span class="op">=</span> row_avg.reshape(<span class="dv">3</span>, <span class="dv">1</span>)      <span class="co"># shape (3, 1) -- now a column</span></span>
+<span id="cb130-3"><a href="#cb130-3" aria-hidden="true" tabindex="-1"></a>centered <span class="op">=</span> quiz_scores <span class="op">-</span> row_avg     <span class="co"># broadcasts correctly across each row</span></span>
+<span id="cb130-4"><a href="#cb130-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'row_avg shape:'</span>, row_avg.shape)</span>
+<span id="cb130-5"><a href="#cb130-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(centered)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>row_avg shape: (3, 1)
 [[  0.  10. -10.]
@@ -2025,7 +2044,7 @@ Top-2 column positions, per row:
 </div>
 <p>You can also use <code>-1</code> to tell NumPy “figure out this dimension for me”:</p>
 <div id="numpy-lesson-117" class="cell" data-execution_count="64">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb130"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(flat.reshape(<span class="dv">3</span>, <span class="op">-</span><span class="dv">1</span>))   <span class="co"># NumPy computes the second dimension automatically</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb132"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(flat.reshape(<span class="dv">3</span>, <span class="op">-</span><span class="dv">1</span>))   <span class="co"># NumPy computes the second dimension automatically</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[ 0  1  2  3]
  [ 4  5  6  7]
@@ -2037,8 +2056,8 @@ Top-2 column positions, per row:
 <h3 data-number="6.9.3" class="anchored" data-anchor-id="transpose-and-.t-matrix-transposition"><span class="header-section-number">6.9.3</span> <code>transpose()</code> and <code>.T</code>: Matrix Transposition</h3>
 <p><code>.T</code> flips rows and columns — what was a row becomes a column, and vice versa. This is essential when your data is oriented the “wrong way” for the calculation you want to do:</p>
 <div id="numpy-lesson-119" class="cell" data-execution_count="65">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb132"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(grades.shape)     <span class="co"># (2, 3) -- 2 students, 3 quizzes</span></span>
-<span id="cb132-2"><a href="#cb132-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(grades.T.shape)   <span class="co"># (3, 2) -- 3 quizzes, 2 students</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb134"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(grades.shape)     <span class="co"># (2, 3) -- 2 students, 3 quizzes</span></span>
+<span id="cb134-2"><a href="#cb134-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(grades.T.shape)   <span class="co"># (3, 2) -- 3 quizzes, 2 students</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(2, 3)
 (3, 2)</code></pre>
@@ -2054,13 +2073,13 @@ Top-2 column positions, per row:
 <h3 data-number="6.10.1" class="anchored" data-anchor-id="np.vstack-and-np.hstack-adding-rows-or-columns"><span class="header-section-number">6.10.1</span> <code>np.vstack()</code> and <code>np.hstack()</code>: Adding Rows or Columns</h3>
 <p><code>np.vstack</code> stacks vertically, adding rows, and <code>np.hstack</code> stacks horizontally, adding columns:</p>
 <div id="numpy-lesson-122" class="cell" data-execution_count="66">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb134"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a>class_a <span class="op">=</span> np.array([[<span class="dv">85</span>, <span class="dv">90</span>], [<span class="dv">78</span>, <span class="dv">82</span>]])</span>
-<span id="cb134-2"><a href="#cb134-2" aria-hidden="true" tabindex="-1"></a>class_b <span class="op">=</span> np.array([[<span class="dv">92</span>, <span class="dv">88</span>]])</span>
-<span id="cb134-3"><a href="#cb134-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb134-4"><a href="#cb134-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.vstack([class_a, class_b]))   <span class="co"># a new row: one more student</span></span>
-<span id="cb134-5"><a href="#cb134-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb134-6"><a href="#cb134-6" aria-hidden="true" tabindex="-1"></a>new_quiz <span class="op">=</span> np.array([[<span class="dv">95</span>], [<span class="dv">80</span>], [<span class="dv">91</span>]])</span>
-<span id="cb134-7"><a href="#cb134-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.hstack([np.vstack([class_a, class_b]), new_quiz]))   <span class="co"># a new column: one more quiz</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb136"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a>class_a <span class="op">=</span> np.array([[<span class="dv">85</span>, <span class="dv">90</span>], [<span class="dv">78</span>, <span class="dv">82</span>]])</span>
+<span id="cb136-2"><a href="#cb136-2" aria-hidden="true" tabindex="-1"></a>class_b <span class="op">=</span> np.array([[<span class="dv">92</span>, <span class="dv">88</span>]])</span>
+<span id="cb136-3"><a href="#cb136-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-4"><a href="#cb136-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.vstack([class_a, class_b]))   <span class="co"># a new row: one more student</span></span>
+<span id="cb136-5"><a href="#cb136-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-6"><a href="#cb136-6" aria-hidden="true" tabindex="-1"></a>new_quiz <span class="op">=</span> np.array([[<span class="dv">95</span>], [<span class="dv">80</span>], [<span class="dv">91</span>]])</span>
+<span id="cb136-7"><a href="#cb136-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.hstack([np.vstack([class_a, class_b]), new_quiz]))   <span class="co"># a new column: one more quiz</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[85 90]
  [78 82]
@@ -2076,13 +2095,13 @@ Top-2 column positions, per row:
 <h3 data-number="6.10.2" class="anchored" data-anchor-id="np.concatenate-joining-along-an-existing-axis"><span class="header-section-number">6.10.2</span> <code>np.concatenate()</code>: Joining Along an Existing Axis</h3>
 <p><code>np.concatenate</code> takes the axis as an argument instead of building it into the function name. For these 2D examples, <code>axis=0</code> adds rows and <code>axis=1</code> adds columns, and all dimensions except the joining axis must match. These are the arrays you just stacked, so the checks confirm that the wrappers and the general form do the same job:</p>
 <div id="numpy-lesson-125" class="cell" data-execution_count="67">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb136"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a>combined_class <span class="op">=</span> np.concatenate([class_a, class_b], axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb136-2"><a href="#cb136-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'rows joined on axis 0:'</span>, class_a.shape, <span class="st">'+'</span>, class_b.shape, <span class="st">'-&gt;'</span>, combined_class.shape)</span>
-<span id="cb136-3"><a href="#cb136-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'same as np.vstack:'</span>, np.array_equal(combined_class, np.vstack([class_a, class_b])))</span>
-<span id="cb136-4"><a href="#cb136-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb136-5"><a href="#cb136-5" aria-hidden="true" tabindex="-1"></a>with_new_quiz <span class="op">=</span> np.concatenate([combined_class, new_quiz], axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb136-6"><a href="#cb136-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'columns joined on axis 1:'</span>, combined_class.shape, <span class="st">'+'</span>, new_quiz.shape, <span class="st">'-&gt;'</span>, with_new_quiz.shape)</span>
-<span id="cb136-7"><a href="#cb136-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'same as np.hstack:'</span>, np.array_equal(with_new_quiz, np.hstack([combined_class, new_quiz])))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb138"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a>combined_class <span class="op">=</span> np.concatenate([class_a, class_b], axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb138-2"><a href="#cb138-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'rows joined on axis 0:'</span>, class_a.shape, <span class="st">'+'</span>, class_b.shape, <span class="st">'-&gt;'</span>, combined_class.shape)</span>
+<span id="cb138-3"><a href="#cb138-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'same as np.vstack:'</span>, np.array_equal(combined_class, np.vstack([class_a, class_b])))</span>
+<span id="cb138-4"><a href="#cb138-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb138-5"><a href="#cb138-5" aria-hidden="true" tabindex="-1"></a>with_new_quiz <span class="op">=</span> np.concatenate([combined_class, new_quiz], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb138-6"><a href="#cb138-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'columns joined on axis 1:'</span>, combined_class.shape, <span class="st">'+'</span>, new_quiz.shape, <span class="st">'-&gt;'</span>, with_new_quiz.shape)</span>
+<span id="cb138-7"><a href="#cb138-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'same as np.hstack:'</span>, np.array_equal(with_new_quiz, np.hstack([combined_class, new_quiz])))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>rows joined on axis 0: (2, 2) + (1, 2) -&gt; (3, 2)
 same as np.vstack: True
@@ -2096,37 +2115,37 @@ same as np.hstack: True</code></pre>
 <h2 data-number="6.11" class="anchored" data-anchor-id="putting-it-together-a-statistics-workflow"><span class="header-section-number">6.11</span> Putting It Together: A Statistics Workflow</h2>
 <p>A typical statistics workflow touches nearly every idea in this lesson:</p>
 <div id="numpy-lesson-127" class="cell" data-execution_count="68">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb138"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Create the array and inspect it</span></span>
-<span id="cb138-2"><a href="#cb138-2" aria-hidden="true" tabindex="-1"></a>gradebook <span class="op">=</span> np.array([</span>
-<span id="cb138-3"><a href="#cb138-3" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">70</span>, <span class="dv">60</span>],</span>
-<span id="cb138-4"><a href="#cb138-4" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">85</span>, <span class="dv">95</span>, <span class="dv">75</span>, <span class="dv">92</span>],</span>
-<span id="cb138-5"><a href="#cb138-5" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">78</span>, <span class="dv">88</span>, <span class="dv">68</span>, <span class="dv">74</span>],</span>
-<span id="cb138-6"><a href="#cb138-6" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">92</span>, <span class="dv">60</span>, <span class="dv">85</span>, <span class="dv">88</span>],</span>
-<span id="cb138-7"><a href="#cb138-7" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb138-8"><a href="#cb138-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'shape and dtype:'</span>, gradebook.shape, gradebook.dtype)</span>
-<span id="cb138-9"><a href="#cb138-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb138-10"><a href="#cb138-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Select with a boolean mask</span></span>
-<span id="cb138-11"><a href="#cb138-11" aria-hidden="true" tabindex="-1"></a>student_avg <span class="op">=</span> gradebook.mean(axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb138-12"><a href="#cb138-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'student averages:'</span>, student_avg)</span>
-<span id="cb138-13"><a href="#cb138-13" aria-hidden="true" tabindex="-1"></a>struggling <span class="op">=</span> gradebook[student_avg <span class="op">&lt;</span> <span class="dv">78</span>]</span>
-<span id="cb138-14"><a href="#cb138-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'rows for students averaging below 78:</span><span class="ch">\n</span><span class="st">'</span>, struggling)</span>
-<span id="cb138-15"><a href="#cb138-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb138-16"><a href="#cb138-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Element-wise + broadcasting: convert scores out of 100 to proportions</span></span>
-<span id="cb138-17"><a href="#cb138-17" aria-hidden="true" tabindex="-1"></a>pct <span class="op">=</span> gradebook <span class="op">/</span> <span class="dv">100</span></span>
-<span id="cb138-18"><a href="#cb138-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'scores as proportions, first student:'</span>, pct[<span class="dv">0</span>])</span>
-<span id="cb138-19"><a href="#cb138-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb138-20"><a href="#cb138-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Aggregate along an axis</span></span>
-<span id="cb138-21"><a href="#cb138-21" aria-hidden="true" tabindex="-1"></a>quiz_averages <span class="op">=</span> gradebook.mean(axis<span class="op">=</span><span class="dv">0</span>)     <span class="co"># per-quiz average</span></span>
-<span id="cb138-22"><a href="#cb138-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'per-quiz averages:'</span>, quiz_averages)</span>
-<span id="cb138-23"><a href="#cb138-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb138-24"><a href="#cb138-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Find the best performer, watching for ties</span></span>
-<span id="cb138-25"><a href="#cb138-25" aria-hidden="true" tabindex="-1"></a>best_student_idx <span class="op">=</span> student_avg.argmax()</span>
-<span id="cb138-26"><a href="#cb138-26" aria-hidden="true" tabindex="-1"></a>tied_best <span class="op">=</span> np.where(student_avg <span class="op">==</span> student_avg.<span class="bu">max</span>())[<span class="dv">0</span>]</span>
-<span id="cb138-27"><a href="#cb138-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'best student position:'</span>, best_student_idx, <span class="st">' all tied at the top:'</span>, tied_best)</span>
-<span id="cb138-28"><a href="#cb138-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb138-29"><a href="#cb138-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Center each student on their own average (keepdims keeps the axis to broadcast over)</span></span>
-<span id="cb138-30"><a href="#cb138-30" aria-hidden="true" tabindex="-1"></a>curved <span class="op">=</span> gradebook <span class="op">-</span> gradebook.mean(axis<span class="op">=</span><span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb138-31"><a href="#cb138-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'deviation from each student</span><span class="ch">\'</span><span class="st">s own average:</span><span class="ch">\n</span><span class="st">'</span>, curved.<span class="bu">round</span>(<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb140"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Create the array and inspect it</span></span>
+<span id="cb140-2"><a href="#cb140-2" aria-hidden="true" tabindex="-1"></a>gradebook <span class="op">=</span> np.array([</span>
+<span id="cb140-3"><a href="#cb140-3" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">70</span>, <span class="dv">60</span>],</span>
+<span id="cb140-4"><a href="#cb140-4" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">85</span>, <span class="dv">95</span>, <span class="dv">75</span>, <span class="dv">92</span>],</span>
+<span id="cb140-5"><a href="#cb140-5" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">78</span>, <span class="dv">88</span>, <span class="dv">68</span>, <span class="dv">74</span>],</span>
+<span id="cb140-6"><a href="#cb140-6" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">92</span>, <span class="dv">60</span>, <span class="dv">85</span>, <span class="dv">88</span>],</span>
+<span id="cb140-7"><a href="#cb140-7" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb140-8"><a href="#cb140-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'shape and dtype:'</span>, gradebook.shape, gradebook.dtype)</span>
+<span id="cb140-9"><a href="#cb140-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-10"><a href="#cb140-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Select with a boolean mask</span></span>
+<span id="cb140-11"><a href="#cb140-11" aria-hidden="true" tabindex="-1"></a>student_avg <span class="op">=</span> gradebook.mean(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb140-12"><a href="#cb140-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'student averages:'</span>, student_avg)</span>
+<span id="cb140-13"><a href="#cb140-13" aria-hidden="true" tabindex="-1"></a>struggling <span class="op">=</span> gradebook[student_avg <span class="op">&lt;</span> <span class="dv">78</span>]</span>
+<span id="cb140-14"><a href="#cb140-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'rows for students averaging below 78:</span><span class="ch">\n</span><span class="st">'</span>, struggling)</span>
+<span id="cb140-15"><a href="#cb140-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-16"><a href="#cb140-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Element-wise + broadcasting: convert scores out of 100 to proportions</span></span>
+<span id="cb140-17"><a href="#cb140-17" aria-hidden="true" tabindex="-1"></a>pct <span class="op">=</span> gradebook <span class="op">/</span> <span class="dv">100</span></span>
+<span id="cb140-18"><a href="#cb140-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'scores as proportions, first student:'</span>, pct[<span class="dv">0</span>])</span>
+<span id="cb140-19"><a href="#cb140-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-20"><a href="#cb140-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Aggregate along an axis</span></span>
+<span id="cb140-21"><a href="#cb140-21" aria-hidden="true" tabindex="-1"></a>quiz_averages <span class="op">=</span> gradebook.mean(axis<span class="op">=</span><span class="dv">0</span>)     <span class="co"># per-quiz average</span></span>
+<span id="cb140-22"><a href="#cb140-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'per-quiz averages:'</span>, quiz_averages)</span>
+<span id="cb140-23"><a href="#cb140-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-24"><a href="#cb140-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Find the best performer, watching for ties</span></span>
+<span id="cb140-25"><a href="#cb140-25" aria-hidden="true" tabindex="-1"></a>best_student_idx <span class="op">=</span> student_avg.argmax()</span>
+<span id="cb140-26"><a href="#cb140-26" aria-hidden="true" tabindex="-1"></a>tied_best <span class="op">=</span> np.where(student_avg <span class="op">==</span> student_avg.<span class="bu">max</span>())[<span class="dv">0</span>]</span>
+<span id="cb140-27"><a href="#cb140-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'best student position:'</span>, best_student_idx, <span class="st">' all tied at the top:'</span>, tied_best)</span>
+<span id="cb140-28"><a href="#cb140-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-29"><a href="#cb140-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Center each student on their own average (keepdims keeps the axis to broadcast over)</span></span>
+<span id="cb140-30"><a href="#cb140-30" aria-hidden="true" tabindex="-1"></a>curved <span class="op">=</span> gradebook <span class="op">-</span> gradebook.mean(axis<span class="op">=</span><span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb140-31"><a href="#cb140-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'deviation from each student</span><span class="ch">\'</span><span class="st">s own average:</span><span class="ch">\n</span><span class="st">'</span>, curved.<span class="bu">round</span>(<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shape and dtype: (4, 4) int64
 student averages: [75.   86.75 77.   81.25]
@@ -2310,12 +2329,12 @@ deviation from each student's own average:
 <p><strong>File:</strong> <code>activity06.ipynb</code> from the <a href="downloads/numpy-fundamentals-practice.zip">practice kit</a>.</p>
 <p><strong>Submit:</strong> <code>activity06.html</code> through the final upload question in the NumPy Fundamentals Canvas quiz.</p>
 <p><strong>This section contains the complete activity instructions.</strong> The starter supplies the inputs and work spaces. Optional benchmarks, the capital exercise, and other extensions are not required. These invented data describe units sold for one day, with stores in rows and products in columns:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb140"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a>stores <span class="op">=</span> np.array([<span class="st">'North'</span>, <span class="st">'South'</span>, <span class="st">'West'</span>])</span>
-<span id="cb140-2"><a href="#cb140-2" aria-hidden="true" tabindex="-1"></a>products <span class="op">=</span> np.array([<span class="st">'Notebook'</span>, <span class="st">'Pen'</span>, <span class="st">'Folder'</span>, <span class="st">'Marker'</span>])</span>
-<span id="cb140-3"><a href="#cb140-3" aria-hidden="true" tabindex="-1"></a>units <span class="op">=</span> np.array([[<span class="dv">12</span>, <span class="dv">20</span>, <span class="dv">8</span>, <span class="dv">10</span>], [<span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">12</span>, <span class="dv">8</span>], [<span class="dv">12</span>, <span class="dv">18</span>, <span class="dv">9</span>, <span class="dv">10</span>]])</span>
-<span id="cb140-4"><a href="#cb140-4" aria-hidden="true" tabindex="-1"></a>prices <span class="op">=</span> np.array([<span class="fl">5.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>, <span class="fl">4.0</span>])</span>
-<span id="cb140-5"><a href="#cb140-5" aria-hidden="true" tabindex="-1"></a>store_factors <span class="op">=</span> np.array([<span class="fl">1.0</span>, <span class="fl">0.9</span>, <span class="fl">0.8</span>])</span>
-<span id="cb140-6"><a href="#cb140-6" aria-hidden="true" tabindex="-1"></a>new_store_units <span class="op">=</span> np.array([<span class="dv">9</span>, <span class="dv">16</span>, <span class="dv">10</span>, <span class="dv">7</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb142"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a>stores <span class="op">=</span> np.array([<span class="st">'North'</span>, <span class="st">'South'</span>, <span class="st">'West'</span>])</span>
+<span id="cb142-2"><a href="#cb142-2" aria-hidden="true" tabindex="-1"></a>products <span class="op">=</span> np.array([<span class="st">'Notebook'</span>, <span class="st">'Pen'</span>, <span class="st">'Folder'</span>, <span class="st">'Marker'</span>])</span>
+<span id="cb142-3"><a href="#cb142-3" aria-hidden="true" tabindex="-1"></a>units <span class="op">=</span> np.array([[<span class="dv">12</span>, <span class="dv">20</span>, <span class="dv">8</span>, <span class="dv">10</span>], [<span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">12</span>, <span class="dv">8</span>], [<span class="dv">12</span>, <span class="dv">18</span>, <span class="dv">9</span>, <span class="dv">10</span>]])</span>
+<span id="cb142-4"><a href="#cb142-4" aria-hidden="true" tabindex="-1"></a>prices <span class="op">=</span> np.array([<span class="fl">5.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>, <span class="fl">4.0</span>])</span>
+<span id="cb142-5"><a href="#cb142-5" aria-hidden="true" tabindex="-1"></a>store_factors <span class="op">=</span> np.array([<span class="fl">1.0</span>, <span class="fl">0.9</span>, <span class="fl">0.8</span>])</span>
+<span id="cb142-6"><a href="#cb142-6" aria-hidden="true" tabindex="-1"></a>new_store_units <span class="op">=</span> np.array([<span class="dv">9</span>, <span class="dv">16</span>, <span class="dv">10</span>, <span class="dv">7</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Prices are dollars per unit; the factors are hypothetical multipliers applied to each store’s entire revenue row. There are no missing values.</p>
 <section id="a.-predict-shapes-and-select-values" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="a.-predict-shapes-and-select-values">A. Predict Shapes and Select Values</h3>
