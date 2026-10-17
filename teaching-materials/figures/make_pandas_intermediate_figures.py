@@ -4,7 +4,7 @@
 
 Every number in a figure is computed here with pandas from the chapter's own
 example data, so a figure cannot drift from the code cell it illustrates.
-Writes seven PNGs to images/, all prefixed pandas-intermediate-.
+Writes ten PNGs to images/, all prefixed pandas-intermediate-.
 """
 import matplotlib
 matplotlib.use("Agg")
@@ -261,3 +261,123 @@ frame_table(ax, 10.35, top, res, 2.3, 0.0, lambda r, c: "match" if r == 0 else "
 label(ax, 6.2, -0.05, "Rows 1 and 2 go through the same call, one at a time: one returned value per row.",
       size=10.5, color=INK, bold=False, style="italic")
 save(fig, "pandas-intermediate-apply-rows.png")
+
+# ---------------------------------------------------------------- 8. the default, axis=0, passes each column
+def value_range(column):
+    return column.max() - column.min()
+ranges = financial_df[['Revenue', 'Expenses']].apply(value_range)
+col0 = financial_df['Revenue']
+
+fig, ax = canvas(11.8, 2.9)
+top = 1.95
+frame_table(ax, 0.1, top, financial_df, 1.0, 0.35, lambda r, c: "match" if c == 'Revenue' else "plain",
+            title="financial_df")
+# the column as a Series
+arrow(ax, (2.55, top - 1.5 * H), (3.0, top - 1.5 * H), color=GOLD)
+label(ax, 3.95, top + H + 0.32, "column  (a Series)", size=11.5, mono=True)
+for i, v in enumerate(col0):
+    label(ax, 3.45, top - i * H + H / 2, str(i), size=10.5, ha="right", mono=True)
+    cell(ax, 3.55, top - i * H, 0.85, fmt(v), GOLD_BG, bold=True, color=GOLD, mono=True)
+# the function call
+arrow(ax, (4.6, top - H / 2), (4.95, top - H / 2), color=GOLD)
+ax.add_patch(FancyBboxPatch((5.05, top - 1.0), 3.3, 1.2, boxstyle="round,pad=0.08",
+                            facecolor="white", edgecolor=PURPLE, linewidth=1.8))
+label(ax, 6.7, top - 0.07, "value_range(column)", size=11.5, mono=True)
+label(ax, 6.7, top - 0.47, f"{fmt(col0.max())} − {fmt(col0.min())}", size=10.5, color=INK, bold=False, mono=True)
+label(ax, 6.7, top - 0.83, f"= {fmt(ranges['Revenue'])}", size=11, color=GOLD, mono=True)
+# result: one value per column
+arrow(ax, (8.55, top - H / 2), (9.0, top - H / 2), color=GOLD)
+label(ax, 10.1, top + H + 0.32, "result  (a Series)", size=11.5, mono=True)
+for i, (k, v) in enumerate(ranges.items()):
+    label(ax, 9.95, top - i * H + H / 2, k, size=10.5, ha="right", mono=True)
+    cell(ax, 10.05, top - i * H, 0.9, fmt(v), GOLD_BG if i == 0 else PALE, bold=i == 0,
+         color=GOLD if i == 0 else INK, mono=True)
+label(ax, 5.9, -0.05, "The Expenses column goes through the same call: one returned value per column.",
+      size=10.5, color=INK, bold=False, style="italic")
+save(fig, "pandas-intermediate-apply-columns.png")
+
+# ---------------------------------------------------------------- 9. DataFrame.apply versus Series.apply
+fig, ax = canvas(12.4, 3.5)
+top = 2.35
+first = lambda r, c: "match" if r == 0 else "plain"
+
+# left panel: a whole row per call
+label(ax, 2.75, top + H + 0.78, "DataFrame.apply(func, axis=1)", size=12, mono=True)
+frame_table(ax, 0.1, top, financial_df, 1.0, 0.35, first, title="financial_df")
+arrow(ax, (2.55, top - H / 2), (3.0, top - H / 2), color=GOLD)
+label(ax, 4.15, top + H + 0.32, "row  (a Series)", size=11.5, mono=True)
+for i, (k, v) in enumerate(financial_df.loc[0].items()):
+    label(ax, 3.9, top - i * H + H / 2, k, size=10.5, ha="right", mono=True)
+    cell(ax, 4.0, top - i * H, 0.9, fmt(v), GOLD_BG, bold=True, color=GOLD, mono=True)
+label(ax, 2.6, top - 3 * H - 0.3, "one whole row per call", size=11, color=PURPLE)
+label(ax, 2.6, top - 3 * H - 0.68, "inside the function: row['Revenue'], row['Expenses']",
+      size=10.5, color=INK, bold=False, style="italic")
+
+ax.plot([6.2, 6.2], [-0.1, top + H + 0.95], color=HEADER, linewidth=2)
+
+# right panel: one value per call
+label(ax, 9.5, top + H + 0.78, "Series.apply(func)", size=12, mono=True)
+frame_table(ax, 6.7, top, financial_df[['Revenue']], 1.15, 0.35, first,
+            title="financial_df['Revenue']", title_size=11.5)
+for i, v in enumerate(financial_df['Revenue']):
+    cy = top - i * H - H / 2
+    arrow(ax, (8.3, cy), (8.8, cy), color=GOLD if i == 0 else MUTE, width=2.2 if i == 0 else 1.6)
+    ax.add_patch(FancyBboxPatch((8.9, cy - H / 2 + 0.09), 2.5, H - 0.18, boxstyle="round,pad=0.03",
+                                facecolor="white", edgecolor=PURPLE if i == 0 else HEADER, linewidth=1.6))
+    label(ax, 9.5, cy, f"Call {i + 1}", size=10.5, color=PURPLE if i == 0 else MUTE, ha="right")
+    label(ax, 9.7, cy, f"x = {fmt(v)}", size=10.5, color=GOLD if i == 0 else INK,
+          bold=i == 0, ha="left", mono=True)
+label(ax, 9.3, top - 3 * H - 0.3, "one value per call", size=11, color=PURPLE)
+label(ax, 9.3, top - 3 * H - 0.68, "inside the function: x is a single number",
+      size=10.5, color=INK, bold=False, style="italic")
+save(fig, "pandas-intermediate-dataframe-vs-series-apply.png")
+
+# ---------------------------------------------------------------- 10. apply versus a whole-column expression
+revenue = financial_df['Revenue']
+discounted = revenue * 0.9
+
+fig, ax = canvas(12.9, 4.4)
+top = 3.0
+ax.plot([6.35, 6.35], [0.05, top + 1.45], color=HEADER, linewidth=2)
+
+# left: one Python call per value
+label(ax, 3.1, top + 1.3, "ROW BY ROW", size=12.5)
+label(ax, 3.1, top + 0.85, "financial_df['Revenue'].apply(tenth_off)", size=11, mono=True, color=INK)
+cell(ax, 0.6, top, 1.1, "Revenue", HEADER, bold=True, color=PURPLE, mono=True)
+centers = [2.9, 1.9, 0.9]
+for i, v in enumerate(revenue):
+    ry = top - (i + 1) * H + H / 2
+    label(ax, 0.5, ry, str(i), size=10.5, ha="right", mono=True)
+    cell(ax, 0.6, top - (i + 1) * H, 1.1, fmt(v), PALE, mono=True)
+    arrow(ax, (1.8, ry), (2.35, centers[i]), color=GOLD, width=1.8)
+    ax.add_patch(FancyBboxPatch((2.45, centers[i] - 0.26), 3.4, 0.52, boxstyle="round,pad=0.06",
+                                facecolor="white", edgecolor=PURPLE, linewidth=1.6))
+    label(ax, 4.15, centers[i], f"tenth_off({fmt(v)}) = {fmt(discounted.iloc[i])}", size=10.5,
+          color=INK, bold=False, mono=True)
+label(ax, 3.1, 0.2, "one Python call for every value: the overhead repeats",
+      size=10.5, color=INK, bold=False, style="italic")
+
+# right: one operation on the whole array
+label(ax, 9.7, top + 1.3, "WHOLE COLUMN", size=12.5)
+label(ax, 9.7, top + 0.85, "financial_df['Revenue'] * 0.9", size=11, mono=True, color=INK)
+def array_box(y, values, text_color, edge):
+    ax.add_patch(FancyBboxPatch((7.0, y - 0.3), 5.4, 0.6, boxstyle="round,pad=0.06",
+                                facecolor="white", edgecolor=edge, linewidth=1.8))
+    label(ax, 9.7, y, "[ " + "   ".join(fmt(v) for v in values) + " ]", size=11.5,
+          color=text_color, mono=True)
+array_box(top - 0.05, revenue, INK, HEADER)
+label(ax, 9.7, top + 0.45, "the whole column, stored as one array", size=10.5, color=MUTE, bold=False)
+arrow(ax, (9.7, top - 0.43), (9.7, top - 0.72), color=GOLD)
+ax.add_patch(FancyBboxPatch((7.6, top - 1.45), 4.2, 0.7, boxstyle="round,pad=0.06",
+                            facecolor=PALE, edgecolor=PURPLE, linewidth=1.8))
+label(ax, 9.7, top - 0.97, "one compiled array operation", size=11)
+label(ax, 9.7, top - 1.28, "× 0.9", size=11, mono=True, color=GOLD)
+arrow(ax, (9.7, top - 1.6), (9.7, top - 1.9), color=GOLD)
+array_box(top - 2.25, discounted, GOLD, PURPLE)
+label(ax, 9.7, 0.2, "one operation on the whole array: the loop runs in compiled code",
+      size=10.5, color=INK, bold=False, style="italic")
+
+label(ax, 6.35, -0.25, "Both give the same answer. pandas stores each column as a NumPy array, "
+                       "and a column expression hands that array straight to NumPy.",
+      size=11, color=PURPLE, bold=False, style="italic")
+save(fig, "pandas-intermediate-apply-vs-vectorized.png")
