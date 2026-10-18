@@ -1872,7 +1872,7 @@ DataFrame : [1. 2. 3.]  &lt;- untouched</code></pre>
 <section id="b.-derive-a-column-two-ways-stage-4" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="b.-derive-a-column-two-ways-stage-4">B. Derive a Column Two Ways (Stage 4)</h3>
 <ul>
-<li>The rule: <code>value = quantity * cost</code>, then a bulk discount of 15% when <code>quantity &gt;= 40</code> and 8% when <code>quantity &gt;= 15</code>, with no discount below that, and finally a $12.50 handling fee added to any item whose discounted value is under $200.</li>
+<li>Now, use the <code>orders</code> DataFrame. We will apply the rule: <code>value = quantity * cost</code>, then a bulk discount of 15% when <code>quantity &gt;= 40</code> and 8% when <code>quantity &gt;= 15</code>, with no discount below that, and finally a $12.50 handling fee added to any item whose discounted value is under $200.</li>
 <li>Write it first as a row function with <code>.apply(axis=1)</code> on the large <code>orders</code> table, and time it with <code>%timeit</code>.</li>
 <li>Write it again vectorized, using <code>np.select</code> and <code>np.where</code>, and time that.</li>
 <li>Verify that the two agree with <code>np.allclose</code>, report the speedup ratio, and say which change actually produced the speedup.</li>
