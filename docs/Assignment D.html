@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Appendix D — Assignment D: NumPy – Data Science I with python</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./geospatial_mapping.html" rel="next">
+<link href="./Assignment C.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d3f7f8e73c8d287b30bcf59c2b563615.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Assignment A.html">Appendices</a></li><li class="breadcrumb-item"><a href="./Assignment D.html"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Assignment D: NumPy</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="https://statistics.northwestern.edu/" class="sidebar-logo-link">
+      <img src="./NU_Stat_logo.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./NU_Stat_logo.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Science I with python</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/Lizhen0909/stat303-1-sec20-coursebook" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Review of STAT 201: Python Foundations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./python_basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_structures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Structures</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Setting Up for Data Science</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vscode_setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Jupyter Notebooks in VS Code</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./python_venv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Environments, Packages, and File Paths</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Core Library Foundations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Reading_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reading Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pandas_fundamentals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Pandas Fundamentals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pandas_intermediate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pandas Intermediate</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./numpy_fundamentals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">NumPy Fundamentals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./numpy_pandas_workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">NumPy and pandas in a Real Workflow</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_viz_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data Visualization I: Single Plots</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_viz_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Data Visualization II: Multi-Panel Figures</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">From Messy to Insight</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data_cleaning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Data Cleaning</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data_preparation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Data Preparation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data aggregation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Data Grouping and Aggregation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data_reshaping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Data Reshaping</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data wrangling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Combining Datasets</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Assignment A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Assignment A: Python Foundations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Assignment B.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Assignment B: Setting Up Your Course Workspace</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Assignment C.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Assignment C: Pandas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Assignment D.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Assignment D: NumPy</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./geospatial_mapping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Geospatial Plotting for Final Projects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Datasets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Datasets &amp; Templates</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#instructions" id="toc-instructions" class="nav-link active" data-scroll-target="#instructions">Instructions</a></li>
+  <li><a href="#points-summary" id="toc-points-summary" class="nav-link" data-scroll-target="#points-summary">Points Summary</a></li>
+  <li><a href="#air-quality-sensors-30-points" id="toc-air-quality-sensors-30-points" class="nav-link" data-scroll-target="#air-quality-sensors-30-points">1. Air Quality Sensors (30 points)</a>
+  <ul>
+  <li><a href="#read-the-grid-2-points" id="toc-read-the-grid-2-points" class="nav-link" data-scroll-target="#read-the-grid-2-points">1.1 Read the grid (2 points)</a></li>
+  <li><a href="#first-sensor-2-points" id="toc-first-sensor-2-points" class="nav-link" data-scroll-target="#first-sensor-2-points">1.2 First sensor (2 points)</a></li>
+  <li><a href="#second-sensor-4-points" id="toc-second-sensor-4-points" class="nav-link" data-scroll-target="#second-sensor-4-points">1.3 Second sensor (4 points)</a></li>
+  <li><a href="#the-first-two-sensors-4-points" id="toc-the-first-two-sensors-4-points" class="nav-link" data-scroll-target="#the-first-two-sensors-4-points">1.4 The first two sensors (4 points)</a></li>
+  <li><a href="#third-sensor-12-points" id="toc-third-sensor-12-points" class="nav-link" data-scroll-target="#third-sensor-12-points">1.5 Third sensor (12 points)</a></li>
+  <li><a href="#all-50-sensors-6-points" id="toc-all-50-sensors-6-points" class="nav-link" data-scroll-target="#all-50-sensors-6-points">1.6 All 50 sensors (6 points)</a></li>
+  </ul></li>
+  <li><a href="#seasonal-sales-16-points" id="toc-seasonal-sales-16-points" class="nav-link" data-scroll-target="#seasonal-sales-16-points">2. Seasonal Sales (16 points)</a>
+  <ul>
+  <li><a href="#the-months-array-8-points" id="toc-the-months-array-8-points" class="nav-link" data-scroll-target="#the-months-array-8-points">2.1 The months array (8 points)</a></li>
+  <li><a href="#the-parameters-array-2-points" id="toc-the-parameters-array-2-points" class="nav-link" data-scroll-target="#the-parameters-array-2-points">2.2 The parameters array (2 points)</a></li>
+  <li><a href="#monthly-sales-4-points" id="toc-monthly-sales-4-points" class="nav-link" data-scroll-target="#monthly-sales-4-points">2.3 Monthly sales (4 points)</a></li>
+  <li><a href="#total-sales-2-points" id="toc-total-sales-2-points" class="nav-link" data-scroll-target="#total-sales-2-points">2.4 Total sales (2 points)</a></li>
+  </ul></li>
+  <li><a href="#starbucks-drinks-33-points" id="toc-starbucks-drinks-33-points" class="nav-link" data-scroll-target="#starbucks-drinks-33-points">3. Starbucks Drinks (33 points)</a>
+  <ul>
+  <li><a href="#most-consumed-drink-and-highest-consuming-state-8-points" id="toc-most-consumed-drink-and-highest-consuming-state-8-points" class="nav-link" data-scroll-target="#most-consumed-drink-and-highest-consuming-state-8-points">3.1 Most consumed drink and highest-consuming state (8 points)</a></li>
+  <li><a href="#highest-total-fat-drink-in-illinois-10-points" id="toc-highest-total-fat-drink-in-illinois-10-points" class="nav-link" data-scroll-target="#highest-total-fat-drink-in-illinois-10-points">3.2 Highest total-fat drink in Illinois (10 points)</a></li>
+  <li><a href="#lowest-fat-and-highest-protein-states-10-points" id="toc-lowest-fat-and-highest-protein-states-10-points" class="nav-link" data-scroll-target="#lowest-fat-and-highest-protein-states-10-points">3.3 Lowest fat and highest protein states (10 points)</a></li>
+  <li><a href="#protein-more-than-twice-fat-5-points" id="toc-protein-more-than-twice-fat-5-points" class="nav-link" data-scroll-target="#protein-more-than-twice-fat-5-points">3.4 Protein more than twice fat (5 points)</a></li>
+  </ul></li>
+  <li><a href="#exercise-minutes-16-points" id="toc-exercise-minutes-16-points" class="nav-link" data-scroll-target="#exercise-minutes-16-points">4. Exercise Minutes (16 points)</a>
+  <ul>
+  <li><a href="#without-numpy-8-points" id="toc-without-numpy-8-points" class="nav-link" data-scroll-target="#without-numpy-8-points">4.1 Without NumPy (8 points)</a></li>
+  <li><a href="#with-numpy-7-points" id="toc-with-numpy-7-points" class="nav-link" data-scroll-target="#with-numpy-7-points">4.2 With NumPy (7 points)</a></li>
+  <li><a href="#time-saved-1-point" id="toc-time-saved-1-point" class="nav-link" data-scroll-target="#time-saved-1-point">4.3 Time saved (1 point)</a></li>
+  </ul></li>
+  <li><a href="#ai-use-disclosure-2-points" id="toc-ai-use-disclosure-2-points" class="nav-link" data-scroll-target="#ai-use-disclosure-2-points">5. AI Use Disclosure (2 points)</a>
+  <ul>
+  <li><a href="#ai-use-template" id="toc-ai-use-template" class="nav-link" data-scroll-target="#ai-use-template">AI Use Template</a></li>
+  </ul></li>
+  <li><a href="#prepare-and-submit-the-html" id="toc-prepare-and-submit-the-html" class="nav-link" data-scroll-target="#prepare-and-submit-the-html">Prepare and Submit the HTML</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Assignment A.html">Appendices</a></li><li class="breadcrumb-item"><a href="./Assignment D.html"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Assignment D: NumPy</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Appendix D — Assignment D: NumPy</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="instructions" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions">Instructions</h2>
+<ol type="1">
+<li><p>The assignment is worth <strong>100 points</strong>. <strong>See Canvas for the due date.</strong></p></li>
+<li><p>You may discuss approaches with classmates, but write your own code and explanations. Put Python computations in Code cells and write the final answer to each question in a Markdown cell.</p></li>
+<li><p><a href="downloads/assignment-d-kit.zip">Download the Assignment D project kit</a>. Extract it and move the extracted <code>assignment-d</code> folder into <code>stat303-1/assignments/</code>, next to your earlier assignment folders. Check that you did not create a nested <code>assignment-d/assignment-d/</code> folder. Open <code>stat303-1</code> in VS Code, open <code>assignments/assignment-d/assignment_d.ipynb</code>, and select the course <code>.venv</code> as its kernel. NumPy, pandas, and matplotlib are already installed there.</p></li>
+<li><p><strong>This page contains the complete assignment instructions.</strong> The starter notebook contains numbered answer spaces and supplied code. Keep those sections in order, answer every numbered part below, and add your name to the <code>author</code> line at the top of the notebook.</p></li>
+<li><p>The data files are in the kit’s <code>data/</code> folder. Read them with relative path strings such as <code>"data/colorado_coordinate_grid.txt"</code>; the notebook runs from the <code>assignment-d</code> folder, so these paths work without changes.</p></li>
+<li><p>Use NumPy array operations rather than loops. A loop is allowed only in <strong>Questions 1.6 and 4.1</strong>, where repeating a step is part of the method.</p></li>
+<li><p>Submit <strong>one file, <code>assignment_d.html</code></strong>, to the <strong>Assignment D submission in Canvas</strong>. <em>Prepare and Submit the HTML</em> at the end of this page explains how to render it.</p></li>
+<li><p><strong>Three of the 100 points are for properly formatting the assignment.</strong> The breakdown is as follows:</p>
+<ul>
+<li>Must be an HTML file rendered using Quarto (1 pt).</li>
+<li>There aren’t excessively long outputs of extraneous information (e.g.&nbsp;no printouts of entire arrays or data frames without good reason, there aren’t long sections of commented-out code, etc.) (1 pt).</li>
+<li>Final answers of each question are written in Markdown cells, and there is no unnecessary / redundant code or text (1 pt).</li>
+</ul></li>
+<li><p><strong>Generative AI.</strong> You may use generative AI tools (ChatGPT, Claude, GitHub Copilot, and similar) to understand concepts, interpret error messages, and debug code you have written. You may not use them to produce the code or written answers you submit. The test: you should be able to explain every line you submit and reproduce it without assistance. Disclose any use in the AI Use Disclosure section (Question 5). Honest disclosure earns points and carries no penalty on its own; undisclosed use is an academic integrity violation under the course syllabus.</p></li>
+</ol>
+<p>When you place the kit, your <code>assignments</code> folder will look like this:</p>
+<pre class="text"><code>stat303-1/
+├── .venv/
+└── assignments/
+    └── assignment-d/         ← the extracted kit
+        ├── assignment_d.ipynb
+        ├── README.md
+        └── data/
+            ├── colorado.jpg
+            ├── colorado_coordinate_grid.txt
+            ├── starbucks-menu-nutrition-drinks.csv
+            └── starbucks_DrinkType_USStates.csv</code></pre>
+</section>
+<section id="points-summary" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="points-summary">Points Summary</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Section</th>
+<th style="text-align: right;">Points</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. Air quality sensors</td>
+<td style="text-align: right;">30</td>
+</tr>
+<tr class="even">
+<td>2. Seasonal sales</td>
+<td style="text-align: right;">16</td>
+</tr>
+<tr class="odd">
+<td>3. Starbucks drinks</td>
+<td style="text-align: right;">33</td>
+</tr>
+<tr class="even">
+<td>4. Exercise minutes</td>
+<td style="text-align: right;">16</td>
+</tr>
+<tr class="odd">
+<td>5. AI Use Disclosure</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td>6. Formatting (instruction 8 above)</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td style="text-align: right;"><strong>100</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="air-quality-sensors-30-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="air-quality-sensors-30-points">1. Air Quality Sensors (30 points)</h2>
+<p><em>An application of broadcasting.</em></p>
+<p>Air quality sensors measure the amount of contaminants in air. This question finds locations for 50 air quality sensors in Colorado so that they are as far from each other as possible. The method below is a greedy algorithm that finds an approximate <a href="https://www.sciencedirect.com/science/article/abs/pii/037837589090122B">maximin design</a>.</p>
+<p>The file <code>data/colorado_coordinate_grid.txt</code> holds the coordinate-pairs (latitude and longitude) of potential sensor locations. A coordinate-pair means a latitude-longitude pair, and “air quality sensor” is shortened to “sensor” below. Measure every distance as the Euclidean distance between coordinate-pairs.</p>
+<p>The starter notebook supplies this function, which draws the sensors in <code>air_sensor_coordinates</code> on a map of Colorado:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sensor_viz():</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Draw the sensors in air_sensor_coordinates on the map of Colorado."""</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    img <span class="op">=</span> plt.imread(<span class="st">"data/colorado.jpg"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="fl">10.5</span>, <span class="fl">7.7</span>))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    ax.imshow(img, extent<span class="op">=</span>[<span class="op">-</span><span class="dv">109</span>, <span class="op">-</span><span class="dv">102</span>, <span class="dv">37</span>, <span class="dv">41</span>])</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    ax.scatter(<span class="op">-</span>air_sensor_coordinates[:, <span class="dv">1</span>], air_sensor_coordinates[:, <span class="dv">0</span>], color<span class="op">=</span><span class="st">"blue"</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    ax.<span class="bu">set</span>(xlim<span class="op">=</span>(<span class="op">-</span><span class="fl">109.05</span>, <span class="op">-</span><span class="fl">101.95</span>), ylim<span class="op">=</span>(<span class="fl">36.95</span>, <span class="fl">41.05</span>),</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>           xlabel<span class="op">=</span><span class="st">"Longitude"</span>, ylabel<span class="op">=</span><span class="st">"Latitude"</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="read-the-grid-2-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="read-the-grid-2-points">1.1 Read the grid (2 points)</h3>
+<p>Read the file with NumPy, skipping its header row. How many coordinate-pairs are there?</p>
+<p><strong>Hint:</strong> <code>np.genfromtxt()</code> with <code>delimiter=","</code>, as in <a href="./numpy_fundamentals.html">NumPy Fundamentals</a>. The file’s first line holds the column names, <code>Latitude,Longitude</code>, so also pass <code>skip_header=1</code>, which skips that line; otherwise it is read as a row of <code>nan</code> values.</p>
+</section>
+<section id="first-sensor-2-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="first-sensor-2-points">1.2 First sensor (2 points)</h3>
+<p>The first sensor goes at the grid point closest to Denver, whose coordinate-pair is 39.7392° N, 104.9903° W. The file omits the ° N and ° W, so Denver is <code>[39.7392, 104.9903]</code> in its units. Find the coordinate-pair of the first sensor.</p>
+<p><strong>Hint:</strong> Broadcasting. <code>grid - denver</code> subtracts Denver’s coordinate-pair from every row at once, <code>** 2</code> squares every entry, and <a href="https://numpy.org/doc/stable/reference/generated/numpy.sqrt.html"><code>np.sqrt()</code></a> takes the square root element-wise, the way <code>np.round()</code> did in <a href="./numpy_fundamentals.html">NumPy Fundamentals</a>. Sum the squared differences across each row before taking the square root.</p>
+</section>
+<section id="second-sensor-4-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="second-sensor-4-points">1.3 Second sensor (4 points)</h3>
+<p>The second sensor goes at the grid point farthest from the first sensor. Find its coordinate-pair.</p>
+<p><strong>Hint:</strong> Broadcasting.</p>
+</section>
+<section id="the-first-two-sensors-4-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="the-first-two-sensors-4-points">1.4 The first two sensors (4 points)</h3>
+<p>Stack the coordinate-pairs of the first and second sensors vertically into a 2 × 2 NumPy array named <code>air_sensor_coordinates</code>. Then run the supplied <code>sensor_viz()</code> to check your work: the two sensors appear as blue dots on the map.</p>
+</section>
+<section id="third-sensor-12-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="third-sensor-12-points">1.5 Third sensor (12 points)</h3>
+<p>The third sensor goes at the grid point that is farthest from the sensors already placed. Proceed as follows:</p>
+<ol type="1">
+<li>For each coordinate-pair in the grid, find its minimum distance from the two sensors already placed. For example, a point 5 units from the first sensor and 10 units from the second has a minimum distance of <span class="math inline">\(\min(5, 10) = 5\)</span>.</li>
+<li>Select the coordinate-pair whose minimum distance is the largest.</li>
+<li>Stack it vertically onto <code>air_sensor_coordinates</code>, and call <code>sensor_viz()</code> to check that three sensors appear.</li>
+</ol>
+<p><strong>Hint:</strong> Write a function that takes one coordinate-pair and returns its minimum distance from all the rows of <code>air_sensor_coordinates</code>. Then apply it to every row of the grid with <a href="https://numpy.org/doc/stable/reference/generated/numpy.apply_along_axis.html"><code>np.apply_along_axis(function, 1, grid)</code></a>, which calls the function once per row (<code>axis</code> 1) and collects the results in an array.</p>
+</section>
+<section id="all-50-sensors-6-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="all-50-sensors-6-points">1.6 All 50 sensors (6 points)</h3>
+<p>Generalize Question 1.5 to place 47 more sensors. With <span class="math inline">\(i\)</span> sensors placed, find each grid point’s minimum distance from those <span class="math inline">\(i\)</span> sensors, <span class="math inline">\(\min(d_1, d_2, \ldots, d_i)\)</span>, and place sensor <span class="math inline">\(i + 1\)</span> at the grid point where that minimum is largest. Repeat until there are 50 sensors. This is one of the two questions where a loop is allowed.</p>
+<p>Call <code>sensor_viz()</code> at the end: you should see 50 blue dots spread across Colorado.</p>
+</section>
+</section>
+<section id="seasonal-sales-16-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="seasonal-sales-16-points">2. Seasonal Sales (16 points)</h2>
+<p><em>An application of matrix multiplication.</em></p>
+<p>When the monthly sales of a product rise and fall with the seasons, a curve that approximates the sales might have the form</p>
+<p><span class="math display">\[y = a + b\,x + c\,\sin\left(2\pi\,\frac{x}{12}\right),\]</span></p>
+<p>where <span class="math inline">\(x\)</span> is the number of months since the starting point and <span class="math inline">\(y\)</span> is the monthly sales in millions of US dollars. The term <span class="math inline">\(a + b\,x\)</span> gives the basic trend and the sine term the seasonal change. For a brand of sunscreen whose sales are counted from June 2017 (so June 2017 is <span class="math inline">\(x = 1\)</span>), the estimated parameters <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> are supplied in the starter as <code>model_parameters = [2, 5, 18]</code>.</p>
+<p>Estimate the total sales for every month from June 2017 through February 2020, inclusive, with matrix multiplication. <em>(Many sales models failed after March 2020, probably because of COVID.)</em></p>
+<section id="the-months-array-8-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="the-months-array-8-points">2.1 The months array (8 points)</h3>
+<p>Create a NumPy array with one row per month in the period and three columns: all 1s; the month number <span class="math inline">\(x\)</span>, from 1 to the number of months in the period; and <span class="math inline">\(\sin(2\pi x / 12)\)</span> for each <span class="math inline">\(x\)</span>.</p>
+<p><strong>Hint:</strong> <a href="https://numpy.org/doc/stable/reference/generated/numpy.sin.html"><code>np.sin()</code></a> applies the sine to every entry of an array at once, like the other NumPy functions in <a href="./numpy_fundamentals.html">NumPy Fundamentals</a>, and <a href="https://numpy.org/doc/stable/reference/constants.html#numpy.pi"><code>np.pi</code></a> is the constant <span class="math inline">\(\pi\)</span>. Build the three columns as 1D arrays, then combine them with <code>np.vstack()</code> and <code>.T</code> from the same chapter.</p>
+</section>
+<section id="the-parameters-array-2-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="the-parameters-array-2-points">2.2 The parameters array (2 points)</h3>
+<p>Create a NumPy array from <code>model_parameters</code>.</p>
+</section>
+<section id="monthly-sales-4-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="monthly-sales-4-points">2.3 Monthly sales (4 points)</h3>
+<p>Use matrix multiplication to get the estimated sales for each month in the period.</p>
+</section>
+<section id="total-sales-2-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="total-sales-2-points">2.4 Total sales (2 points)</h3>
+<p>Find the total estimated sales over the whole period.</p>
+</section>
+</section>
+<section id="starbucks-drinks-33-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="starbucks-drinks-33-points">3. Starbucks Drinks (33 points)</h2>
+<p><em>An application of matrix and element-wise operations.</em></p>
+<p><code>data/starbucks-menu-nutrition-drinks.csv</code> holds the nutrition facts of each Starbucks drink. <code>data/starbucks_DrinkType_USStates.csv</code> holds how many of each drink are consumed in each US state per 10,000 people. Both files list the same drinks in the same order, one row per drink.</p>
+<p>Some drink names appear on two rows, because the menu lists two versions of those drinks with different nutrition facts. <strong>Treat every row as a separate drink</strong>, and when a question asks for a drink, report its name and its row position. Read the files with pandas, convert the numeric columns to NumPy arrays, and answer every question with NumPy operations.</p>
+<section id="most-consumed-drink-and-highest-consuming-state-8-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="most-consumed-drink-and-highest-consuming-state-8-points">3.1 Most consumed drink and highest-consuming state (8 points)</h3>
+<ol type="1">
+<li>Which drink is consumed the most across all states combined? Report its name and row position.</li>
+<li>Which state has the highest total consumption, summed over all drinks?</li>
+</ol>
+<p><em>(4 points each.)</em> <strong>Hint:</strong> <code>sum()</code> with an axis, and <code>argmax()</code>. To turn a column position into a state name, <code>df.columns[position]</code> returns the name of the column at that position.</p>
+</section>
+<section id="highest-total-fat-drink-in-illinois-10-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="highest-total-fat-drink-in-illinois-10-points">3.2 Highest total-fat drink in Illinois (10 points)</h3>
+<p>A drink’s total fat is the sum of its saturated, unsaturated, and trans fat. Considering consumption in Illinois only, which drink accounts for the most total fat consumed? Report its name and row position.</p>
+</section>
+<section id="lowest-fat-and-highest-protein-states-10-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="lowest-fat-and-highest-protein-states-10-points">3.3 Lowest fat and highest protein states (10 points)</h3>
+<p>Using matrix multiplication, compute each state’s total fat consumption and total protein consumption per 10,000 people. Which state consumes the <strong>least</strong> total fat, and which consumes the <strong>most</strong> protein?</p>
+<p><em>(5 points each.)</em> <strong>Hint:</strong> <code>argmin()</code> and <code>argmax()</code> give positions; name the states with <code>df.columns[position]</code>, as in Question 3.1.</p>
+</section>
+<section id="protein-more-than-twice-fat-5-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="protein-more-than-twice-fat-5-points">3.4 Protein more than twice fat (5 points)</h3>
+<p>Using the arrays from Question 3.3, count the states whose protein consumption is <strong>more than twice</strong> their total fat consumption. Use only NumPy array operations; do not add columns to a DataFrame.</p>
+<p><strong>Hint:</strong> A comparison gives a Boolean array, and summing it counts the <code>True</code> values.</p>
+</section>
+</section>
+<section id="exercise-minutes-16-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercise-minutes-16-points">4. Exercise Minutes (16 points)</h2>
+<p><em>An application of vectorized random sampling.</em></p>
+<p>The list <code>exercise_minutes</code>, supplied in the starter, holds the weekly exercise minutes reported by students in a past STAT 303-1 class. This question finds a 95% confidence interval for the mean with <strong>bootstrapping</strong>, twice — once in plain Python and once with NumPy — and compares the time each takes.</p>
+<p>The bootstrap method:</p>
+<ol type="1">
+<li>Let <span class="math inline">\(N\)</span> be the number of values in <code>exercise_minutes</code>.</li>
+<li>Draw <span class="math inline">\(N\)</span> values at random, <strong>with replacement</strong>, from <code>exercise_minutes</code>.</li>
+<li>Compute the mean of those <span class="math inline">\(N\)</span> values.</li>
+<li>Repeat steps 2 and 3 10,000 times.</li>
+<li>The 95% confidence interval runs from the 2.5th to the 97.5th percentile of the 10,000 means.</li>
+</ol>
+<p>The starter notebook supplies <code>exercise_minutes</code> as a Python list of 191 values.</p>
+<section id="without-numpy-8-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="without-numpy-8-points">4.1 Without NumPy (8 points)</h3>
+<p>Without NumPy, compute the confidence interval, and time the computation. This is the other question where a loop is allowed.</p>
+<p><strong>Hints:</strong> <code>random.choices(exercise_minutes, k=N)</code>, from Python’s built-in <a href="https://docs.python.org/3/library/random.html#random.choices"><code>random</code> module</a> (<code>import random</code>), draws <span class="math inline">\(N\)</span> values with replacement. With the 10,000 means in a sorted list, the 2.5th and 97.5th percentiles are approximately the values at positions 250 and 9,750. Time the cell with <code>%timeit -o -r 3 -n 1</code>, as in <a href="./numpy_pandas_workflow.html">NumPy and pandas in a Real Workflow</a>, and keep the result’s <code>.average</code>.</p>
+</section>
+<section id="with-numpy-7-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="with-numpy-7-points">4.2 With NumPy (7 points)</h3>
+<p>Using NumPy and <strong>no loops</strong>, compute the same confidence interval and time it the same way.</p>
+<p><strong>Hint:</strong> <code>rng = np.random.default_rng(303)</code>, then <a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.Generator.choice.html"><code>rng.choice()</code></a>, which draws with replacement by default, as in <a href="./numpy_fundamentals.html">NumPy Fundamentals</a>. Passing a tuple, <code>size=(10_000, N)</code>, returns a 2D array with one bootstrap sample per row, so <code>.mean(axis=1)</code> gives all 10,000 means at once. <a href="https://numpy.org/doc/stable/reference/generated/numpy.percentile.html"><code>np.percentile()</code></a> with <code>[2.5, 97.5]</code> gives both percentiles, as in the <a href="./numpy_fundamentals.html#aggregate-functions">Aggregate Functions</a> section.</p>
+</section>
+<section id="time-saved-1-point" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="time-saved-1-point">4.3 Time saved (1 point)</h3>
+<p>Report the ratio of the time without NumPy to the time with NumPy.</p>
+</section>
+</section>
+<section id="ai-use-disclosure-2-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="ai-use-disclosure-2-points">5. AI Use Disclosure (2 points)</h2>
+<p>In the AI Use Disclosure section of your notebook, state whether <strong>generative AI tools</strong> were used to complete any part of this assignment.</p>
+<ul>
+<li><p>If <strong>no AI was used</strong>, write: <em>“I did not use generative AI tools on this assignment.”</em></p></li>
+<li><p>If <strong>AI was used</strong>, you must specify:</p>
+<ol type="1">
+<li><strong>Tool(s)</strong> used (e.g., ChatGPT, GitHub Copilot, Claude, etc.)</li>
+<li><strong>How</strong> they were used (e.g., explaining a concept, interpreting an error message, debugging code you wrote)</li>
+<li><strong>Where</strong> they influenced your work (which questions/sections)</li>
+<li><strong>Edits &amp; verification</strong> you made (how you checked correctness, what you modified)</li>
+</ol></li>
+</ul>
+<section id="ai-use-template" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ai-use-template">AI Use Template</h3>
+<ul>
+<li><strong>Used AI?</strong> Yes / No</li>
+<li><strong>Tool(s):</strong></li>
+<li><strong>Purpose / How used (1–3 sentences):</strong></li>
+<li><strong>Scope (which questions/sections):</strong></li>
+<li><strong>Edits &amp; verification (what you changed and how you checked correctness):</strong></li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Example (for illustration only):</strong> - Used AI? Yes - Tools: ChatGPT (free) - How used: Asked what the <code>axis</code> argument of <code>argmax()</code> does, and for help reading a broadcasting <code>ValueError</code>. - Scope: 1.3, 3.3. - Edits &amp; verification: Rewrote the distance calculation in my own style; checked it against a hand calculation for two grid points.</p>
+</blockquote>
+<p><strong>Grading (2 points):</strong> - <strong>2 points</strong> = a clear statement that you did not use AI, or a complete, specific and honest disclosure (tools named, usage and verification described) - <strong>1 point</strong> = a disclosure that is vague or missing required details - <strong>0 points</strong> = no disclosure section</p>
+</section>
+</section>
+<section id="prepare-and-submit-the-html" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="prepare-and-submit-the-html">Prepare and Submit the HTML</h2>
+<p>Restart the kernel, run all cells in order, resolve unexpected errors, and save. Render from the assignment folder. The terminal starts in <code>stat303-1</code>, so first move it there with <code>cd assignments</code> and then <code>cd assignment-d</code>, and check the current directory. Then run:</p>
+<pre class="text"><code>quarto render assignment_d.ipynb --to html</code></pre>
+<p>Open <code>assignment_d.html</code> and check that your code, output, and written answers are visible, including the sensor maps. Upload it to Assignment D in Canvas.</p>
+<p>This step is graded through the formatting points in instruction 8.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/lizhen0909\.github\.io\/stat303-1-sec20-coursebook\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Assignment C.html" class="pagination-link" aria-label="Assignment C: Pandas">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Assignment C: Pandas</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./geospatial_mapping.html" class="pagination-link" aria-label="Geospatial Plotting for Final Projects">
+        <span class="nav-page-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Geospatial Plotting for Final Projects</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
