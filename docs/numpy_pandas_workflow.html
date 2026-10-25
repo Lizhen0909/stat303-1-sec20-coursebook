@@ -446,7 +446,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         ├── activity07.ipynb
         └── README.md</code></pre>
 <p>Run <code>workflow_examples.ipynb</code> for the lesson and complete <code>activity07.ipynb</code> for your own activity report. Use <code>stat303-pandas-numpy-workflow</code> as the notebook working folder. This chapter ships no data files: the worked examples write the small messy CSV they then clean, and the activity notebook builds its own inputs in its first cell.</p>
-<div id="83746756" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T22:37:41.477126Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-25T22:37:41.476881Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-25T22:37:41.627656Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T22:37:41.627241Z&quot;}}" data-execution_count="1">
+<div id="83746756" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T22:37:41.477126Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-25T22:37:41.476881Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-25T22:37:41.627656Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T22:37:41.627241Z&quot;}}" data-execution_count="30">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -467,8 +467,8 @@ pandas version: 3.0.5</code></pre>
 <p><img src="images/numpy-pandas-workflow-intro.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%" alt="Stacked diagram showing pandas built on NumPy: a pandas DataFrame and Series of city temperatures and humidity sit on a purple pandas layer, which rests on a blue NumPy layer holding the same numbers as a plain array. Caption: NumPy provides the array foundation; pandas adds labeled data structures."></p>
 </figure>
 </div>
-<p>Let’s confirm the “a column <em>is</em> an array” claim rather than taking it on faith. <code>np.shares_memory</code> reports whether two objects are looking at the same block of memory:</p>
-<div id="e2d31838" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T22:37:41.628690Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-25T22:37:41.628614Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-25T22:37:41.630870Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T22:37:41.630489Z&quot;}}" data-execution_count="2">
+<p>Let’s confirm the “a pandas column <em>is</em> just a raw numpy array” claim rather than taking it on faith. <code>np.shares_memory</code> reports whether two objects are looking at the same block of memory:</p>
+<div id="e2d31838" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T22:37:41.628690Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-25T22:37:41.628614Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-25T22:37:41.630870Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T22:37:41.630489Z&quot;}}" data-execution_count="31">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> pd.Series([<span class="dv">88</span>, <span class="dv">92</span>, <span class="dv">79</span>, <span class="dv">95</span>, <span class="dv">84</span>])</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>arr <span class="op">=</span> scores.to_numpy()</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -484,7 +484,7 @@ same memory block? : True</code></pre>
 <p><code>True</code> means no copying happened — <code>.to_numpy()</code> handed back the very array that was already holding the Series’ numbers. This is why the column arithmetic you wrote in <a href="./pandas_intermediate.html#column-to-column-arithmetic">Pandas Intermediate</a>, such as <code>business_df['Units_Sold'] * business_df['Price_per_Unit']</code>, is not a Python loop: pandas passes those two existing arrays straight to NumPy’s compiled multiplication routine.</p>
 <p>It also means <strong>vectorized pandas code is already running at NumPy speed</strong>, which is why converting to NumPy often buys you far less than people expect.</p>
 <p>Because every column is a NumPy array underneath, every column carries a NumPy <strong>dtype</strong>: one storage type that every value in the column shares. The next cell builds a small DataFrame whose columns show the dtypes you will meet most often. The first five columns are stored the way they look. The last three <em>look</em> like numbers but are not stored as numbers, each for a different reason.</p>
-<div id="d24de239" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T22:37:41.631695Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-25T22:37:41.631640Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-25T22:37:41.642224Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T22:37:41.641869Z&quot;}}" data-execution_count="3">
+<div id="d24de239" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T22:37:41.631695Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-25T22:37:41.631640Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-25T22:37:41.642224Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T22:37:41.641869Z&quot;}}" data-execution_count="32">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># every column carries one NumPy dtype; here are the ones you will meet most often</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>dtype_demo <span class="op">=</span> pd.DataFrame({</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"count"</span>:       [<span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">18</span>],                     <span class="co"># whole numbers          -&gt; int64</span></span>
@@ -603,7 +603,7 @@ Figure&nbsp;7.1: Six stages of a small analysis, and the library that owns each 
 <section id="stages-1-3-load-inspect-clean-pandas" class="level2" data-number="7.4">
 <h2 data-number="7.4" class="anchored" data-anchor-id="stages-1-3-load-inspect-clean-pandas"><span class="header-section-number">7.4</span> Stages 1-3: Load, Inspect, Clean (pandas)</h2>
 <p>Real files are messy. To make that concrete, the cell below writes out a small CSV with three problems that show up constantly in practice: a price column with currency symbols, a word (<code>unknown</code>) where a count should be, and a genuinely empty field. Normally you would receive a file like this from someone else; here we create it so the notebook is self-contained.</p>
-<div id="f931c904" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:32.370220Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:32.370164Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:32.376520Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:32.376190Z&quot;}}" data-execution_count="3">
+<div id="f931c904" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:32.370220Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:32.370164Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:32.376520Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:32.376190Z&quot;}}" data-execution_count="33">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>raw_csv <span class="op">=</span> <span class="st">"""date,store,product,units,unit_price</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="st">2026-01-02,North,Notebook,12,$5.00</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="st">2026-01-02,North,Pen,20,$2.00</span></span>
@@ -620,7 +620,7 @@ Figure&nbsp;7.1: Six stages of a small analysis, and the library that owns each 
 <span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>raw <span class="op">=</span> pd.read_csv(<span class="st">"sales_raw.csv"</span>)</span>
 <span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>raw</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="33">
 <div>
 
 
@@ -706,9 +706,9 @@ Figure&nbsp;7.1: Six stages of a small analysis, and the library that owns each 
 </div>
 </div>
 </div>
-<div id="f1c9640c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:32.377180Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:32.377118Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:32.379165Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:32.378855Z&quot;}}" data-execution_count="4">
+<div id="f1c9640c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:32.377180Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:32.377118Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:32.379165Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:32.378855Z&quot;}}" data-execution_count="34">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>raw.dtypes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="34">
 <pre><code>date          str
 store         str
 product       str
@@ -741,7 +741,7 @@ dtype: object</code></pre>
 </div>
 </div>
 </div>
-<div id="e2ee5d28" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:32.379828Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:32.379773Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:32.383303Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:32.382931Z&quot;}}" data-execution_count="5">
+<div id="e2ee5d28" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:32.379828Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:32.379773Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:32.383303Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:32.382931Z&quot;}}" data-execution_count="35">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sales <span class="op">=</span> raw.copy()</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># strip the currency symbol, then convert the text to real numbers</span></span>
@@ -753,7 +753,7 @@ dtype: object</code></pre>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>sales[<span class="st">"date"</span>] <span class="op">=</span> pd.to_datetime(sales[<span class="st">"date"</span>])</span>
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>sales.dtypes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="35">
 <pre><code>date          datetime64[us]
 store                    str
 product                  str
@@ -762,7 +762,7 @@ unit_price           float64
 dtype: object</code></pre>
 </div>
 </div>
-<div id="1e4f278c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:32.383994Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:32.383926Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:32.387354Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:32.386966Z&quot;}}" data-execution_count="6">
+<div id="1e4f278c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:32.383994Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:32.383926Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:32.387354Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:32.386966Z&quot;}}" data-execution_count="36">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"missing values per column:"</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sales.isna().<span class="bu">sum</span>())</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -776,7 +776,7 @@ units         2
 unit_price    0
 dtype: int64</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="36">
 <div>
 
 
@@ -863,7 +863,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 <p>Now decide what to do about the two missing <code>units</code> values. That is a judgment call about your data, not a technical one — drop the rows, fill with zero, or fill with a typical value. Here, a missing unit count most likely means the sale was not recorded, so dropping is defensible and we will say so out loud:</p>
-<div id="bc8e2624" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:32.388065Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:32.388003Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:32.391831Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:32.391470Z&quot;}}" data-execution_count="7">
+<div id="bc8e2624" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:32.388065Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:32.388003Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:32.391831Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:32.391470Z&quot;}}" data-execution_count="37">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>sales <span class="op">=</span> sales.dropna(subset<span class="op">=</span>[<span class="st">"units"</span>]).copy()</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>sales[<span class="st">"units"</span>] <span class="op">=</span> sales[<span class="st">"units"</span>].astype(<span class="st">"int64"</span>)   <span class="co"># no NaN left, so int is safe again</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -879,7 +879,7 @@ units                  int64
 unit_price           float64
 dtype: object</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div class="cell-output cell-output-display" data-execution_count="37">
 <div>
 
 
@@ -959,7 +959,7 @@ dtype: object</code></pre>
 <blockquote class="blockquote">
 <p>Gross revenue is <code>units x unit_price</code>. Orders of 50+ units get 10% off, orders of 20-49 get 5% off, smaller orders get nothing. Members get an extra 5% off. Orders whose net total is under $500 pay $19.99 shipping.</p>
 </blockquote>
-<div id="c85443f9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:32.392428Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:32.392374Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:32.403669Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:32.403296Z&quot;}}" data-execution_count="8">
+<div id="c85443f9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:32.392428Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:32.392374Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:32.403669Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:32.403296Z&quot;}}" data-execution_count="38">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">303</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">200_000</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -981,7 +981,7 @@ unit_price    float64
 is_member        bool
 dtype: object</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="38">
 <div>
 
 
@@ -1041,7 +1041,7 @@ dtype: object</code></pre>
 <h3 data-number="7.5.1" class="anchored" data-anchor-id="version-a-row-by-row-with-.applyaxis1"><span class="header-section-number">7.5.1</span> Version A: row-by-row with <code>.apply(axis=1)</code></h3>
 <p>The natural first draft. Write the rule for one row, let pandas run it for every row.</p>
 <p><code>%timeit</code> itself you met in <a href="./python_venv.html#timeit-measures-how-long-code-takes-to-run">the setup chapter</a>: it runs a line repeatedly and reports the average, because one run of fast code measures mostly noise. The timing lines here add three options to that basic form. <code>-o</code> returns the measurement as an object instead of only printing it, so it can be stored in a variable — <code>t_apply.average</code> later gives the average in seconds, which is how the comparison table at the end of this section is built. <code>-r 3 -n 1</code> says “repeat 3 times, one run each” and is there for patience: this single <code>.apply()</code> call takes about half a second, so the default of 7 repeats of many runs apiece would keep you waiting for minutes. The faster versions below need no such limit and use the default. The <a href="https://ipython.readthedocs.io/en/stable/interactive/magics.html#magic-timeit">IPython documentation</a> lists every option.</p>
-<div id="cb4f840b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:32.404317Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:32.404261Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:34.019170Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:34.018695Z&quot;}}" data-execution_count="9">
+<div id="cb4f840b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:32.404317Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:32.404261Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:34.019170Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:34.018695Z&quot;}}" data-execution_count="39">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> order_total_row(row):</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    gross <span class="op">=</span> row[<span class="st">"units"</span>] <span class="op">*</span> row[<span class="st">"unit_price"</span>]</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> gross <span class="op">&gt;=</span> <span class="dv">250</span>:</span>
@@ -1057,14 +1057,14 @@ dtype: object</code></pre>
 <span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>t_apply <span class="op">=</span> <span class="op">%</span>timeit <span class="op">-</span>o <span class="op">-</span>r <span class="dv">3</span> <span class="op">-</span>n <span class="dv">1</span> orders.<span class="bu">apply</span>(order_total_row, axis<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>429 ms ± 1.97 ms per loop (mean ± std. dev. of 3 runs, 1 loop each)</code></pre>
+<pre><code>428 ms ± 2.9 ms per loop (mean ± std. dev. of 3 runs, 1 loop each)</code></pre>
 </div>
 </div>
 </section>
 <section id="version-b-vectorized-still-entirely-in-pandas" class="level3" data-number="7.5.2">
 <h3 data-number="7.5.2" class="anchored" data-anchor-id="version-b-vectorized-still-entirely-in-pandas"><span class="header-section-number">7.5.2</span> Version B: vectorized, still entirely in pandas</h3>
 <p>The same rule, expressed as whole-column operations. <code>np.select</code> handles the discount tiers and <code>np.where</code> handles the shipping rule — both from <a href="./numpy_fundamentals.html#advanced-selection-methods">Advanced Selection Methods</a> in the NumPy Fundamentals chapter. Note that we never call <code>.to_numpy()</code> here; the Series are already NumPy arrays underneath.</p>
-<div id="3b702a8a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:34.020026Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:34.019954Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:43.526852Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:43.526425Z&quot;}}" data-execution_count="10">
+<div id="3b702a8a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:34.020026Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:34.019954Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:43.526852Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:43.526425Z&quot;}}" data-execution_count="40">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> order_total_pandas(df):</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    gross <span class="op">=</span> df[<span class="st">"units"</span>] <span class="op">*</span> df[<span class="st">"unit_price"</span>]</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    rate <span class="op">=</span> np.select([gross <span class="op">&gt;=</span> <span class="dv">250</span>, gross <span class="op">&gt;=</span> <span class="dv">100</span>], [<span class="fl">0.10</span>, <span class="fl">0.05</span>], default<span class="op">=</span><span class="fl">0.0</span>)</span>
@@ -1074,13 +1074,13 @@ dtype: object</code></pre>
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>t_pandas <span class="op">=</span> <span class="op">%</span>timeit <span class="op">-</span>o order_total_pandas(orders)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>1.16 ms ± 13.7 μs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)</code></pre>
+<pre><code>1.2 ms ± 24.3 μs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)</code></pre>
 </div>
 </div>
 </section>
 <section id="version-c-pull-the-columns-out-as-plain-numpy-arrays-first" class="level3" data-number="7.5.3">
 <h3 data-number="7.5.3" class="anchored" data-anchor-id="version-c-pull-the-columns-out-as-plain-numpy-arrays-first"><span class="header-section-number">7.5.3</span> Version C: pull the columns out as plain NumPy arrays first</h3>
-<div id="46258425" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:43.527637Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:43.527563Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:51.720211Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:51.719780Z&quot;}}" data-execution_count="11">
+<div id="46258425" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:43.527637Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:43.527563Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:51.720211Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:51.719780Z&quot;}}" data-execution_count="41">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>units_arr <span class="op">=</span> orders[<span class="st">"units"</span>].to_numpy()</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>price_arr <span class="op">=</span> orders[<span class="st">"unit_price"</span>].to_numpy()</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>member_arr <span class="op">=</span> orders[<span class="st">"is_member"</span>].to_numpy()</span>
@@ -1094,11 +1094,11 @@ dtype: object</code></pre>
 <span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>t_numpy <span class="op">=</span> <span class="op">%</span>timeit <span class="op">-</span>o order_total_numpy(units_arr, price_arr, member_arr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>997 μs ± 5.1 μs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)</code></pre>
+<pre><code>1.04 ms ± 21.7 μs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)</code></pre>
 </div>
 </div>
 <p>Let’s verify the result before reading the timings. A faster answer is worthless if it is a different answer, so the cell below first checks that all three versions agree with <code>np.allclose</code>. As you saw in <a href="./numpy_fundamentals.html#when-a-dtype-changes-your-value">When a dtype Changes Your Value</a>, <code>np.allclose</code> compares two arrays element by element and returns a single <code>True</code> only if every pair of values matches within a small tolerance. The tolerance is why it is the right tool. When you rewrite a row-by-row rule as vectorized code, the arithmetic often runs in a different order, and floating-point rounding can then leave the last digits different even when both versions are correct, so a strict <code>==</code> comparison can report <code>False</code> for a perfectly good rewrite. <code>np.allclose</code> ignores that rounding noise but would still catch a wrong formula.</p>
-<div id="6e1b39b2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:51.721001Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:51.720929Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:52.270722Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:52.270249Z&quot;}}">
+<div id="6e1b39b2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:51.721001Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:51.720929Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:52.270722Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:52.270249Z&quot;}}" data-execution_count="42">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Never trust a speedup you have not verified.</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>result_apply <span class="op">=</span> orders.<span class="bu">apply</span>(order_total_row, axis<span class="op">=</span><span class="dv">1</span>).to_numpy()</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>result_pandas <span class="op">=</span> order_total_pandas(orders).to_numpy()</span>
@@ -1108,21 +1108,22 @@ dtype: object</code></pre>
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"apply vs numpy-vectorized  match:"</span>, np.allclose(result_apply, result_numpy))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>apply vs pandas-vectorized match: True
-apply vs numpy-vectorized  match: True
-
-A. .apply(axis=1)         428.66 ms   1.0x
-B. pandas vectorized        1.16 ms    371x faster than A
-C. numpy vectorized         1.00 ms    430x faster than A
-                                    and    1.2x faster than B</code></pre>
+apply vs numpy-vectorized  match: True</code></pre>
 </div>
 </div>
 <p>All three versions return the same totals, so the speed comparison is fair. The cell below prints the three timings side by side, with the row-by-row <code>.apply</code> version as the baseline.</p>
-<div id="8be69fb0" class="cell">
+<div id="8be69fb0" class="cell" data-execution_count="43">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"A. .apply(axis=1)      </span><span class="sc">{</span>t_apply<span class="sc">.</span>average<span class="op">*</span><span class="fl">1e3</span><span class="sc">:9.2f}</span><span class="ss"> ms   1.0x"</span>)</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"B. pandas vectorized   </span><span class="sc">{</span>t_pandas<span class="sc">.</span>average<span class="op">*</span><span class="fl">1e3</span><span class="sc">:9.2f}</span><span class="ss"> ms </span><span class="sc">{</span>t_apply<span class="sc">.</span>average<span class="op">/</span>t_pandas<span class="sc">.</span>average<span class="sc">:6.0f}</span><span class="ss">x faster than A"</span>)</span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"C. numpy vectorized    </span><span class="sc">{</span>t_numpy<span class="sc">.</span>average<span class="op">*</span><span class="fl">1e3</span><span class="sc">:9.2f}</span><span class="ss"> ms </span><span class="sc">{</span>t_apply<span class="sc">.</span>average<span class="op">/</span>t_numpy<span class="sc">.</span>average<span class="sc">:6.0f}</span><span class="ss">x faster than A"</span>)</span>
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"                                    and </span><span class="sc">{</span>t_pandas<span class="sc">.</span>average<span class="op">/</span>t_numpy<span class="sc">.</span>average<span class="sc">:6.1f}</span><span class="ss">x faster than B"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A. .apply(axis=1)         428.04 ms   1.0x
+B. pandas vectorized        1.20 ms    357x faster than A
+C. numpy vectorized         1.04 ms    411x faster than A
+                                    and    1.1x faster than B</code></pre>
+</div>
 </div>
 <p>Read those three numbers in the right order, because the lesson is in the <em>gaps</em>, not the totals:</p>
 <ul>
@@ -1134,19 +1135,19 @@ C. numpy vectorized         1.00 ms    430x faster than A
 <section id="why-.applyaxis1-is-so-slow" class="level3" data-number="7.5.4">
 <h3 data-number="7.5.4" class="anchored" data-anchor-id="why-.applyaxis1-is-so-slow"><span class="header-section-number">7.5.4</span> Why <code>.apply(axis=1)</code> is so slow</h3>
 <p>It is worth seeing where <code>.apply</code>’s time actually goes, because the answer is surprising: mostly not in your function.</p>
-<div id="a8a467e9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:52.271844Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:52.271766Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:52.783151Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:52.782794Z&quot;}}" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>t_empty <span class="op">=</span> <span class="op">%</span>timeit <span class="op">-</span>o <span class="op">-</span>r <span class="dv">3</span> <span class="op">-</span>n <span class="dv">1</span> orders.<span class="bu">apply</span>(<span class="kw">lambda</span> row: <span class="dv">0</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"apply doing your real rule : </span><span class="sc">{</span>t_apply<span class="sc">.</span>average<span class="op">*</span><span class="fl">1e3</span><span class="sc">:8.1f}</span><span class="ss"> ms  (</span><span class="sc">{</span>t_apply<span class="sc">.</span>average<span class="op">/</span>n<span class="op">*</span><span class="fl">1e6</span><span class="sc">:5.2f}</span><span class="ss"> us per row)"</span>)</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"apply doing NOTHING at all : </span><span class="sc">{</span>t_empty<span class="sc">.</span>average<span class="op">*</span><span class="fl">1e3</span><span class="sc">:8.1f}</span><span class="ss"> ms  (</span><span class="sc">{</span>t_empty<span class="sc">.</span>average<span class="op">/</span>n<span class="op">*</span><span class="fl">1e6</span><span class="sc">:5.2f}</span><span class="ss"> us per row)"</span>)</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"fraction of apply's time that is pure overhead: </span><span class="sc">{</span>t_empty<span class="sc">.</span>average<span class="op">/</span>t_apply<span class="sc">.</span>average<span class="sc">:.0%}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="a8a467e9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:52.271844Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:52.271766Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:52.783151Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:52.782794Z&quot;}}" data-execution_count="44">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>t_empty <span class="op">=</span> <span class="op">%</span>timeit <span class="op">-</span>o <span class="op">-</span>r <span class="dv">3</span> <span class="op">-</span>n <span class="dv">1</span> orders.<span class="bu">apply</span>(<span class="kw">lambda</span> row: <span class="dv">0</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"apply doing your real rule : </span><span class="sc">{</span>t_apply<span class="sc">.</span>average<span class="op">*</span><span class="fl">1e3</span><span class="sc">:8.1f}</span><span class="ss"> ms  (</span><span class="sc">{</span>t_apply<span class="sc">.</span>average<span class="op">/</span>n<span class="op">*</span><span class="fl">1e6</span><span class="sc">:5.2f}</span><span class="ss"> us per row)"</span>)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"apply doing NOTHING at all : </span><span class="sc">{</span>t_empty<span class="sc">.</span>average<span class="op">*</span><span class="fl">1e3</span><span class="sc">:8.1f}</span><span class="ss"> ms  (</span><span class="sc">{</span>t_empty<span class="sc">.</span>average<span class="op">/</span>n<span class="op">*</span><span class="fl">1e6</span><span class="sc">:5.2f}</span><span class="ss"> us per row)"</span>)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"fraction of apply's time that is pure overhead: </span><span class="sc">{</span>t_empty<span class="sc">.</span>average<span class="op">/</span>t_apply<span class="sc">.</span>average<span class="sc">:.0%}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>124 ms ± 2.37 ms per loop (mean ± std. dev. of 3 runs, 1 loop each)
+<pre><code>128 ms ± 5.46 ms per loop (mean ± std. dev. of 3 runs, 1 loop each)
 
-apply doing your real rule :    428.7 ms  ( 2.14 us per row)
-apply doing NOTHING at all :    123.6 ms  ( 0.62 us per row)
-fraction of apply's time that is pure overhead: 29%</code></pre>
+apply doing your real rule :    428.0 ms  ( 2.14 us per row)
+apply doing NOTHING at all :    128.1 ms  ( 0.64 us per row)
+fraction of apply's time that is pure overhead: 30%</code></pre>
 </div>
 </div>
 <p>A function that does literally nothing (<code>lambda row: 0</code>) still costs a large share of the total. That overhead is what pandas must do <strong><em>per row</em></strong> before your code runs: hand you a <code>Series</code> object representing the row, and then resolve each <code>row["units"]</code> label lookup into a position, a bounds check, and a boxed Python number. Four column lookups per row, 200,000 rows, is 800,000 label lookups — and that, not the multiplication, is the bill.</p>
@@ -1157,17 +1158,17 @@ fraction of apply's time that is pure overhead: 29%</code></pre>
 <h2 data-number="7.6" class="anchored" data-anchor-id="stage-5-hand-the-numbers-to-numpy"><span class="header-section-number">7.6</span> Stage 5: Hand the Numbers to NumPy</h2>
 <p>Now the part of the workflow where converting genuinely pays. Some calculations are natural on a <em>rectangle of numbers</em> and awkward on a labeled table. For those, <code>.to_numpy()</code> is not a performance trick — it is a clarity trick.</p>
 <p>Here is a small weekly table: one row per day, one column per product, values are units sold. Every column is the same dtype, so it forms a clean numeric block.</p>
-<div id="303db24a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:52.783940Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:52.783874Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:52.787057Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:52.786643Z&quot;}}" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>days <span class="op">=</span> [<span class="st">"Mon"</span>, <span class="st">"Tue"</span>, <span class="st">"Wed"</span>, <span class="st">"Thu"</span>, <span class="st">"Fri"</span>]</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>products <span class="op">=</span> [<span class="st">"Notebook"</span>, <span class="st">"Pen"</span>, <span class="st">"Folder"</span>, <span class="st">"Marker"</span>]</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>weekly <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    rng.integers(<span class="dv">20</span>, <span class="dv">200</span>, size<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">4</span>)),</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span>days,</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>products,</span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>weekly</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
+<div id="303db24a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:52.783940Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:52.783874Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:52.787057Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:52.786643Z&quot;}}" data-execution_count="45">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>days <span class="op">=</span> [<span class="st">"Mon"</span>, <span class="st">"Tue"</span>, <span class="st">"Wed"</span>, <span class="st">"Thu"</span>, <span class="st">"Fri"</span>]</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>products <span class="op">=</span> [<span class="st">"Notebook"</span>, <span class="st">"Pen"</span>, <span class="st">"Folder"</span>, <span class="st">"Marker"</span>]</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>weekly <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    rng.integers(<span class="dv">20</span>, <span class="dv">200</span>, size<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">4</span>)),</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span>days,</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>products,</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>weekly</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="45">
 <div>
 
 
@@ -1223,15 +1224,15 @@ fraction of apply's time that is pure overhead: 29%</code></pre>
 </div>
 </div>
 </div>
-<div id="bd8c93bc" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:52.787734Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:52.787648Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:52.789892Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:52.789514Z&quot;}}" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>mat <span class="op">=</span> weekly.to_numpy()</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"dtype:"</span>, mat.dtype, <span class="st">"| shape:"</span>, mat.shape)</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>mat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="bd8c93bc" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:52.787734Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:52.787648Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:52.789892Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:52.789514Z&quot;}}" data-execution_count="46">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>mat <span class="op">=</span> weekly.to_numpy()</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"dtype:"</span>, mat.dtype, <span class="st">"| shape:"</span>, mat.shape)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>mat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>dtype: int64 | shape: (5, 4)</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="15">
+<div class="cell-output cell-output-display" data-execution_count="46">
 <pre><code>array([[120,  37,  36,  30],
        [ 59, 160, 150,  44],
        [ 83,  60, 100, 168],
@@ -1241,29 +1242,29 @@ fraction of apply's time that is pure overhead: 29%</code></pre>
 </div>
 <p>A clean <code>(5, 4)</code> integer array — no labels, just numbers addressed by position. Now four calculations that are one line each in NumPy.</p>
 <p><strong>(a) Totals along each axis.</strong> <code>axis=1</code> collapses the columns (one total per day); <code>axis=0</code> collapses the rows (one total per product).</p>
-<div id="2a0e9c8d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:52.790545Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:52.790490Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:52.792123Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:52.791779Z&quot;}}" data-execution_count="16">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>per_day <span class="op">=</span> mat.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)       <span class="co"># shape (5,)  -- one number per row</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>per_product <span class="op">=</span> mat.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">0</span>)   <span class="co"># shape (4,)  -- one number per column</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"units per day    :"</span>, per_day, per_day.shape)</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"units per product:"</span>, per_product, per_product.shape)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="2a0e9c8d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:52.790545Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:52.790490Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:52.792123Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:52.791779Z&quot;}}" data-execution_count="47">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>per_day <span class="op">=</span> mat.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)       <span class="co"># shape (5,)  -- one number per row</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>per_product <span class="op">=</span> mat.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">0</span>)   <span class="co"># shape (4,)  -- one number per column</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"units per day    :"</span>, per_day, per_day.shape)</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"units per product:"</span>, per_product, per_product.shape)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>units per day    : [223 413 411 561 371] (5,)
 units per product: [515 529 475 460] (4,)</code></pre>
 </div>
 </div>
 <p><strong>(b) Each product’s share of its own day’s total</strong> — the broadcasting pattern from the NumPy Fundamentals chapter. <code>per_day</code> has shape <code>(5,)</code>, which will not line up against a <code>(5, 4)</code> matrix; reshaping it to <code>(5, 1)</code> makes it a column vector, and NumPy then stretches it across the four product columns, one factor per row.</p>
-<div id="e0e511b5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:52.792738Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:52.792661Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:52.795115Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:52.794723Z&quot;}}" data-execution_count="17">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>share <span class="op">=</span> mat <span class="op">/</span> per_day.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)     <span class="co"># (5, 4) / (5, 1) -&gt; (5, 4)</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"shapes:"</span>, mat.shape, <span class="st">"/"</span>, per_day.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>).shape, <span class="st">"-&gt;"</span>, share.shape)</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"every row sums to 1?"</span>, np.allclose(share.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>), <span class="fl">1.0</span>))</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>share.<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="e0e511b5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:52.792738Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:52.792661Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:52.795115Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:52.794723Z&quot;}}" data-execution_count="48">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>share <span class="op">=</span> mat <span class="op">/</span> per_day.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)     <span class="co"># (5, 4) / (5, 1) -&gt; (5, 4)</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"shapes:"</span>, mat.shape, <span class="st">"/"</span>, per_day.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>).shape, <span class="st">"-&gt;"</span>, share.shape)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"every row sums to 1?"</span>, np.allclose(share.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>), <span class="fl">1.0</span>))</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>share.<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shapes: (5, 4) / (5, 1) -&gt; (5, 4)
 every row sums to 1? True</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="17">
+<div class="cell-output cell-output-display" data-execution_count="48">
 <pre><code>array([[0.538, 0.166, 0.161, 0.135],
        [0.143, 0.387, 0.363, 0.107],
        [0.202, 0.146, 0.243, 0.409],
@@ -1273,16 +1274,16 @@ every row sums to 1? True</code></pre>
 </div>
 <p><code>mat.sum(axis=1, keepdims=True)</code> is an equivalent and slightly tidier way to get that <code>(5, 1)</code> shape without a separate <code>reshape</code>. Use whichever reads better to you.</p>
 <p><strong>(c) Revenue per day with a matrix product.</strong> With one price per product, revenue per day is “multiply each day’s units by the price vector and add them up” — which is exactly what the <code>@</code> operator does. One symbol replaces a nested loop.</p>
-<div id="43a69cb4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:52.795762Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:52.795696Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:52.797576Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:52.797214Z&quot;}}" data-execution_count="18">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>prices <span class="op">=</span> np.array([<span class="fl">5.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>, <span class="fl">4.0</span>])    <span class="co"># Notebook, Pen, Folder, Marker</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>revenue_per_day <span class="op">=</span> mat <span class="op">@</span> prices             <span class="co"># (5, 4) @ (4,) -&gt; (5,)</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"shapes:"</span>, mat.shape, <span class="st">"@"</span>, prices.shape, <span class="st">"-&gt;"</span>, revenue_per_day.shape)</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(revenue_per_day)</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="co"># the long way round, to show they agree</span></span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"matches an explicit sum?"</span>, np.allclose(revenue_per_day, (mat <span class="op">*</span> prices).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="43a69cb4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:52.795762Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:52.795696Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:52.797576Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:52.797214Z&quot;}}" data-execution_count="49">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>prices <span class="op">=</span> np.array([<span class="fl">5.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>, <span class="fl">4.0</span>])    <span class="co"># Notebook, Pen, Folder, Marker</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>revenue_per_day <span class="op">=</span> mat <span class="op">@</span> prices             <span class="co"># (5, 4) @ (4,) -&gt; (5,)</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"shapes:"</span>, mat.shape, <span class="st">"@"</span>, prices.shape, <span class="st">"-&gt;"</span>, revenue_per_day.shape)</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(revenue_per_day)</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="co"># the long way round, to show they agree</span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"matches an explicit sum?"</span>, np.allclose(revenue_per_day, (mat <span class="op">*</span> prices).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shapes: (5, 4) @ (4,) -&gt; (5,)
 [ 902. 1241. 1507. 1967. 1281.]
@@ -1291,14 +1292,14 @@ matches an explicit sum? True</code></pre>
 </div>
 <p><strong>(d) Drop each day’s weakest product and average the rest.</strong> Sorting each row puts the smallest value in column position 0 every time, so slicing off that column drops the weakest product <em>per day</em>, with no loop anywhere.</p>
 <p><strong>Hint — the method you need.</strong> <code>np.sort(a, axis=1)</code> returns a new array in which the values of each row have been rearranged into ascending order, leaving the original array untouched; <code>axis=0</code> sorts down each column instead. It is the value-returning companion of the <code>np.argsort</code> you used in <a href="./numpy_fundamentals.html#finding-the-top-k-with-np.argsort">Finding the Top-k with <code>np.argsort()</code></a>, which returns positions rather than values, and the <a href="https://numpy.org/doc/stable/reference/generated/numpy.sort.html"><code>numpy.sort</code> reference</a> documents every argument.</p>
-<div id="579a6931" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:52.798175Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:52.798118Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:52.800082Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:52.799740Z&quot;}}" data-execution_count="19">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>sorted_rows <span class="op">=</span> np.sort(mat, axis<span class="op">=</span><span class="dv">1</span>)      <span class="co"># each row ascending</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>trimmed_mean <span class="op">=</span> sorted_rows[:, <span class="dv">1</span>:].mean(axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"sorted rows:"</span>)</span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sorted_rows)</span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"mean after dropping each day's weakest product:"</span>, trimmed_mean.<span class="bu">round</span>(<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="579a6931" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:52.798175Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:52.798118Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:52.800082Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:52.799740Z&quot;}}" data-execution_count="50">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>sorted_rows <span class="op">=</span> np.sort(mat, axis<span class="op">=</span><span class="dv">1</span>)      <span class="co"># each row ascending</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>trimmed_mean <span class="op">=</span> sorted_rows[:, <span class="dv">1</span>:].mean(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"sorted rows:"</span>)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sorted_rows)</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"mean after dropping each day's weakest product:"</span>, trimmed_mean.<span class="bu">round</span>(<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>sorted rows:
 [[ 30  36  37 120]
@@ -1315,10 +1316,10 @@ mean after dropping each day's weakest product: [ 64.33 123.   117.   173.33 117
 <section id="stage-6-back-to-pandas-for-the-report" class="level2" data-number="7.7">
 <h2 data-number="7.7" class="anchored" data-anchor-id="stage-6-back-to-pandas-for-the-report"><span class="header-section-number">7.7</span> Stage 6: Back to pandas for the Report</h2>
 <p>Raw arrays are unreadable to anyone but the person who just computed them. Stage 6 puts the labels back on. When you rebuild a DataFrame, pass the original <code>index</code> and <code>columns</code> so the numbers land under the right names:</p>
-<div id="2be32c81" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:52.800674Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:52.800608Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:52.803521Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:52.803183Z&quot;}}" data-execution_count="20">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>share_report <span class="op">=</span> pd.DataFrame(share, index<span class="op">=</span>weekly.index, columns<span class="op">=</span>weekly.columns)</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>share_report.<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="20">
+<div id="2be32c81" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:52.800674Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:52.800608Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:52.803521Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:52.803183Z&quot;}}" data-execution_count="51">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>share_report <span class="op">=</span> pd.DataFrame(share, index<span class="op">=</span>weekly.index, columns<span class="op">=</span>weekly.columns)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>share_report.<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="51">
 <div>
 
 
@@ -1374,15 +1375,15 @@ mean after dropping each day's weakest product: [ 64.33 123.   117.   173.33 117
 </div>
 </div>
 </div>
-<div id="44e833ef" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:52.804157Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:52.804104Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:52.807123Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:52.806782Z&quot;}}" data-execution_count="21">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One value per day -&gt; a new column on the existing table.</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>daily_report <span class="op">=</span> weekly.copy()</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>daily_report[<span class="st">"units_total"</span>] <span class="op">=</span> per_day</span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>daily_report[<span class="st">"revenue"</span>] <span class="op">=</span> revenue_per_day</span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>daily_report[<span class="st">"trimmed_mean_units"</span>] <span class="op">=</span> trimmed_mean.<span class="bu">round</span>(<span class="dv">2</span>)</span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>daily_report</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
+<div id="44e833ef" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:52.804157Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:52.804104Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:52.807123Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:52.806782Z&quot;}}" data-execution_count="52">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One value per day -&gt; a new column on the existing table.</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>daily_report <span class="op">=</span> weekly.copy()</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>daily_report[<span class="st">"units_total"</span>] <span class="op">=</span> per_day</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>daily_report[<span class="st">"revenue"</span>] <span class="op">=</span> revenue_per_day</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>daily_report[<span class="st">"trimmed_mean_units"</span>] <span class="op">=</span> trimmed_mean.<span class="bu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>daily_report</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="52">
 <div>
 
 
@@ -1531,62 +1532,71 @@ mean after dropping each day's weakest product: [ 64.33 123.   117.   173.33 117
 <section id="trap-1-converting-a-mixed-table-gives-you-an-object-array" class="level3" data-number="7.9.1">
 <h3 data-number="7.9.1" class="anchored" data-anchor-id="trap-1-converting-a-mixed-table-gives-you-an-object-array"><span class="header-section-number">7.9.1</span> Trap 1: converting a mixed table gives you an <code>object</code> array</h3>
 <p>You met <code>object</code> once already, when the word <code>unknown</code> demoted the whole <code>count_mixed</code> column. Make avoiding it a habit: convert <code>df[["a", "b"]]</code>, never <code>df</code>, unless every column already shares one numeric dtype. A table that mixes store names with quantities has no single dtype that fits everything, so NumPy falls back to <code>object</code> — an array of pointers to Python objects, with none of the speed you converted to get. Check with <code>.dtype</code> immediately after converting — if it says <code>object</code>, stop and fix the selection.</p>
-<div id="4327f6e8" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>orders.dtypes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="4327f6e8" class="cell" data-execution_count="53">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>orders.dtypes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="53">
+<pre><code>store             str
+units           int64
+unit_price    float64
+is_member        bool
+dtype: object</code></pre>
 </div>
-<div id="bba5768f" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"numeric columns only:"</span>, orders[[<span class="st">"units"</span>, <span class="st">"unit_price"</span>]].to_numpy().dtype)</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"whole mixed frame   :"</span>, orders.to_numpy().dtype)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="bba5768f" class="cell" data-execution_count="54">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"numeric columns only:"</span>, orders[[<span class="st">"units"</span>, <span class="st">"unit_price"</span>]].to_numpy().dtype)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"whole mixed frame   :"</span>, orders.to_numpy().dtype)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>numeric columns only: float64
+whole mixed frame   : object</code></pre>
+</div>
 </div>
 <p>Read the two results against the dtypes above. Selecting <code>units</code> and <code>unit_price</code> gave <code>float64</code>, not <code>int64</code>: <code>units</code> is integer and <code>unit_price</code> is float, so type promotion picked the one dtype that holds both. That is still a fast numeric array, and it is the result you want. Converting the whole frame gave <code>object</code>, because no numeric dtype can also hold the store names and the <code>True</code>/<code>False</code> flags. That is the trap: the conversion succeeded without an error, but the array it produced is slow and cannot do arithmetic.</p>
 </section>
 <section id="trap-2-nan-means-different-things-in-pandas-and-numpy" class="level3" data-number="7.9.2">
 <h3 data-number="7.9.2" class="anchored" data-anchor-id="trap-2-nan-means-different-things-in-pandas-and-numpy"><span class="header-section-number">7.9.2</span> Trap 2: <code>NaN</code> means different things in pandas and NumPy</h3>
-<div id="64ac869a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:55.621614Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:55.621551Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:55.623816Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:55.623426Z&quot;}}">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>with_missing <span class="op">=</span> pd.Series([<span class="fl">10.0</span>, <span class="fl">20.0</span>, np.nan, <span class="fl">40.0</span>])</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>as_array <span class="op">=</span> with_missing.to_numpy()</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"pandas  .mean() :"</span>, with_missing.mean(), <span class="st">"   &lt;- skips NaN, averages 3 values"</span>)</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"numpy   .mean() :"</span>, as_array.mean(), <span class="st">"   &lt;- NaN contaminates the whole result"</span>)</span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"numpy nanmean() :"</span>, np.nanmean(as_array), <span class="st">"   &lt;- matches pandas"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="64ac869a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:55.621614Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:55.621551Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:55.623816Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:55.623426Z&quot;}}" data-execution_count="55">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>with_missing <span class="op">=</span> pd.Series([<span class="fl">10.0</span>, <span class="fl">20.0</span>, np.nan, <span class="fl">40.0</span>])</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>as_array <span class="op">=</span> with_missing.to_numpy()</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"pandas  .mean() :"</span>, with_missing.mean(), <span class="st">"   &lt;- skips NaN, averages 3 values"</span>)</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"numpy   .mean() :"</span>, as_array.mean(), <span class="st">"   &lt;- NaN contaminates the whole result"</span>)</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"numpy nanmean() :"</span>, np.nanmean(as_array), <span class="st">"   &lt;- matches pandas"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>pandas  .mean() : 23.333333333333332    &lt;- skips NaN, averages 3 values
 numpy   .mean() : nan    &lt;- NaN contaminates the whole result
-numpy nanmean() : 23.333333333333332    &lt;- matches pandas
-
-pandas  .sum()  : 70.0  | numpy .sum(): nan  | np.nansum(): 70.0</code></pre>
+numpy nanmean() : 23.333333333333332    &lt;- matches pandas</code></pre>
 </div>
 </div>
 <p>pandas skips missing values by default; NumPy propagates them by default. Neither is wrong, but they answer different questions. After converting, either check for <code>NaN</code> first or switch to the <code>np.nan*</code> family (<code>np.nanmean</code>, <code>np.nansum</code>, <code>np.nanstd</code>, <code>np.nanmax</code>). A whole analysis coming out as <code>nan</code> is usually this trap.</p>
 </section>
 <section id="trap-3-.to_numpy-can-hand-you-a-read-only-view-not-a-copy" class="level3" data-number="7.9.3">
 <h3 data-number="7.9.3" class="anchored" data-anchor-id="trap-3-.to_numpy-can-hand-you-a-read-only-view-not-a-copy"><span class="header-section-number">7.9.3</span> Trap 3: <code>.to_numpy()</code> can hand you a read-only view, not a copy</h3>
-<div id="a725fd22" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:55.624443Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:55.624387Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:55.626622Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:55.626306Z&quot;}}" data-execution_count="25">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>demo <span class="op">=</span> pd.DataFrame({<span class="st">"a"</span>: [<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>]})</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>view <span class="op">=</span> demo[<span class="st">"a"</span>].to_numpy()</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"shares memory with the DataFrame?"</span>, np.shares_memory(demo[<span class="st">"a"</span>], view))</span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"writeable?                       "</span>, view.flags.writeable)</span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>    view[<span class="dv">0</span>] <span class="op">=</span> <span class="fl">999.0</span>                  <span class="co"># writing to the array...</span></span>
-<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ValueError</span> <span class="im">as</span> err:</span>
-<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"writing into it fails    :"</span>, err)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="a725fd22" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:55.624443Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:55.624387Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:55.626622Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:55.626306Z&quot;}}" data-execution_count="56">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>demo <span class="op">=</span> pd.DataFrame({<span class="st">"a"</span>: [<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>]})</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>view <span class="op">=</span> demo[<span class="st">"a"</span>].to_numpy()</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"shares memory with the DataFrame?"</span>, np.shares_memory(demo[<span class="st">"a"</span>], view))</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"writeable?                       "</span>, view.flags.writeable)</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>    view[<span class="dv">0</span>] <span class="op">=</span> <span class="fl">999.0</span>                  <span class="co"># writing to the array...</span></span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ValueError</span> <span class="im">as</span> err:</span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"writing into it fails    :"</span>, err)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shares memory with the DataFrame? True
 writeable?                        False
 writing into it fails    : assignment destination is read-only</code></pre>
 </div>
 </div>
-<div id="274510ed" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:55.627258Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:55.627205Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:55.629124Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:55.628785Z&quot;}}" data-execution_count="26">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ask for a copy when you intend to modify the array.</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>demo2 <span class="op">=</span> pd.DataFrame({<span class="st">"a"</span>: [<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>]})</span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>safe <span class="op">=</span> demo2[<span class="st">"a"</span>].to_numpy(copy<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>safe[<span class="dv">0</span>] <span class="op">=</span> <span class="fl">999.0</span></span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"shares memory?"</span>, np.shares_memory(demo2[<span class="st">"a"</span>], safe))</span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"array     :"</span>, safe)</span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"DataFrame :"</span>, demo2[<span class="st">"a"</span>].to_numpy(), <span class="st">" &lt;- untouched"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="274510ed" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:55.627258Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:55.627205Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:55.629124Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:55.628785Z&quot;}}" data-execution_count="57">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ask for a copy when you intend to modify the array.</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>demo2 <span class="op">=</span> pd.DataFrame({<span class="st">"a"</span>: [<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>]})</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>safe <span class="op">=</span> demo2[<span class="st">"a"</span>].to_numpy(copy<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>safe[<span class="dv">0</span>] <span class="op">=</span> <span class="fl">999.0</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"shares memory?"</span>, np.shares_memory(demo2[<span class="st">"a"</span>], safe))</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"array     :"</span>, safe)</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"DataFrame :"</span>, demo2[<span class="st">"a"</span>].to_numpy(), <span class="st">" &lt;- untouched"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shares memory? False
 array     : [999.   2.   3.]
@@ -1615,16 +1625,16 @@ DataFrame : [1. 2. 3.]  &lt;- untouched</code></pre>
 <section id="trap-4-assigning-an-array-back-to-a-dataframe-aligns-by-position-not-by-label" class="level3" data-number="7.9.4">
 <h3 data-number="7.9.4" class="anchored" data-anchor-id="trap-4-assigning-an-array-back-to-a-dataframe-aligns-by-position-not-by-label"><span class="header-section-number">7.9.4</span> Trap 4: assigning an array back to a DataFrame aligns by position, not by label</h3>
 <p>Stage 6 ended by assigning <code>per_day</code> and the other arrays straight back into <code>weekly</code>, and that worked only because position <em>i</em> in each array still meant row <em>i</em> of the table. A NumPy array carries no index, so when you assign one into a DataFrame, pandas has nothing to align on and drops the values in by position. Reorder or filter the DataFrame between extracting the arrays and assigning the result, and every value lands on the wrong row — with no error to tell you so.</p>
-<div id="304c8e36" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:55.629779Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:55.629712Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:55.633207Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:55.632868Z&quot;}}" data-execution_count="27">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>small <span class="op">=</span> pd.DataFrame({<span class="st">"units"</span>: [<span class="dv">10</span>, <span class="dv">50</span>, <span class="dv">30</span>], <span class="st">"price"</span>: [<span class="fl">2.0</span>, <span class="fl">5.0</span>, <span class="fl">4.0</span>]})</span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>totals <span class="op">=</span> (small[<span class="st">"units"</span>] <span class="op">*</span> small[<span class="st">"price"</span>]).to_numpy()    <span class="co"># [20., 250., 120.]</span></span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>reordered <span class="op">=</span> small.sort_values(<span class="st">"units"</span>)                   <span class="co"># row order is now 10, 30, 50</span></span>
-<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>reordered[<span class="st">"total_WRONG"</span>] <span class="op">=</span> totals                        <span class="co"># pandas aligns by POSITION</span></span>
-<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>reordered[<span class="st">"total_right"</span>] <span class="op">=</span> reordered[<span class="st">"units"</span>] <span class="op">*</span> reordered[<span class="st">"price"</span>]</span>
-<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>reordered</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="27">
+<div id="304c8e36" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:55.629779Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:55.629712Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:55.633207Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:55.632868Z&quot;}}" data-execution_count="58">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>small <span class="op">=</span> pd.DataFrame({<span class="st">"units"</span>: [<span class="dv">10</span>, <span class="dv">50</span>, <span class="dv">30</span>], <span class="st">"price"</span>: [<span class="fl">2.0</span>, <span class="fl">5.0</span>, <span class="fl">4.0</span>]})</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>totals <span class="op">=</span> (small[<span class="st">"units"</span>] <span class="op">*</span> small[<span class="st">"price"</span>]).to_numpy()    <span class="co"># [20., 250., 120.]</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>reordered <span class="op">=</span> small.sort_values(<span class="st">"units"</span>)                   <span class="co"># row order is now 10, 30, 50</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>reordered[<span class="st">"total_WRONG"</span>] <span class="op">=</span> totals                        <span class="co"># pandas aligns by POSITION</span></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>reordered[<span class="st">"total_right"</span>] <span class="op">=</span> reordered[<span class="st">"units"</span>] <span class="op">*</span> reordered[<span class="st">"price"</span>]</span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>reordered</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="58">
 <div>
 
 
@@ -1842,24 +1852,24 @@ DataFrame : [1. 2. 3.]  &lt;- untouched</code></pre>
 <h2 data-number="7.12" class="anchored" data-anchor-id="extended-practice"><span class="header-section-number">7.12</span> Extended Practice</h2>
 <p>Use a separate notebook beside your activity notebook. These longer exercises are additional practice, not requirements for the Canvas quiz. Include your code, outputs, and explanations.</p>
 <p>Start that notebook with the cell below. It rebuilds the 200,000-row <code>orders</code> table and the order-total rule from Stage 4, so your notebook runs correctly from a restart without borrowing anything from the chapter notebook.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">303</span>)</span>
-<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">200_000</span></span>
-<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>orders <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"store"</span>: rng.choice([<span class="st">"North"</span>, <span class="st">"South"</span>, <span class="st">"West"</span>], size<span class="op">=</span>n),</span>
-<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"units"</span>: rng.integers(<span class="dv">1</span>, <span class="dv">80</span>, size<span class="op">=</span>n),</span>
-<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"unit_price"</span>: rng.choice([<span class="fl">2.0</span>, <span class="fl">3.0</span>, <span class="fl">4.0</span>, <span class="fl">5.0</span>], size<span class="op">=</span>n),</span>
-<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"is_member"</span>: rng.random(size<span class="op">=</span>n) <span class="op">&lt;</span> <span class="fl">0.30</span>,</span>
-<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a>gross <span class="op">=</span> orders[<span class="st">"units"</span>] <span class="op">*</span> orders[<span class="st">"unit_price"</span>]</span>
-<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a>rate <span class="op">=</span> np.select([gross <span class="op">&gt;=</span> <span class="dv">250</span>, gross <span class="op">&gt;=</span> <span class="dv">100</span>], [<span class="fl">0.10</span>, <span class="fl">0.05</span>], default<span class="op">=</span><span class="fl">0.0</span>)</span>
-<span id="cb57-16"><a href="#cb57-16" aria-hidden="true" tabindex="-1"></a>rate <span class="op">=</span> rate <span class="op">+</span> orders[<span class="st">"is_member"</span>] <span class="op">*</span> <span class="fl">0.05</span></span>
-<span id="cb57-17"><a href="#cb57-17" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> gross <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> rate)</span>
-<span id="cb57-18"><a href="#cb57-18" aria-hidden="true" tabindex="-1"></a>orders[<span class="st">"total"</span>] <span class="op">=</span> net <span class="op">+</span> np.where(net <span class="op">&gt;=</span> <span class="dv">500</span>, <span class="fl">0.0</span>, <span class="fl">19.99</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">303</span>)</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">200_000</span></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>orders <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"store"</span>: rng.choice([<span class="st">"North"</span>, <span class="st">"South"</span>, <span class="st">"West"</span>], size<span class="op">=</span>n),</span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"units"</span>: rng.integers(<span class="dv">1</span>, <span class="dv">80</span>, size<span class="op">=</span>n),</span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"unit_price"</span>: rng.choice([<span class="fl">2.0</span>, <span class="fl">3.0</span>, <span class="fl">4.0</span>, <span class="fl">5.0</span>], size<span class="op">=</span>n),</span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"is_member"</span>: rng.random(size<span class="op">=</span>n) <span class="op">&lt;</span> <span class="fl">0.30</span>,</span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a>gross <span class="op">=</span> orders[<span class="st">"units"</span>] <span class="op">*</span> orders[<span class="st">"unit_price"</span>]</span>
+<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a>rate <span class="op">=</span> np.select([gross <span class="op">&gt;=</span> <span class="dv">250</span>, gross <span class="op">&gt;=</span> <span class="dv">100</span>], [<span class="fl">0.10</span>, <span class="fl">0.05</span>], default<span class="op">=</span><span class="fl">0.0</span>)</span>
+<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a>rate <span class="op">=</span> rate <span class="op">+</span> orders[<span class="st">"is_member"</span>] <span class="op">*</span> <span class="fl">0.05</span></span>
+<span id="cb60-17"><a href="#cb60-17" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> gross <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> rate)</span>
+<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a>orders[<span class="st">"total"</span>] <span class="op">=</span> net <span class="op">+</span> np.where(net <span class="op">&gt;=</span> <span class="dv">500</span>, <span class="fl">0.0</span>, <span class="fl">19.99</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <section id="per-store-summaries-with-boolean-masks" class="level3" data-number="7.12.1">
 <h3 data-number="7.12.1" class="anchored" data-anchor-id="per-store-summaries-with-boolean-masks"><span class="header-section-number">7.12.1</span> Per-Store Summaries with Boolean Masks</h3>
 <p>Compute the mean order total for each store two ways: once with a pandas Boolean mask per store, and once by converting <code>total</code> and <code>store</code> to arrays and masking those. Compare the results with <code>np.allclose</code>, then explain which version you would put in a report and why. Which parts of the bookkeeping did you have to do by hand in the array version?</p>
