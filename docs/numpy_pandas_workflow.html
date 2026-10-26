@@ -376,15 +376,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#stage-5-hand-the-numbers-to-numpy" id="toc-stage-5-hand-the-numbers-to-numpy" class="nav-link" data-scroll-target="#stage-5-hand-the-numbers-to-numpy"><span class="header-section-number">7.6</span> Stage 5: Hand the Numbers to NumPy</a></li>
   <li><a href="#stage-6-back-to-pandas-for-the-report" id="toc-stage-6-back-to-pandas-for-the-report" class="nav-link" data-scroll-target="#stage-6-back-to-pandas-for-the-report"><span class="header-section-number">7.7</span> Stage 6: Back to pandas for the Report</a></li>
   <li><a href="#choosing-a-decision-table" id="toc-choosing-a-decision-table" class="nav-link" data-scroll-target="#choosing-a-decision-table"><span class="header-section-number">7.8</span> Choosing: A Decision Table</a></li>
-  <li><a href="#four-conversion-traps" id="toc-four-conversion-traps" class="nav-link" data-scroll-target="#four-conversion-traps"><span class="header-section-number">7.9</span> Four Conversion Traps</a>
+  <li><a href="#crossing-the-boundary" id="toc-crossing-the-boundary" class="nav-link" data-scroll-target="#crossing-the-boundary"><span class="header-section-number">7.9</span> Crossing the Boundary: The Four Conversions</a></li>
+  <li><a href="#four-conversion-traps" id="toc-four-conversion-traps" class="nav-link" data-scroll-target="#four-conversion-traps"><span class="header-section-number">7.10</span> Four Conversion Traps</a>
   <ul class="collapse">
-  <li><a href="#trap-1-converting-a-mixed-table-gives-you-an-object-array" id="toc-trap-1-converting-a-mixed-table-gives-you-an-object-array" class="nav-link" data-scroll-target="#trap-1-converting-a-mixed-table-gives-you-an-object-array"><span class="header-section-number">7.9.1</span> Trap 1: converting a mixed table gives you an <code>object</code> array</a></li>
-  <li><a href="#trap-2-nan-means-different-things-in-pandas-and-numpy" id="toc-trap-2-nan-means-different-things-in-pandas-and-numpy" class="nav-link" data-scroll-target="#trap-2-nan-means-different-things-in-pandas-and-numpy"><span class="header-section-number">7.9.2</span> Trap 2: <code>NaN</code> means different things in pandas and NumPy</a></li>
-  <li><a href="#trap-3-.to_numpy-can-hand-you-a-read-only-view-not-a-copy" id="toc-trap-3-.to_numpy-can-hand-you-a-read-only-view-not-a-copy" class="nav-link" data-scroll-target="#trap-3-.to_numpy-can-hand-you-a-read-only-view-not-a-copy"><span class="header-section-number">7.9.3</span> Trap 3: <code>.to_numpy()</code> can hand you a read-only view, not a copy</a></li>
-  <li><a href="#trap-4-assigning-an-array-back-to-a-dataframe-aligns-by-position-not-by-label" id="toc-trap-4-assigning-an-array-back-to-a-dataframe-aligns-by-position-not-by-label" class="nav-link" data-scroll-target="#trap-4-assigning-an-array-back-to-a-dataframe-aligns-by-position-not-by-label"><span class="header-section-number">7.9.4</span> Trap 4: assigning an array back to a DataFrame aligns by position, not by label</a></li>
+  <li><a href="#trap-1-converting-a-mixed-table-gives-you-an-object-array" id="toc-trap-1-converting-a-mixed-table-gives-you-an-object-array" class="nav-link" data-scroll-target="#trap-1-converting-a-mixed-table-gives-you-an-object-array"><span class="header-section-number">7.10.1</span> Trap 1: converting a mixed table gives you an <code>object</code> array</a></li>
+  <li><a href="#trap-2-nan-means-different-things-in-pandas-and-numpy" id="toc-trap-2-nan-means-different-things-in-pandas-and-numpy" class="nav-link" data-scroll-target="#trap-2-nan-means-different-things-in-pandas-and-numpy"><span class="header-section-number">7.10.2</span> Trap 2: <code>NaN</code> means different things in pandas and NumPy</a></li>
+  <li><a href="#trap-3-.to_numpy-can-hand-you-a-read-only-view-not-a-copy" id="toc-trap-3-.to_numpy-can-hand-you-a-read-only-view-not-a-copy" class="nav-link" data-scroll-target="#trap-3-.to_numpy-can-hand-you-a-read-only-view-not-a-copy"><span class="header-section-number">7.10.3</span> Trap 3: <code>.to_numpy()</code> can hand you a read-only view, not a copy</a></li>
+  <li><a href="#trap-4-assigning-an-array-back-to-a-dataframe-aligns-by-position-not-by-label" id="toc-trap-4-assigning-an-array-back-to-a-dataframe-aligns-by-position-not-by-label" class="nav-link" data-scroll-target="#trap-4-assigning-an-array-back-to-a-dataframe-aligns-by-position-not-by-label"><span class="header-section-number">7.10.4</span> Trap 4: assigning an array back to a DataFrame aligns by position, not by label</a></li>
   </ul></li>
-  <li><a href="#summary-cheat-sheet" id="toc-summary-cheat-sheet" class="nav-link" data-scroll-target="#summary-cheat-sheet"><span class="header-section-number">7.10</span> Summary Cheat Sheet</a></li>
-  <li><a href="#practice-activity-from-messy-file-to-labeled-report" id="toc-practice-activity-from-messy-file-to-labeled-report" class="nav-link" data-scroll-target="#practice-activity-from-messy-file-to-labeled-report"><span class="header-section-number">7.11</span> Practice Activity: From Messy File to Labeled Report</a>
+  <li><a href="#summary-cheat-sheet" id="toc-summary-cheat-sheet" class="nav-link" data-scroll-target="#summary-cheat-sheet"><span class="header-section-number">7.11</span> Summary Cheat Sheet</a></li>
+  <li><a href="#practice-activity-from-messy-file-to-labeled-report" id="toc-practice-activity-from-messy-file-to-labeled-report" class="nav-link" data-scroll-target="#practice-activity-from-messy-file-to-labeled-report"><span class="header-section-number">7.12</span> Practice Activity: From Messy File to Labeled Report</a>
   <ul class="collapse">
   <li><a href="#a.-load-inspect-and-clean-stages-1-3" id="toc-a.-load-inspect-and-clean-stages-1-3" class="nav-link" data-scroll-target="#a.-load-inspect-and-clean-stages-1-3">A. Load, Inspect, and Clean (Stages 1-3)</a></li>
   <li><a href="#b.-derive-a-column-two-ways-stage-4" id="toc-b.-derive-a-column-two-ways-stage-4" class="nav-link" data-scroll-target="#b.-derive-a-column-two-ways-stage-4">B. Derive a Column Two Ways (Stage 4)</a></li>
@@ -392,13 +393,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#d.-return-to-pandas-and-demonstrate-one-trap-stage-6" id="toc-d.-return-to-pandas-and-demonstrate-one-trap-stage-6" class="nav-link" data-scroll-target="#d.-return-to-pandas-and-demonstrate-one-trap-stage-6">D. Return to pandas, and Demonstrate One Trap (Stage 6)</a></li>
   <li><a href="#render-and-submit" id="toc-render-and-submit" class="nav-link" data-scroll-target="#render-and-submit">Render and Submit</a></li>
   </ul></li>
-  <li><a href="#extended-practice" id="toc-extended-practice" class="nav-link" data-scroll-target="#extended-practice"><span class="header-section-number">7.12</span> Extended Practice</a>
+  <li><a href="#extended-practice" id="toc-extended-practice" class="nav-link" data-scroll-target="#extended-practice"><span class="header-section-number">7.13</span> Extended Practice</a>
   <ul class="collapse">
-  <li><a href="#per-store-summaries-with-boolean-masks" id="toc-per-store-summaries-with-boolean-masks" class="nav-link" data-scroll-target="#per-store-summaries-with-boolean-masks"><span class="header-section-number">7.12.1</span> Per-Store Summaries with Boolean Masks</a></li>
-  <li><a href="#per-record-thresholds" id="toc-per-record-thresholds" class="nav-link" data-scroll-target="#per-record-thresholds"><span class="header-section-number">7.12.2</span> Per-Record Thresholds</a></li>
-  <li><a href="#a-conversion-that-does-not-pay" id="toc-a-conversion-that-does-not-pay" class="nav-link" data-scroll-target="#a-conversion-that-does-not-pay"><span class="header-section-number">7.12.3</span> A Conversion That Does Not Pay</a></li>
+  <li><a href="#per-store-summaries-with-boolean-masks" id="toc-per-store-summaries-with-boolean-masks" class="nav-link" data-scroll-target="#per-store-summaries-with-boolean-masks"><span class="header-section-number">7.13.1</span> Per-Store Summaries with Boolean Masks</a></li>
+  <li><a href="#per-record-thresholds" id="toc-per-record-thresholds" class="nav-link" data-scroll-target="#per-record-thresholds"><span class="header-section-number">7.13.2</span> Per-Record Thresholds</a></li>
+  <li><a href="#a-conversion-that-does-not-pay" id="toc-a-conversion-that-does-not-pay" class="nav-link" data-scroll-target="#a-conversion-that-does-not-pay"><span class="header-section-number">7.13.3</span> A Conversion That Does Not Pay</a></li>
   </ul></li>
-  <li><a href="#before-you-move-on" id="toc-before-you-move-on" class="nav-link" data-scroll-target="#before-you-move-on"><span class="header-section-number">7.13</span> Before You Move On</a></li>
+  <li><a href="#before-you-move-on" id="toc-before-you-move-on" class="nav-link" data-scroll-target="#before-you-move-on"><span class="header-section-number">7.14</span> Before You Move On</a></li>
   </ul>
 </nav>
     </div>
@@ -1468,7 +1469,7 @@ mean after dropping each day's weakest product: [ 64.33 123.   117.   173.33 117
 </section>
 <section id="choosing-a-decision-table" class="level2" data-number="7.8">
 <h2 data-number="7.8" class="anchored" data-anchor-id="choosing-a-decision-table"><span class="header-section-number">7.8</span> Choosing: A Decision Table</h2>
-<p>Put the whole chapter into one table. Read the middle column as “where this task belongs”, not “which library is better”.</p>
+<p>Read the middle column as “where this task belongs”, not “which library is better”.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -1532,14 +1533,130 @@ mean after dropping each day's weakest product: [ 64.33 123.   117.   173.33 117
 </table>
 <p>A useful default: <strong>stay in pandas unless the data in front of you is genuinely a rectangle of same-typed numbers, in which case reach for NumPy and enjoy it.</strong></p>
 </section>
-<section id="four-conversion-traps" class="level2" data-number="7.9">
-<h2 data-number="7.9" class="anchored" data-anchor-id="four-conversion-traps"><span class="header-section-number">7.9</span> Four Conversion Traps</h2>
+<section id="crossing-the-boundary" class="level2" data-number="7.9">
+<h2 data-number="7.9" class="anchored" data-anchor-id="crossing-the-boundary"><span class="header-section-number">7.9</span> Crossing the Boundary: The Four Conversions</h2>
+<p>The decision table tells you which side of the boundary a task belongs on; this section collects the four lines of code that actually cross it, along with the one idea they share: <strong>crossing into NumPy takes the labels off, and crossing back has to put them on again.</strong> There are only four conversions because each library offers two shapes. pandas has the one-dimensional <code>Series</code> and the two-dimensional <code>DataFrame</code>; NumPy has the one-dimensional array and the two-dimensional array. A conversion moves between the matching pair, in one direction or the other.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Direction</th>
+<th>What you write</th>
+<th>What comes back</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Series</code> → 1-D array</td>
+<td><code>s.to_numpy()</code></td>
+<td>the numbers alone, addressed by position; the index is gone</td>
+</tr>
+<tr class="even">
+<td>numeric columns → 2-D array</td>
+<td><code>df[["a", "b"]].to_numpy()</code></td>
+<td>one row per row, one column per column, one dtype for the whole block</td>
+</tr>
+<tr class="odd">
+<td>1-D array → <code>Series</code></td>
+<td><code>pd.Series(arr, index=df.index)</code></td>
+<td>the numbers with row labels back on them</td>
+</tr>
+<tr class="even">
+<td>2-D array → <code>DataFrame</code></td>
+<td><code>pd.DataFrame(arr, index=df.index, columns=df.columns)</code></td>
+<td>a labeled table again</td>
+</tr>
+</tbody>
+</table>
+<p>Notice that both pandas-bound rows pass an <code>index</code>, because labels have to come from somewhere. Leave it out and pandas numbers the rows <code>0, 1, 2, ...</code> instead, which is almost never what you want when the numbers came from a table that already had names for its rows. Notice too that the second row selects columns first: convert <code>df[["a", "b"]]</code>, not <code>df</code>, so that every column going in shares one numeric dtype.</p>
+<p>You have already used one conversion from each direction — Stage 5 turned <code>weekly</code> into <code>mat</code> with <code>.to_numpy()</code>, and Stage 6 rebuilt a table with <code>pd.DataFrame(share, index=..., columns=...)</code>. The cell below puts all four side by side on that same <code>weekly</code> table.</p>
+<div id="9431a8e3" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pandas -&gt; NumPy: the labels come off, the positions remain</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>pen_arr <span class="op">=</span> weekly[<span class="st">"Pen"</span>].to_numpy()               <span class="co"># Series -&gt; 1-D array</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>block <span class="op">=</span> weekly[[<span class="st">"Pen"</span>, <span class="st">"Folder"</span>]].to_numpy()     <span class="co"># two numeric columns -&gt; 2-D array</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Series  -&gt; array:"</span>, pen_arr, <span class="st">"| shape"</span>, pen_arr.shape)</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"columns -&gt; array: shape"</span>, block.shape, <span class="st">"| dtype"</span>, block.dtype)</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="co"># NumPy -&gt; pandas: the labels go back on, taken from the table the numbers came from</span></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>totals <span class="op">=</span> pd.Series(per_day, index<span class="op">=</span>weekly.index)  <span class="co"># 1-D array -&gt; Series</span></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">array -&gt; Series:"</span>)</span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(totals)</span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 2-D array -&gt; DataFrame</span></span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(block, index<span class="op">=</span>weekly.index, columns<span class="op">=</span>[<span class="st">"Pen"</span>, <span class="st">"Folder"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Series  -&gt; array: [ 37 160  60 186  86] | shape (5,)
+columns -&gt; array: shape (5, 2) | dtype int64
+
+array -&gt; Series:
+Mon    223
+Tue    413
+Wed    411
+Thu    561
+Fri    371
+dtype: int64</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Pen</th>
+<th data-quarto-table-cell-role="th">Folder</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Mon</th>
+<td>37</td>
+<td>36</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Tue</th>
+<td>160</td>
+<td>150</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Wed</th>
+<td>60</td>
+<td>100</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Thu</th>
+<td>186</td>
+<td>41</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Fri</th>
+<td>86</td>
+<td>148</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Two more things to know about these conversions.</p>
+<p>First, <code>.to_numpy()</code> does not promise you a copy. It often hands back the very memory the Series was already using, which is what <code>np.shares_memory</code> reported <code>True</code> for at the start of this chapter, so writing into the array can change the DataFrame. Ask for <code>.to_numpy(copy=True)</code> whenever you intend to modify the result; <a href="#four-conversion-traps">Trap 3</a> below shows what goes wrong when you do not.</p>
+<p>Second, you will meet <code>.values</code> in older code and in answers online. It is the earlier spelling of <code>.to_numpy()</code>, so you already know what it does and what to write instead.</p>
+</section>
+<section id="four-conversion-traps" class="level2" data-number="7.10">
+<h2 data-number="7.10" class="anchored" data-anchor-id="four-conversion-traps"><span class="header-section-number">7.10</span> Four Conversion Traps</h2>
 <p>Every one of these produces a <em>wrong answer</em> or a <em>silent surprise</em> rather than a helpful error, which is why they are worth practising deliberately.</p>
-<section id="trap-1-converting-a-mixed-table-gives-you-an-object-array" class="level3" data-number="7.9.1">
-<h3 data-number="7.9.1" class="anchored" data-anchor-id="trap-1-converting-a-mixed-table-gives-you-an-object-array"><span class="header-section-number">7.9.1</span> Trap 1: converting a mixed table gives you an <code>object</code> array</h3>
+<section id="trap-1-converting-a-mixed-table-gives-you-an-object-array" class="level3" data-number="7.10.1">
+<h3 data-number="7.10.1" class="anchored" data-anchor-id="trap-1-converting-a-mixed-table-gives-you-an-object-array"><span class="header-section-number">7.10.1</span> Trap 1: converting a mixed table gives you an <code>object</code> array</h3>
 <p>You met <code>object</code> once already, when the word <code>unknown</code> demoted the whole <code>count_mixed</code> column. Make avoiding it a habit: convert <code>df[["a", "b"]]</code>, never <code>df</code>, unless every column already shares one numeric dtype. A table that mixes store names with quantities has no single dtype that fits everything, so NumPy falls back to <code>object</code> — an array of pointers to Python objects, with none of the speed you converted to get. Check with <code>.dtype</code> immediately after converting — if it says <code>object</code>, stop and fix the selection.</p>
 <div id="4327f6e8" class="cell" data-execution_count="53">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>orders.dtypes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>orders.dtypes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="53">
 <pre><code>store             str
 units           int64
@@ -1549,8 +1666,8 @@ dtype: object</code></pre>
 </div>
 </div>
 <div id="bba5768f" class="cell" data-execution_count="54">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"numeric columns only:"</span>, orders[[<span class="st">"units"</span>, <span class="st">"unit_price"</span>]].to_numpy().dtype)</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"whole mixed frame   :"</span>, orders.to_numpy().dtype)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"numeric columns only:"</span>, orders[[<span class="st">"units"</span>, <span class="st">"unit_price"</span>]].to_numpy().dtype)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"whole mixed frame   :"</span>, orders.to_numpy().dtype)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>numeric columns only: float64
 whole mixed frame   : object</code></pre>
@@ -1558,15 +1675,15 @@ whole mixed frame   : object</code></pre>
 </div>
 <p>Read the two results against the dtypes above. Selecting <code>units</code> and <code>unit_price</code> gave <code>float64</code>, not <code>int64</code>: <code>units</code> is integer and <code>unit_price</code> is float, so type promotion picked the one dtype that holds both. That is still a fast numeric array, and it is the result you want. Converting the whole frame gave <code>object</code>, because no numeric dtype can also hold the store names and the <code>True</code>/<code>False</code> flags. That is the trap: the conversion succeeded without an error, but the array it produced is slow and cannot do arithmetic.</p>
 </section>
-<section id="trap-2-nan-means-different-things-in-pandas-and-numpy" class="level3" data-number="7.9.2">
-<h3 data-number="7.9.2" class="anchored" data-anchor-id="trap-2-nan-means-different-things-in-pandas-and-numpy"><span class="header-section-number">7.9.2</span> Trap 2: <code>NaN</code> means different things in pandas and NumPy</h3>
+<section id="trap-2-nan-means-different-things-in-pandas-and-numpy" class="level3" data-number="7.10.2">
+<h3 data-number="7.10.2" class="anchored" data-anchor-id="trap-2-nan-means-different-things-in-pandas-and-numpy"><span class="header-section-number">7.10.2</span> Trap 2: <code>NaN</code> means different things in pandas and NumPy</h3>
 <div id="64ac869a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:55.621614Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:55.621551Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:55.623816Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:55.623426Z&quot;}}" data-execution_count="55">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>with_missing <span class="op">=</span> pd.Series([<span class="fl">10.0</span>, <span class="fl">20.0</span>, np.nan, <span class="fl">40.0</span>])</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>as_array <span class="op">=</span> with_missing.to_numpy()</span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"pandas  .mean() :"</span>, with_missing.mean(), <span class="st">"   &lt;- skips NaN, averages 3 values"</span>)</span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"numpy   .mean() :"</span>, as_array.mean(), <span class="st">"   &lt;- NaN contaminates the whole result"</span>)</span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"numpy nanmean() :"</span>, np.nanmean(as_array), <span class="st">"   &lt;- matches pandas"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>with_missing <span class="op">=</span> pd.Series([<span class="fl">10.0</span>, <span class="fl">20.0</span>, np.nan, <span class="fl">40.0</span>])</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>as_array <span class="op">=</span> with_missing.to_numpy()</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"pandas  .mean() :"</span>, with_missing.mean(), <span class="st">"   &lt;- skips NaN, averages 3 values"</span>)</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"numpy   .mean() :"</span>, as_array.mean(), <span class="st">"   &lt;- NaN contaminates the whole result"</span>)</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"numpy nanmean() :"</span>, np.nanmean(as_array), <span class="st">"   &lt;- matches pandas"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>pandas  .mean() : 23.333333333333332    &lt;- skips NaN, averages 3 values
 numpy   .mean() : nan    &lt;- NaN contaminates the whole result
@@ -1575,19 +1692,19 @@ numpy nanmean() : 23.333333333333332    &lt;- matches pandas</code></pre>
 </div>
 <p>pandas skips missing values by default; NumPy propagates them by default. Neither is wrong, but they answer different questions. After converting, either check for <code>NaN</code> first or switch to the <code>np.nan*</code> family (<code>np.nanmean</code>, <code>np.nansum</code>, <code>np.nanstd</code>, <code>np.nanmax</code>). A whole analysis coming out as <code>nan</code> is usually this trap.</p>
 </section>
-<section id="trap-3-.to_numpy-can-hand-you-a-read-only-view-not-a-copy" class="level3" data-number="7.9.3">
-<h3 data-number="7.9.3" class="anchored" data-anchor-id="trap-3-.to_numpy-can-hand-you-a-read-only-view-not-a-copy"><span class="header-section-number">7.9.3</span> Trap 3: <code>.to_numpy()</code> can hand you a read-only view, not a copy</h3>
+<section id="trap-3-.to_numpy-can-hand-you-a-read-only-view-not-a-copy" class="level3" data-number="7.10.3">
+<h3 data-number="7.10.3" class="anchored" data-anchor-id="trap-3-.to_numpy-can-hand-you-a-read-only-view-not-a-copy"><span class="header-section-number">7.10.3</span> Trap 3: <code>.to_numpy()</code> can hand you a read-only view, not a copy</h3>
 <div id="a725fd22" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:55.624443Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:55.624387Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:55.626622Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:55.626306Z&quot;}}" data-execution_count="56">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>demo <span class="op">=</span> pd.DataFrame({<span class="st">"a"</span>: [<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>]})</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>view <span class="op">=</span> demo[<span class="st">"a"</span>].to_numpy()</span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"shares memory with the DataFrame?"</span>, np.shares_memory(demo[<span class="st">"a"</span>], view))</span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"writeable?                       "</span>, view.flags.writeable)</span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>    view[<span class="dv">0</span>] <span class="op">=</span> <span class="fl">999.0</span>                  <span class="co"># writing to the array...</span></span>
-<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ValueError</span> <span class="im">as</span> err:</span>
-<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"writing into it fails    :"</span>, err)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>demo <span class="op">=</span> pd.DataFrame({<span class="st">"a"</span>: [<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>]})</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>view <span class="op">=</span> demo[<span class="st">"a"</span>].to_numpy()</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"shares memory with the DataFrame?"</span>, np.shares_memory(demo[<span class="st">"a"</span>], view))</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"writeable?                       "</span>, view.flags.writeable)</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>    view[<span class="dv">0</span>] <span class="op">=</span> <span class="fl">999.0</span>                  <span class="co"># writing to the array...</span></span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ValueError</span> <span class="im">as</span> err:</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"writing into it fails    :"</span>, err)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shares memory with the DataFrame? True
 writeable?                        False
@@ -1595,14 +1712,14 @@ writing into it fails    : assignment destination is read-only</code></pre>
 </div>
 </div>
 <div id="274510ed" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:55.627258Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:55.627205Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:55.629124Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:55.628785Z&quot;}}" data-execution_count="57">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ask for a copy when you intend to modify the array.</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>demo2 <span class="op">=</span> pd.DataFrame({<span class="st">"a"</span>: [<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>]})</span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>safe <span class="op">=</span> demo2[<span class="st">"a"</span>].to_numpy(copy<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>safe[<span class="dv">0</span>] <span class="op">=</span> <span class="fl">999.0</span></span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"shares memory?"</span>, np.shares_memory(demo2[<span class="st">"a"</span>], safe))</span>
-<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"array     :"</span>, safe)</span>
-<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"DataFrame :"</span>, demo2[<span class="st">"a"</span>].to_numpy(), <span class="st">" &lt;- untouched"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ask for a copy when you intend to modify the array.</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>demo2 <span class="op">=</span> pd.DataFrame({<span class="st">"a"</span>: [<span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span>]})</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>safe <span class="op">=</span> demo2[<span class="st">"a"</span>].to_numpy(copy<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>safe[<span class="dv">0</span>] <span class="op">=</span> <span class="fl">999.0</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"shares memory?"</span>, np.shares_memory(demo2[<span class="st">"a"</span>], safe))</span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"array     :"</span>, safe)</span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"DataFrame :"</span>, demo2[<span class="st">"a"</span>].to_numpy(), <span class="st">" &lt;- untouched"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>shares memory? False
 array     : [999.   2.   3.]
@@ -1628,18 +1745,18 @@ DataFrame : [1. 2. 3.]  &lt;- untouched</code></pre>
 </div>
 </div>
 </section>
-<section id="trap-4-assigning-an-array-back-to-a-dataframe-aligns-by-position-not-by-label" class="level3" data-number="7.9.4">
-<h3 data-number="7.9.4" class="anchored" data-anchor-id="trap-4-assigning-an-array-back-to-a-dataframe-aligns-by-position-not-by-label"><span class="header-section-number">7.9.4</span> Trap 4: assigning an array back to a DataFrame aligns by position, not by label</h3>
+<section id="trap-4-assigning-an-array-back-to-a-dataframe-aligns-by-position-not-by-label" class="level3" data-number="7.10.4">
+<h3 data-number="7.10.4" class="anchored" data-anchor-id="trap-4-assigning-an-array-back-to-a-dataframe-aligns-by-position-not-by-label"><span class="header-section-number">7.10.4</span> Trap 4: assigning an array back to a DataFrame aligns by position, not by label</h3>
 <p>Stage 6 ended by assigning <code>per_day</code> and the other arrays straight back into <code>weekly</code>, and that worked only because position <em>i</em> in each array still meant row <em>i</em> of the table. A NumPy array carries no index, so when you assign one into a DataFrame, pandas has nothing to align on and drops the values in by position. Reorder or filter the DataFrame between extracting the arrays and assigning the result, and every value lands on the wrong row — with no error to tell you so.</p>
 <div id="304c8e36" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-09-15T11:24:55.629779Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-09-15T11:24:55.629712Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-09-15T11:24:55.633207Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-09-15T11:24:55.632868Z&quot;}}" data-execution_count="58">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>small <span class="op">=</span> pd.DataFrame({<span class="st">"units"</span>: [<span class="dv">10</span>, <span class="dv">50</span>, <span class="dv">30</span>], <span class="st">"price"</span>: [<span class="fl">2.0</span>, <span class="fl">5.0</span>, <span class="fl">4.0</span>]})</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>totals <span class="op">=</span> (small[<span class="st">"units"</span>] <span class="op">*</span> small[<span class="st">"price"</span>]).to_numpy()    <span class="co"># [20., 250., 120.]</span></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>reordered <span class="op">=</span> small.sort_values(<span class="st">"units"</span>)                   <span class="co"># row order is now 10, 30, 50</span></span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>reordered[<span class="st">"total_WRONG"</span>] <span class="op">=</span> totals                        <span class="co"># pandas aligns by POSITION</span></span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>reordered[<span class="st">"total_right"</span>] <span class="op">=</span> reordered[<span class="st">"units"</span>] <span class="op">*</span> reordered[<span class="st">"price"</span>]</span>
-<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>reordered</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>small <span class="op">=</span> pd.DataFrame({<span class="st">"units"</span>: [<span class="dv">10</span>, <span class="dv">50</span>, <span class="dv">30</span>], <span class="st">"price"</span>: [<span class="fl">2.0</span>, <span class="fl">5.0</span>, <span class="fl">4.0</span>]})</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>totals <span class="op">=</span> (small[<span class="st">"units"</span>] <span class="op">*</span> small[<span class="st">"price"</span>]).to_numpy()    <span class="co"># [20., 250., 120.]</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>reordered <span class="op">=</span> small.sort_values(<span class="st">"units"</span>)                   <span class="co"># row order is now 10, 30, 50</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>reordered[<span class="st">"total_WRONG"</span>] <span class="op">=</span> totals                        <span class="co"># pandas aligns by POSITION</span></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>reordered[<span class="st">"total_right"</span>] <span class="op">=</span> reordered[<span class="st">"units"</span>] <span class="op">*</span> reordered[<span class="st">"price"</span>]</span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>reordered</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="58">
 <div>
 
@@ -1691,8 +1808,8 @@ DataFrame : [1. 2. 3.]  &lt;- untouched</code></pre>
 <p>And one cheap check before any positional assignment: <code>len(arr) == len(df)</code> catches the length mismatch case, though not the reordering case — only the habits above catch that one.</p>
 </section>
 </section>
-<section id="summary-cheat-sheet" class="level2" data-number="7.10">
-<h2 data-number="7.10" class="anchored" data-anchor-id="summary-cheat-sheet"><span class="header-section-number">7.10</span> Summary Cheat Sheet</h2>
+<section id="summary-cheat-sheet" class="level2" data-number="7.11">
+<h2 data-number="7.11" class="anchored" data-anchor-id="summary-cheat-sheet"><span class="header-section-number">7.11</span> Summary Cheat Sheet</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -1804,8 +1921,8 @@ DataFrame : [1. 2. 3.]  &lt;- untouched</code></pre>
 </tbody>
 </table>
 </section>
-<section id="practice-activity-from-messy-file-to-labeled-report" class="level2" data-number="7.11">
-<h2 data-number="7.11" class="anchored" data-anchor-id="practice-activity-from-messy-file-to-labeled-report"><span class="header-section-number">7.11</span> Practice Activity: From Messy File to Labeled Report</h2>
+<section id="practice-activity-from-messy-file-to-labeled-report" class="level2" data-number="7.12">
+<h2 data-number="7.12" class="anchored" data-anchor-id="practice-activity-from-messy-file-to-labeled-report"><span class="header-section-number">7.12</span> Practice Activity: From Messy File to Labeled Report</h2>
 <p><strong>Goal:</strong> Run one small dataset through all six stages of the workflow and defend each handoff between pandas and NumPy.</p>
 <p><strong>File:</strong> <code>activity07.ipynb</code> from the <a href="downloads/pandas-numpy-workflow-practice.zip">practice kit</a>.</p>
 <p><strong>Submit:</strong> <code>activity07.html</code> through the final upload question in the NumPy and pandas in a Real Workflow Canvas quiz.</p>
@@ -1854,44 +1971,44 @@ DataFrame : [1. 2. 3.]  &lt;- untouched</code></pre>
 <p><strong>HTML grading (16 points):</strong> dtype repairs, the missing-value count, and a justified choice (3); both versions of the derived column with their timings, the <code>np.allclose</code> check, and the speedup ratio (4); the non-<code>object</code> conversion, both axis totals with their axes named, broadcasting with the row-sum check, and the matrix product (4); the labeled DataFrame, the column assigned back with its safety explanation, and the demonstrated trap with its fix (4); name, readable report, and completion note (1).</p>
 </section>
 </section>
-<section id="extended-practice" class="level2" data-number="7.12">
-<h2 data-number="7.12" class="anchored" data-anchor-id="extended-practice"><span class="header-section-number">7.12</span> Extended Practice</h2>
+<section id="extended-practice" class="level2" data-number="7.13">
+<h2 data-number="7.13" class="anchored" data-anchor-id="extended-practice"><span class="header-section-number">7.13</span> Extended Practice</h2>
 <p>Use a separate notebook beside your activity notebook. These longer exercises are additional practice, not requirements for the Canvas quiz. Include your code, outputs, and explanations.</p>
 <p>Start that notebook with the cell below. It rebuilds the 200,000-row <code>orders</code> table and the order-total rule from Stage 4, so your notebook runs correctly from a restart without borrowing anything from the chapter notebook.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">303</span>)</span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">200_000</span></span>
-<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>orders <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"store"</span>: rng.choice([<span class="st">"North"</span>, <span class="st">"South"</span>, <span class="st">"West"</span>], size<span class="op">=</span>n),</span>
-<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"units"</span>: rng.integers(<span class="dv">1</span>, <span class="dv">80</span>, size<span class="op">=</span>n),</span>
-<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"unit_price"</span>: rng.choice([<span class="fl">2.0</span>, <span class="fl">3.0</span>, <span class="fl">4.0</span>, <span class="fl">5.0</span>], size<span class="op">=</span>n),</span>
-<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"is_member"</span>: rng.random(size<span class="op">=</span>n) <span class="op">&lt;</span> <span class="fl">0.30</span>,</span>
-<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a>gross <span class="op">=</span> orders[<span class="st">"units"</span>] <span class="op">*</span> orders[<span class="st">"unit_price"</span>]</span>
-<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a>rate <span class="op">=</span> np.select([gross <span class="op">&gt;=</span> <span class="dv">250</span>, gross <span class="op">&gt;=</span> <span class="dv">100</span>], [<span class="fl">0.10</span>, <span class="fl">0.05</span>], default<span class="op">=</span><span class="fl">0.0</span>)</span>
-<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a>rate <span class="op">=</span> rate <span class="op">+</span> orders[<span class="st">"is_member"</span>] <span class="op">*</span> <span class="fl">0.05</span></span>
-<span id="cb60-17"><a href="#cb60-17" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> gross <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> rate)</span>
-<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a>orders[<span class="st">"total"</span>] <span class="op">=</span> net <span class="op">+</span> np.where(net <span class="op">&gt;=</span> <span class="dv">500</span>, <span class="fl">0.0</span>, <span class="fl">19.99</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<section id="per-store-summaries-with-boolean-masks" class="level3" data-number="7.12.1">
-<h3 data-number="7.12.1" class="anchored" data-anchor-id="per-store-summaries-with-boolean-masks"><span class="header-section-number">7.12.1</span> Per-Store Summaries with Boolean Masks</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">303</span>)</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">200_000</span></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>orders <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"store"</span>: rng.choice([<span class="st">"North"</span>, <span class="st">"South"</span>, <span class="st">"West"</span>], size<span class="op">=</span>n),</span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"units"</span>: rng.integers(<span class="dv">1</span>, <span class="dv">80</span>, size<span class="op">=</span>n),</span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"unit_price"</span>: rng.choice([<span class="fl">2.0</span>, <span class="fl">3.0</span>, <span class="fl">4.0</span>, <span class="fl">5.0</span>], size<span class="op">=</span>n),</span>
+<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"is_member"</span>: rng.random(size<span class="op">=</span>n) <span class="op">&lt;</span> <span class="fl">0.30</span>,</span>
+<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-14"><a href="#cb62-14" aria-hidden="true" tabindex="-1"></a>gross <span class="op">=</span> orders[<span class="st">"units"</span>] <span class="op">*</span> orders[<span class="st">"unit_price"</span>]</span>
+<span id="cb62-15"><a href="#cb62-15" aria-hidden="true" tabindex="-1"></a>rate <span class="op">=</span> np.select([gross <span class="op">&gt;=</span> <span class="dv">250</span>, gross <span class="op">&gt;=</span> <span class="dv">100</span>], [<span class="fl">0.10</span>, <span class="fl">0.05</span>], default<span class="op">=</span><span class="fl">0.0</span>)</span>
+<span id="cb62-16"><a href="#cb62-16" aria-hidden="true" tabindex="-1"></a>rate <span class="op">=</span> rate <span class="op">+</span> orders[<span class="st">"is_member"</span>] <span class="op">*</span> <span class="fl">0.05</span></span>
+<span id="cb62-17"><a href="#cb62-17" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> gross <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> rate)</span>
+<span id="cb62-18"><a href="#cb62-18" aria-hidden="true" tabindex="-1"></a>orders[<span class="st">"total"</span>] <span class="op">=</span> net <span class="op">+</span> np.where(net <span class="op">&gt;=</span> <span class="dv">500</span>, <span class="fl">0.0</span>, <span class="fl">19.99</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="per-store-summaries-with-boolean-masks" class="level3" data-number="7.13.1">
+<h3 data-number="7.13.1" class="anchored" data-anchor-id="per-store-summaries-with-boolean-masks"><span class="header-section-number">7.13.1</span> Per-Store Summaries with Boolean Masks</h3>
 <p>Compute the mean order total for each store two ways: once with a pandas Boolean mask per store, and once by converting <code>total</code> and <code>store</code> to arrays and masking those. Compare the results with <code>np.allclose</code>, then explain which version you would put in a report and why. Which parts of the bookkeeping did you have to do by hand in the array version?</p>
 </section>
-<section id="per-record-thresholds" class="level3" data-number="7.12.2">
-<h3 data-number="7.12.2" class="anchored" data-anchor-id="per-record-thresholds"><span class="header-section-number">7.12.2</span> Per-Record Thresholds</h3>
+<section id="per-record-thresholds" class="level3" data-number="7.13.2">
+<h3 data-number="7.13.2" class="anchored" data-anchor-id="per-record-thresholds"><span class="header-section-number">7.13.2</span> Per-Record Thresholds</h3>
 <p>Flag every order whose total is in the top 20% <em>for its own store</em>. Build one array of per-record thresholds by computing the 80th percentile within each store’s mask, then do the comparison itself as a single NumPy comparison of two arrays. Confirm that the row order of the threshold array still matches the row order of the totals array, and explain what would go wrong if it did not.</p>
 <p><strong>Hint — the method you need.</strong> <code>np.percentile(values, 80)</code> returns the value below which 80% of the observations fall, so an order is in the top 20% of its store when its total is at least that store’s own 80th percentile. The function takes an array and one or more percentages between 0 and 100; it returns <code>nan</code> if any input value is missing, so use <code>np.nanpercentile()</code> when that is a possibility; and it accepts an <code>axis</code> argument when you want one threshold per row or per column rather than one for the whole array. NumPy Fundamentals introduces it briefly under <a href="./numpy_fundamentals.html#more-summaries-median-percentiles-and-range">More Summaries: Median, Percentiles, and Range</a>, and the <a href="https://numpy.org/doc/stable/reference/generated/numpy.percentile.html"><code>numpy.percentile</code> reference</a> documents every argument.</p>
 </section>
-<section id="a-conversion-that-does-not-pay" class="level3" data-number="7.12.3">
-<h3 data-number="7.12.3" class="anchored" data-anchor-id="a-conversion-that-does-not-pay"><span class="header-section-number">7.12.3</span> A Conversion That Does Not Pay</h3>
+<section id="a-conversion-that-does-not-pay" class="level3" data-number="7.13.3">
+<h3 data-number="7.13.3" class="anchored" data-anchor-id="a-conversion-that-does-not-pay"><span class="header-section-number">7.13.3</span> A Conversion That Does Not Pay</h3>
 <p>Find a calculation on the 200,000-row <code>orders</code> table where converting to NumPy makes the complete workflow <em>slower</em> rather than faster, and demonstrate it with <code>%timeit</code>. Candidates worth trying: an operation over the <code>store</code> text column; converting the whole mixed DataFrame rather than selected columns; or converting, computing one cheap thing, and converting straight back. Explain where the time actually went.</p>
 </section>
 </section>
-<section id="before-you-move-on" class="level2" data-number="7.13">
-<h2 data-number="7.13" class="anchored" data-anchor-id="before-you-move-on"><span class="header-section-number">7.13</span> Before You Move On</h2>
+<section id="before-you-move-on" class="level2" data-number="7.14">
+<h2 data-number="7.14" class="anchored" data-anchor-id="before-you-move-on"><span class="header-section-number">7.14</span> Before You Move On</h2>
 <p>The mental model to carry forward is the six-stage pipeline: <strong>pandas at both ends, NumPy in the middle.</strong> You load and clean in pandas because only pandas understands messy, labeled, mixed data. You compute in NumPy when the data has become a rectangle of same-typed numbers, because that is what arrays are for. You come back to pandas to put names on the results.</p>
 <p>And you now have the two performance facts from Stage 4, measured rather than assumed: the large win is always <strong>row-by-row to vectorized</strong>, and the win from <strong>pandas to NumPy arrays</strong> is small on a single pass, because vectorized pandas already runs on NumPy. Everything else is a trap to check for — <code>object</code> dtype, <code>NaN</code> semantics, shared memory, and positional alignment.</p>
 <p>Continue to <a href="./data_viz_1.html">Data Visualization I</a>, where these labeled, validated results become figures.</p>
