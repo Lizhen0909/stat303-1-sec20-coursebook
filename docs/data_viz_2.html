@@ -435,6 +435,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div id="fig-midquarter-feedback" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Four horizontal bar charts summarize feedback from 15 students. Nine report a slightly fast pace, and nine report heavier workload. Assignments are rated helpful or very helpful by 13 students, followed by polls and activities at 12 each. Copies versus views is the most selected shaky topic, at seven students. Percentages use 15 as the denominator; the topic question allows multiple selections.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-midquarter-feedback-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/data-viz-2-midquarter-feedback.svg" class="img-fluid figure-img" style="width:80.0%" alt="Four horizontal bar charts summarize feedback from 15 students. Nine report a slightly fast pace, and nine report heavier workload. Assignments are rated helpful or very helpful by 13 students, followed by polls and activities at 12 each. Copies versus views is the most selected shaky topic, at seven students. Percentages use 15 as the denominator; the topic question allows multiple selections.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-midquarter-feedback-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9.1: One figure, four related questions: mid-quarter feedback from 15 students in STAT 303-1, Section 20. All panels share a percentage scale; labels include counts.
+</figcaption>
+</figure>
+</div>
+<p>One plot would tell only part of this story. These four panels let us see pace, workload, helpful course components, and topics to revisit together. Each panel has its own title and category labels, while all four share one figure and the same percentage scale. This chapter shows how to build that structure with <code>plt.subplots()</code> and the explicit <code>ax</code> interface.</p>
 <p>Every plot in <a href="./data_viz_1.html">Data Visualization I</a> was a single picture drawn with a single command. We wrote <code>plt.hist(...)</code> or <code>sns.boxplot(...)</code>, added labels, and a figure appeared. We never had to ask <em>where</em> it appeared, because there was only one place it could go.</p>
 <p>That question — where does this plot go? — is what this chapter is about. Once you want two plots side by side, or a grid of six, you need to name the thing you are drawing into. Doing that requires learning:</p>
 <ol type="1">
@@ -554,6 +565,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="anatomy-of-a-figure" class="level2" data-number="9.2">
 <h2 data-number="9.2" class="anchored" data-anchor-id="anatomy-of-a-figure"><span class="header-section-number">9.2</span> Anatomy of a figure</h2>
 <p>Matplotlib’s vocabulary is the first thing that trips people up, because two of its central words look almost identical. Learn these four terms and most documentation suddenly becomes readable.</p>
+<div id="fig-matplotlib-anatomy" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Annotated Matplotlib figure identifying the Figure, Axes, axes, title, labels, ticks, grid, legend, lines, markers, and spines, with their corresponding API names.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-matplotlib-anatomy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/matplotlib-figure-anatomy.png" class="img-fluid figure-img" style="width:60.0%" alt="Annotated Matplotlib figure identifying the Figure, Axes, axes, title, labels, ticks, grid, legend, lines, markers, and spines, with their corresponding API names.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-matplotlib-anatomy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9.2: Anatomy of a Matplotlib figure. Source: <a href="https://matplotlib.org/stable/gallery/showcase/anatomy.html">Matplotlib documentation</a>.
+</figcaption>
+</figure>
+</div>
 <p><strong>Figure</strong> — the whole canvas. It is the sheet of paper. A figure has a size (<code>figsize=(width, height)</code> in inches), and it is the thing you save to a file. A figure can hold one panel or twenty.</p>
 <p><strong>Axes</strong> — <strong>one panel</strong>: a single plot with its own x-axis, y-axis, title, and data. This is the confusing one. Despite sounding plural, <em>one</em> <code>Axes</code> object is <em>one</em> rectangular plot. A figure with six panels contains six Axes. Whenever you read “axes” in matplotlib documentation or in a variable name like <code>ax</code>, read it as <strong>“panel”</strong> and you will rarely be confused.</p>
 <p><strong>Axis</strong> — one of the actual number lines, the x-axis or the y-axis, belonging to an Axes. You will interact with these much less often than with Axes.</p>
@@ -582,6 +603,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="the-two-interfaces" class="level2" data-number="9.3">
 <h2 data-number="9.3" class="anchored" data-anchor-id="the-two-interfaces"><span class="header-section-number">9.3</span> The two interfaces</h2>
 <p>Matplotlib gives you two different ways to draw the same plot. This is the main reason matplotlib code found online looks inconsistent: you are seeing two styles mixed together, sometimes in the same code block. Once you can tell them apart, the confusion mostly disappears.</p>
+<div id="fig-matplotlib-interfaces" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A branching diagram showing the two Matplotlib interfaces: the object-oriented interface and the MATLAB-like interface using pyplot.">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-matplotlib-interfaces-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/matplotlib_interfaces.png" class="img-fluid figure-img" alt="A branching diagram showing the two Matplotlib interfaces: the object-oriented interface and the MATLAB-like interface using pyplot.">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-matplotlib-interfaces-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9.3: Matplotlib offers an object-oriented interface and a MATLAB-like pyplot interface.
+</figcaption>
+</figure>
+</div>
 <section id="interface-1-pyplot-the-implicit-interface" class="level3" data-number="9.3.1">
 <h3 data-number="9.3.1" class="anchored" data-anchor-id="interface-1-pyplot-the-implicit-interface"><span class="header-section-number">9.3.1</span> Interface 1: pyplot, the implicit interface</h3>
 <p>This is what the last chapter used. You call functions on <code>plt</code> directly, and matplotlib keeps track of a <strong>“current figure”</strong> and a <strong>“current Axes”</strong> behind the scenes. Every <code>plt.</code> command you issue applies to whatever is current.</p>
