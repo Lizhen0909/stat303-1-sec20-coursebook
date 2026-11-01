@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Appendix E — Assignment E: Data Visualization – Data Science I with python</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./geospatial_mapping.html" rel="next">
+<link href="./Assignment D.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d3f7f8e73c8d287b30bcf59c2b563615.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Assignment A.html">Appendices</a></li><li class="breadcrumb-item"><a href="./Assignment E.html"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Assignment E: Data Visualization</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="https://statistics.northwestern.edu/" class="sidebar-logo-link">
+      <img src="./NU_Stat_logo.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./NU_Stat_logo.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Science I with python</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/Lizhen0909/stat303-1-sec20-coursebook" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Review of STAT 201: Python Foundations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./python_basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_structures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Structures</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Setting Up for Data Science</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vscode_setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Jupyter Notebooks in VS Code</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./python_venv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Environments, Packages, and File Paths</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Core Library Foundations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Reading_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reading Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pandas_fundamentals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Pandas Fundamentals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pandas_intermediate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pandas Intermediate</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./numpy_fundamentals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">NumPy Fundamentals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./numpy_pandas_workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">NumPy and pandas in a Real Workflow</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_viz_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data Visualization I: Single Plots</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_viz_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Data Visualization II: Multi-Panel Figures</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">From Messy to Insight</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data_cleaning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Data Cleaning</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data_preparation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Data Preparation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data aggregation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Data Grouping and Aggregation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data_reshaping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Data Reshaping</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data wrangling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Combining Datasets</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Assignment A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Assignment A: Python Foundations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Assignment B.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Assignment B: Setting Up Your Course Workspace</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Assignment C.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Assignment C: Pandas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Assignment D.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Assignment D: NumPy</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Assignment E.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Assignment E: Data Visualization</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./geospatial_mapping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Geospatial Plotting for Final Projects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Datasets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">G</span>&nbsp; <span class="chapter-title">Datasets &amp; Templates</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#instructions" id="toc-instructions" class="nav-link active" data-scroll-target="#instructions">Instructions</a></li>
+  <li><a href="#points-summary" id="toc-points-summary" class="nav-link" data-scroll-target="#points-summary">Points Summary</a></li>
+  <li><a href="#release-month-year-and-genre-36-points" id="toc-release-month-year-and-genre-36-points" class="nav-link" data-scroll-target="#release-month-year-and-genre-36-points">1. Release Month, Year, and Genre (36 points)</a>
+  <ul>
+  <li><a href="#mean-profit-by-month-of-release-6-points" id="toc-mean-profit-by-month-of-release-6-points" class="nav-link" data-scroll-target="#mean-profit-by-month-of-release-6-points">1.1 Mean profit by month of release (6 points)</a></li>
+  <li><a href="#most-and-least-profitable-seasons-2-points" id="toc-most-and-least-profitable-seasons-2-points" class="nav-link" data-scroll-target="#most-and-least-profitable-seasons-2-points">1.2 Most and least profitable seasons (2 points)</a></li>
+  <li><a href="#number-of-movies-per-genre-and-month-8-points" id="toc-number-of-movies-per-genre-and-month-8-points" class="nav-link" data-scroll-target="#number-of-movies-per-genre-and-month-8-points">1.3 Number of movies per genre and month (8 points)</a></li>
+  <li><a href="#popular-genres-by-season-2-points" id="toc-popular-genres-by-season-2-points" class="nav-link" data-scroll-target="#popular-genres-by-season-2-points">1.4 Popular genres by season (2 points)</a></li>
+  <li><a href="#proportion-of-genres-by-month-8-points---visualize-the-proportion-of-movies-in-each-genre-for-each-month-of-release-as-a-100-stacked-bar-chart.-the-starter-supplies-a-pd.crosstab-that-computes-the-proportions-one-row-per-month.-hints-counts-or-composition-in-data-visualization-i-builds-this-chart-on-the-penguin-data-a-crosstab-drawn-with-.plotkindbar-stackedtrue-normalized-so-every-bar-reaches-1.0.-.plot-returns-the-axes-it-drew-into-so-ax-....plotkindbar-stackedtrue-gives-you-the-handle-for-ax.legendbbox_to_anchor1.02-1-locupper-left-which-puts-the-legend-outside-the-bars-bbox_to_anchor-is-the-point-the-legends-loc-corner-is-pinned-to-in-fractions-of-the-panel.-the-starter-supplies-python-genre_proportion_release_month-pd.crosstabindexmovies_datarelease_month-columnsmovies_datagenre-normalizeindex-genre_proportion_release_month.head" id="toc-proportion-of-genres-by-month-8-points---visualize-the-proportion-of-movies-in-each-genre-for-each-month-of-release-as-a-100-stacked-bar-chart.-the-starter-supplies-a-pd.crosstab-that-computes-the-proportions-one-row-per-month.-hints-counts-or-composition-in-data-visualization-i-builds-this-chart-on-the-penguin-data-a-crosstab-drawn-with-.plotkindbar-stackedtrue-normalized-so-every-bar-reaches-1.0.-.plot-returns-the-axes-it-drew-into-so-ax-....plotkindbar-stackedtrue-gives-you-the-handle-for-ax.legendbbox_to_anchor1.02-1-locupper-left-which-puts-the-legend-outside-the-bars-bbox_to_anchor-is-the-point-the-legends-loc-corner-is-pinned-to-in-fractions-of-the-panel.-the-starter-supplies-python-genre_proportion_release_month-pd.crosstabindexmovies_datarelease_month-columnsmovies_datagenre-normalizeindex-genre_proportion_release_month.head" class="nav-link" data-scroll-target="#proportion-of-genres-by-month-8-points---visualize-the-proportion-of-movies-in-each-genre-for-each-month-of-release-as-a-100-stacked-bar-chart.-the-starter-supplies-a-pd.crosstab-that-computes-the-proportions-one-row-per-month.-hints-counts-or-composition-in-data-visualization-i-builds-this-chart-on-the-penguin-data-a-crosstab-drawn-with-.plotkindbar-stackedtrue-normalized-so-every-bar-reaches-1.0.-.plot-returns-the-axes-it-drew-into-so-ax-....plotkindbar-stackedtrue-gives-you-the-handle-for-ax.legendbbox_to_anchor1.02-1-locupper-left-which-puts-the-legend-outside-the-bars-bbox_to_anchor-is-the-point-the-legends-loc-corner-is-pinned-to-in-fractions-of-the-panel.-the-starter-supplies-python-genre_proportion_release_month-pd.crosstabindexmovies_datarelease_month-columnsmovies_datagenre-normalizeindex-genre_proportion_release_month.head"><span class="header-section-number">E.0.1</span> 1.5 Proportion of genres by month (8 points) {-} Visualize the <strong>proportion</strong> of movies in each <code>genre</code> for each month of release, as a 100% stacked bar chart. The starter supplies a <code>pd.crosstab()</code> that computes the proportions, one row per month. <strong>Hints:</strong> Counts or composition in Data Visualization I builds this chart on the penguin data: a <code>crosstab</code> drawn with <code>.plot(kind="bar", stacked=True)</code>, normalized so every bar reaches 1.0. <code>.plot()</code> returns the Axes it drew into, so <code>ax = ....plot(kind="bar", stacked=True)</code> gives you the handle for <code>ax.legend(bbox_to_anchor=(1.02, 1), loc="upper left")</code>, which puts the legend outside the bars; <code>bbox_to_anchor</code> is the point the legend’s <code>loc</code> corner is pinned to, in fractions of the panel. The starter supplies: <code>python genre_proportion_release_month = pd.crosstab(index=movies_data["release_month"], columns=movies_data["genre"], normalize="index") genre_proportion_release_month.head()</code></a></li>
+  <li><a href="#may-and-december-2-points" id="toc-may-and-december-2-points" class="nav-link" data-scroll-target="#may-and-december-2-points">1.6 May and December (2 points)</a></li>
+  <li><a href="#profit-by-year-for-each-genre-6-points---considering-only-movies-released-from-1991-to-2010-make-a-figure-of-the-mean-profit-of-each-genre-in-each-year-with-a-95-confidence-interval-and-with-each-genre-in-its-own-panel.-hints-take-the-year-with-.dt.year.-a-line-in-every-panel-in-data-visualization-ii-is-the-same-figure-on-the-penguin-data-a-figure-level-function-with-col-and-col_wrap-where-kindline-draws-each-groups-mean-and-its-95-confidence-band." id="toc-profit-by-year-for-each-genre-6-points---considering-only-movies-released-from-1991-to-2010-make-a-figure-of-the-mean-profit-of-each-genre-in-each-year-with-a-95-confidence-interval-and-with-each-genre-in-its-own-panel.-hints-take-the-year-with-.dt.year.-a-line-in-every-panel-in-data-visualization-ii-is-the-same-figure-on-the-penguin-data-a-figure-level-function-with-col-and-col_wrap-where-kindline-draws-each-groups-mean-and-its-95-confidence-band." class="nav-link" data-scroll-target="#profit-by-year-for-each-genre-6-points---considering-only-movies-released-from-1991-to-2010-make-a-figure-of-the-mean-profit-of-each-genre-in-each-year-with-a-95-confidence-interval-and-with-each-genre-in-its-own-panel.-hints-take-the-year-with-.dt.year.-a-line-in-every-panel-in-data-visualization-ii-is-the-same-figure-on-the-penguin-data-a-figure-level-function-with-col-and-col_wrap-where-kindline-draws-each-groups-mean-and-its-95-confidence-band."><span class="header-section-number">E.0.2</span> 1.7 Profit by year for each genre (6 points) {-} Considering only movies released from 1991 to 2010, make a figure of the mean profit of each <code>genre</code> in each year, with a 95% confidence interval, and with each genre in its own panel. <strong>Hints:</strong> Take the year with <code>.dt.year</code>. A line in every panel in Data Visualization II is the same figure on the penguin data: a figure-level function with <code>col=</code> and <code>col_wrap=</code>, where <code>kind="line"</code> draws each group’s mean and its 95% confidence band.</a></li>
+  <li><a href="#trends-by-genre-2-points" id="toc-trends-by-genre-2-points" class="nav-link" data-scroll-target="#trends-by-genre-2-points">1.8 Trends by genre (2 points)</a></li>
+  </ul></li>
+  <li><a href="#associations-28-points" id="toc-associations-28-points" class="nav-link" data-scroll-target="#associations-28-points">2. Associations (28 points)</a>
+  <ul>
+  <li><a href="#pairplot-and-heatmap-6-points" id="toc-pairplot-and-heatmap-6-points" class="nav-link" data-scroll-target="#pairplot-and-heatmap-6-points">2.1 Pairplot and heatmap (6 points)</a></li>
+  <li><a href="#what-the-pairplot-shows-2-points" id="toc-what-the-pairplot-shows-2-points" class="nav-link" data-scroll-target="#what-the-pairplot-shows-2-points">2.2 What the pairplot shows (2 points)</a></li>
+  <li><a href="#variables-associated-with-profit-2-points" id="toc-variables-associated-with-profit-2-points" class="nav-link" data-scroll-target="#variables-associated-with-profit-2-points">2.3 Variables associated with profit (2 points)</a></li>
+  <li><a href="#a-non-redundant-subset-2-points" id="toc-a-non-redundant-subset-2-points" class="nav-link" data-scroll-target="#a-non-redundant-subset-2-points">2.4 A non-redundant subset (2 points)</a></li>
+  <li><a href="#imdb-votes-and-profit-by-genre-8-points" id="toc-imdb-votes-and-profit-by-genre-8-points" class="nav-link" data-scroll-target="#imdb-votes-and-profit-by-genre-8-points">2.5 IMDB votes and profit by genre (8 points)</a></li>
+  <li><a href="#imdb-votes-and-profit-by-fiction-type-and-rating-8-points" id="toc-imdb-votes-and-profit-by-fiction-type-and-rating-8-points" class="nav-link" data-scroll-target="#imdb-votes-and-profit-by-fiction-type-and-rating-8-points">2.6 IMDB votes and profit by fiction type and rating (8 points)</a></li>
+  </ul></li>
+  <li><a href="#directors-and-distributions-25-points" id="toc-directors-and-distributions-25-points" class="nav-link" data-scroll-target="#directors-and-distributions-25-points">3. Directors and Distributions (25 points)</a>
+  <ul>
+  <li><a href="#profit-by-director-8-points---consider-the-directors-who-directed-more-than-10-movies-in-the-dataset.-keep-only-their-movies-in-a-dataframe-named-director_with_more_than_10_movies-then-make-a-horizontal-bar-plot-of-the-mean-profit-of-each-directors-movies-with-its-95-confidence-interval-with-the-director-of-the-highest-mean-profit-at-the-top.-hints-value_counts-and-isin-from-pandas-fundamentals-select-the-directors.-to-make-the-bars-horizontal-put-the-category-on-the-vertical-axis-ydirector-and-xprofit-as-the-ordering-callout-in-data-visualization-i-describes.-with-this-many-directors-you-will-want-a-tall-figure-plt.figurefigsize7-10-before-the-plotting-call.-the-starter-supplies-code-that-lists-the-directors-in-order-of-mean-profit-pass-that-list-to-the-bar-plots-order-argument-as-countplotorder...-did-there." id="toc-profit-by-director-8-points---consider-the-directors-who-directed-more-than-10-movies-in-the-dataset.-keep-only-their-movies-in-a-dataframe-named-director_with_more_than_10_movies-then-make-a-horizontal-bar-plot-of-the-mean-profit-of-each-directors-movies-with-its-95-confidence-interval-with-the-director-of-the-highest-mean-profit-at-the-top.-hints-value_counts-and-isin-from-pandas-fundamentals-select-the-directors.-to-make-the-bars-horizontal-put-the-category-on-the-vertical-axis-ydirector-and-xprofit-as-the-ordering-callout-in-data-visualization-i-describes.-with-this-many-directors-you-will-want-a-tall-figure-plt.figurefigsize7-10-before-the-plotting-call.-the-starter-supplies-code-that-lists-the-directors-in-order-of-mean-profit-pass-that-list-to-the-bar-plots-order-argument-as-countplotorder...-did-there." class="nav-link" data-scroll-target="#profit-by-director-8-points---consider-the-directors-who-directed-more-than-10-movies-in-the-dataset.-keep-only-their-movies-in-a-dataframe-named-director_with_more_than_10_movies-then-make-a-horizontal-bar-plot-of-the-mean-profit-of-each-directors-movies-with-its-95-confidence-interval-with-the-director-of-the-highest-mean-profit-at-the-top.-hints-value_counts-and-isin-from-pandas-fundamentals-select-the-directors.-to-make-the-bars-horizontal-put-the-category-on-the-vertical-axis-ydirector-and-xprofit-as-the-ordering-callout-in-data-visualization-i-describes.-with-this-many-directors-you-will-want-a-tall-figure-plt.figurefigsize7-10-before-the-plotting-call.-the-starter-supplies-code-that-lists-the-directors-in-order-of-mean-profit-pass-that-list-to-the-bar-plots-order-argument-as-countplotorder...-did-there."><span class="header-section-number">E.0.3</span> 3.1 Profit by director (8 points) {-} Consider the directors who directed more than 10 movies in the dataset. Keep only their movies in a DataFrame named <code>director_with_more_than_10_movies</code>, then make a <strong>horizontal</strong> bar plot of the mean profit of each director’s movies with its 95% confidence interval, with the director of the highest mean profit at the top. <strong>Hints:</strong> <code>value_counts()</code> and <code>isin()</code>, from Pandas Fundamentals, select the directors. To make the bars horizontal, put the category on the vertical axis — <code>y="Director"</code> and <code>x="profit"</code> — as the ordering callout in Data Visualization I describes. With this many directors you will want a tall figure, <code>plt.figure(figsize=(7, 10))</code>, before the plotting call. The starter supplies code that lists the directors in order of mean profit; pass that list to the bar plot’s <code>order=</code> argument, as <code>countplot(order=...)</code> did there.</a></li>
+  <li><a href="#highest-mean-and-most-variation-2-points" id="toc-highest-mean-and-most-variation-2-points" class="nav-link" data-scroll-target="#highest-mean-and-most-variation-2-points">3.2 Highest mean and most variation (2 points)</a></li>
+  <li><a href="#box-plots-of-profit-by-genre-6-points" id="toc-box-plots-of-profit-by-genre-6-points" class="nav-link" data-scroll-target="#box-plots-of-profit-by-genre-6-points">3.3 Box plots of profit by genre (6 points)</a></li>
+  <li><a href="#variation-by-genre-2-points" id="toc-variation-by-genre-2-points" class="nav-link" data-scroll-target="#variation-by-genre-2-points">3.4 Variation by genre (2 points)</a></li>
+  <li><a href="#density-plots-of-profit-by-genre-5-points---make-density-plots-of-profit-for-each-genre-on-one-panel.-adjust-the-limits-of-the-horizontal-axis-so-the-curves-are-clearly-visible." id="toc-density-plots-of-profit-by-genre-5-points---make-density-plots-of-profit-for-each-genre-on-one-panel.-adjust-the-limits-of-the-horizontal-axis-so-the-curves-are-clearly-visible." class="nav-link" data-scroll-target="#density-plots-of-profit-by-genre-5-points---make-density-plots-of-profit-for-each-genre-on-one-panel.-adjust-the-limits-of-the-horizontal-axis-so-the-curves-are-clearly-visible."><span class="header-section-number">E.0.4</span> 3.5 Density plots of profit by genre (5 points) {-} Make density plots of <code>profit</code> for each <code>genre</code> on one panel. Adjust the limits of the horizontal axis so the curves are clearly visible.</a></li>
+  <li><a href="#what-the-density-plots-add-2-points" id="toc-what-the-density-plots-add-2-points" class="nav-link" data-scroll-target="#what-the-density-plots-add-2-points">3.6 What the density plots add (2 points)</a></li>
+  </ul></li>
+  <li><a href="#insights-6-points" id="toc-insights-6-points" class="nav-link" data-scroll-target="#insights-6-points">4. Insights (6 points)</a>
+  <ul>
+  <li><a href="#factors-associated-with-profit-3-points" id="toc-factors-associated-with-profit-3-points" class="nav-link" data-scroll-target="#factors-associated-with-profit-3-points">4.1 Factors associated with profit (3 points)</a></li>
+  <li><a href="#how-far-the-findings-generalize-3-points" id="toc-how-far-the-findings-generalize-3-points" class="nav-link" data-scroll-target="#how-far-the-findings-generalize-3-points">4.2 How far the findings generalize (3 points)</a></li>
+  </ul></li>
+  <li><a href="#ai-use-disclosure-2-points" id="toc-ai-use-disclosure-2-points" class="nav-link" data-scroll-target="#ai-use-disclosure-2-points">5. AI Use Disclosure (2 points)</a>
+  <ul>
+  <li><a href="#ai-use-template" id="toc-ai-use-template" class="nav-link" data-scroll-target="#ai-use-template">AI Use Template</a></li>
+  </ul></li>
+  <li><a href="#bonus-the-sp-500-10-points-optional" id="toc-bonus-the-sp-500-10-points-optional" class="nav-link" data-scroll-target="#bonus-the-sp-500-10-points-optional">Bonus: The S&amp;P 500 (10 points, optional)</a></li>
+  <li><a href="#prepare-and-submit-the-html" id="toc-prepare-and-submit-the-html" class="nav-link" data-scroll-target="#prepare-and-submit-the-html">Prepare and Submit the HTML</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Assignment A.html">Appendices</a></li><li class="breadcrumb-item"><a href="./Assignment E.html"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Assignment E: Data Visualization</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Appendix E — Assignment E: Data Visualization</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="instructions" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions">Instructions</h2>
+<ol type="1">
+<li><p>The assignment is worth <strong>100 points</strong>. <strong>See Canvas for the due date.</strong> There is an optional bonus question worth 10 points, so you can score a maximum of 110 (out of 100) points.</p></li>
+<li><p>You may discuss approaches with classmates, but write your own code and explanations. Put Python computations in Code cells and write the final answer to each question in a Markdown cell.</p></li>
+<li><p><a href="downloads/assignment-e-kit.zip">Download the Assignment E project kit</a>. Extract it and move the extracted <code>assignment-e</code> folder into <code>stat303-1/assignments/</code>, next to your earlier assignment folders. Check that you did not create a nested <code>assignment-e/assignment-e/</code> folder. Open <code>stat303-1</code> in VS Code, open <code>assignments/assignment-e/assignment_e.ipynb</code>, and select the course <code>.venv</code> as its kernel. pandas, matplotlib, and seaborn are already installed there.</p></li>
+<li><p><strong>This page contains the complete assignment instructions.</strong> The starter notebook contains numbered answer spaces and supplied code. Keep those sections in order, answer every numbered part below, and add your name to the <code>author</code> line at the top of the notebook.</p></li>
+<li><p>The data files are in the kit’s <code>data/</code> folder. Read them with relative path strings such as <code>"data/movies.json"</code>; the notebook runs from the <code>assignment-e</code> folder, so these paths work without changes.</p></li>
+<li><p>Some questions do not have a single correct answer. Visualization is open to interpretation, so any logically sound answer and explanation is acceptable. Label every plot’s axes, and give each figure a title that says what it shows.</p></li>
+<li><p>Submit <strong>one file, <code>assignment_e.html</code></strong>, to the <strong>Assignment E submission in Canvas</strong>. <em>Prepare and Submit the HTML</em> at the end of this page explains how to render it.</p></li>
+<li><p><strong>Three of the 100 points are for properly formatting the assignment.</strong> The breakdown is as follows:</p>
+<ul>
+<li>Must be an HTML file rendered using Quarto (1 pt).</li>
+<li>There aren’t excessively long outputs of extraneous information (e.g.&nbsp;no printouts of entire data frames without good reason, there aren’t long sections of commented-out code, etc.) (1 pt).</li>
+<li>Final answers of each question are written in Markdown cells, and there is no unnecessary / redundant code or text (1 pt).</li>
+</ul></li>
+<li><p><strong>Generative AI.</strong> You may use generative AI tools (ChatGPT, Claude, GitHub Copilot, and similar) to understand concepts, interpret error messages, and debug code you have written. You may not use them to produce the code or written answers you submit. The test: you should be able to explain every line you submit and reproduce it without assistance. Disclose any use in the AI Use Disclosure section (Question 5). Honest disclosure earns points and carries no penalty on its own; undisclosed use is an academic integrity violation under the course syllabus.</p></li>
+</ol>
+<p>When you place the kit, your <code>assignments</code> folder will look like this:</p>
+<pre class="text"><code>stat303-1/
+├── .venv/
+└── assignments/
+    ├── assignment-a/
+    ├── assignment-b/
+    ├── assignment-c/
+    ├── assignment-d/
+    └── assignment-e/         ← the extracted kit
+        ├── assignment_e.ipynb
+        ├── README.md
+        └── data/
+            ├── movies.json
+            └── sp500.csv</code></pre>
+</section>
+<section id="points-summary" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="points-summary">Points Summary</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Section</th>
+<th style="text-align: right;">Points</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. Release month, year, and genre</td>
+<td style="text-align: right;">36</td>
+</tr>
+<tr class="even">
+<td>2. Associations</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="odd">
+<td>3. Directors and distributions</td>
+<td style="text-align: right;">25</td>
+</tr>
+<tr class="even">
+<td>4. Insights</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td>5. AI Use Disclosure</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td>6. Formatting (instruction 8 above)</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td style="text-align: right;"><strong>100</strong></td>
+</tr>
+<tr class="even">
+<td>Bonus: the S&amp;P 500 (optional)</td>
+<td style="text-align: right;">10</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="release-month-year-and-genre-36-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="release-month-year-and-genre-36-points">1. Release Month, Year, and Genre (36 points)</h2>
+<p>Throughout the assignment, <code>movies_data</code> holds 3,201 movies read from <code>data/movies.json</code>, and <strong>profit</strong> means</p>
+<p><span class="math display">\[\text{profit} = \text{Worldwide Gross} - \text{Production Budget}.\]</span></p>
+<p>Create a <code>profit</code> column first. A few release dates in this dataset fall in the future (a two-digit-year error in the source); they matter only in Question 1.7, which restricts the years.</p>
+<p>The starter supplies the code that reads the data:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>movies_data <span class="op">=</span> pd.read_json(<span class="st">"data/movies.json"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>and the function that builds the <code>genre</code> column for Question 1.3:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> combine_genre(major_genre):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Collapse the Major Genre values into six broader genres."""</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># isinstance(x, str) checks whether x is text. A missing genre is NaN, not</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># text, so it is returned unchanged and stays missing.</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> <span class="bu">isinstance</span>(major_genre, <span class="bu">str</span>):</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> major_genre</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">"Comedy"</span> <span class="kw">in</span> major_genre:</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Comedy"</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">"Thriller"</span> <span class="kw">in</span> major_genre:</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Horror"</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">"Action"</span> <span class="kw">in</span> major_genre <span class="kw">or</span> <span class="st">"Adventure"</span> <span class="kw">in</span> major_genre:</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Action/Adventure"</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">"Musical"</span> <span class="kw">in</span> major_genre <span class="kw">or</span> <span class="st">"Western"</span> <span class="kw">in</span> major_genre <span class="kw">or</span> <span class="st">"Concert"</span> <span class="kw">in</span> major_genre:</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Musical/Western"</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> major_genre</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>movies_data[<span class="st">"genre"</span>] <span class="op">=</span> movies_data[<span class="st">"Major Genre"</span>].<span class="bu">apply</span>(combine_genre)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="mean-profit-by-month-of-release-6-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="mean-profit-by-month-of-release-6-points">1.1 Mean profit by month of release (6 points)</h3>
+<p>Make an appropriate plot of the mean profit of movies released in each calendar month.</p>
+<p><strong>Hint:</strong> Convert <code>Release Date</code> with <code>pd.to_datetime()</code> and take the month with <code>.dt.month</code>, as in <a href="./pandas_fundamentals.html">Pandas Fundamentals</a>. Store it in a column named <code>release_month</code>.</p>
+</section>
+<section id="most-and-least-profitable-seasons-2-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="most-and-least-profitable-seasons-2-points">1.2 Most and least profitable seasons (2 points)</h3>
+<p>Based on the plot, which seasons have been the most and the least profitable, on average, for a movie release? Do not compute anything; comment on the plot, using seasons such as <em>early summer</em> or <em>late spring</em>.</p>
+</section>
+<section id="number-of-movies-per-genre-and-month-8-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="number-of-movies-per-genre-and-month-8-points">1.3 Number of movies per genre and month (8 points)</h3>
+<p>The starter supplies a function that collapses <code>Major Genre</code> into six broader genres and stores them in a new column, <code>genre</code>. Run it, then make an appropriate plot of the <strong>number</strong> of movies of each <code>genre</code> released in each calendar month.</p>
+<p><strong>Hint:</strong> <code>sns.countplot()</code> with <code>hue=</code>, from <a href="./data_viz_1.html">Data Visualization I</a>.</p>
+</section>
+<section id="popular-genres-by-season-2-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="popular-genres-by-season-2-points">1.4 Popular genres by season (2 points)</h3>
+<p>Based on the plot, which <code>genre</code> is the most common during the most profitable season of release, and which during the least profitable season?</p>
+</section>
+<section id="proportion-of-genres-by-month-8-points---visualize-the-proportion-of-movies-in-each-genre-for-each-month-of-release-as-a-100-stacked-bar-chart.-the-starter-supplies-a-pd.crosstab-that-computes-the-proportions-one-row-per-month.-hints-counts-or-composition-in-data-visualization-i-builds-this-chart-on-the-penguin-data-a-crosstab-drawn-with-.plotkindbar-stackedtrue-normalized-so-every-bar-reaches-1.0.-.plot-returns-the-axes-it-drew-into-so-ax-....plotkindbar-stackedtrue-gives-you-the-handle-for-ax.legendbbox_to_anchor1.02-1-locupper-left-which-puts-the-legend-outside-the-bars-bbox_to_anchor-is-the-point-the-legends-loc-corner-is-pinned-to-in-fractions-of-the-panel.-the-starter-supplies-python-genre_proportion_release_month-pd.crosstabindexmovies_datarelease_month-columnsmovies_datagenre-normalizeindex-genre_proportion_release_month.head" class="level3" data-number="E.0.1">
+<h3 data-number="E.0.1" class="anchored" data-anchor-id="proportion-of-genres-by-month-8-points---visualize-the-proportion-of-movies-in-each-genre-for-each-month-of-release-as-a-100-stacked-bar-chart.-the-starter-supplies-a-pd.crosstab-that-computes-the-proportions-one-row-per-month.-hints-counts-or-composition-in-data-visualization-i-builds-this-chart-on-the-penguin-data-a-crosstab-drawn-with-.plotkindbar-stackedtrue-normalized-so-every-bar-reaches-1.0.-.plot-returns-the-axes-it-drew-into-so-ax-....plotkindbar-stackedtrue-gives-you-the-handle-for-ax.legendbbox_to_anchor1.02-1-locupper-left-which-puts-the-legend-outside-the-bars-bbox_to_anchor-is-the-point-the-legends-loc-corner-is-pinned-to-in-fractions-of-the-panel.-the-starter-supplies-python-genre_proportion_release_month-pd.crosstabindexmovies_datarelease_month-columnsmovies_datagenre-normalizeindex-genre_proportion_release_month.head"><span class="header-section-number">E.0.1</span> 1.5 Proportion of genres by month (8 points) {-} Visualize the <strong>proportion</strong> of movies in each <code>genre</code> for each month of release, as a 100% stacked bar chart. The starter supplies a <code>pd.crosstab()</code> that computes the proportions, one row per month. <strong>Hints:</strong> <a href="./data_viz_1.html#counts-or-composition-grouped-against-stacked-bars">Counts or composition</a> in Data Visualization I builds this chart on the penguin data: a <code>crosstab</code> drawn with <code>.plot(kind="bar", stacked=True)</code>, normalized so every bar reaches 1.0. <code>.plot()</code> returns the Axes it drew into, so <code>ax = ....plot(kind="bar", stacked=True)</code> gives you the handle for <code>ax.legend(bbox_to_anchor=(1.02, 1), loc="upper left")</code>, which puts the legend outside the bars; <code>bbox_to_anchor</code> is the point the legend’s <code>loc</code> corner is pinned to, in fractions of the panel. The starter supplies: <code>python genre_proportion_release_month = pd.crosstab(index=movies_data["release_month"], columns=movies_data["genre"], normalize="index") genre_proportion_release_month.head()</code></h3>
+</section>
+<section id="may-and-december-2-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="may-and-december-2-points">1.6 May and December (2 points)</h3>
+<p>Which <code>genre</code> is the most common among movies released in May, and which among those released in December?</p>
+</section>
+<section id="profit-by-year-for-each-genre-6-points---considering-only-movies-released-from-1991-to-2010-make-a-figure-of-the-mean-profit-of-each-genre-in-each-year-with-a-95-confidence-interval-and-with-each-genre-in-its-own-panel.-hints-take-the-year-with-.dt.year.-a-line-in-every-panel-in-data-visualization-ii-is-the-same-figure-on-the-penguin-data-a-figure-level-function-with-col-and-col_wrap-where-kindline-draws-each-groups-mean-and-its-95-confidence-band." class="level3" data-number="E.0.2">
+<h3 data-number="E.0.2" class="anchored" data-anchor-id="profit-by-year-for-each-genre-6-points---considering-only-movies-released-from-1991-to-2010-make-a-figure-of-the-mean-profit-of-each-genre-in-each-year-with-a-95-confidence-interval-and-with-each-genre-in-its-own-panel.-hints-take-the-year-with-.dt.year.-a-line-in-every-panel-in-data-visualization-ii-is-the-same-figure-on-the-penguin-data-a-figure-level-function-with-col-and-col_wrap-where-kindline-draws-each-groups-mean-and-its-95-confidence-band."><span class="header-section-number">E.0.2</span> 1.7 Profit by year for each genre (6 points) {-} Considering only movies released from 1991 to 2010, make a figure of the mean profit of each <code>genre</code> in each year, with a 95% confidence interval, and with each genre in its own panel. <strong>Hints:</strong> Take the year with <code>.dt.year</code>. <a href="./data_viz_2.html#a-line-in-every-panel-with-its-own-band">A line in every panel</a> in Data Visualization II is the same figure on the penguin data: a figure-level function with <code>col=</code> and <code>col_wrap=</code>, where <code>kind="line"</code> draws each group’s mean and its 95% confidence band.</h3>
+</section>
+<section id="trends-by-genre-2-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="trends-by-genre-2-points">1.8 Trends by genre (2 points)</h3>
+<p>Based on the figure, which <code>genre</code>’s profitability seems to increase over the years, and which has the least uncertainty in profit in most years?</p>
+</section>
+</section>
+<section id="associations-28-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="associations-28-points">2. Associations (28 points)</h2>
+<p>These questions use the numeric columns of <code>movies_data</code>, which the visualization chapters call continuous variables.</p>
+<p>The starter supplies this code for Questions 2.5 and 2.6:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>movies_data[<span class="st">"screenplay"</span>] <span class="op">=</span> movies_data[<span class="st">"Source"</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">"Non-original"</span> <span class="cf">if</span> x <span class="op">!=</span> <span class="st">"Original Screenplay"</span> <span class="cf">else</span> x)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>movies_data[<span class="st">"rating"</span>] <span class="op">=</span> movies_data[<span class="st">"MPAA Rating"</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">"R rated"</span> <span class="cf">if</span> x <span class="op">==</span> <span class="st">"R"</span> <span class="cf">else</span> <span class="st">"Not R rated"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>movies_data[<span class="st">"fiction"</span>] <span class="op">=</span> movies_data[<span class="st">"Creative Type"</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">"Contemporary"</span> <span class="cf">if</span> x <span class="op">==</span> <span class="st">"Contemporary Fiction"</span> <span class="cf">else</span> <span class="st">"other"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="pairplot-and-heatmap-6-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="pairplot-and-heatmap-6-points">2.1 Pairplot and heatmap (6 points)</h3>
+<p>Make a pairplot and a correlation heatmap of all the continuous variables.</p>
+</section>
+<section id="what-the-pairplot-shows-2-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="what-the-pairplot-shows-2-points">2.2 What the pairplot shows (2 points)</h3>
+<p>Are there any patterns you can see in the pairplot but not in the heatmap?</p>
+</section>
+<section id="variables-associated-with-profit-2-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="variables-associated-with-profit-2-points">2.3 Variables associated with profit (2 points)</h3>
+<p>Based on the plots in Question 2.1, which variables are associated with <code>profit</code>?</p>
+</section>
+<section id="a-non-redundant-subset-2-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="a-non-redundant-subset-2-points">2.4 A non-redundant subset (2 points)</h3>
+<p>Among the variables you listed in Question 2.3, select a subset in which no two are highly associated with each other. Explain why the rest are redundant for explaining <code>profit</code>.</p>
+</section>
+<section id="imdb-votes-and-profit-by-genre-8-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="imdb-votes-and-profit-by-genre-8-points">2.5 IMDB votes and profit by genre (8 points)</h3>
+<p>The starter supplies code that creates the columns <code>screenplay</code>, <code>rating</code>, and <code>fiction</code>. Make an appropriate figure of the association between the number of IMDB votes and profit, with one panel per <code>genre</code>. Which genre shows the strongest association between profit and IMDB votes?</p>
+<p><strong>Hint:</strong> A figure-level regression plot with <code>col=</code>, from <a href="./data_viz_2.html">Data Visualization II</a>.</p>
+</section>
+<section id="imdb-votes-and-profit-by-fiction-type-and-rating-8-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="imdb-votes-and-profit-by-fiction-type-and-rating-8-points">2.6 IMDB votes and profit by fiction type and rating (8 points)</h3>
+<p>Make an appropriate figure of the association between IMDB votes and profit for each combination of <code>fiction</code> and <code>rating</code>. For which combination is the association strongest?</p>
+<p><strong>Hint:</strong> Use both <code>row=</code> and <code>col=</code>.</p>
+</section>
+</section>
+<section id="directors-and-distributions-25-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="directors-and-distributions-25-points">3. Directors and Distributions (25 points)</h2>
+<p>The starter supplies this code for Question 3.1. Run it after you create <code>director_with_more_than_10_movies</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lists the directors from highest to lowest mean profit, for barplot(order=...).</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># It uses groupby(), which Data Cleaning introduces; you only need to run it.</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>director_order <span class="op">=</span> (director_with_more_than_10_movies[[<span class="st">"Director"</span>, <span class="st">"profit"</span>]]</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                  .groupby(<span class="st">"Director"</span>).mean()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                  .sort_values(by<span class="op">=</span><span class="st">"profit"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                  .index.to_list())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="profit-by-director-8-points---consider-the-directors-who-directed-more-than-10-movies-in-the-dataset.-keep-only-their-movies-in-a-dataframe-named-director_with_more_than_10_movies-then-make-a-horizontal-bar-plot-of-the-mean-profit-of-each-directors-movies-with-its-95-confidence-interval-with-the-director-of-the-highest-mean-profit-at-the-top.-hints-value_counts-and-isin-from-pandas-fundamentals-select-the-directors.-to-make-the-bars-horizontal-put-the-category-on-the-vertical-axis-ydirector-and-xprofit-as-the-ordering-callout-in-data-visualization-i-describes.-with-this-many-directors-you-will-want-a-tall-figure-plt.figurefigsize7-10-before-the-plotting-call.-the-starter-supplies-code-that-lists-the-directors-in-order-of-mean-profit-pass-that-list-to-the-bar-plots-order-argument-as-countplotorder...-did-there." class="level3" data-number="E.0.3">
+<h3 data-number="E.0.3" class="anchored" data-anchor-id="profit-by-director-8-points---consider-the-directors-who-directed-more-than-10-movies-in-the-dataset.-keep-only-their-movies-in-a-dataframe-named-director_with_more_than_10_movies-then-make-a-horizontal-bar-plot-of-the-mean-profit-of-each-directors-movies-with-its-95-confidence-interval-with-the-director-of-the-highest-mean-profit-at-the-top.-hints-value_counts-and-isin-from-pandas-fundamentals-select-the-directors.-to-make-the-bars-horizontal-put-the-category-on-the-vertical-axis-ydirector-and-xprofit-as-the-ordering-callout-in-data-visualization-i-describes.-with-this-many-directors-you-will-want-a-tall-figure-plt.figurefigsize7-10-before-the-plotting-call.-the-starter-supplies-code-that-lists-the-directors-in-order-of-mean-profit-pass-that-list-to-the-bar-plots-order-argument-as-countplotorder...-did-there."><span class="header-section-number">E.0.3</span> 3.1 Profit by director (8 points) {-} Consider the directors who directed more than 10 movies in the dataset. Keep only their movies in a DataFrame named <code>director_with_more_than_10_movies</code>, then make a <strong>horizontal</strong> bar plot of the mean profit of each director’s movies with its 95% confidence interval, with the director of the highest mean profit at the top. <strong>Hints:</strong> <code>value_counts()</code> and <code>isin()</code>, from <a href="./pandas_fundamentals.html">Pandas Fundamentals</a>, select the directors. To make the bars horizontal, put the category on the vertical axis — <code>y="Director"</code> and <code>x="profit"</code> — as the ordering callout in <a href="./data_viz_1.html">Data Visualization I</a> describes. With this many directors you will want a tall figure, <code>plt.figure(figsize=(7, 10))</code>, before the plotting call. The starter supplies code that lists the directors in order of mean profit; pass that list to the bar plot’s <code>order=</code> argument, as <code>countplot(order=...)</code> did there.</h3>
+</section>
+<section id="highest-mean-and-most-variation-2-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="highest-mean-and-most-variation-2-points">3.2 Highest mean and most variation (2 points)</h3>
+<p>Based on the plot, which director has the highest mean profit, and which has the most variation in profit?</p>
+</section>
+<section id="box-plots-of-profit-by-genre-6-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="box-plots-of-profit-by-genre-6-points">3.3 Box plots of profit by genre (6 points)</h3>
+<p>Make box plots of the distribution of <code>profit</code> for each <code>genre</code>. Based on the plot, which genre has the most profitable movies?</p>
+</section>
+<section id="variation-by-genre-2-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="variation-by-genre-2-points">3.4 Variation by genre (2 points)</h3>
+<p>Which genre has the most variation in profit, and which has the least?</p>
+</section>
+<section id="density-plots-of-profit-by-genre-5-points---make-density-plots-of-profit-for-each-genre-on-one-panel.-adjust-the-limits-of-the-horizontal-axis-so-the-curves-are-clearly-visible." class="level3" data-number="E.0.4">
+<h3 data-number="E.0.4" class="anchored" data-anchor-id="density-plots-of-profit-by-genre-5-points---make-density-plots-of-profit-for-each-genre-on-one-panel.-adjust-the-limits-of-the-horizontal-axis-so-the-curves-are-clearly-visible."><span class="header-section-number">E.0.4</span> 3.5 Density plots of profit by genre (5 points) {-} Make density plots of <code>profit</code> for each <code>genre</code> on one panel. Adjust the limits of the horizontal axis so the curves are clearly visible.</h3>
+<p><strong>Hint:</strong> <a href="./data_viz_1.html#two-relatives-of-the-histogram">Two relatives of the histogram</a> in Data Visualization I draws one density per group on a single panel with <code>sns.kdeplot(..., hue=...)</code>. A handful of extreme profits will stretch the axis, so narrow it with <code>plt.xlim(...)</code> until the curves separate.</p>
+</section>
+<section id="what-the-density-plots-add-2-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="what-the-density-plots-add-2-points">3.6 What the density plots add (2 points)</h3>
+<p>What can you see in the density plots that you could not see in the box plots?</p>
+</section>
+</section>
+<section id="insights-6-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="insights-6-points">4. Insights (6 points)</h2>
+<section id="factors-associated-with-profit-3-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="factors-associated-with-profit-3-points">4.1 Factors associated with profit (3 points)</h3>
+<p>From all the visualizations above, describe what you learned about the factors associated with the profitability of a movie.</p>
+</section>
+<section id="how-far-the-findings-generalize-3-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="how-far-the-findings-generalize-3-points">4.2 How far the findings generalize (3 points)</h3>
+<p>To what extent can these findings be generalized — for example, to movies released today, or to all Hollywood movies? If not to all of them, to which time period or kind of movie might they apply?</p>
+</section>
+</section>
+<section id="ai-use-disclosure-2-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="ai-use-disclosure-2-points">5. AI Use Disclosure (2 points)</h2>
+<p>In the AI Use Disclosure section of your notebook, state whether <strong>generative AI tools</strong> were used to complete any part of this assignment.</p>
+<ul>
+<li><p>If <strong>no AI was used</strong>, write: <em>“I did not use generative AI tools on this assignment.”</em></p></li>
+<li><p>If <strong>AI was used</strong>, you must specify:</p>
+<ol type="1">
+<li><strong>Tool(s)</strong> used (e.g., ChatGPT, GitHub Copilot, Claude, etc.)</li>
+<li><strong>How</strong> they were used (e.g., explaining a concept, interpreting an error message, debugging code you wrote)</li>
+<li><strong>Where</strong> they influenced your work (which questions/sections)</li>
+<li><strong>Edits &amp; verification</strong> you made (how you checked correctness, what you modified)</li>
+</ol></li>
+</ul>
+<section id="ai-use-template" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ai-use-template">AI Use Template</h3>
+<ul>
+<li><strong>Used AI?</strong> Yes / No</li>
+<li><strong>Tool(s):</strong></li>
+<li><strong>Purpose / How used (1–3 sentences):</strong></li>
+<li><strong>Scope (which questions/sections):</strong></li>
+<li><strong>Edits &amp; verification (what you changed and how you checked correctness):</strong></li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Example (for illustration only):</strong> - Used AI? Yes - Tools: ChatGPT (free) - How used: Asked what <code>col_wrap</code> does in a seaborn figure-level function, and for help reading a legend that covered the bars. - Scope: 1.5, 1.7. - Edits &amp; verification: Rewrote the plotting code in my own style; checked the proportions in the stacked bars sum to 1 for each month.</p>
+</blockquote>
+<p><strong>Grading (2 points):</strong> - <strong>2 points</strong> = a clear statement that you did not use AI, or a complete, specific and honest disclosure (tools named, usage and verification described) - <strong>1 point</strong> = a disclosure that is vague or missing required details - <strong>0 points</strong> = no statement at all, or a disclosure that is misleading</p>
+</section>
+</section>
+<section id="bonus-the-sp-500-10-points-optional" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="bonus-the-sp-500-10-points-optional">Bonus: The S&amp;P 500 (10 points, optional)</h2>
+<p>This is an optional question with no partial credit. You will get points only if your solution is completely correct. We advise you to attempt it only when you are done with the rest of the assignment. A loop over the holding periods in Part (c) is allowed.</p>
+<p>A <strong>market index</strong> tracks the performance of a group of stocks; the S&amp;P 500 is often used as a proxy for the US stock market as a whole. A <em>passive</em> investor buys an index fund that follows it and holds it. This question asks how the return and risk of holding the S&amp;P 500 depend on how long you hold it.</p>
+<p><code>data/sp500.csv</code> holds the index from 2000 to 2022. The starter supplies code that reads it, sorts it by date, and stores the closing prices in a NumPy array, <code>close</code>. Use the closing price as the price on each trading day.</p>
+<ul>
+<li>If you buy on day <span class="math inline">\(t\)</span> and sell <span class="math inline">\(T\)</span> trading days later, the <strong>return</strong> is <span class="math inline">\(r_{t,T} = (P_{t+T} - P_t) / P_t\)</span>. Count only trading days: skip dates with no row.</li>
+<li>The <strong>risk</strong> of a holding period is the standard deviation of its returns.</li>
+<li>The <strong>Sharpe ratio</strong> is the mean return divided by the risk. (In general it subtracts a risk-free rate from the return; take that rate as 0.)</li>
+</ul>
+<p>Answer the following:</p>
+<ol type="a">
+<li><p>For a one-day holding period (<span class="math inline">\(T = 1\)</span>), compute every possible return with NumPy slicing — <code>close[1:]</code> against <code>close[:-1]</code> — and draw their histogram. Report the mean return, the risk, and the Sharpe ratio.</p></li>
+<li><p>Repeat (a) for a one-year holding period, taking a year as 250 trading days (<span class="math inline">\(T = 250\)</span>).</p></li>
+<li><p>For every holding period from 1 to 250 trading days, compute the mean return, the risk, and the Sharpe ratio. Then reproduce the figure below: the index over time, with three small panels showing how the mean return, the risk, and the Sharpe ratio change with the holding period. Small panels inside a larger one are insets, from <a href="./data_viz_2.html">Data Visualization II</a>. In one or two sentences, say what the figure suggests about holding the index for longer.</p></li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/assignment-e-bonus.png" class="img-fluid figure-img" width="640"></p>
+<figcaption>The S&amp;P 500 index from 2000 to 2022, with insets showing the mean return, risk, and Sharpe ratio rising with the holding period.</figcaption>
+</figure>
+</div>
+</section>
+<section id="prepare-and-submit-the-html" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="prepare-and-submit-the-html">Prepare and Submit the HTML</h2>
+<p>Restart the kernel, run all cells in order, resolve unexpected errors, and save. Render from the assignment folder. The terminal starts in <code>stat303-1</code>, so first move it there with <code>cd assignments</code> and then <code>cd assignment-e</code>, and check the current directory. Then run:</p>
+<pre class="text"><code>quarto render assignment_e.ipynb --to html</code></pre>
+<p>Open <code>assignment_e.html</code> and check that your code, output, figures, and written answers are visible. Upload it to Assignment E in Canvas.</p>
+<p>This step is graded through the formatting points in instruction 8.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/lizhen0909\.github\.io\/stat303-1-sec20-coursebook\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Assignment D.html" class="pagination-link" aria-label="Assignment D: NumPy">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Assignment D: NumPy</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./geospatial_mapping.html" class="pagination-link" aria-label="Geospatial Plotting for Final Projects">
+        <span class="nav-page-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Geospatial Plotting for Final Projects</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
