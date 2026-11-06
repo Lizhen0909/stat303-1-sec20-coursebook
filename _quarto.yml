@@ -11,6 +11,8 @@ project:
     - downloads/setup-practice.zip
     - downloads/assignment-b-setup.zip
     - downloads/assignment-c-kit.zip
+    - downloads/assignment-f-kit.zip
+    - downloads/assignment-g-kit.zip
     - downloads/pandas-numpy-workflow-practice.zip
     - downloads/data-visualization-1-practice.zip
     - downloads/data-visualization-2-practice.zip
@@ -78,10 +80,10 @@ book:
       text: "Assignment D: NumPy"
     - href: Assignment E.ipynb
       text: "Assignment E: Data Visualization"
-    # - href: Assignment F.ipynb
-    #   text: "Assignment F: Data Cleaning and Preparation"
-    # - href: Assignment G.ipynb
-    #   text: "Assignment G: Data Wrangling"
+    - href: Assignment F.ipynb
+      text: "Assignment F: Data Cleaning and Preparation"
+    - href: Assignment G.ipynb
+      text: "Assignment G: Data Wrangling"
     - geospatial_mapping.ipynb
     - Datasets.ipynb
     # - references.qmd

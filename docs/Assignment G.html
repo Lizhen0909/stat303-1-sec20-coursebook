@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Appendix G — Assignment G: Data Wrangling – Data Science I with python</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./geospatial_mapping.html" rel="next">
+<link href="./Assignment F.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d3f7f8e73c8d287b30bcf59c2b563615.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Assignment A.html">Appendices</a></li><li class="breadcrumb-item"><a href="./Assignment G.html"><span class="chapter-number">G</span>&nbsp; <span class="chapter-title">Assignment G: Data Wrangling</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="https://statistics.northwestern.edu/" class="sidebar-logo-link">
+      <img src="./NU_Stat_logo.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./NU_Stat_logo.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Science I with python</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/Lizhen0909/stat303-1-sec20-coursebook" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Review of STAT 201: Python Foundations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./python_basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_structures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Structures</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Setting Up for Data Science</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vscode_setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Jupyter Notebooks in VS Code</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./python_venv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Environments, Packages, and File Paths</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Core Library Foundations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Reading_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reading Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pandas_fundamentals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Pandas Fundamentals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./pandas_intermediate.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Pandas Intermediate</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./numpy_fundamentals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">NumPy Fundamentals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./numpy_pandas_workflow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">NumPy and pandas in a Real Workflow</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_viz_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data Visualization I: Single Plots</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_viz_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Data Visualization II: Multi-Panel Figures</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">From Messy to Insight</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data_cleaning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Data Cleaning</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data_preparation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Data Preparation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data aggregation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Data Grouping and Aggregation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data_reshaping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Data Reshaping</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data wrangling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Combining Datasets</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Assignment A.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Assignment A: Python Foundations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Assignment B.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Assignment B: Setting Up Your Course Workspace</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Assignment C.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Assignment C: Pandas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Assignment D.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Assignment D: NumPy</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Assignment E.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Assignment E: Data Visualization</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Assignment F.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Assignment F: Data Cleaning and Preparation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Assignment G.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">G</span>&nbsp; <span class="chapter-title">Assignment G: Data Wrangling</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./geospatial_mapping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Geospatial Plotting for Final Projects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Datasets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">I</span>&nbsp; <span class="chapter-title">Datasets &amp; Templates</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#instructions" id="toc-instructions" class="nav-link active" data-scroll-target="#instructions">Instructions</a></li>
+  <li><a href="#points-summary" id="toc-points-summary" class="nav-link" data-scroll-target="#points-summary">Points Summary</a></li>
+  <li><a href="#projects-and-missing-values-27-points" id="toc-projects-and-missing-values-27-points" class="nav-link" data-scroll-target="#projects-and-missing-values-27-points">1. Projects and Missing Values (27 points)</a>
+  <ul>
+  <li><a href="#top-three-projects-4-points" id="toc-top-three-projects-4-points" class="nav-link" data-scroll-target="#top-three-projects-4-points">1.1 Top three projects (4 points)</a></li>
+  <li><a href="#number-of-missing-air-temperatures-1-point" id="toc-number-of-missing-air-temperatures-1-point" class="nav-link" data-scroll-target="#number-of-missing-air-temperatures-1-point">1.2 Number of missing air temperatures (1 point)</a></li>
+  <li><a href="#imputation-attempt-1-4-points" id="toc-imputation-attempt-1-4-points" class="nav-link" data-scroll-target="#imputation-attempt-1-4-points">1.3 Imputation, attempt 1 (4 points)</a></li>
+  <li><a href="#missing-values-after-attempt-1-1-point" id="toc-missing-values-after-attempt-1-1-point" class="nav-link" data-scroll-target="#missing-values-after-attempt-1-1-point">1.4 Missing values after attempt 1 (1 point)</a></li>
+  <li><a href="#imputation-attempt-2-4-points" id="toc-imputation-attempt-2-4-points" class="nav-link" data-scroll-target="#imputation-attempt-2-4-points">1.5 Imputation, attempt 2 (4 points)</a></li>
+  <li><a href="#missing-values-after-attempt-2-1-point" id="toc-missing-values-after-attempt-2-1-point" class="nav-link" data-scroll-target="#missing-values-after-attempt-2-1-point">1.6 Missing values after attempt 2 (1 point)</a></li>
+  <li><a href="#air-and-water-temperature-1-point" id="toc-air-and-water-temperature-1-point" class="nav-link" data-scroll-target="#air-and-water-temperature-1-point">1.7 Air and water temperature (1 point)</a></li>
+  <li><a href="#missing-values-after-a-hypothetical-attempt-3-3-points" id="toc-missing-values-after-a-hypothetical-attempt-3-3-points" class="nav-link" data-scroll-target="#missing-values-after-a-hypothetical-attempt-3-3-points">1.8 Missing values after a hypothetical attempt 3 (3 points)</a></li>
+  <li><a href="#visualizing-the-imputation-8-points" id="toc-visualizing-the-imputation-8-points" class="nav-link" data-scroll-target="#visualizing-the-imputation-8-points">1.9 Visualizing the imputation (8 points)</a></li>
+  </ul></li>
+  <li><a href="#living-conditions-19-points" id="toc-living-conditions-19-points" class="nav-link" data-scroll-target="#living-conditions-19-points">2. Living Conditions (19 points)</a>
+  <ul>
+  <li><a href="#temperatures-in-august-5-points" id="toc-temperatures-in-august-5-points" class="nav-link" data-scroll-target="#temperatures-in-august-5-points">2.1 Temperatures in August (5 points)</a></li>
+  <li><a href="#regions-by-latitude-4-points" id="toc-regions-by-latitude-4-points" class="nav-link" data-scroll-target="#regions-by-latitude-4-points">2.2 Regions by latitude (4 points)</a></li>
+  <li><a href="#yearly-temperature-trend-by-region-8-points" id="toc-yearly-temperature-trend-by-region-8-points" class="nav-link" data-scroll-target="#yearly-temperature-trend-by-region-8-points">2.3 Yearly temperature trend by region (8 points)</a></li>
+  <li><a href="#what-the-plot-shows-2-points" id="toc-what-the-plot-shows-2-points" class="nav-link" data-scroll-target="#what-the-plot-shows-2-points">2.4 What the plot shows (2 points)</a></li>
+  </ul></li>
+  <li><a href="#fish-diversity-34-points" id="toc-fish-diversity-34-points" class="nav-link" data-scroll-target="#fish-diversity-34-points">3. Fish Diversity (34 points)</a>
+  <ul>
+  <li><a href="#top-three-species-in-each-region-8-points" id="toc-top-three-species-in-each-region-8-points" class="nav-link" data-scroll-target="#top-three-species-in-each-region-8-points">3.1 Top three species in each region (8 points)</a></li>
+  <li><a href="#how-widely-species-are-spread-8-points" id="toc-how-widely-species-are-spread-8-points" class="nav-link" data-scroll-target="#how-widely-species-are-spread-8-points">3.2 How widely species are spread (8 points)</a></li>
+  <li><a href="#species-found-in-only-one-region-9-points" id="toc-species-found-in-only-one-region-9-points" class="nav-link" data-scroll-target="#species-found-in-only-one-region-9-points">3.3 Species found in only one region (9 points)</a></li>
+  <li><a href="#turbidity-and-catch-size-5-points" id="toc-turbidity-and-catch-size-5-points" class="nav-link" data-scroll-target="#turbidity-and-catch-size-5-points">3.4 Turbidity and catch size (5 points)</a></li>
+  <li><a href="#fish-lengths-4-points" id="toc-fish-lengths-4-points" class="nav-link" data-scroll-target="#fish-lengths-4-points">3.5 Fish lengths (4 points)</a></li>
+  </ul></li>
+  <li><a href="#gdp-surplus-and-compensation-15-points" id="toc-gdp-surplus-and-compensation-15-points" class="nav-link" data-scroll-target="#gdp-surplus-and-compensation-15-points">4. GDP, Surplus, and Compensation (15 points)</a>
+  <ul>
+  <li><a href="#melt-the-gdp-data-3-points" id="toc-melt-the-gdp-data-3-points" class="nav-link" data-scroll-target="#melt-the-gdp-data-3-points">4.1 Melt the GDP data (3 points)</a></li>
+  <li><a href="#melt-the-surplus-data-3-points" id="toc-melt-the-surplus-data-3-points" class="nav-link" data-scroll-target="#melt-the-surplus-data-3-points">4.2 Melt the surplus data (3 points)</a></li>
+  <li><a href="#pivot-the-compensation-data-3-points" id="toc-pivot-the-compensation-data-3-points" class="nav-link" data-scroll-target="#pivot-the-compensation-data-3-points">4.3 Pivot the compensation data (3 points)</a></li>
+  <li><a href="#merge-the-three-datasets-1-point" id="toc-merge-the-three-datasets-1-point" class="nav-link" data-scroll-target="#merge-the-three-datasets-1-point">4.4 Merge the three datasets (1 point)</a></li>
+  <li><a href="#gdp-over-time-by-region-5-points" id="toc-gdp-over-time-by-region-5-points" class="nav-link" data-scroll-target="#gdp-over-time-by-region-5-points">4.5 GDP over time by region (5 points)</a></li>
+  </ul></li>
+  <li><a href="#ai-use-disclosure-2-points" id="toc-ai-use-disclosure-2-points" class="nav-link" data-scroll-target="#ai-use-disclosure-2-points">5. AI Use Disclosure (2 points)</a>
+  <ul>
+  <li><a href="#ai-use-template" id="toc-ai-use-template" class="nav-link" data-scroll-target="#ai-use-template">AI Use Template</a></li>
+  </ul></li>
+  <li><a href="#prepare-and-submit-the-html" id="toc-prepare-and-submit-the-html" class="nav-link" data-scroll-target="#prepare-and-submit-the-html">Prepare and Submit the HTML</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Assignment A.html">Appendices</a></li><li class="breadcrumb-item"><a href="./Assignment G.html"><span class="chapter-number">G</span>&nbsp; <span class="chapter-title">Assignment G: Data Wrangling</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Appendix G — Assignment G: Data Wrangling</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="instructions" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions">Instructions</h2>
+<ol type="1">
+<li><p>The assignment is worth <strong>100 points</strong>. <strong>See Canvas for the due date.</strong></p></li>
+<li><p>You may discuss approaches with classmates, but write your own code and explanations. Put Python computations in Code cells and write the final answer to each question in a Markdown cell.</p></li>
+<li><p><a href="downloads/assignment-g-kit.zip">Download the Assignment G project kit</a>. Extract it and move the extracted <code>assignment-g</code> folder into <code>stat303-1/assignments/</code>, next to your earlier assignment folders. Check that you did not create a nested <code>assignment-g/assignment-g/</code> folder. Open <code>stat303-1</code> in VS Code, open <code>assignments/assignment-g/assignment_g.ipynb</code>, and select the course <code>.venv</code> as its kernel. pandas, matplotlib, and seaborn are already installed there.</p></li>
+<li><p><strong>This page contains the complete assignment instructions.</strong> The starter notebook contains numbered answer spaces and supplied code. Keep those sections in order, answer every numbered part below, and add your name to the <code>author</code> line at the top of the notebook.</p></li>
+<li><p>The data files are in the kit’s <code>data/</code> folder. Read them with relative path strings such as <code>"data/Surplus.csv"</code>; the notebook runs from the <code>assignment-g</code> folder, so these paths work without changes.</p></li>
+<li><p><strong>Do not use a <code>for</code> loop in this assignment.</strong> Every question can be answered with <code>groupby()</code>, reshaping, and merging, from Data Aggregation, Data Reshaping, and Combining Datasets.</p></li>
+<li><p>Submit <strong>one file, <code>assignment_g.html</code></strong>, to the <strong>Assignment G submission in Canvas</strong>. <em>Prepare and Submit the HTML</em> at the end of this page explains how to render it.</p></li>
+<li><p><strong>Three of the 100 points are for properly formatting the assignment.</strong> The breakdown is as follows:</p>
+<ul>
+<li>Must be an HTML file rendered using Quarto (1 pt).</li>
+<li>There aren’t excessively long outputs of extraneous information (e.g.&nbsp;no printouts of entire data frames without good reason, there aren’t long sections of commented-out code, etc.) (1 pt).</li>
+<li>Final answers of each question are written in Markdown cells, and there is no unnecessary / redundant code or text (1 pt).</li>
+</ul></li>
+<li><p><strong>Generative AI.</strong> You may use generative AI tools (ChatGPT, Claude, GitHub Copilot, and similar) to understand concepts, interpret error messages, and debug code you have written. You may not use them to produce the code or written answers you submit. The test: you should be able to explain every line you submit and reproduce it without assistance. Disclose any use in the AI Use Disclosure section (Question 5). Honest disclosure earns points and carries no penalty on its own; undisclosed use is an academic integrity violation under the course syllabus.</p></li>
+</ol>
+<p>When you place the kit, your <code>assignments</code> folder will look like this:</p>
+<pre class="text"><code>stat303-1/
+├── .venv/
+└── assignments/
+    ├── assignment-a/
+    ├── assignment-b/
+    ├── assignment-c/
+    ├── assignment-d/
+    ├── assignment-e/
+    ├── assignment-f/
+    └── assignment-g/         ← the extracted kit
+        ├── assignment_g.ipynb
+        ├── README.md
+        └── data/
+            ├── Canadian_Fish_Biodiversity.csv
+            ├── Compensation.csv
+            ├── Real GDP.csv
+            ├── State_region_mapping.csv
+            └── Surplus.csv</code></pre>
+</section>
+<section id="points-summary" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="points-summary">Points Summary</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Section</th>
+<th style="text-align: right;">Points</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. Projects and missing values</td>
+<td style="text-align: right;">27</td>
+</tr>
+<tr class="even">
+<td>2. Living conditions</td>
+<td style="text-align: right;">19</td>
+</tr>
+<tr class="odd">
+<td>3. Fish diversity</td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="even">
+<td>4. GDP, surplus, and compensation</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr class="odd">
+<td>5. AI Use Disclosure</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td>6. Formatting (instruction 8 above)</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td style="text-align: right;"><strong>100</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="projects-and-missing-values-27-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="projects-and-missing-values-27-points">1. Projects and Missing Values (27 points)</h2>
+<p><code>data/Canadian_Fish_Biodiversity.csv</code> holds 8,387 rows from a 2013 survey of fish populations in Ontario, Canada. Each row records one species caught in one fishing event. Each <strong>site</strong> (<code>SITEID</code>) is a time and place where fishing took place, and sites are grouped into broader <strong>projects</strong> (<code>Project Name</code>).</p>
+<p>If a question updates the dataset, for example by imputing missing values or adding a column, use the updated dataset in the questions that follow.</p>
+<p>The starter supplies the code that reads the data:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fish <span class="op">=</span> pd.read_csv(<span class="st">"data/Canadian_Fish_Biodiversity.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="top-three-projects-4-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="top-three-projects-4-points">1.1 Top three projects (4 points)</h3>
+<p>Using <code>groupby()</code>, find the three projects with the most unique sites.</p>
+</section>
+<section id="number-of-missing-air-temperatures-1-point" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="number-of-missing-air-temperatures-1-point">1.2 Number of missing air temperatures (1 point)</h3>
+<p>How many values of <code>Air Temperature (C)</code> are missing?</p>
+</section>
+<section id="imputation-attempt-1-4-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="imputation-attempt-1-4-points">1.3 Imputation, attempt 1 (4 points)</h3>
+<p>Impute the missing air temperatures with the median air temperature of the rows with the same <code>Waterbody Name</code> and <code>Month</code>.</p>
+<p><strong>Hint:</strong> <code>groupby()</code> with two columns and <code>transform("median")</code>, from <a href="./Data aggregation.html">Data Aggregation</a>.</p>
+</section>
+<section id="missing-values-after-attempt-1-1-point" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="missing-values-after-attempt-1-1-point">1.4 Missing values after attempt 1 (1 point)</h3>
+<p>How many air temperatures are still missing after Question 1.3? Explain why the imputation could not fill them.</p>
+</section>
+<section id="imputation-attempt-2-4-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="imputation-attempt-2-4-points">1.5 Imputation, attempt 2 (4 points)</h3>
+<p>Impute the remaining missing air temperatures with the median air temperature of the rows with the same <code>Project Name</code> and <code>Month</code>.</p>
+</section>
+<section id="missing-values-after-attempt-2-1-point" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="missing-values-after-attempt-2-1-point">1.6 Missing values after attempt 2 (1 point)</h3>
+<p>How many air temperatures are still missing after Question 1.5?</p>
+</section>
+<section id="air-and-water-temperature-1-point" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="air-and-water-temperature-1-point">1.7 Air and water temperature (1 point)</h3>
+<p>Find the correlation between <code>Air Temperature (C)</code> and <code>Water Temperature (C)</code>.</p>
+</section>
+<section id="missing-values-after-a-hypothetical-attempt-3-3-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="missing-values-after-a-hypothetical-attempt-3-3-points">1.8 Missing values after a hypothetical attempt 3 (3 points)</h3>
+<p>Because the two temperatures are highly correlated, you could impute the remaining air temperatures from water temperature with a trendline, as in <a href="./Data_cleaning.html">Data Cleaning</a>. Do <strong>not</strong> do this imputation. Assuming you did, how many air temperatures would still be missing? Explain.</p>
+</section>
+<section id="visualizing-the-imputation-8-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="visualizing-the-imputation-8-points">1.9 Visualizing the imputation (8 points)</h3>
+<p>Make a scatterplot of air temperature against water temperature, with the points whose air temperature was imputed in attempt 1 or attempt 2 in a different color from the rest.</p>
+<p><strong>Hint:</strong> Before Question 1.3, save which rows are missing in a Boolean column, then pass it to <code>hue=</code>.</p>
+</section>
+</section>
+<section id="living-conditions-19-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="living-conditions-19-points">2. Living Conditions (19 points)</h2>
+<p>This section looks at the conditions the fish lived in at different places and times. Use the dataset with the air temperatures imputed in Section 1.</p>
+<section id="temperatures-in-august-5-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="temperatures-in-august-5-points">2.1 Temperatures in August (5 points)</h3>
+<p>With a single <code>groupby()</code> statement, find the minimum, mean, standard deviation, and maximum of both air temperature and water temperature for each project, using only the rows from August (<code>Month</code> 8).</p>
+<p><strong>Hint:</strong> Named aggregation, from <a href="./Data aggregation.html">Data Aggregation</a>, takes any number of <code>name=("column", "statistic")</code> pairs in one <code>agg()</code> call, so all eight results fit in a single statement.</p>
+</section>
+<section id="regions-by-latitude-4-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="regions-by-latitude-4-points">2.2 Regions by latitude (4 points)</h3>
+<p>Use <code>pd.cut()</code> to create a column <code>Region</code> from <code>Start Latitude</code>:</p>
+<ul>
+<li><em>Southern</em> for a latitude below 42.4,</li>
+<li><em>Central</em> for a latitude from 42.4 to 42.8,</li>
+<li><em>Northern</em> for a latitude above 42.8.</li>
+</ul>
+<p>Show how many rows fall in each region. Rows with a missing latitude get a missing <code>Region</code>, and the <code>groupby()</code> questions below leave them out.</p>
+</section>
+<section id="yearly-temperature-trend-by-region-8-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="yearly-temperature-trend-by-region-8-points">2.3 Yearly temperature trend by region (8 points)</h3>
+<p>Make a line plot of the maximum air temperature and the maximum water temperature in each <code>Month</code> for each <code>Region</code>. Put the month on the horizontal axis and the temperature on the vertical axis, use a different color for each region, and a different line style (solid or dashed) for air and water.</p>
+<p><strong>Hint:</strong> Compute the maxima with <code>groupby()</code>, then reshape them with <code>melt()</code>, from <a href="./Data_reshaping.html">Data Reshaping</a>, so that air and water are values of one column you can pass to <code>style=</code>.</p>
+</section>
+<section id="what-the-plot-shows-2-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="what-the-plot-shows-2-points">2.4 What the plot shows (2 points)</h3>
+<p>Does anything in the plot surprise you? Why or why not?</p>
+</section>
+</section>
+<section id="fish-diversity-34-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="fish-diversity-34-points">3. Fish Diversity (34 points)</h2>
+<p>Now turn to the fish themselves. Keep using the <code>Region</code> column from Question 2.2.</p>
+<section id="top-three-species-in-each-region-8-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="top-three-species-in-each-region-8-points">3.1 Top three species in each region (8 points)</h3>
+<p>Find the three <code>Species</code> with the largest total <code>Number Captured</code> in each region.</p>
+<p><strong>Hint:</strong> Total the catches by region and species, sort them, and keep the first rows of each region with <code>groupby().head()</code>, from <a href="./Data aggregation.html">Data Aggregation</a>.</p>
+</section>
+<section id="how-widely-species-are-spread-8-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="how-widely-species-are-spread-8-points">3.2 How widely species are spread (8 points)</h3>
+<p>Are some species found only in some regions? Make a plot of how many species were captured in all three regions, how many in exactly two, and how many in only one.</p>
+</section>
+<section id="species-found-in-only-one-region-9-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="species-found-in-only-one-region-9-points">3.3 Species found in only one region (9 points)</h3>
+<p>What percentage of all species were captured only in the Southern region? Only in the Central region? Only in the Northern region?</p>
+<p><strong>Hint:</strong></p>
+<ol type="1">
+<li>Find the number of distinct regions in which each species is found.</li>
+<li>Keep the rows of the species found in only one region.</li>
+<li>Group those rows by region, count the unique species in each group, and divide by the total number of distinct species.</li>
+</ol>
+</section>
+<section id="turbidity-and-catch-size-5-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="turbidity-and-catch-size-5-points">3.4 Turbidity and catch size (5 points)</h3>
+<p>Turbidity (<code>Turbidity (ntu)</code>) measures how cloudy the water is. In each region, is there a linear association between turbidity and <code>Number Captured</code>? Treat a correlation larger than 0.5 in magnitude as a linear association.</p>
+<p><strong>Hint:</strong> <code>df.groupby("Region")[["col_a", "col_b"]].corr()</code> returns one correlation matrix per region, stacked into one table with a two-level row index: the region on the outer level and the column name on the inner, as in the two-level index of <a href="./Data aggregation.html">Data Aggregation</a>. The off-diagonal entry of each region’s 2 × 2 block is that region’s correlation.</p>
+</section>
+<section id="fish-lengths-4-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="fish-lengths-4-points">3.5 Fish lengths (4 points)</h3>
+<p>The length of the fish caught is given by <code>Maximum (mm)</code> and <code>Minimum (mm)</code>. For each region, find the largest <code>Maximum (mm)</code> and the smallest <code>Minimum (mm)</code>. Which region has the widest range of fish lengths?</p>
+</section>
+</section>
+<section id="gdp-surplus-and-compensation-15-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="gdp-surplus-and-compensation-15-points">4. GDP, Surplus, and Compensation (15 points)</h2>
+<p>Three files describe the economy of each US state from 1997 to 2020, each with a different shape:</p>
+<ul>
+<li><code>data/Real GDP.csv</code> has one row per <strong>state</strong> and one column per year.</li>
+<li><code>data/Surplus.csv</code> has one row per <strong>year</strong> and one column per state.</li>
+<li><code>data/Compensation.csv</code> has one row per <strong>year, state, and <code>Description</code></strong>, where <code>Description</code> is either <em>Compensation (millions of dollars)</em> or <em>Chain-type quantity indexes for real GDP</em>, and the number is in <code>value</code>.</li>
+</ul>
+<p>Questions 4.1–4.4 combine them into one dataset with one row per <strong>state and year</strong>, holding the state, the year, and four values: GDP, surplus, compensation, and the chain-type quantity index.</p>
+<p>The starter supplies the code that reads the four files:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>gdp <span class="op">=</span> pd.read_csv(<span class="st">"data/Real GDP.csv"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>surplus <span class="op">=</span> pd.read_csv(<span class="st">"data/Surplus.csv"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>compensation <span class="op">=</span> pd.read_csv(<span class="st">"data/Compensation.csv"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>region_mapping <span class="op">=</span> pd.read_csv(<span class="st">"data/State_region_mapping.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="melt-the-gdp-data-3-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="melt-the-gdp-data-3-points">4.1 Melt the GDP data (3 points)</h3>
+<p>Melt <code>gdp</code> to one row per state and year, with columns <code>State</code>, <code>Year</code>, and <code>GDP</code>.</p>
+<p><strong>Hint:</strong> Besides <code>State</code> and the year columns, <code>gdp</code> has a <code>Description</code> column that holds the same label in every row. Drop it first with <code>gdp.drop(columns="Description")</code>; otherwise <code>melt()</code> treats it as one more year column. The year column names become strings such as <code>"1997"</code>. Convert the new <code>Year</code> column with <code>astype(int)</code> so it matches the integer years in the other files.</p>
+</section>
+<section id="melt-the-surplus-data-3-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="melt-the-surplus-data-3-points">4.2 Melt the surplus data (3 points)</h3>
+<p>Melt <code>surplus</code> to one row per state and year, with columns <code>Year</code>, <code>State</code>, and <code>Surplus</code>.</p>
+</section>
+<section id="pivot-the-compensation-data-3-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="pivot-the-compensation-data-3-points">4.3 Pivot the compensation data (3 points)</h3>
+<p>Pivot <code>compensation</code> to one row per state and year, with one column for each <code>Description</code>.</p>
+<p><strong>Hint:</strong> Each state, year, and <code>Description</code> has exactly one <code>value</code>, so this reshape only rearranges values: use <code>pivot()</code> from <a href="./Data_reshaping.html">Data Reshaping</a>, with <code>index=["State", "Year"]</code>, <code>columns="Description"</code>, and <code>values="value"</code>. Then <code>reset_index()</code> turns <code>State</code> and <code>Year</code> back into columns, ready for the merge in Question 4.4.</p>
+</section>
+<section id="merge-the-three-datasets-1-point" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="merge-the-three-datasets-1-point">4.4 Merge the three datasets (1 point)</h3>
+<p>Merge the three results from Questions 4.1–4.3 on <code>State</code> and <code>Year</code>. Show the shape of the combined dataset.</p>
+</section>
+<section id="gdp-over-time-by-region-5-points" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="gdp-over-time-by-region-5-points">4.5 GDP over time by region (5 points)</h3>
+<p>Merge <code>region_mapping</code> with the combined dataset. Make a line plot of the mean GDP of each of the five regions in each year, without a confidence interval. Which two regions seem to have grown the least in GDP from 1997 to 2020?</p>
+</section>
+</section>
+<section id="ai-use-disclosure-2-points" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="ai-use-disclosure-2-points">5. AI Use Disclosure (2 points)</h2>
+<p>In the AI Use Disclosure section of your notebook, state whether <strong>generative AI tools</strong> were used to complete any part of this assignment.</p>
+<ul>
+<li><p>If <strong>no AI was used</strong>, write: <em>“I did not use generative AI tools on this assignment.”</em></p></li>
+<li><p>If <strong>AI was used</strong>, you must specify:</p>
+<ol type="1">
+<li><strong>Tool(s)</strong> used (e.g., ChatGPT, GitHub Copilot, Claude, etc.)</li>
+<li><strong>How</strong> they were used (e.g., explaining a concept, interpreting an error message, debugging code you wrote)</li>
+<li><strong>Where</strong> they influenced your work (which questions/sections)</li>
+<li><strong>Edits &amp; verification</strong> you made (how you checked correctness, what you modified)</li>
+</ol></li>
+</ul>
+<section id="ai-use-template" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ai-use-template">AI Use Template</h3>
+<ul>
+<li><strong>Used AI?</strong> Yes / No</li>
+<li><strong>Tool(s):</strong></li>
+<li><strong>Purpose / How used (1–3 sentences):</strong></li>
+<li><strong>Scope (which questions/sections):</strong></li>
+<li><strong>Edits &amp; verification (what you changed and how you checked correctness):</strong></li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Example (for illustration only):</strong> - Used AI? Yes - Tools: ChatGPT (free) - How used: Asked what a <code>ValueError</code> from my merge meant; the <code>Year</code> columns had different types. - Scope: 4.1, 4.4. - Edits &amp; verification: Converted <code>Year</code> with <code>astype(int)</code> myself; checked the merged dataset has 51 × 24 = 1,224 rows.</p>
+</blockquote>
+<p><strong>Grading (2 points):</strong> - <strong>2 points</strong> = a clear statement that you did not use AI, or a complete, specific and honest disclosure (tools named, usage and verification described) - <strong>1 point</strong> = a disclosure that is vague or missing required details - <strong>0 points</strong> = no statement at all, or a disclosure that is misleading</p>
+</section>
+</section>
+<section id="prepare-and-submit-the-html" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="prepare-and-submit-the-html">Prepare and Submit the HTML</h2>
+<p>Restart the kernel, run all cells in order, resolve unexpected errors, and save. Render from the assignment folder. The terminal starts in <code>stat303-1</code>, so first move it there with <code>cd assignments</code> and then <code>cd assignment-g</code>, and check the current directory. Then run:</p>
+<pre class="text"><code>quarto render assignment_g.ipynb --to html</code></pre>
+<p>Open <code>assignment_g.html</code> and check that your code, output, figures, and written answers are visible. Upload it to Assignment G in Canvas.</p>
+<p>This step is graded through the formatting points in instruction 8.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/lizhen0909\.github\.io\/stat303-1-sec20-coursebook\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Assignment F.html" class="pagination-link" aria-label="Assignment F: Data Cleaning and Preparation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Assignment F: Data Cleaning and Preparation</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./geospatial_mapping.html" class="pagination-link" aria-label="Geospatial Plotting for Final Projects">
+        <span class="nav-page-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Geospatial Plotting for Final Projects</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
