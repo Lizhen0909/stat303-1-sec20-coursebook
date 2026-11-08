@@ -417,36 +417,36 @@ window.Quarto = {
   <li><a href="#equal-width-bins-with-cut" id="toc-equal-width-bins-with-cut" class="nav-link" data-scroll-target="#equal-width-bins-with-cut"><span class="header-section-number">11.3.2</span> Equal-width bins with <code>cut()</code></a></li>
   <li><a href="#equal-count-bins-with-qcut" id="toc-equal-count-bins-with-qcut" class="nav-link" data-scroll-target="#equal-count-bins-with-qcut"><span class="header-section-number">11.3.3</span> Equal-count bins with <code>qcut()</code></a></li>
   <li><a href="#bins-you-choose" id="toc-bins-you-choose" class="nav-link" data-scroll-target="#bins-you-choose"><span class="header-section-number">11.3.4</span> Bins you choose</a></li>
-  <li><a href="#an-association-not-a-recipe" id="toc-an-association-not-a-recipe" class="nav-link" data-scroll-target="#an-association-not-a-recipe"><span class="header-section-number">11.3.5</span> An association, not a recipe</a></li>
   </ul></li>
-  <li><a href="#encode-categories-as-numbers" id="toc-encode-categories-as-numbers" class="nav-link" data-scroll-target="#encode-categories-as-numbers"><span class="header-section-number">11.4</span> Encode categories as numbers</a>
+  <li><a href="#rescale-numeric-columns" id="toc-rescale-numeric-columns" class="nav-link" data-scroll-target="#rescale-numeric-columns"><span class="header-section-number">11.4</span> Rescale numeric columns</a>
   <ul class="collapse">
-  <li><a href="#two-categories-one-01-column" id="toc-two-categories-one-01-column" class="nav-link" data-scroll-target="#two-categories-one-01-column"><span class="header-section-number">11.4.1</span> Two categories: one 0/1 column</a></li>
-  <li><a href="#ordered-categories-a-code-that-keeps-the-order" id="toc-ordered-categories-a-code-that-keeps-the-order" class="nav-link" data-scroll-target="#ordered-categories-a-code-that-keeps-the-order"><span class="header-section-number">11.4.2</span> Ordered categories: a code that keeps the order</a></li>
-  <li><a href="#one-indicator-column-per-category" id="toc-one-indicator-column-per-category" class="nav-link" data-scroll-target="#one-indicator-column-per-category"><span class="header-section-number">11.4.3</span> One indicator column per category</a></li>
-  <li><a href="#encode-a-whole-dataframe-at-once" id="toc-encode-a-whole-dataframe-at-once" class="nav-link" data-scroll-target="#encode-a-whole-dataframe-at-once"><span class="header-section-number">11.4.4</span> Encode a whole DataFrame at once</a></li>
+  <li><a href="#minmax-scaling" id="toc-minmax-scaling" class="nav-link" data-scroll-target="#minmax-scaling"><span class="header-section-number">11.4.1</span> Min–max scaling</a></li>
+  <li><a href="#standardization" id="toc-standardization" class="nav-link" data-scroll-target="#standardization"><span class="header-section-number">11.4.2</span> Standardization</a></li>
+  <li><a href="#checks-before-scaling" id="toc-checks-before-scaling" class="nav-link" data-scroll-target="#checks-before-scaling"><span class="header-section-number">11.4.3</span> Checks before scaling</a></li>
+  <li><a href="#what-not-to-rescale" id="toc-what-not-to-rescale" class="nav-link" data-scroll-target="#what-not-to-rescale"><span class="header-section-number">11.4.4</span> What not to rescale</a></li>
   </ul></li>
-  <li><a href="#rescale-numeric-columns" id="toc-rescale-numeric-columns" class="nav-link" data-scroll-target="#rescale-numeric-columns"><span class="header-section-number">11.5</span> Rescale numeric columns</a>
+  <li><a href="#encode-categories-as-numbers" id="toc-encode-categories-as-numbers" class="nav-link" data-scroll-target="#encode-categories-as-numbers"><span class="header-section-number">11.5</span> Encode categories as numbers</a>
   <ul class="collapse">
-  <li><a href="#minmax-scaling" id="toc-minmax-scaling" class="nav-link" data-scroll-target="#minmax-scaling"><span class="header-section-number">11.5.1</span> Min–max scaling</a></li>
-  <li><a href="#standardization" id="toc-standardization" class="nav-link" data-scroll-target="#standardization"><span class="header-section-number">11.5.2</span> Standardization</a></li>
-  <li><a href="#what-not-to-rescale" id="toc-what-not-to-rescale" class="nav-link" data-scroll-target="#what-not-to-rescale"><span class="header-section-number">11.5.3</span> What not to rescale</a></li>
+  <li><a href="#ordered-categories-ordinal-encoding" id="toc-ordered-categories-ordinal-encoding" class="nav-link" data-scroll-target="#ordered-categories-ordinal-encoding"><span class="header-section-number">11.5.1</span> Ordered categories: ordinal encoding</a></li>
+  <li><a href="#two-categories-a-single-01-indicator" id="toc-two-categories-a-single-01-indicator" class="nav-link" data-scroll-target="#two-categories-a-single-01-indicator"><span class="header-section-number">11.5.2</span> Two categories: a single 0/1 indicator</a></li>
+  <li><a href="#unordered-categories-one-hot-encoding" id="toc-unordered-categories-one-hot-encoding" class="nav-link" data-scroll-target="#unordered-categories-one-hot-encoding"><span class="header-section-number">11.5.3</span> Unordered categories: one-hot encoding</a></li>
+  <li><a href="#optional-a-reference-category" id="toc-optional-a-reference-category" class="nav-link" data-scroll-target="#optional-a-reference-category"><span class="header-section-number">11.5.4</span> Optional: a reference category</a></li>
+  <li><a href="#encode-a-whole-dataframe-at-once" id="toc-encode-a-whole-dataframe-at-once" class="nav-link" data-scroll-target="#encode-a-whole-dataframe-at-once"><span class="header-section-number">11.5.5</span> Encode a whole DataFrame at once</a></li>
   </ul></li>
   <li><a href="#summary-cheat-sheet" id="toc-summary-cheat-sheet" class="nav-link" data-scroll-target="#summary-cheat-sheet"><span class="header-section-number">11.6</span> Summary Cheat Sheet</a></li>
-  <li><a href="#practice-activity-bin-encode-and-rescale" id="toc-practice-activity-bin-encode-and-rescale" class="nav-link" data-scroll-target="#practice-activity-bin-encode-and-rescale"><span class="header-section-number">11.7</span> Practice Activity: Bin, Encode, and Rescale</a>
+  <li><a href="#practice-activity-bin-encode-and-rescale" id="toc-practice-activity-bin-encode-and-rescale" class="nav-link" data-scroll-target="#practice-activity-bin-encode-and-rescale"><span class="header-section-number">11.7</span> Practice Activity: Bin, Rescale, and Encode</a>
   <ul class="collapse">
   <li><a href="#a.-two-ways-to-bin-tuition" id="toc-a.-two-ways-to-bin-tuition" class="nav-link" data-scroll-target="#a.-two-ways-to-bin-tuition">A. Two Ways to Bin Tuition</a></li>
-  <li><a href="#b.-describe-a-pattern-without-overclaiming" id="toc-b.-describe-a-pattern-without-overclaiming" class="nav-link" data-scroll-target="#b.-describe-a-pattern-without-overclaiming">B. Describe a Pattern Without Overclaiming</a></li>
-  <li><a href="#c.-encode-two-columns" id="toc-c.-encode-two-columns" class="nav-link" data-scroll-target="#c.-encode-two-columns">C. Encode Two Columns</a></li>
-  <li><a href="#d.-rescale-and-know-what-to-leave-alone" id="toc-d.-rescale-and-know-what-to-leave-alone" class="nav-link" data-scroll-target="#d.-rescale-and-know-what-to-leave-alone">D. Rescale, and Know What to Leave Alone</a></li>
+  <li><a href="#b.-choose-and-check-custom-bins" id="toc-b.-choose-and-check-custom-bins" class="nav-link" data-scroll-target="#b.-choose-and-check-custom-bins">B. Choose and Check Custom Bins</a></li>
+  <li><a href="#c.-rescale-and-know-what-to-leave-alone" id="toc-c.-rescale-and-know-what-to-leave-alone" class="nav-link" data-scroll-target="#c.-rescale-and-know-what-to-leave-alone">C. Rescale, and Know What to Leave Alone</a></li>
+  <li><a href="#d.-practice-three-encodings" id="toc-d.-practice-three-encodings" class="nav-link" data-scroll-target="#d.-practice-three-encodings">D. Practice Three Encodings</a></li>
   <li><a href="#render-and-submit" id="toc-render-and-submit" class="nav-link" data-scroll-target="#render-and-submit">Render and Submit</a></li>
   </ul></li>
   <li><a href="#extended-practice" id="toc-extended-practice" class="nav-link" data-scroll-target="#extended-practice"><span class="header-section-number">11.8</span> Extended Practice</a>
   <ul class="collapse">
   <li><a href="#how-many-bins" id="toc-how-many-bins" class="nav-link" data-scroll-target="#how-many-bins"><span class="header-section-number">11.8.1</span> How Many Bins?</a></li>
   <li><a href="#grading-bands-for-graduation-rates" id="toc-grading-bands-for-graduation-rates" class="nav-link" data-scroll-target="#grading-bands-for-graduation-rates"><span class="header-section-number">11.8.2</span> Grading Bands for Graduation Rates</a></li>
-  <li><a href="#does-selectivity-explain-it" id="toc-does-selectivity-explain-it" class="nav-link" data-scroll-target="#does-selectivity-explain-it"><span class="header-section-number">11.8.3</span> Does Selectivity Explain It?</a></li>
-  <li><a href="#which-college-is-most-unusual" id="toc-which-college-is-most-unusual" class="nav-link" data-scroll-target="#which-college-is-most-unusual"><span class="header-section-number">11.8.4</span> Which College Is Most Unusual?</a></li>
+  <li><a href="#which-college-is-most-unusual" id="toc-which-college-is-most-unusual" class="nav-link" data-scroll-target="#which-college-is-most-unusual"><span class="header-section-number">11.8.3</span> Which College Is Most Unusual?</a></li>
   </ul></li>
   <li><a href="#before-you-move-on" id="toc-before-you-move-on" class="nav-link" data-scroll-target="#before-you-move-on"><span class="header-section-number">11.9</span> Before You Move On</a></li>
   </ul>
@@ -474,14 +474,21 @@ window.Quarto = {
 </header>
 
 
-<p><a href="./Data_cleaning.html">Data Cleaning</a> fixed what was wrong with the data: gaps, repeats, and values that could not be true. Clean data is not always in the form an analysis needs, though. A comparison may be clearer between a few groups than across hundreds of distinct values. A method may need numbers where the data has categories. Two columns may need to be put on a common scale before they can be combined fairly.</p>
-<p>This chapter is about reshaping clean data for the question you want to ask, without changing what it says. Each preparation step is a choice — how many groups and where their edges fall, how to turn a category into numbers, which columns to rescale — and each choice changes what the next step can see. The habit to build is checking the result of every choice before you trust it.</p>
-<p>By the end of this chapter you should be able to:</p>
+<p><a href="./Data_cleaning.html">Data Cleaning</a> addressed problems such as missing values, duplicate records, and impossible values. <strong>Data preparation</strong> is the next step: putting clean data into a form that suits exploratory data analysis (EDA) or a statistical or predictive model. The right preparation depends on what you want to do with the data.</p>
+<p>This chapter introduces three common preparation techniques:</p>
 <ul>
-<li>Bin a numeric column with <code>pd.cut()</code> (equal widths, or edges you choose) and <code>pd.qcut()</code> (equal counts), and check the bin counts before comparing groups.</li>
-<li>Compare an outcome across bins with <code>groupby()</code> and <code>mean()</code>, and describe the pattern as an association, naming what else could explain it.</li>
-<li>Encode categories as numbers: a code with <code>map()</code> when the categories have a meaningful order, and one indicator column per category with <code>pd.get_dummies()</code> when they do not, for a single column or every categorical column of a DataFrame at once.</li>
-<li>Rescale numeric columns with min–max scaling and standardization, and say which columns must not be rescaled.</li>
+<li><strong>Binning continuous variables</strong> groups numeric values into intervals. In EDA, this helps us summarize and compare groups; here, we compare graduation rates across college spending groups. Binning can also create predictors for a model, but it discards detail and is not always helpful.</li>
+<li><strong>Scaling numeric variables</strong> puts columns on comparable scales. This is especially useful for modeling methods that depend on distances or penalize coefficient sizes, so a variable’s units do not give it disproportionate influence. Some methods, such as decision trees, generally do not need scaling.</li>
+<li><strong>Encoding categorical variables</strong> represents categories with numbers. This is primarily preparation for modeling, because many modeling methods require numeric inputs. The encoding should reflect whether the categories have a meaningful order.</li>
+</ul>
+<p>These steps are choices, not requirements for every dataset. Each changes how the data is represented and can affect what an analysis reveals. Choose transformations that serve your question, and check their results before using them.</p>
+<p>By the end of this chapter, you should be able to:</p>
+<ul>
+<li>Explain when binning, scaling, and categorical encoding are useful for EDA or modeling.</li>
+<li>Create equal-width, equal-count, and custom bins with <code>pd.cut()</code> and <code>pd.qcut()</code>, and check their boundaries and counts.</li>
+<li>Explain how the choice of bins changes group sizes and hides detail in the original values.</li>
+<li>Apply min–max scaling and standardization, check the results, and explain which columns are appropriate to scale.</li>
+<li>Choose and apply binary, ordinal, or one-hot encoding using <code>map()</code> and <code>pd.get_dummies()</code>.</li>
 </ul>
 <p>Complete the <a href="#practice-activity-bin-encode-and-rescale">practice activity</a> after the worked examples.</p>
 <section id="set-up-your-chapter-files" class="level2" data-number="11.1">
@@ -498,7 +505,7 @@ window.Quarto = {
         └── data/
             └── College.csv</code></pre>
 <p>Run <code>data_preparation_examples.ipynb</code> for the lesson and complete <code>activity11.ipynb</code> for your own activity report, with <code>stat303-data-preparation</code> as the notebook working folder. The data is read with the relative path <code>"data/College.csv"</code>, so the notebooks find it only when that folder is the working folder.</p>
-<div id="prep-imports" class="cell" data-execution_count="1">
+<div id="prep-imports" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:31.588394Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:31.588249Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.454317Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.453679Z&quot;}}" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -509,7 +516,7 @@ window.Quarto = {
 <section id="the-data" class="level2" data-number="11.2">
 <h2 data-number="11.2" class="anchored" data-anchor-id="the-data"><span class="header-section-number">11.2</span> The data</h2>
 <p>This chapter uses the college data from the outlier section of <a href="./Data_cleaning.html">Data Cleaning</a>: 777 US colleges, with the college names as row labels. That chapter found one impossible value, a graduation rate of 118%, and decided to mark it as missing. The same decision is applied here, before anything else:</p>
-<div id="prep-load" class="cell" data-execution_count="2">
+<div id="prep-load" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.455821Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.455681Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.465659Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.465137Z&quot;}}" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>college <span class="op">=</span> pd.read_csv(<span class="st">"data/College.csv"</span>, index_col<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>college.loc[college[<span class="st">"Grad.Rate"</span>] <span class="op">&gt;</span> <span class="dv">100</span>, <span class="st">"Grad.Rate"</span>] <span class="op">=</span> np.nan</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -586,13 +593,13 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>The columns used most below are <code>Expend</code> (instructional expenditure per student, in dollars), <code>Grad.Rate</code> (graduation rate, as a percentage), <code>Outstate</code> (out-of-state tuition), <code>Top10perc</code> (the percentage of new students from the top 10% of their high-school class), and <code>Private</code> (<code>"Yes"</code> or <code>"No"</code>).</p>
+<p>The columns used most below are <code>Expend</code> (instructional expenditure per student, in dollars), <code>Grad.Rate</code> (graduation rate, as a percentage), <code>Outstate</code> (out-of-state tuition, in dollars), <code>Apps</code> (number of applications), and <code>Private</code> (<code>"Yes"</code> or <code>"No"</code>).</p>
 <p>The question running through the first section is a simple one: <strong>do colleges that spend more per student graduate more of their students?</strong></p>
 </section>
 <section id="bin-a-numeric-column" class="level2" data-number="11.3">
 <h2 data-number="11.3" class="anchored" data-anchor-id="bin-a-numeric-column"><span class="header-section-number">11.3</span> Bin a numeric column</h2>
 <p>A scatter plot answers the spending question for every college at once, and with 777 noisy points the answer is hard to read:</p>
-<div id="prep-scatter" class="cell" data-execution_count="3">
+<div id="prep-scatter" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.466851Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.466768Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.540631Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.540119Z&quot;}}" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="fl">4.5</span>), layout<span class="op">=</span><span class="st">"constrained"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(data<span class="op">=</span>college, x<span class="op">=</span><span class="st">"Expend"</span>, y<span class="op">=</span><span class="st">"Grad.Rate"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, ax<span class="op">=</span>ax)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>ax.xaxis.set_major_formatter(<span class="st">"$</span><span class="sc">{x:,.0f}</span><span class="st">"</span>)</span>
@@ -606,43 +613,12 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Each college is one point, and <code>Expend</code> alone has hundreds of distinct values. The standard way to make a comparison like this readable is to bin the column.</p>
+<p>Each college is one point, and <code>Expend</code> alone has hundreds of distinct values. One way to make a comparison like this readable is to bin the column.</p>
 <section id="what-binning-is-and-why-it-helps" class="level3" data-number="11.3.1">
 <h3 data-number="11.3.1" class="anchored" data-anchor-id="what-binning-is-and-why-it-helps"><span class="header-section-number">11.3.1</span> What binning is, and why it helps</h3>
 <p><strong>Data binning</strong> groups the values of a numeric column into a few intervals, called <strong>bins</strong>, and records which bin each value falls into instead of the value itself. Think of it as sorting a long list of numbers into a few labelled jars. Binning simplifies a column so that patterns become visible and comparisons become easy to state.</p>
-<p><strong>Why bin?</strong></p>
-<ul>
-<li><strong>Easier interpretation.</strong> Instead of hundreds of distinct values, you summarize a handful of groups. Rather than every possible age, a report might use the age groups “under 20”, “20 to 30”, “30 to 40”, and “40 and over”.</li>
-<li><strong>Targeted decisions.</strong> Groups support decisions made group by group. A doctor may recommend different treatments for children, adults, and older adults, each defined by an age bin.</li>
-<li><strong>Less noise.</strong> Grouping smooths random fluctuation. Daily sales may jump around, while weekly or monthly totals show the trend.</li>
-</ul>
-<p><strong>Binning in the real world.</strong></p>
-<ul>
-<li><strong>Tax brackets.</strong> Income is binned into ranges that are taxed at different rates. For a single filer in 2024, the first $11,600 of taxable income is taxed at 10%, the part from $11,601 to $47,150 at 12%, and the part above that at 22% or more.</li>
-<li><strong>Customer segments.</strong> A credit card company may bin customers into high, medium, and low spenders and market to each group differently.</li>
-<li><strong>Medical guidelines.</strong> Vaccine recommendations often depend on age bins, such as under 12, 12 to 18, 18 to 65, and over 65.</li>
-</ul>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/binning-tax-brackets.png" class="img-fluid figure-img" width="300"></p>
-<figcaption>Tax brackets bin a taxable income of $50,000 into three ranges, each taxed at its own rate.</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/binning-age-groups.png" class="img-fluid figure-img" width="300"></p>
-<figcaption>A bar chart of counts by binned age: four age groups replace every distinct age.</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<p>Here, binning <code>Expend</code> into low, medium, and high spending lets you compare one summary per group instead of reading a cloud of points. The price is detail: once a college is “medium”, the exact dollar figure is gone. That makes the choice of bins, how many and where their edges fall, the important decision. There are three common ways to make it, and the rest of this section works through each:</p>
+<p><strong>Why bin?</strong> Bins make it easier to describe and compare groups. For example, a retailer might classify customers as low, medium, or high spenders, or a college might use tuition bands in a report. The boundaries should serve the question being asked. Binning assigns observations to groups; calculating a total or average for each group is a separate step called <strong>aggregation</strong>, covered in the next chapter.</p>
+<p>Here, binning <code>Expend</code> into low, medium, and high spending lets you compare one summary per group instead of reading a cloud of points. The price is detail: once a college is “medium”, its exact dollar figure is no longer represented in that label. The original <code>Expend</code> column is still available; we store the bin labels in a separate column. That makes the choice of bins, how many and where their edges fall, the important decision. There are three common ways to make it, and the rest of this section works through each:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
@@ -668,7 +644,7 @@ window.Quarto = {
 <tr class="even">
 <td>Equal-count (quantile)</td>
 <td><code>pd.qcut(s, k)</code></td>
-<td>The same count, any width</td>
+<td>Approximately equal counts, any width</td>
 <td>Skewed columns; groups you want to compare</td>
 </tr>
 <tr class="odd">
@@ -683,7 +659,7 @@ window.Quarto = {
 <section id="equal-width-bins-with-cut" class="level3" data-number="11.3.2">
 <h3 data-number="11.3.2" class="anchored" data-anchor-id="equal-width-bins-with-cut"><span class="header-section-number">11.3.2</span> Equal-width bins with <code>cut()</code></h3>
 <p><a href="https://pandas.pydata.org/docs/reference/api/pandas.cut.html"><code>pd.cut(column, 3)</code></a> divides the range of a column, from its minimum to its maximum, into 3 intervals of equal width, and returns which interval each value falls into. <code>value_counts(sort=False)</code> lists the intervals in order with their counts:</p>
-<div id="prep-cut-width" class="cell" data-execution_count="4">
+<div id="prep-cut-width" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.541765Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.541668Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.545838Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.545384Z&quot;}}" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pd.cut(college[<span class="st">"Expend"</span>], <span class="dv">3</span>).value_counts(sort<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>Expend
@@ -694,25 +670,24 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>Each interval is written <code>(left, right]</code>: the round bracket means the left edge is excluded and the square bracket means the right edge is included, so every value belongs to exactly one bin. (The lowest edge sits slightly below the minimum so that the minimum is included.)</p>
-<p>The widths are equal, about $17,700 each, but the counts are not: 751 colleges in the first bin, 21 in the second, and 5 in the third. <code>Expend</code> is strongly right-skewed, as Data Cleaning showed, so a few very high spenders stretch the range and the top two bins cover almost no one. Comparing group means anyway gives a misleading answer:</p>
-<div id="prep-cut-width-means" class="cell" data-execution_count="5">
+<p>The widths are equal, about $17,700 each, but the counts are not: 751 colleges in the first bin, 21 in the second, and 5 in the third. <code>Expend</code> is strongly right-skewed, as Data Cleaning showed, so a few very high spenders stretch the range and the top two bins cover almost no one. We can give the bins names and check their counts:</p>
+<div id="prep-cut-width-means" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.546879Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.546799Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.550013Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.549594Z&quot;}}" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>width_level <span class="op">=</span> pd.cut(college[<span class="st">"Expend"</span>], <span class="dv">3</span>, labels<span class="op">=</span>[<span class="st">"Low"</span>, <span class="st">"Medium"</span>, <span class="st">"High"</span>])</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>college.groupby(width_level)[<span class="st">"Grad.Rate"</span>].mean().<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>width_level.value_counts(sort<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>Expend
-Low       64.6
-Medium    90.6
-High      83.2
-Name: Grad.Rate, dtype: float64</code></pre>
+Low       751
+Medium     21
+High        5
+Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<p><code>labels=</code> names the bins in order, from lowest to highest. The <code>groupby(...).mean()</code> pattern is the one introduced in Data Cleaning, here grouping by the bin each college falls into.</p>
-<p>Read naively, the table says medium spenders graduate the most students. But “medium” and “high” are 21 and 5 colleges; a single unusual school moves either mean by several points. <strong>Always check the counts before comparing bins.</strong> Equal-width bins suit columns whose values are spread fairly evenly. For a skewed column they put nearly everything in one bin.</p>
+<p><code>labels=</code> names the bins in order, from lowest to highest. The labels change how the bins are displayed, but do not change their edges or counts. <strong>Always check the counts after binning.</strong> Here, almost every college is labelled “Low”, so these bins do little to distinguish spending levels among most colleges.</p>
 </section>
 <section id="equal-count-bins-with-qcut" class="level3" data-number="11.3.3">
 <h3 data-number="11.3.3" class="anchored" data-anchor-id="equal-count-bins-with-qcut"><span class="header-section-number">11.3.3</span> Equal-count bins with <code>qcut()</code></h3>
-<p><a href="https://pandas.pydata.org/docs/reference/api/pandas.qcut.html"><code>pd.qcut(column, 3)</code></a> does the opposite: it places the edges at the column’s quantiles, so each bin holds roughly the same number of rows. Three equal-count bins are called <strong>tertiles</strong>:</p>
-<div id="prep-qcut" class="cell" data-execution_count="6">
+<p><a href="https://pandas.pydata.org/docs/reference/api/pandas.qcut.html"><code>pd.qcut(column, 3)</code></a> does the opposite: it places the edges at the column’s quantiles, so each bin holds roughly the same number of rows. Three equal-count bins are called <strong>tertiles</strong>. Tied values must stay together, so counts may differ. If ties produce duplicate bin edges, <code>qcut()</code> raises an error; use fewer bins or inspect <code>duplicates="drop"</code> (which reduces the number of bins and requires matching labels).</p>
+<div id="prep-qcut" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.551272Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.551196Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.554959Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.554467Z&quot;}}" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>college[<span class="st">"expend_level"</span>] <span class="op">=</span> pd.qcut(college[<span class="st">"Expend"</span>], <span class="dv">3</span>, labels<span class="op">=</span>[<span class="st">"Low"</span>, <span class="st">"Medium"</span>, <span class="st">"High"</span>])</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>college[<span class="st">"expend_level"</span>].value_counts(sort<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
@@ -724,7 +699,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>Each bin now holds 259 colleges. The edges fall at about $7,334 and $9,682, the 33rd and 67th percentiles. Drawing both sets of edges on the distribution shows the difference between the two methods:</p>
-<div id="prep-edges-plot" class="cell" data-execution_count="7">
+<div id="prep-edges-plot" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.555985Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.555909Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.688087Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.687481Z&quot;}}" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>width_edges <span class="op">=</span> np.linspace(college[<span class="st">"Expend"</span>].<span class="bu">min</span>(), college[<span class="st">"Expend"</span>].<span class="bu">max</span>(), <span class="dv">4</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>count_edges <span class="op">=</span> college[<span class="st">"Expend"</span>].quantile([<span class="dv">0</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">2</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">1</span>])</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -748,9 +723,9 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>The red lines are the bin edges. <code>np.linspace(low, high, 4)</code> gives four equally spaced numbers, which are the edges <code>cut()</code> used, and <code>quantile([0, 1/3, 2/3, 1])</code> gives the edges <code>qcut()</code> used. <code>ax.axvline(x)</code> draws a vertical line at <code>x</code> across the panel.</p>
-<p>On the left, the equal-width edges are evenly spaced, so almost every college lands left of the first interior line. On the right, the equal-count edges crowd into the dense part of the distribution, so the bins are narrow where colleges are crowded and wide where they are sparse. The 5 highest spenders no longer get a bin of their own; they are simply part of “High”. That is a third way of handling extreme values, alongside the removing and capping in Data Cleaning: an extreme value can only move its bin’s mean, not create an empty bin.</p>
+<p>On the left, the equal-width edges are evenly spaced, so almost every college lands left of the first interior line. On the right, the equal-count edges crowd into the dense part of the distribution, so the bins are narrow where colleges are crowded and wide where they are sparse. The 5 highest spenders no longer get a bin of their own; they are simply part of “High”. Equal-count binning keeps group sizes balanced, but it does not remove extreme values from the original spending column. The “High” label hides a wide range of spending.</p>
 <p>Comparing graduation rates across the tertiles, with the mean for each bar:</p>
-<div id="prep-qcut-bar" class="cell" data-execution_count="8">
+<div id="prep-qcut-bar" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.689272Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.689170Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.753945Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.753506Z&quot;}}" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>), layout<span class="op">=</span><span class="st">"constrained"</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>college, x<span class="op">=</span><span class="st">"expend_level"</span>, y<span class="op">=</span><span class="st">"Grad.Rate"</span>, ax<span class="op">=</span>ax)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"Spending per student (tertile)"</span>, ylabel<span class="op">=</span><span class="st">"Mean graduation rate (%)"</span>)</span>
@@ -763,12 +738,12 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<p>Graduation rates rise steadily, from 57.3% to 65.9% to 73.0%. As in <a href="./data_viz_1.html">Data Visualization I</a>, <code>barplot</code> computes the mean of each group for you, the same <code>groupby(...).mean()</code> as above, and the line on each bar is a 95% confidence interval: none of the three intervals overlap. The pattern the scatter plot hinted at is now easy to read, and each bar is backed by 259 colleges.</p>
+<p>Graduation rates rise steadily, from 57.3% to 65.9% to 73.0%. As in <a href="./data_viz_1.html">Data Visualization I</a>, <code>barplot</code> computes the mean of each group for you, and the line on each bar is a 95% confidence interval: none of the three intervals overlap. The pattern the scatter plot hinted at is now easy to read, and each bar is backed by 259 colleges, but the middle group has 258 valid graduation rates because one was marked missing. The mean uses only the nonmissing rates. This is an association: the plot alone does not show that increasing spending would cause a higher graduation rate.</p>
 </section>
 <section id="bins-you-choose" class="level3" data-number="11.3.4">
 <h3 data-number="11.3.4" class="anchored" data-anchor-id="bins-you-choose"><span class="header-section-number">11.3.4</span> Bins you choose</h3>
 <p>Sometimes the edges should come from the question rather than from the data: a budget category, a policy threshold, a grading cutoff. Pass <code>cut()</code> a list of edges instead of a number of bins:</p>
-<div id="prep-cut-custom" class="cell" data-execution_count="9">
+<div id="prep-cut-custom" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.755172Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.755087Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.758545Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.758088Z&quot;}}" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>edges <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">10_000</span>, <span class="dv">20_000</span>, np.inf]</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> [<span class="st">"Under $10K"</span>, <span class="st">"$10K to $20K"</span>, <span class="st">"$20K and over"</span>]</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -784,13 +759,13 @@ Name: count, dtype: int64</code></pre>
 </div>
 <p>Three details make custom bins behave:</p>
 <ul>
-<li><strong><code>np.inf</code></strong> is infinity, so the last bin has no upper limit and no college can fall outside it. Any value outside the edges you give would become <code>NaN</code>.</li>
+<li><strong><code>np.inf</code></strong> is infinity, so the last bin has no upper limit and all finite spending values at or above zero fit within these edges. Any value outside the edges you give would become <code>NaN</code>.</li>
 <li><strong><code>right=False</code></strong> closes each interval on the left instead, <code>[left, right)</code>, so a college spending exactly $10,000 lands in “$10K to $20K”, which matches how the labels read. Writing <code>10_000</code> with an underscore is the same number as <code>10000</code>, just easier to read.</li>
 <li><strong><code>labels=</code></strong> needs one name per bin: three bins from four edges.</li>
 </ul>
-<p>These bins answer a budgeting question — how many colleges spend over $20,000 per student? 28 — at the cost of uneven group sizes, the same trade-off as equal-width bins.</p>
+<p>These bins answer a budgeting question — how many colleges spend at least $20,000 per student? 28 — at the cost of uneven group sizes, the same trade-off as equal-width bins.</p>
 <p><code>qcut()</code> accepts a list too, but its list holds <strong>quantiles</strong> rather than values. This splits colleges at the median and the 90th percentile, to set the top 10% of spenders apart:</p>
-<div id="prep-qcut-custom" class="cell" data-execution_count="10">
+<div id="prep-qcut-custom" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.759680Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.759605Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.762973Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.762581Z&quot;}}" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>spending_group <span class="op">=</span> pd.qcut(college[<span class="st">"Expend"</span>], [<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="fl">0.9</span>, <span class="dv">1</span>],</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>                         labels<span class="op">=</span>[<span class="st">"Bottom half"</span>, <span class="st">"50th to 90th percentile"</span>, <span class="st">"Top 10%"</span>])</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>spending_group.value_counts(sort<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -804,11 +779,19 @@ Name: count, dtype: int64</code></pre>
 </div>
 <p>The list runs from 0 to 1 and the bins hold 50%, 40%, and 10% of the colleges: 389, 310, and 78. Use <code>cut()</code> with a list when the edges are values that mean something, and <code>qcut()</code> with a list when they are shares of the data.</p>
 </section>
-<section id="an-association-not-a-recipe" class="level3" data-number="11.3.5">
-<h3 data-number="11.3.5" class="anchored" data-anchor-id="an-association-not-a-recipe"><span class="header-section-number">11.3.5</span> An association, not a recipe</h3>
-<p>The tertile table invites a recommendation: a college in the low tertile that moved into the high one could expect its graduation rate to rise by about 16 points. The data cannot support that. It shows that colleges which spend more <em>also</em> graduate more students, not that spending more <em>causes</em> higher graduation. High-spending colleges differ in other ways too, and one of them is easy to check:</p>
-<div id="prep-confounder" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>college.groupby(<span class="st">"expend_level"</span>)[[<span class="st">"Grad.Rate"</span>, <span class="st">"Top10perc"</span>]].mean().<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="rescale-numeric-columns" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="rescale-numeric-columns"><span class="header-section-number">11.4</span> Rescale numeric columns</h2>
+<p>Binning turns numeric values into categories. Scaling keeps them numeric but changes their units. It is useful for modeling methods that are sensitive to the scale of their inputs, where larger numerical ranges can otherwise dominate a calculation.</p>
+<p><strong>Why scale features?</strong></p>
+<ul>
+<li>Many algorithms (e.g., k-nearest neighbors, k-means, principal component analysis, gradient descent-based models) compute distances or rely on feature magnitude.</li>
+<li>Features with larger scales can unduly influence the model if not scaled.</li>
+</ul>
+<p>A <strong>feature</strong> is a column a method uses as an input; in this chapter, it is simply a column. The college columns are measured on very different scales:</p>
+<div id="prep-scales" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.764099Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.764024Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.769941Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.769441Z&quot;}}" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>scale_cols <span class="op">=</span> [<span class="st">"Apps"</span>, <span class="st">"Outstate"</span>, <span class="st">"Grad.Rate"</span>]</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>college[scale_cols].describe().<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <div>
 
@@ -817,30 +800,59 @@ Name: count, dtype: int64</code></pre>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Apps</th>
+<th data-quarto-table-cell-role="th">Outstate</th>
 <th data-quarto-table-cell-role="th">Grad.Rate</th>
-<th data-quarto-table-cell-role="th">Top10perc</th>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">expend_level</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">Low</th>
-<td>57.3</td>
-<td>17.6</td>
+<th data-quarto-table-cell-role="th">count</th>
+<td>777.0</td>
+<td>777.0</td>
+<td>776.0</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">Medium</th>
-<td>65.9</td>
-<td>24.9</td>
+<th data-quarto-table-cell-role="th">mean</th>
+<td>3001.6</td>
+<td>10440.7</td>
+<td>65.4</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">High</th>
-<td>73.0</td>
-<td>40.1</td>
+<th data-quarto-table-cell-role="th">std</th>
+<td>3870.2</td>
+<td>4023.0</td>
+<td>17.1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">min</th>
+<td>81.0</td>
+<td>2340.0</td>
+<td>10.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">25%</th>
+<td>776.0</td>
+<td>7320.0</td>
+<td>53.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">50%</th>
+<td>1558.0</td>
+<td>9990.0</td>
+<td>65.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">75%</th>
+<td>3624.0</td>
+<td>12925.0</td>
+<td>78.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">max</th>
+<td>48094.0</td>
+<td>21700.0</td>
+<td>100.0</td>
 </tr>
 </tbody>
 </table>
@@ -848,35 +860,72 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<p>High-spending colleges admit far more students from the top 10% of their high-school class: 40% against 18%. Students who arrive better prepared are more likely to graduate wherever they enrol, so selectivity alone could produce much of the pattern. Binning makes a pattern easier to see; it does not make it a cause. Describe what you find as an association — “colleges in the highest spending tertile had a mean graduation rate 16 points higher than those in the lowest” — and name what else could explain it.</p>
-</section>
-</section>
-<section id="encode-categories-as-numbers" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="encode-categories-as-numbers"><span class="header-section-number">11.4</span> Encode categories as numbers</h2>
-<p>The binned spending levels you just made are categories, and so is <code>Private</code>. Working with them in most analyses requires one more step: turning the categories into numbers.</p>
-<p><strong>Why encode categorical variables?</strong></p>
-<ul>
-<li>Most statistical and machine-learning methods — correlation, regression, k-nearest neighbors, k-means — do arithmetic on their inputs, so every input must be a number.</li>
-<li>Categorical columns often carry some of the most useful information in a dataset, such as whether a college is public or private. Leaving them out because they are text throws that information away.</li>
-<li>The way you turn categories into numbers is itself a claim. Codes 0, 1, 2 assert an order and equal steps, so a poor encoding can mislead a model even when the code runs without errors.</li>
-</ul>
-<p>Asking pandas how <code>Private</code> relates to graduation rates shows the problem at once:</p>
-<div id="prep-corr-text" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    college[<span class="st">"Private"</span>].corr(college[<span class="st">"Grad.Rate"</span>])</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ValueError</span> <span class="im">as</span> error:</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"ValueError:"</span>, error)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>ValueError: could not convert string to float: 'Yes'</code></pre>
+<p>Applications, tuition, and graduation rates use different units and ranges. A difference of 100 applications and a difference of 1 percentage point cannot be compared directly by their numerical sizes. Scaling expresses each column on a common scale.</p>
+<p>We will keep the original columns and store the scaled versions separately:</p>
+<div id="prep-distance-raw" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.771038Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.770957Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.774203Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.773872Z&quot;}}" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>raw <span class="op">=</span> college[scale_cols]</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>raw.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Apps</th>
+<th data-quarto-table-cell-role="th">Outstate</th>
+<th data-quarto-table-cell-role="th">Grad.Rate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Abilene Christian University</th>
+<td>1660</td>
+<td>7440</td>
+<td>60.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Adelphi University</th>
+<td>2186</td>
+<td>12280</td>
+<td>56.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Adrian College</th>
+<td>1428</td>
+<td>11250</td>
+<td>54.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Agnes Scott College</th>
+<td>417</td>
+<td>12960</td>
+<td>59.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Alaska Pacific University</th>
+<td>193</td>
+<td>7560</td>
+<td>15.0</td>
+</tr>
+</tbody>
+</table>
+
 </div>
 </div>
-<p>A correlation is computed from arithmetic on both columns, and <code>"Yes"</code> cannot take part in arithmetic. The <code>try</code>/<code>except</code> lets the notebook show the error and keep running, as in <a href="./numpy_fundamentals.html">NumPy Fundamentals</a>. How you turn categories into numbers depends on whether they have an order.</p>
-<section id="two-categories-one-01-column" class="level3" data-number="11.4.1">
-<h3 data-number="11.4.1" class="anchored" data-anchor-id="two-categories-one-01-column"><span class="header-section-number">11.4.1</span> Two categories: one 0/1 column</h3>
-<p>A column with only two values becomes a single column of 0s and 1s. <code>map()</code>, from <a href="./pandas_intermediate.html">Pandas Intermediate</a>, replaces each value using a dictionary:</p>
-<div id="prep-map-private" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>college[<span class="st">"private_code"</span>] <span class="op">=</span> college[<span class="st">"Private"</span>].<span class="bu">map</span>({<span class="st">"No"</span>: <span class="dv">0</span>, <span class="st">"Yes"</span>: <span class="dv">1</span>})</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>college[[<span class="st">"Private"</span>, <span class="st">"private_code"</span>]].head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="minmax-scaling" class="level3" data-number="11.4.1">
+<h3 data-number="11.4.1" class="anchored" data-anchor-id="minmax-scaling"><span class="header-section-number">11.4.1</span> Min–max scaling</h3>
+<p>Min–max scaling expresses a value’s position between the column’s minimum and maximum:</p>
+<p><span class="math display">\[x_{\text{scaled}} = \frac{x - \min(x)}{\max(x) - \min(x)}\]</span></p>
+<p>The minimum becomes 0 and the maximum becomes 1. A value halfway between them becomes 0.5. This is what <code>MinMaxScaler</code> did before KNN imputation in Data Cleaning.</p>
+<div id="prep-minmax" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.775444Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.775369Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.779357Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.778971Z&quot;}}" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>minmax <span class="op">=</span> (raw <span class="op">-</span> raw.<span class="bu">min</span>()) <span class="op">/</span> (raw.<span class="bu">max</span>() <span class="op">-</span> raw.<span class="bu">min</span>())</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>pd.DataFrame({</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Tuition ($)"</span>: raw[<span class="st">"Outstate"</span>],</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Min–max tuition"</span>: minmax[<span class="st">"Outstate"</span>],</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>}).head().<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <div>
 
@@ -885,35 +934,35 @@ Name: count, dtype: int64</code></pre>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Private</th>
-<th data-quarto-table-cell-role="th">private_code</th>
+<th data-quarto-table-cell-role="th">Tuition ($)</th>
+<th data-quarto-table-cell-role="th">Min–max tuition</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Abilene Christian University</th>
-<td>Yes</td>
-<td>1</td>
+<td>7440</td>
+<td>0.263</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Adelphi University</th>
-<td>Yes</td>
-<td>1</td>
+<td>12280</td>
+<td>0.513</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Adrian College</th>
-<td>Yes</td>
-<td>1</td>
+<td>11250</td>
+<td>0.460</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Agnes Scott College</th>
-<td>Yes</td>
-<td>1</td>
+<td>12960</td>
+<td>0.549</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Alaska Pacific University</th>
-<td>Yes</td>
-<td>1</td>
+<td>7560</td>
+<td>0.270</td>
 </tr>
 </tbody>
 </table>
@@ -921,33 +970,184 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="prep-map-private-check" class="cell" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>college[<span class="st">"private_code"</span>].value_counts()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
-<pre><code>private_code
-1    565
-0    212
-Name: count, dtype: int64</code></pre>
-</div>
-</div>
-<p>The counts match the original column, 565 private colleges and 212 public ones, which is the check worth making after any encoding: a value missing from the dictionary would have become <code>NaN</code>. A 0/1 column is easy to read: its mean, <code>college["private_code"].mean()</code>, is the proportion of private colleges.</p>
-<p>The correlation that failed a moment ago now works:</p>
-<div id="prep-corr-encoded" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(college[<span class="st">"private_code"</span>].corr(college[<span class="st">"Grad.Rate"</span>]), <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>0.34</code></pre>
-</div>
-</div>
-<p>A correlation of 0.34 says private colleges tend to have higher graduation rates. With a 0/1 column the comparison is easy to check directly: private colleges average about 69% and public ones about 56%.</p>
+<p><code>raw.min()</code> gives one minimum per column, so pandas uses each column’s own minimum and range. The table shows original tuition beside its scaled value: 0.5 would mean halfway between the smallest and largest tuition, not the median or the 50th percentile.</p>
+<p>Check that each scaled column has minimum 0 and maximum 1 with <code>minmax.describe().loc[["min", "max"]]</code>.</p>
 </section>
-<section id="ordered-categories-a-code-that-keeps-the-order" class="level3" data-number="11.4.2">
-<h3 data-number="11.4.2" class="anchored" data-anchor-id="ordered-categories-a-code-that-keeps-the-order"><span class="header-section-number">11.4.2</span> Ordered categories: a code that keeps the order</h3>
-<p>The spending tertiles have a natural order, so codes 0, 1, and 2 keep a meaning — higher code, higher spending:</p>
-<div id="prep-map-ordinal" class="cell" data-execution_count="16">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>level_codes <span class="op">=</span> {<span class="st">"Low"</span>: <span class="dv">0</span>, <span class="st">"Medium"</span>: <span class="dv">1</span>, <span class="st">"High"</span>: <span class="dv">2</span>}</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>college[<span class="st">"expend_code"</span>] <span class="op">=</span> college[<span class="st">"expend_level"</span>].<span class="bu">map</span>(level_codes)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>college[[<span class="st">"Expend"</span>, <span class="st">"expend_level"</span>, <span class="st">"expend_code"</span>]].head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
+<section id="standardization" class="level3" data-number="11.4.2">
+<h3 data-number="11.4.2" class="anchored" data-anchor-id="standardization"><span class="header-section-number">11.4.2</span> Standardization</h3>
+<p>Standardization converts each value into a <strong>z-score</strong>: how many standard deviations it is above or below its column’s mean.</p>
+<p><span class="math display">\[z = \frac{x - \bar{x}}{s}\]</span></p>
+<p>A z-score of 0 is at the mean, 1 is one standard deviation above it, and −1 is one standard deviation below it. Unlike min–max scaling, z-scores have no fixed range.</p>
+<div id="prep-standardize" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.780459Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.780385Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.784490Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.784012Z&quot;}}" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>standardized <span class="op">=</span> (raw <span class="op">-</span> raw.mean()) <span class="op">/</span> raw.std()</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>pd.DataFrame({</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Tuition ($)"</span>: raw[<span class="st">"Outstate"</span>],</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Min–max tuition"</span>: minmax[<span class="st">"Outstate"</span>],</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Standardized tuition"</span>: standardized[<span class="st">"Outstate"</span>],</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>}).head().<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Tuition ($)</th>
+<th data-quarto-table-cell-role="th">Min–max tuition</th>
+<th data-quarto-table-cell-role="th">Standardized tuition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Abilene Christian University</th>
+<td>7440</td>
+<td>0.263</td>
+<td>-0.746</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Adelphi University</th>
+<td>12280</td>
+<td>0.513</td>
+<td>0.457</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Adrian College</th>
+<td>11250</td>
+<td>0.460</td>
+<td>0.201</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Agnes Scott College</th>
+<td>12960</td>
+<td>0.549</td>
+<td>0.626</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Alaska Pacific University</th>
+<td>7560</td>
+<td>0.270</td>
+<td>-0.716</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>The two transformations answer different questions: min–max scaling locates tuition within its observed range; standardization locates it relative to its mean and standard deviation. Both preserve the order of values within a column.</p>
+<p>Check the results. After rounding, the standardized means should be 0 and standard deviations should be 1:</p>
+<div id="prep-distance-z" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.785441Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.785368Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.792080Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.791632Z&quot;}}" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Min–max check:"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(minmax.describe().loc[[<span class="st">"min"</span>, <span class="st">"max"</span>]].<span class="bu">round</span>(<span class="dv">3</span>))</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Standardization check:"</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(standardized.describe().loc[[<span class="st">"mean"</span>, <span class="st">"std"</span>]].<span class="bu">round</span>(<span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Min–max check:
+     Apps  Outstate  Grad.Rate
+min   0.0       0.0        0.0
+max   1.0       1.0        1.0
+
+Standardization check:
+      Apps  Outstate  Grad.Rate
+mean   0.0       0.0       -0.0
+std    1.0       1.0        1.0</code></pre>
+</div>
+</div>
+<p>Small differences from zero can come from floating-point arithmetic. Plotting the columns before and after standardization shows what changed and what stayed the same:</p>
+<div id="prep-scale-plot" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.793082Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.793010Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.918766Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.918188Z&quot;}}" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>fig, (ax_raw, ax_z) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="dv">4</span>), layout<span class="op">=</span><span class="st">"constrained"</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>raw, ax<span class="op">=</span>ax_raw)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>ax_raw.<span class="bu">set</span>(title<span class="op">=</span><span class="st">"Original units"</span>, ylabel<span class="op">=</span><span class="st">"Value"</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>standardized, ax<span class="op">=</span>ax_z)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>ax_z.<span class="bu">set</span>(title<span class="op">=</span><span class="st">"Standardized"</span>, ylabel<span class="op">=</span><span class="st">"Standard deviations from the mean"</span>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Data_preparation_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Passing a whole DataFrame as <code>data=</code> draws one box per column. On the left, graduation rate is invisible next to applications; on the right, all three are comparable. The <em>shapes</em> have not changed: applications are just as right-skewed after standardizing as before. Rescaling is a linear change of units. To reduce skew you need a transformation such as the log in Data Cleaning.</p>
+</section>
+<section id="checks-before-scaling" class="level3" data-number="11.4.3">
+<h3 data-number="11.4.3" class="anchored" data-anchor-id="checks-before-scaling"><span class="header-section-number">11.4.3</span> Checks before scaling</h3>
+<ul>
+<li><strong>Constant columns:</strong> if every value is the same, the range and standard deviation are zero. These formulas would divide by zero; set such columns aside.</li>
+<li><strong>Missing values:</strong> pandas skips them when computing the mean, minimum, maximum, and standard deviation, but the missing entries remain missing after scaling.</li>
+<li><strong>Extreme values:</strong> both methods can be affected by outliers. Min–max scaling can squeeze most observations into a small part of the interval. Scaling does not remove outliers or make a skewed distribution symmetric.</li>
+</ul>
+<details>
+<summary>
+Optional: two standard deviation conventions
+</summary>
+<p>Pandas uses the sample standard deviation (<code>ddof=1</code>), dividing the squared-deviation sum by <span class="math inline">\(n-1\)</span>. <code>StandardScaler</code> uses <code>ddof=0</code>, dividing by <span class="math inline">\(n\)</span>. Here, <span class="math inline">\(n\)</span> is the number of nonmissing values in each column. The difference is small for this dataset; use one convention consistently when checking your results.</p>
+</details>
+</section>
+<section id="what-not-to-rescale" class="level3" data-number="11.4.4">
+<h3 data-number="11.4.4" class="anchored" data-anchor-id="what-not-to-rescale"><span class="header-section-number">11.4.4</span> What not to rescale</h3>
+<p>For this chapter, rescale columns that measure quantities, such as applications or tuition. Leave identifiers and category labels alone: a college ID or a spending label does not measure an amount. In the next section, we will represent categories with numeric codes and indicator columns. Keep those encodings unchanged in these exercises; decisions about scaling encoded predictors depend on the modeling method.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Formula</th>
+<th>Result</th>
+<th>Use when</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Min–max</td>
+<td><code>(x - x.min()) / (x.max() - x.min())</code></td>
+<td>Every column from 0 to 1</td>
+<td>You want values relative to their observed range</td>
+</tr>
+<tr class="even">
+<td>Standardization</td>
+<td><code>(x - x.mean()) / x.std()</code></td>
+<td>Mean 0, SD 1</td>
+<td>You want “how unusual” in common units</td>
+</tr>
+</tbody>
+</table>
+<p>Not every method needs rescaling at all. Rescaling matters for methods that combine columns, through distances as in KNN or through weighted sums. Methods that look at one column at a time, such as the decision trees you will meet in later courses, which split the data at a threshold on a single column, give the same result on raw and rescaled data.</p>
+</section>
+</section>
+<section id="encode-categories-as-numbers" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="encode-categories-as-numbers"><span class="header-section-number">11.5</span> Encode categories as numbers</h2>
+<p>The spending levels created earlier are categories, and so is <code>Private</code>. Many modeling methods require numeric inputs. Encoding represents a category with a code or a set of indicators while preserving which category each observation belongs to.</p>
+<p>Start by identifying the type of categorical variable:</p>
+<ul>
+<li><strong>Ordinal:</strong> categories have a meaningful order, such as Low, Medium, High.</li>
+<li><strong>Nominal:</strong> categories have no meaningful order, such as Biology, CS, Math.</li>
+</ul>
+<p>Both types are discrete. “Nominal” is the term for unordered categories.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/categorical-encoding-guide.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Choose ordinal codes for ordered categories and one-hot indicators for unordered categories. A two-category variable needs only one 0/1 indicator. The appropriate encoding also depends on the model.</figcaption>
+</figure>
+</div>
+<section id="ordered-categories-ordinal-encoding" class="level3" data-number="11.5.1">
+<h3 data-number="11.5.1" class="anchored" data-anchor-id="ordered-categories-ordinal-encoding"><span class="header-section-number">11.5.1</span> Ordered categories: ordinal encoding</h3>
+<p>The spending tertiles have a meaningful order. Use <code>map()</code> with an explicit dictionary so the codes follow that order:</p>
+<div id="prep-map-ordinal" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.919958Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.919849Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.924112Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.923760Z&quot;}}" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>level_codes <span class="op">=</span> {<span class="st">"Low"</span>: <span class="dv">0</span>, <span class="st">"Medium"</span>: <span class="dv">1</span>, <span class="st">"High"</span>: <span class="dv">2</span>}</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>college[<span class="st">"expend_code"</span>] <span class="op">=</span> college[<span class="st">"expend_level"</span>].<span class="bu">map</span>(level_codes)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>college[[<span class="st">"Expend"</span>, <span class="st">"expend_level"</span>, <span class="st">"expend_code"</span>]].head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
 <div>
 
 
@@ -997,15 +1197,99 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<p>This is <strong>ordinal encoding</strong>. It is only safe when the order is real. Coding three majors as Biology = 0, CS = 1, Math = 2 would tell any method that CS sits between the other two and that Math is “twice” CS, which means nothing. Even for ordered categories, codes 0, 1, 2 claim the steps are equal: that “Low” to “Medium” is the same distance as “Medium” to “High”. When that is doubtful, use the next encoding instead.</p>
+<p>The codes preserve Low &lt; Medium &lt; High. They are category codes, not dollar amounts. Some models treat 0, 1, and 2 as equally spaced numerical inputs; check whether that assumption suits the model and the question. The codes do not mean that High represents twice the spending of Medium.</p>
+<p>Check that every category has a code and that the original and encoded counts match:</p>
+<div id="prep-map-private-check" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.925441Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.925363Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.928080Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.927594Z&quot;}}" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(college[<span class="st">"expend_level"</span>].value_counts(sort<span class="op">=</span><span class="va">False</span>, dropna<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(college[<span class="st">"expend_code"</span>].value_counts(sort<span class="op">=</span><span class="va">False</span>, dropna<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>expend_level
+Low       259
+Medium    259
+High      259
+Name: count, dtype: int64
+expend_code
+0    259
+1    259
+2    259
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
 </section>
-<section id="one-indicator-column-per-category" class="level3" data-number="11.4.3">
-<h3 data-number="11.4.3" class="anchored" data-anchor-id="one-indicator-column-per-category"><span class="header-section-number">11.4.3</span> One indicator column per category</h3>
-<p><a href="https://pandas.pydata.org/docs/reference/api/pandas.get_dummies.html"><code>pd.get_dummies()</code></a> turns a column with <em>k</em> categories into <em>k</em> <strong>indicator</strong> (or <strong>dummy</strong>) columns, each 1 where the row belongs to that category and 0 elsewhere. A small list of majors shows the idea:</p>
-<div id="prep-dummies-toy" class="cell" data-execution_count="17">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>majors <span class="op">=</span> pd.Series([<span class="st">"Math"</span>, <span class="st">"Biology"</span>, <span class="st">"CS"</span>, <span class="st">"Math"</span>, <span class="st">"CS"</span>], name<span class="op">=</span><span class="st">"major"</span>)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>pd.get_dummies(majors, dtype<span class="op">=</span><span class="bu">int</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
+<section id="two-categories-a-single-01-indicator" class="level3" data-number="11.5.2">
+<h3 data-number="11.5.2" class="anchored" data-anchor-id="two-categories-a-single-01-indicator"><span class="header-section-number">11.5.2</span> Two categories: a single 0/1 indicator</h3>
+<p>A two-category variable needs only one indicator. For <code>Private</code>, 1 means private and 0 means public. This labels membership; it does not rank one type above the other. <code>map()</code>, introduced in Pandas Intermediate, applies the dictionary to each value:</p>
+<div id="prep-map-private" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.929111Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.929036Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.932339Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.931906Z&quot;}}" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>college[<span class="st">"private_code"</span>] <span class="op">=</span> college[<span class="st">"Private"</span>].<span class="bu">map</span>({<span class="st">"No"</span>: <span class="dv">0</span>, <span class="st">"Yes"</span>: <span class="dv">1</span>})</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>college[[<span class="st">"Private"</span>, <span class="st">"private_code"</span>]].head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Private</th>
+<th data-quarto-table-cell-role="th">private_code</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Abilene Christian University</th>
+<td>Yes</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Adelphi University</th>
+<td>Yes</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Adrian College</th>
+<td>Yes</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Agnes Scott College</th>
+<td>Yes</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Alaska Pacific University</th>
+<td>Yes</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Check the original and encoded counts, including missing values:</p>
+<div id="prep-corr-encoded" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.933412Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.933341Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.935735Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.935245Z&quot;}}" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(college[<span class="st">"Private"</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(college[<span class="st">"private_code"</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Private
+Yes    565
+No     212
+Name: count, dtype: int64
+private_code
+1    565
+0    212
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<p>There are 565 private colleges (1) and 212 public colleges (0). A category absent from the mapping dictionary would become <code>NaN</code>, so including missing values in the count check helps catch incomplete mappings.</p>
+</section>
+<section id="unordered-categories-one-hot-encoding" class="level3" data-number="11.5.3">
+<h3 data-number="11.5.3" class="anchored" data-anchor-id="unordered-categories-one-hot-encoding"><span class="header-section-number">11.5.3</span> Unordered categories: one-hot encoding</h3>
+<p>Assigning Biology = 0, CS = 1, and Math = 2 would invent an order. Instead, <code>pd.get_dummies()</code> creates one <strong>indicator</strong> column per category: 1 for membership and 0 otherwise. This is called <strong>one-hot encoding</strong>.</p>
+<div id="prep-dummies-toy" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.936769Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.936697Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.939673Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.939282Z&quot;}}" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>majors <span class="op">=</span> pd.Series([<span class="st">"Math"</span>, <span class="st">"Biology"</span>, <span class="st">"CS"</span>, <span class="st">"Math"</span>, <span class="st">"CS"</span>], name<span class="op">=</span><span class="st">"major"</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>pd.get_dummies(majors, dtype<span class="op">=</span><span class="bu">int</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
 <div>
 
 
@@ -1055,14 +1339,14 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<p>No order is implied: each major gets its own column, and every row has exactly one 1. <code>dtype=int</code> asks for 0s and 1s instead of <code>True</code> and <code>False</code>. This is called <strong>one-hot encoding</strong>.</p>
-<p>One-hot encoding also suits the spending tertiles, even though they are ordered. Their steps are far from equal: the edge figure showed “Medium” spanning about $2,300, from $7,334 to $9,682, while “High” spans more than $46,000. Codes 0, 1, 2 would treat those two steps as the same size. Indicator columns make no claim about step size at all.</p>
-<p>The same function works on a DataFrame column. <code>prefix=</code> names the new columns after their source, and <code>pd.concat(..., axis=1)</code>, from <a href="./pandas_fundamentals.html">Pandas Fundamentals</a>, attaches them beside the original columns:</p>
-<div id="prep-dummies-college" class="cell" data-execution_count="18">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>expend_dummies <span class="op">=</span> pd.get_dummies(college[<span class="st">"expend_level"</span>], prefix<span class="op">=</span><span class="st">"expend"</span>, dtype<span class="op">=</span><span class="bu">int</span>)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>college_encoded <span class="op">=</span> pd.concat([college, expend_dummies], axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>college_encoded[[<span class="st">"expend_level"</span>, <span class="st">"expend_Low"</span>, <span class="st">"expend_Medium"</span>, <span class="st">"expend_High"</span>]].head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
+<p>Each row has one 1 and the other entries are 0. <code>dtype=int</code> requests integer indicators. The columns express category membership without imposing an order among majors.</p>
+<p>To attach indicators to a DataFrame, give the new columns a prefix and use <code>pd.concat(..., axis=1)</code>. This small example keeps the original major beside its indicators:</p>
+<div id="prep-dummies-college" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.940705Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.940635Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.944179Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.943820Z&quot;}}" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>major_data <span class="op">=</span> pd.DataFrame({<span class="st">"major"</span>: majors})</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>major_dummies <span class="op">=</span> pd.get_dummies(major_data[<span class="st">"major"</span>], prefix<span class="op">=</span><span class="st">"major"</span>, dtype<span class="op">=</span><span class="bu">int</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>major_encoded <span class="op">=</span> pd.concat([major_data, major_dummies], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>major_encoded</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
 <div>
 
 
@@ -1070,47 +1354,47 @@ Name: count, dtype: int64</code></pre>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">expend_level</th>
-<th data-quarto-table-cell-role="th">expend_Low</th>
-<th data-quarto-table-cell-role="th">expend_Medium</th>
-<th data-quarto-table-cell-role="th">expend_High</th>
+<th data-quarto-table-cell-role="th">major</th>
+<th data-quarto-table-cell-role="th">major_Biology</th>
+<th data-quarto-table-cell-role="th">major_CS</th>
+<th data-quarto-table-cell-role="th">major_Math</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">Abilene Christian University</th>
-<td>Low</td>
+<th data-quarto-table-cell-role="th">0</th>
+<td>Math</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>Biology</td>
 <td>1</td>
 <td>0</td>
 <td>0</td>
 </tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>CS</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">Adelphi University</th>
-<td>High</td>
+<th data-quarto-table-cell-role="th">3</th>
+<td>Math</td>
 <td>0</td>
 <td>0</td>
 <td>1</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">Adrian College</th>
-<td>Medium</td>
+<th data-quarto-table-cell-role="th">4</th>
+<td>CS</td>
 <td>0</td>
 <td>1</td>
 <td>0</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">Agnes Scott College</th>
-<td>High</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">Alaska Pacific University</th>
-<td>High</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
 </tr>
 </tbody>
 </table>
@@ -1118,10 +1402,14 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<p>The three indicator columns always add up to 1, so any one of them can be worked out from the other two: a college with 0 in <code>expend_Medium</code> and 0 in <code>expend_High</code> must be “Low”. For methods such as linear regression, which you will meet in the next course, that redundancy causes trouble, and the usual fix is to drop one column with <code>drop_first=True</code>:</p>
-<div id="prep-drop-first-code" class="cell" data-execution_count="19">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>pd.get_dummies(college[<span class="st">"expend_level"</span>], prefix<span class="op">=</span><span class="st">"expend"</span>, dtype<span class="op">=</span><span class="bu">int</span>, drop_first<span class="op">=</span><span class="va">True</span>).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
+<p>Check that the indicator columns sum to 1 in each row with <code>major_dummies.sum(axis=1)</code>. This assumes every row has a known, nonmissing category. By default, a missing category produces all zeros; inspect missing values before encoding, or use <code>dummy_na=True</code> when you want a separate missing-value indicator.</p>
+</section>
+<section id="optional-a-reference-category" class="level3" data-number="11.5.4">
+<h3 data-number="11.5.4" class="anchored" data-anchor-id="optional-a-reference-category"><span class="header-section-number">11.5.4</span> Optional: a reference category</h3>
+<p>With all categories present, each row’s indicators sum to 1. For ordinary linear regression with an intercept, this creates redundant predictors. <code>drop_first=True</code> keeps one fewer indicator. This is a model-specific choice, not a requirement for all one-hot encoding:</p>
+<div id="prep-drop-first-code" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.945341Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.945272Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.948192Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.947771Z&quot;}}" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>pd.get_dummies(majors, prefix<span class="op">=</span><span class="st">"major"</span>, dtype<span class="op">=</span><span class="bu">int</span>, drop_first<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
 <div>
 
 
@@ -1129,35 +1417,35 @@ Name: count, dtype: int64</code></pre>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">expend_Medium</th>
-<th data-quarto-table-cell-role="th">expend_High</th>
+<th data-quarto-table-cell-role="th">major_CS</th>
+<th data-quarto-table-cell-role="th">major_Math</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">Abilene Christian University</th>
+<th data-quarto-table-cell-role="th">0</th>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
 <td>0</td>
 <td>0</td>
 </tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>1</td>
+<td>0</td>
+</tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">Adelphi University</th>
+<th data-quarto-table-cell-role="th">3</th>
 <td>0</td>
 <td>1</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">Adrian College</th>
+<th data-quarto-table-cell-role="th">4</th>
 <td>1</td>
 <td>0</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">Agnes Scott College</th>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">Alaska Pacific University</th>
-<td>0</td>
-<td>1</td>
 </tr>
 </tbody>
 </table>
@@ -1165,7 +1453,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<p>The dropped category, “Low” here because it comes first, becomes the <strong>reference category</strong>: a college with 0 in both remaining columns is in it. No information is lost.</p>
+<p>Here, Biology is the dropped <strong>reference category</strong>. A row with 0 in both <code>major_CS</code> and <code>major_Math</code> represents Biology. No category information is lost for these complete data; missing values would need separate handling.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -1174,43 +1462,38 @@ Name: count, dtype: int64</code></pre>
 </colgroup>
 <thead>
 <tr class="header">
-<th>Categories</th>
-<th>Encoding</th>
-<th>Code</th>
+<th>Variable</th>
+<th>Starting choice</th>
+<th>Example</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Two values</td>
-<td>One 0/1 column</td>
-<td><code>s.map({"No": 0, "Yes": 1})</code></td>
+<td>Ordered categories</td>
+<td>Ordinal encoding</td>
+<td>Low → 0, Medium → 1, High → 2</td>
 </tr>
 <tr class="even">
-<td>Ordered, equal steps plausible</td>
-<td>Ordinal codes</td>
-<td><code>s.map({"Low": 0, "Medium": 1, "High": 2})</code></td>
+<td>Two categories</td>
+<td>One 0/1 indicator</td>
+<td>Public → 0, Private → 1</td>
 </tr>
 <tr class="odd">
-<td>Unordered, or unequal steps</td>
-<td>One indicator column per category</td>
-<td><code>pd.get_dummies(s, prefix="name", dtype=int)</code></td>
-</tr>
-<tr class="even">
-<td>Same, for regression models</td>
-<td>Drop one as the reference</td>
-<td>add <code>drop_first=True</code></td>
+<td>Unordered categories</td>
+<td>One-hot encoding</td>
+<td>Separate indicators for Biology, CS, Math</td>
 </tr>
 </tbody>
 </table>
-<p>Indicator columns multiply quickly: a column with 50 categories becomes 50 columns. For a category with that many values, consider grouping the rare ones together first.</p>
+<p><strong>An alternative for ordered categories:</strong> one-hot encoding is also valid when you do not want to impose numeric spacing. It does not explicitly preserve the order, so the model must learn the categories’ relationships. The choice depends on the model.</p>
 </section>
-<section id="encode-a-whole-dataframe-at-once" class="level3" data-number="11.4.4">
-<h3 data-number="11.4.4" class="anchored" data-anchor-id="encode-a-whole-dataframe-at-once"><span class="header-section-number">11.4.4</span> Encode a whole DataFrame at once</h3>
+<section id="encode-a-whole-dataframe-at-once" class="level3" data-number="11.5.5">
+<h3 data-number="11.5.5" class="anchored" data-anchor-id="encode-a-whole-dataframe-at-once"><span class="header-section-number">11.5.5</span> Encode a whole DataFrame at once</h3>
 <p>A real dataset usually has several categorical columns, and encoding them one at a time with <code>prefix=</code> and <code>pd.concat()</code> soon gets repetitive. Pass <code>pd.get_dummies()</code> a whole DataFrame instead, and it does every categorical column in one call: each text or category column is replaced by one indicator column per category, named after the source column and the category, and the numeric columns are kept as they are. Three columns of <code>college</code>, one text, one category, and one numeric, show what happens to each:</p>
-<div id="prep-dummies-frame-code" class="cell" data-execution_count="20">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>college_dummies <span class="op">=</span> pd.get_dummies(college[[<span class="st">"Private"</span>, <span class="st">"expend_level"</span>, <span class="st">"Grad.Rate"</span>]], dtype<span class="op">=</span><span class="bu">int</span>)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>college_dummies.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="20">
+<div id="prep-dummies-frame-code" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.949234Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.949166Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.953624Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.953265Z&quot;}}" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>college_dummies <span class="op">=</span> pd.get_dummies(college[[<span class="st">"Private"</span>, <span class="st">"expend_level"</span>, <span class="st">"Grad.Rate"</span>]], dtype<span class="op">=</span><span class="bu">int</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>college_dummies.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
 <div>
 
 
@@ -1279,396 +1562,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p><code>Grad.Rate</code> is unchanged. <code>Private</code> became <code>Private_No</code> and <code>Private_Yes</code>, and <code>expend_level</code> became <code>expend_level_Low</code>, <code>expend_level_Medium</code>, and <code>expend_level_High</code>. Each source column’s name is used as the prefix, so <code>prefix=</code> is not needed, and the numeric columns come first with the indicator columns after them. <code>drop_first=True</code> works here too and drops the first category of each encoded column.</p>
-<p>Every column of the result is now a number, so one <code>corrwith()</code>, from <a href="./Data_cleaning.html">Data Cleaning</a>, relates every category to the graduation rate at once. The correlation that raised an error for <code>Private</code> earlier now works:</p>
-<div id="prep-dummies-frame-corr" class="cell" data-execution_count="21">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>college_dummies.corrwith(college_dummies[<span class="st">"Grad.Rate"</span>]).<span class="bu">round</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
-<pre><code>Grad.Rate              1.00
-Private_No            -0.34
-Private_Yes            0.34
-expend_level_Low      -0.33
-expend_level_Medium    0.02
-expend_level_High      0.31
-dtype: float64</code></pre>
-</div>
-</div>
-<p><code>Grad.Rate</code> correlates perfectly with itself, so ignore that 1.0. <code>Private_Yes</code> matches the 0.34 from the <code>map()</code> encoding, and <code>Private_No</code> is its mirror image, because the two columns always add up to 1. Among the spending levels, <code>expend_level_Low</code> (−0.33) and <code>expend_level_High</code> (0.31) point in opposite directions while <code>expend_level_Medium</code> is near 0, the same rise across the tertiles the bar plot showed. Comparing indicator columns this way is a quick first look at which categorical variable is most strongly related to an outcome.</p>
-</section>
-</section>
-<section id="rescale-numeric-columns" class="level2" data-number="11.5">
-<h2 data-number="11.5" class="anchored" data-anchor-id="rescale-numeric-columns"><span class="header-section-number">11.5</span> Rescale numeric columns</h2>
-<p>Feature scaling is a crucial step in data preparation, especially for machine learning algorithms that are sensitive to the scale of input features. Scaling ensures that numerical features contribute equally to model training and prevents features with larger ranges from dominating those with smaller ranges.</p>
-<p><strong>Why scale features?</strong></p>
-<ul>
-<li>Many algorithms (e.g., k-nearest neighbors, k-means, principal component analysis, gradient descent-based models) compute distances or rely on feature magnitude.</li>
-<li>Features with larger scales can unduly influence the model if not scaled.</li>
-</ul>
-<p>A <strong>feature</strong> is a column a method uses as an input; in this chapter, it is simply a column. The college columns are measured on very different scales:</p>
-<div id="prep-scales" class="cell" data-execution_count="20">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>scale_cols <span class="op">=</span> [<span class="st">"Apps"</span>, <span class="st">"Outstate"</span>, <span class="st">"Grad.Rate"</span>]</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>college[scale_cols].describe().<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="20">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Apps</th>
-<th data-quarto-table-cell-role="th">Outstate</th>
-<th data-quarto-table-cell-role="th">Grad.Rate</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">count</th>
-<td>777.0</td>
-<td>777.0</td>
-<td>776.0</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">mean</th>
-<td>3001.6</td>
-<td>10440.7</td>
-<td>65.4</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">std</th>
-<td>3870.2</td>
-<td>4023.0</td>
-<td>17.1</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">min</th>
-<td>81.0</td>
-<td>2340.0</td>
-<td>10.0</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">25%</th>
-<td>776.0</td>
-<td>7320.0</td>
-<td>53.0</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">50%</th>
-<td>1558.0</td>
-<td>9990.0</td>
-<td>65.0</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">75%</th>
-<td>3624.0</td>
-<td>12925.0</td>
-<td>78.0</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">max</th>
-<td>48094.0</td>
-<td>21700.0</td>
-<td>100.0</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<p>Applications run from 81 to 48,094, tuition from $2,340 to $21,700, and graduation rates from 10 to 100. To see what that does to a distance, the kind KNN used in Data Cleaning, compare two colleges. The distance between them adds up the squared difference in each column, so the share of the total that each column contributes shows which ones count:</p>
-<div id="prep-distance-raw" class="cell" data-execution_count="21">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>pair <span class="op">=</span> [<span class="st">"Amherst College"</span>, <span class="st">"Bowdoin College"</span>]</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>raw <span class="op">=</span> college[scale_cols]</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>diff <span class="op">=</span> raw.loc[pair[<span class="dv">0</span>]] <span class="op">-</span> raw.loc[pair[<span class="dv">1</span>]]</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>pd.DataFrame({</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    pair[<span class="dv">0</span>]: raw.loc[pair[<span class="dv">0</span>]],</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    pair[<span class="dv">1</span>]: raw.loc[pair[<span class="dv">1</span>]],</span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"difference"</span>: diff,</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"share of squared distance"</span>: (diff<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> (diff<span class="op">**</span><span class="dv">2</span>).<span class="bu">sum</span>()).<span class="bu">round</span>(<span class="dv">3</span>),</span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Amherst College</th>
-<th data-quarto-table-cell-role="th">Bowdoin College</th>
-<th data-quarto-table-cell-role="th">difference</th>
-<th data-quarto-table-cell-role="th">share of squared distance</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">Apps</th>
-<td>4302.0</td>
-<td>3356.0</td>
-<td>946.0</td>
-<td>0.627</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">Outstate</th>
-<td>19760.0</td>
-<td>19030.0</td>
-<td>730.0</td>
-<td>0.373</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">Grad.Rate</th>
-<td>100.0</td>
-<td>96.0</td>
-<td>4.0</td>
-<td>0.000</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<p>Amherst graduates 100% of its students and Bowdoin 96%, a real difference, yet graduation rate contributes 0.0% of the distance between them. A 4-point gap is invisible next to differences of hundreds of applications and dollars. Any method built on this distance would effectively ignore graduation rates.</p>
-<p><strong>Rescaling</strong> puts the columns on a common scale so that each one counts according to how unusual its difference is, not how big its units are. It changes the units, never the order of the values within a column.</p>
-<section id="minmax-scaling" class="level3" data-number="11.5.1">
-<h3 data-number="11.5.1" class="anchored" data-anchor-id="minmax-scaling"><span class="header-section-number">11.5.1</span> Min–max scaling</h3>
-<p>Min–max scaling maps each column onto the range 0 to 1:</p>
-<p><span class="math display">\[x_{\text{scaled}} = \frac{x - \min(x)}{\max(x) - \min(x)}\]</span></p>
-<p>This is what <code>MinMaxScaler</code> did before KNN imputation in Data Cleaning. With pandas it is one line, applied to all three columns at once:</p>
-<div id="prep-minmax" class="cell" data-execution_count="22">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>minmax <span class="op">=</span> (raw <span class="op">-</span> raw.<span class="bu">min</span>()) <span class="op">/</span> (raw.<span class="bu">max</span>() <span class="op">-</span> raw.<span class="bu">min</span>())</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>minmax.describe().<span class="bu">round</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="22">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Apps</th>
-<th data-quarto-table-cell-role="th">Outstate</th>
-<th data-quarto-table-cell-role="th">Grad.Rate</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">count</th>
-<td>777.00</td>
-<td>777.00</td>
-<td>776.00</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">mean</th>
-<td>0.06</td>
-<td>0.42</td>
-<td>0.62</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">std</th>
-<td>0.08</td>
-<td>0.21</td>
-<td>0.19</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">min</th>
-<td>0.00</td>
-<td>0.00</td>
-<td>0.00</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">25%</th>
-<td>0.01</td>
-<td>0.26</td>
-<td>0.48</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">50%</th>
-<td>0.03</td>
-<td>0.40</td>
-<td>0.61</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">75%</th>
-<td>0.07</td>
-<td>0.55</td>
-<td>0.76</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">max</th>
-<td>1.00</td>
-<td>1.00</td>
-<td>1.00</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<p><code>raw.min()</code> is a Series with one minimum per column, so pandas subtracts each column’s own minimum from that column. Every column now runs from exactly 0 to 1. A value of 0.5 means “halfway between this column’s smallest and largest value”, whatever the column measured.</p>
-</section>
-<section id="standardization" class="level3" data-number="11.5.2">
-<h3 data-number="11.5.2" class="anchored" data-anchor-id="standardization"><span class="header-section-number">11.5.2</span> Standardization</h3>
-<p>Standardization converts each value into a <strong>z-score</strong>, the same measure the outlier rule in Data Cleaning used: how many standard deviations the value is from its column’s mean.</p>
-<div id="prep-standardize" class="cell" data-execution_count="23">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>standardized <span class="op">=</span> (raw <span class="op">-</span> raw.mean()) <span class="op">/</span> raw.std()</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>standardized.describe().<span class="bu">round</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="23">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Apps</th>
-<th data-quarto-table-cell-role="th">Outstate</th>
-<th data-quarto-table-cell-role="th">Grad.Rate</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">count</th>
-<td>777.00</td>
-<td>777.00</td>
-<td>776.00</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">mean</th>
-<td>0.00</td>
-<td>0.00</td>
-<td>-0.00</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">std</th>
-<td>1.00</td>
-<td>1.00</td>
-<td>1.00</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">min</th>
-<td>-0.75</td>
-<td>-2.01</td>
-<td>-3.24</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">25%</th>
-<td>-0.58</td>
-<td>-0.78</td>
-<td>-0.73</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">50%</th>
-<td>-0.37</td>
-<td>-0.11</td>
-<td>-0.02</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">75%</th>
-<td>0.16</td>
-<td>0.62</td>
-<td>0.74</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">max</th>
-<td>11.65</td>
-<td>2.80</td>
-<td>2.03</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<p>Every column now has mean 0 and standard deviation 1. Unlike min–max scaling, the result has no fixed range: the most extreme application count sits 11.65 standard deviations above the mean. A z-score says how unusual a value is, which is often what a comparison across columns needs.</p>
-<p>Back to Amherst and Bowdoin, measured in standard deviations:</p>
-<div id="prep-distance-z" class="cell" data-execution_count="24">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>diff_z <span class="op">=</span> standardized.loc[pair[<span class="dv">0</span>]] <span class="op">-</span> standardized.loc[pair[<span class="dv">1</span>]]</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>(diff_z<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> (diff_z<span class="op">**</span><span class="dv">2</span>).<span class="bu">sum</span>()).<span class="bu">round</span>(<span class="dv">3</span>).rename(<span class="st">"share of squared distance"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="24">
-<pre><code>Apps         0.405
-Outstate     0.223
-Grad.Rate    0.372
-Name: share of squared distance, dtype: float64</code></pre>
-</div>
-</div>
-<p>Graduation rate now contributes 37% of the distance. Measured in standard deviations, the three differences are about the same size: 946 applications is 0.24 of a standard deviation of 3,870, the $730 tuition gap is 0.18 of $4,023, and the 4-point gap in graduation rate is 0.23 of 17.1 points. Each column now counts by how unusual its difference is, not by how big its units are.</p>
-<p>Plotting the columns side by side before and after shows what changed and what did not:</p>
-<div id="prep-scale-plot" class="cell" data-execution_count="25">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>fig, (ax_raw, ax_z) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="dv">4</span>), layout<span class="op">=</span><span class="st">"constrained"</span>)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>raw, ax<span class="op">=</span>ax_raw)</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>ax_raw.<span class="bu">set</span>(title<span class="op">=</span><span class="st">"Original units"</span>, ylabel<span class="op">=</span><span class="st">"Value"</span>)</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>standardized, ax<span class="op">=</span>ax_z)</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>ax_z.<span class="bu">set</span>(title<span class="op">=</span><span class="st">"Standardized"</span>, ylabel<span class="op">=</span><span class="st">"Standard deviations from the mean"</span>)</span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Data_preparation_files/figure-html/cell-28-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Passing a whole DataFrame as <code>data=</code> draws one box per column. On the left, graduation rate is invisible next to applications; on the right, all three are comparable. The <em>shapes</em> have not changed: applications are just as right-skewed after standardizing as before. Rescaling is a linear change of units. To reduce skew you need a transformation such as the log in Data Cleaning.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Two standard deviations
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><code>raw.std()</code> divides by <span class="math inline">\(n - 1\)</span> (pandas’ default, <code>ddof=1</code>). scikit-learn’s <code>StandardScaler</code> divides by <span class="math inline">\(n\)</span> (<code>ddof=0</code>), like NumPy, so its z-scores are larger by a factor of <span class="math inline">\(\sqrt{777/776}\)</span>: less than 0.1% for 777 rows. Either is fine as long as you use one consistently; <a href="./numpy_fundamentals.html">NumPy Fundamentals</a> covers <code>ddof</code>.</p>
-</div>
-</div>
-</section>
-<section id="what-not-to-rescale" class="level3" data-number="11.5.3">
-<h3 data-number="11.5.3" class="anchored" data-anchor-id="what-not-to-rescale"><span class="header-section-number">11.5.3</span> What not to rescale</h3>
-<p>Rescale only columns that measure a quantity. Leave these alone:</p>
-<ul>
-<li><strong>Indicator and 0/1 columns</strong> such as <code>expend_Medium</code> or <code>private_code</code>. A 0/1 column already has a clear meaning — in the category or not — and standardizing it would turn its values into numbers like −1.6 and 0.6 that mean nothing to a reader.</li>
-<li><strong>Ordinal codes</strong> such as <code>expend_code</code>. The codes are labels for an order, not measurements, so their mean and standard deviation are not meaningful.</li>
-<li><strong>Identifiers</strong> such as an ID number. They are not quantities at all.</li>
-</ul>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Method</th>
-<th>Formula</th>
-<th>Result</th>
-<th>Use when</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Min–max</td>
-<td><code>(x - x.min()) / (x.max() - x.min())</code></td>
-<td>Every column from 0 to 1</td>
-<td>You need a fixed range, e.g.&nbsp;before KNN</td>
-</tr>
-<tr class="even">
-<td>Standardization</td>
-<td><code>(x - x.mean()) / x.std()</code></td>
-<td>Mean 0, SD 1</td>
-<td>You want “how unusual” in common units</td>
-</tr>
-</tbody>
-</table>
-<p>Not every method needs rescaling at all. Rescaling matters for methods that combine columns, through distances as in KNN or through weighted sums. Methods that look at one column at a time, such as the decision trees you will meet in later courses, which split the data at a threshold on a single column, give the same result on raw and rescaled data.</p>
+<p>Numeric category codes are not automatically recognized as categorical variables. Select columns explicitly with <code>columns=[...]</code> when needed. Check the resulting column names, row count, and missing values after encoding.</p>
 </section>
 </section>
 <section id="summary-cheat-sheet" class="level2" data-number="11.6">
@@ -1710,9 +1604,32 @@ Name: share of squared distance, dtype: float64</code></pre>
 <td>Check the counts, in order</td>
 <td><code>binned.value_counts(sort=False)</code></td>
 </tr>
+</tbody>
+</table>
+<p><strong>Rescaling.</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Goal</th>
+<th>Code</th>
+</tr>
+</thead>
+<tbody>
 <tr class="odd">
-<td>Compare an outcome by bin</td>
-<td><code>df.groupby(binned)["outcome"].mean()</code></td>
+<td>Min–max to [0, 1]</td>
+<td><code>(df - df.min()) / (df.max() - df.min())</code></td>
+</tr>
+<tr class="even">
+<td>Standardize to z-scores</td>
+<td><code>(df - df.mean()) / df.std()</code></td>
+</tr>
+<tr class="odd">
+<td>Leave unchanged in this chapter</td>
+<td>category codes and indicators; do not treat identifiers as measurements</td>
 </tr>
 </tbody>
 </table>
@@ -1755,34 +1672,11 @@ Name: share of squared distance, dtype: float64</code></pre>
 </tr>
 </tbody>
 </table>
-<p><strong>Rescaling.</strong></p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Goal</th>
-<th>Code</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Min–max to [0, 1]</td>
-<td><code>(df - df.min()) / (df.max() - df.min())</code></td>
-</tr>
-<tr class="even">
-<td>Standardize to z-scores</td>
-<td><code>(df - df.mean()) / df.std()</code></td>
-</tr>
-<tr class="odd">
-<td>Do not rescale</td>
-<td>indicator columns, ordinal codes, identifiers</td>
-</tr>
-</tbody>
-</table>
-<p>The rule to remember: <strong>check every preparation step — the bin counts, the encoded values, the rescaled ranges — before you analyse the result.</strong></p>
+<p>The rule to remember: <strong>check every preparation step — the bin counts, the rescaled ranges, the encoded values — before you analyse the result.</strong></p>
 </section>
 <section id="practice-activity-bin-encode-and-rescale" class="level2" data-number="11.7">
-<h2 data-number="11.7" class="anchored" data-anchor-id="practice-activity-bin-encode-and-rescale"><span class="header-section-number">11.7</span> Practice Activity: Bin, Encode, and Rescale</h2>
-<p><strong>Goal:</strong> Prepare one column three ways — bin it, encode it, rescale it — and check what each step did.</p>
+<h2 data-number="11.7" class="anchored" data-anchor-id="practice-activity-bin-encode-and-rescale"><span class="header-section-number">11.7</span> Practice Activity: Bin, Rescale, and Encode</h2>
+<p><strong>Goal:</strong> Bin numeric values, rescale quantitative columns, and encode categorical variables. Check what each transformation changes and preserves.</p>
 <p><strong>File:</strong> <code>activity11.ipynb</code> from the <a href="downloads/data-preparation-practice.zip">practice kit</a>.</p>
 <p><strong>Submit:</strong> <code>activity11.html</code> through the final upload question in the Data Preparation Canvas quiz.</p>
 <p><strong>This section contains the complete activity instructions.</strong> The starter loads the data and supplies spaces to record your work. Open <code>activity11.ipynb</code> from the folder prepared in <a href="#set-up-your-chapter-files">Set Up Your Chapter Files</a>, using the same project environment. The worked examples above are preparation, not additional submission requirements.</p>
@@ -1795,28 +1689,30 @@ Name: share of squared distance, dtype: float64</code></pre>
 <li>Say which binning you would use to compare groups of colleges, and why.</li>
 </ul>
 </section>
-<section id="b.-describe-a-pattern-without-overclaiming" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="b.-describe-a-pattern-without-overclaiming">B. Describe a Pattern Without Overclaiming</h3>
+<section id="b.-choose-and-check-custom-bins" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="b.-choose-and-check-custom-bins">B. Choose and Check Custom Bins</h3>
 <ul>
-<li>Using your <code>qcut()</code> bins, compute the mean <code>Grad.Rate</code> for each tuition level and draw a bar plot of it.</li>
-<li>Compute the mean <code>Top10perc</code> for the same bins.</li>
-<li>Write two sentences: one describing how graduation rates differ across tuition levels, and one explaining why the <code>Top10perc</code> result stops you from concluding that raising tuition raises graduation rates.</li>
+<li>Bin <code>Outstate</code> using edges <code>[0, 10_000, 15_000, np.inf]</code>, with labels <code>"Under $10K"</code>, <code>"$10K to $15K"</code>, and <code>"$15K and over"</code>. Use <code>right=False</code>.</li>
+<li>Report the counts in bin order and check that they add up to the number of colleges.</li>
+<li>Explain which bin includes tuition of exactly $10,000 and which includes exactly $15,000.</li>
+<li>Explain one detail about tuition that the bin labels hide.</li>
 </ul>
 </section>
-<section id="c.-encode-two-columns" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="c.-encode-two-columns">C. Encode Two Columns</h3>
-<ul>
-<li>Encode <code>Private</code> as 0/1 with <code>map()</code>, and confirm the counts match the original column.</li>
-<li>Encode your tuition levels as indicator columns with <code>pd.get_dummies(..., prefix="tuition", dtype=int, drop_first=True)</code> and attach them to <code>college</code> with <code>pd.concat()</code>.</li>
-<li>Name the reference category and explain why dropping its column loses no information.</li>
-</ul>
-</section>
-<section id="d.-rescale-and-know-what-to-leave-alone" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="d.-rescale-and-know-what-to-leave-alone">D. Rescale, and Know What to Leave Alone</h3>
+<section id="c.-rescale-and-know-what-to-leave-alone" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="c.-rescale-and-know-what-to-leave-alone">C. Rescale, and Know What to Leave Alone</h3>
 <ul>
 <li>Standardize <code>Apps</code>, <code>Outstate</code>, and <code>Grad.Rate</code>, and show that each standardized column has mean 0 and standard deviation 1.</li>
 <li>Apply min–max scaling to the same three columns and show that each runs from 0 to 1.</li>
-<li>Name the columns you created in Part C that must not be rescaled, and say why.</li>
+<li>Explain why the tuition bin labels from Parts A and B are not appropriate inputs for these scaling formulas.</li>
+</ul>
+</section>
+<section id="d.-practice-three-encodings" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="d.-practice-three-encodings">D. Practice Three Encodings</h3>
+<ul>
+<li>Use the <strong>equal-count tuition bins from Part A</strong>. Encode Low, Medium, and High as 0, 1, and 2 with <code>map()</code>. Show original labels beside their codes, and check for unexpected missing values.</li>
+<li>Encode <code>Private</code> as 0/1 with <code>map()</code>, and confirm the counts match the original column.</li>
+<li>Create a small Series of majors: <code>["Math", "Biology", "CS", "Math", "CS"]</code>. Apply <code>pd.get_dummies(..., prefix="major", dtype=int)</code> and check that each row has exactly one 1.</li>
+<li>Explain why ordinal codes suit tuition levels but would invent an order for these majors.</li>
 </ul>
 </section>
 <section id="render-and-submit" class="level3 unnumbered">
@@ -1824,7 +1720,7 @@ Name: share of squared distance, dtype: float64</code></pre>
 <p>Restart the kernel, run all cells in order, resolve unexpected errors, and save. Include your outputs and explanations for A–D, and a short Markdown completion note. From <code>stat303-data-preparation</code> in the terminal, run:</p>
 <pre class="text"><code>quarto render activity11.ipynb --to html</code></pre>
 <p>Follow the <a href="./vscode_setup.html#render-and-submit-with-quarto">Quarto refresher</a>: inspect the HTML and a copy opened outside the project folder, and confirm that every output appears and your name is on the report. Upload only <code>activity11.html</code> to the Data Preparation Canvas quiz; keep your notebook locally.</p>
-<p><strong>HTML grading (16 points):</strong> both binnings with their counts and a justified choice (4); mean graduation rate and bar plot, mean <code>Top10perc</code>, and the two sentences (4); both encodings with the count check, the reference category, and the explanation (4); both rescalings with their checks and the columns left alone (3); name, readable report, and completion note (1).</p>
+<p><strong>HTML grading (16 points):</strong> both binnings with their counts and a justified choice (4); custom bins with counts, the total check, correct boundary explanations, and the detail lost (4); both rescalings with their checks and the explanation about bin labels (3); three encodings with their checks and the explanation of order (4); name, readable report, and completion note (1).</p>
 </section>
 </section>
 <section id="extended-practice" class="level2" data-number="11.8">
@@ -1832,35 +1728,30 @@ Name: share of squared distance, dtype: float64</code></pre>
 <p>These longer exercises are additional practice, not requirements for the Canvas quiz. Work in a separate notebook beside your activity and load the data the way the chapter does. Include your code, outputs, and explanations.</p>
 <section id="how-many-bins" class="level3" data-number="11.8.1">
 <h3 data-number="11.8.1" class="anchored" data-anchor-id="how-many-bins"><span class="header-section-number">11.8.1</span> How Many Bins?</h3>
-<p>Bin <code>Expend</code> into 3, 5, and 10 equal-count bins with <code>pd.qcut()</code>, and plot the mean graduation rate for each binning as a line, one panel per binning, with a shared y-axis. What does each version show that the others hide? At what point do the bins start to show noise rather than pattern?</p>
+<p>Bin <code>Expend</code> into 3, 5, and 10 equal-count bins with <code>pd.qcut()</code>. Report the counts for each version. Explain how increasing the number of bins changes the amount of detail retained and the number of colleges in each group.</p>
 </section>
 <section id="grading-bands-for-graduation-rates" class="level3" data-number="11.8.2">
 <h3 data-number="11.8.2" class="anchored" data-anchor-id="grading-bands-for-graduation-rates"><span class="header-section-number">11.8.2</span> Grading Bands for Graduation Rates</h3>
-<p>Create custom bins for <code>Grad.Rate</code> with edges at 50, 70, and 85, open-ended at both ends, and labels that read naturally. Check the counts, including how the one missing graduation rate is handled, and compare the share of private colleges in each band.</p>
+<p>Create custom bins for <code>Grad.Rate</code> with edges at 50, 70, and 85, open-ended at both ends, and labels that read naturally. Check the counts with <code>value_counts(dropna=False)</code> and explain how the one missing graduation rate is handled.</p>
 </section>
-<section id="does-selectivity-explain-it" class="level3" data-number="11.8.3">
-<h3 data-number="11.8.3" class="anchored" data-anchor-id="does-selectivity-explain-it"><span class="header-section-number">11.8.3</span> Does Selectivity Explain It?</h3>
-<p>Bin <code>Top10perc</code> into tertiles. Then, one selectivity tertile at a time, keep only those colleges with a Boolean filter and compare their mean graduation rates across spending tertiles with the chapter’s <code>groupby(...).mean()</code>. Does the spending pattern survive once selectivity is held roughly fixed? What does that suggest about the chapter’s “association, not a recipe” warning?</p>
-</section>
-<section id="which-college-is-most-unusual" class="level3" data-number="11.8.4">
-<h3 data-number="11.8.4" class="anchored" data-anchor-id="which-college-is-most-unusual"><span class="header-section-number">11.8.4</span> Which College Is Most Unusual?</h3>
-<p>Standardize all the numeric columns, then compute for each college the square root of the sum of its squared z-scores — its distance from the “average college”. List the five most unusual colleges and, for each, the column that contributes most. Repeat with min–max scaling. Do the two methods agree?</p>
+<section id="which-college-is-most-unusual" class="level3" data-number="11.8.3">
+<h3 data-number="11.8.3" class="anchored" data-anchor-id="which-college-is-most-unusual"><span class="header-section-number">11.8.3</span> Which College Is Most Unusual?</h3>
+<p>Start from a fresh copy of the original college data and apply the graduation-rate cleaning step. Select quantitative columns, excluding identifiers and any derived codes or indicators. Standardize those columns, then compute for each college the square root of the sum of its squared z-scores — its distance from the “average college”. Decide how to handle missing values before comparing distances so every college uses the same set of measurements. List the five most unusual colleges and, for each, the column that contributes most. Repeat with min–max scaling. Do the two methods agree?</p>
 </section>
 </section>
 <section id="before-you-move-on" class="level2" data-number="11.9">
 <h2 data-number="11.9" class="anchored" data-anchor-id="before-you-move-on"><span class="header-section-number">11.9</span> Before You Move On</h2>
-<p>The habit to carry forward is checking each preparation step before you trust it. Binning hides detail and can hide a problem with it, which is why the counts come first. Encoding replaces words with numbers that carry claims about order and distance. Rescaling changes units and, if applied to the wrong columns, meaning. Each check is one line, and each catches a mistake that would otherwise travel silently into every result that follows.</p>
-<p>The other habit is saying what a prepared comparison does and does not show. A cleaner picture of a pattern is still a picture of an association.</p>
+<p>The habit to carry forward is checking each preparation step before you trust it. Binning hides detail and can hide a problem with it, which is why the counts come first. Rescaling changes units and, if applied to the wrong columns, meaning. Encoding replaces words with numbers that carry claims about order and distance. Each check is one line, and each catches a mistake that would otherwise travel silently into every result that follows.</p>
 <p>For any dataset you prepare, you should be able to answer five questions:</p>
 <ol type="1">
 <li>Why did you bin this column, and why these edges?</li>
 <li>How many rows fell into each bin?</li>
-<li>Does the pattern across bins have another explanation you can check?</li>
-<li>Which encoding did each categorical column get, and does it imply an order that is not there?</li>
+<li>What detail is lost when the original values become bin labels?</li>
 <li>Which columns did you rescale, and which did you deliberately leave alone?</li>
+<li>Which encoding did each categorical column get, and does it imply an order that is not there?</li>
 </ol>
-<p>Continue to <a href="./Data aggregation.html">Data Grouping and Aggregation</a>, where the <code>groupby()</code> you have been using for one mean at a time becomes a full tool for summarizing data by group.</p>
-<p>References: <a href="https://pandas.pydata.org/docs/reference/api/pandas.cut.html"><code>pd.cut</code></a>, <a href="https://pandas.pydata.org/docs/reference/api/pandas.qcut.html"><code>pd.qcut</code></a>, <a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.map.html"><code>Series.map</code></a>, <a href="https://pandas.pydata.org/docs/reference/api/pandas.get_dummies.html"><code>pd.get_dummies</code></a>, <a href="https://pandas.pydata.org/docs/reference/api/pandas.concat.html"><code>pd.concat</code></a>, <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html"><code>DataFrame.groupby</code></a>, and <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html">scikit-learn <code>StandardScaler</code></a>.</p>
+<p>Continue to <a href="./Data aggregation.html">Data Grouping and Aggregation</a>, where you will learn to use <code>groupby()</code> and aggregation methods such as <code>mean()</code> to summarize data by group.</p>
+<p>References: <a href="https://pandas.pydata.org/docs/reference/api/pandas.cut.html"><code>pd.cut</code></a>, <a href="https://pandas.pydata.org/docs/reference/api/pandas.qcut.html"><code>pd.qcut</code></a>, <a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.map.html"><code>Series.map</code></a>, <a href="https://pandas.pydata.org/docs/reference/api/pandas.get_dummies.html"><code>pd.get_dummies</code></a>, <a href="https://pandas.pydata.org/docs/reference/api/pandas.concat.html"><code>pd.concat</code></a>, and <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html">scikit-learn <code>StandardScaler</code></a>.</p>
 
 
 </section>
