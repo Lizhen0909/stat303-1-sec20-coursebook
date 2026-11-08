@@ -465,7 +465,7 @@ window.Quarto = {
 </header>
 
 
-<p>The last two chapters used <code>groupby()</code> in its simplest form: one grouping column, one statistic, such as a continent’s mean GDP to fill a gap in <a href="./Data_cleaning.html">Data Cleaning</a> or a spending tertile’s mean graduation rate in <a href="./Data_preparation.html">Data Preparation</a>. That one line is an instance of a general pattern, and most summaries in data analysis follow it: split the rows into groups, compute something within each group, and combine the results into a table.</p>
+<p>Many questions in data analysis ask how a measurement differs across groups: What is the mean GDP for each continent? How does graduation rate vary across spending groups? <code>groupby()</code> helps answer these questions by splitting rows into groups, computing a statistic within each group, and combining the results into a table. This split–apply–combine pattern is the foundation of grouped summaries.</p>
 <p>This chapter makes that pattern a full tool. It covers counting by category, computing several statistics at once with readable names, grouping by more than one column, and the three things you can do with groups besides summarizing them: give every row a group-level value, keep or drop whole groups, and take a few rows from each. Along the way it asks a question every grouped summary raises: what exactly is being averaged?</p>
 <p>By the end of this chapter you should be able to:</p>
 <ul>
@@ -594,7 +594,7 @@ Oceania      24
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<p>These are <strong>rows</strong>, not countries: Africa has 624 rows because 52 countries are each recorded in 12 years. To count distinct countries, use <code>nunique()</code>, the number of unique values, within each continent:</p>
+<p>These are <strong>rows</strong>, not countries: Africa has 624 rows because 52 countries are each recorded in 12 years. To count distinct countries, use <code>nunique()</code>, the number of unique values, within each continent. The line uses <code>groupby()</code>, which the next section explains in full:</p>
 <div id="agg-nunique" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gdp.groupby(<span class="st">"continent"</span>)[<span class="st">"country"</span>].nunique()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
@@ -784,14 +784,7 @@ Name: country, dtype: int64</code></pre>
 <section id="split-apply-combine" class="level2" data-number="12.4">
 <h2 data-number="12.4" class="anchored" data-anchor-id="split-apply-combine"><span class="header-section-number">12.4</span> Split, apply, combine</h2>
 <p>Counting is one summary per group. Most questions need others — a mean, a median, a total — and the tool that computes any of them by group is <code>groupby()</code>.</p>
-<p><strong>Why group and aggregate?</strong></p>
-<ul>
-<li><strong>Summarize a large table.</strong> Thousands of rows become one row per group that a reader can take in: total sales by region instead of every transaction.</li>
-<li><strong>Compare categories.</strong> Patterns become visible when groups sit side by side: outcomes by treatment group, graduation rates by type of college, life expectancy by continent.</li>
-<li><strong>Follow groups over time.</strong> Grouping by a time period — month, quarter, year — turns a stream of records into a trend you can plot.</li>
-<li><strong>Reduce complexity.</strong> A summary at the right level answers the question without the noise of every individual row.</li>
-</ul>
-<p>Every one of these works the same way. <code>groupby()</code> follows three steps, a pattern known as <strong>split–apply–combine</strong>:</p>
+<p>A grouped summary turns thousands of rows into one row per group that a reader can take in, puts categories side by side for comparison, and, when the groups are time periods, turns a stream of records into a trend. All of these work the same way. <code>groupby()</code> follows three steps, a pattern known as <strong>split–apply–combine</strong>:</p>
 <ol type="1">
 <li><strong>Split</strong> the rows into groups, one per distinct value of the grouping column.</li>
 <li><strong>Apply</strong> a computation to each group separately.</li>
@@ -1037,7 +1030,7 @@ Name: lifeExp, dtype: float64</code></pre>
 </div>
 </div>
 </div>
-<p>In Asia the mean, about $12,500, is almost three times the median, about $4,500. Half of Asian countries are below $4,500, and a few very rich ones pull the mean up: the same right skew as expenditure in Data Cleaning. In Europe the median is <em>above</em> the mean, because a handful of poorer countries pull the mean down. Reporting both shows what one number alone would hide.</p>
+<p>In Asia the mean, about $12,500, is almost three times the median, about $4,500. Half of Asian countries are below $4,500, and a few very rich ones pull the mean up: the same right skew as expenditure in <a href="./Data_cleaning.html">Data Cleaning</a>. In Europe the median is <em>above</em> the mean, because a handful of poorer countries pull the mean down. Reporting both shows what one number alone would hide.</p>
 <section id="named-aggregation" class="level3" data-number="12.5.1">
 <h3 data-number="12.5.1" class="anchored" data-anchor-id="named-aggregation"><span class="header-section-number">12.5.1</span> Named aggregation</h3>
 <p>When the summary is going into a report, give each result a name. <strong>Named aggregation</strong> passes one argument per output column, written as <code>name=(column, statistic)</code>. It also lets each output come from a different column:</p>
@@ -1412,9 +1405,11 @@ Africa, 2007: 54.8</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>continent_year_mean <span class="op">=</span> gdp.groupby([<span class="st">"continent"</span>, <span class="st">"year"</span>])[<span class="st">"gdpPercap"</span>].transform(<span class="st">"mean"</span>)</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>gdp[<span class="st">"gdp_vs_continent"</span>] <span class="op">=</span> gdp[<span class="st">"gdpPercap"</span>] <span class="op">/</span> continent_year_mean</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>gdp.loc[gdp[<span class="st">"year"</span>] <span class="op">==</span> <span class="dv">2007</span>,</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"country"</span>, <span class="st">"continent"</span>, <span class="st">"gdpPercap"</span>, <span class="st">"gdp_vs_continent"</span>]].sort_values(</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"gdp_vs_continent"</span>, ascending<span class="op">=</span><span class="va">False</span>).head().<span class="bu">round</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>(gdp[gdp[<span class="st">"year"</span>] <span class="op">==</span> <span class="dv">2007</span>]</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">"gdp_vs_continent"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    [[<span class="st">"country"</span>, <span class="st">"continent"</span>, <span class="st">"gdpPercap"</span>, <span class="st">"gdp_vs_continent"</span>]]</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    .head()</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">round</span>(<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
 <div>
 
@@ -1472,37 +1467,42 @@ Africa, 2007: 54.8</code></pre>
 </div>
 </div>
 <p><code>transform("mean")</code> returns 1,704 values, one per row in the original order, so it can be divided into <code>gdpPercap</code> directly. A value of 2 means twice the continent’s mean in that year. Any statistic name works in <code>transform()</code>, as does a lambda.</p>
+<p>The last expression is wrapped in parentheses so that each step — keep the 2007 rows, sort, choose columns, take the top five, round — can sit on its own line. Python reads everything inside the parentheses as one expression.</p>
 <p>The table says Gabon’s GDP per capita in 2007 was 4.28 times Africa’s mean: oil revenue spread over a small population, in a continent where the typical economy is far poorer. Four of the top five are African for the same reason. A few such countries are also what puts Africa’s mean GDP per capita ($3,089 in 2007) at about twice its median ($1,452).</p>
 </section>
 <section id="keep-or-drop-whole-groups-filter" class="level2" data-number="12.9">
 <h2 data-number="12.9" class="anchored" data-anchor-id="keep-or-drop-whole-groups-filter"><span class="header-section-number">12.9</span> Keep or drop whole groups: <code>filter()</code></h2>
-<p><code>filter()</code> tests each group against a rule and keeps <strong>all</strong> the rows of the groups that pass. The rule is a function that receives one group as a DataFrame and returns <code>True</code> or <code>False</code>. Which countries gained more than 30 years of life expectancy between 1952 and 2007?</p>
+<p><code>filter()</code> tests each group against a rule and keeps <strong>all</strong> the rows of the groups that pass. The rule is a function that receives one group as a DataFrame and returns <code>True</code> or <code>False</code>. Which countries gained more than 30 years of life expectancy between 1952 and 2007? The rows are in year order within each country, so <code>iloc[0]</code> is a country’s 1952 value and <code>iloc[-1]</code> its 2007 value:</p>
 <div id="agg-filter-code" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>big_gainers <span class="op">=</span> gdp.groupby(<span class="st">"country"</span>).<span class="bu">filter</span>(</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> g: g[<span class="st">"lifeExp"</span>].<span class="bu">max</span>() <span class="op">-</span> g[<span class="st">"lifeExp"</span>].<span class="bu">min</span>() <span class="op">&gt;</span> <span class="dv">30</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> g: g[<span class="st">"lifeExp"</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> g[<span class="st">"lifeExp"</span>].iloc[<span class="dv">0</span>] <span class="op">&gt;</span> <span class="dv">30</span></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(big_gainers[<span class="st">"country"</span>].nunique(), <span class="st">"countries"</span>)</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>big_gainers[<span class="st">"country"</span>].unique()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="bu">list</span>(big_gainers[<span class="st">"country"</span>].unique())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>9 countries</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="22">
-<pre><code>&lt;StringArray&gt;
-[         'Indonesia',        'Korea, Rep.',              'Libya',
-          'Nicaragua',               'Oman',       'Saudi Arabia',
-            'Vietnam', 'West Bank and Gaza',        'Yemen, Rep.']
-Length: 9, dtype: str</code></pre>
+<pre><code>['Indonesia',
+ 'Korea, Rep.',
+ 'Libya',
+ 'Nicaragua',
+ 'Oman',
+ 'Saudi Arabia',
+ 'Vietnam',
+ 'West Bank and Gaza',
+ 'Yemen, Rep.']</code></pre>
 </div>
 </div>
 <p>Every row of those 9 countries is kept, all 12 years each, so the result can be plotted or summarized like the full data. A Boolean mask on rows, by contrast, tests each row on its own:</p>
 <div id="agg-mask-contrast" class="cell" data-execution_count="23">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>over_70 <span class="op">=</span> gdp[gdp[<span class="st">"lifeExp"</span>] <span class="op">&gt;</span> <span class="dv">70</span>]</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(over_70), <span class="st">"rows from"</span>, over_70[<span class="st">"country"</span>].nunique(), <span class="st">"countries"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>over_75 <span class="op">=</span> gdp[gdp[<span class="st">"lifeExp"</span>] <span class="op">&gt;</span> <span class="dv">75</span>]</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(over_75), <span class="st">"rows from"</span>, over_75[<span class="st">"country"</span>].nunique(), <span class="st">"countries"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>493 rows from 84 countries</code></pre>
+<pre><code>173 rows from 45 countries</code></pre>
 </div>
 </div>
-<p>The mask keeps every country-year above 70, so most of those 84 countries appear only for their later years. Use a mask for a rule about a row, and <code>filter()</code> for a rule about a group as a whole.</p>
+<p>The mask keeps every country-year above 75, so each of those 45 countries appears only for its later years. Use a mask for a rule about a row, and <code>filter()</code> for a rule about a group as a whole.</p>
 </section>
 <section id="take-rows-from-each-group-head-and-sample" class="level2" data-number="12.10">
 <h2 data-number="12.10" class="anchored" data-anchor-id="take-rows-from-each-group-head-and-sample"><span class="header-section-number">12.10</span> Take rows from each group: <code>head()</code> and <code>sample()</code></h2>
@@ -1592,7 +1592,7 @@ Length: 9, dtype: str</code></pre>
 </div>
 </div>
 </div>
-<p>That is the two longest-lived countries of each continent in 2007. The expression is wrapped in parentheses so that each step can sit on its own line.</p>
+<p>That is the two longest-lived countries of each continent in 2007. As in the <code>transform()</code> example, the parentheses let each step sit on its own line.</p>
 <p><code>sample()</code> draws rows at random within each group. A plain random sample of the whole table reflects the continents’ sizes, so Oceania, with 24 rows, would barely appear. A <strong>stratified sample</strong> takes the same number from every group instead:</p>
 <div id="agg-sample-code" class="cell" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>stratified <span class="op">=</span> gdp.groupby(<span class="st">"continent"</span>).sample(n<span class="op">=</span><span class="dv">24</span>, random_state<span class="op">=</span><span class="dv">303</span>)</span>
@@ -1753,7 +1753,7 @@ Name: count, dtype: int64</code></pre>
 </tr>
 <tr class="odd">
 <td>Top rows per group</td>
-<td><code>df.sort_values("col").groupby("g").head(n)</code></td>
+<td><code>df.sort_values("col", ascending=False).groupby("g").head(n)</code></td>
 </tr>
 <tr class="even">
 <td>Stratified random sample</td>
