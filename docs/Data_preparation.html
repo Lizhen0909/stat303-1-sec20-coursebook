@@ -625,7 +625,7 @@ window.Quarto = {
 </figure>
 </div>
 <p>The bin edges ($11,600 and $47,150) are not arbitrary: they are thresholds set by tax law, and each bin carries a rule. In the same way, a retailer might classify customers as low, medium, or high spenders, or a college might use tuition bands in a report. The boundaries should serve the question being asked.</p>
-<p>Here, binning <code>Expend</code> into low, medium, and high spending lets you compare one summary per group instead of reading a cloud of points. The price is detail: once a college is “medium”, its exact dollar figure is no longer represented in that label. The original <code>Expend</code> column is still available; we store the bin labels in a separate column. That makes the choice of bins, how many and where their edges fall, the important decision. There are three common ways to make it, and the rest of this section works through each:</p>
+<p>Here, binning <code>Expend</code> into low, medium, and high spending lets you compare one summary per group instead of reading a cloud of points. The price is detail: once a college is “medium”, its exact dollar figure is no longer represented in that label. The original <code>Expend</code> column is still available; we store the bin labels in a separate column. That makes the choice of bins, how many and where their edges fall, the important decision. There are three common ways to make it, the last in two forms, and the rest of this section works through each:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
@@ -655,10 +655,16 @@ window.Quarto = {
 <td>Skewed columns; groups you want to compare</td>
 </tr>
 <tr class="odd">
-<td>Custom</td>
+<td>Custom values</td>
 <td><code>pd.cut(s, bins=[...])</code></td>
-<td>Edges you choose</td>
+<td>Edges at values you choose</td>
 <td>Thresholds that mean something</td>
+</tr>
+<tr class="even">
+<td>Custom quantiles</td>
+<td><code>pd.qcut(s, [0, ..., 1])</code></td>
+<td>Edges at quantiles you choose</td>
+<td>Groups defined by share, such as the top 10%</td>
 </tr>
 </tbody>
 </table>
@@ -677,6 +683,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>Each interval is written <code>(left, right]</code>: the round bracket means the left edge is excluded and the square bracket means the right edge is included, so every value belongs to exactly one bin. (The lowest edge sits slightly below the minimum so that the minimum is included.)</p>
+<p>By default, both <code>cut()</code> and <code>qcut()</code> close each interval on the right, <code>(a, b]</code>, so a value that falls exactly on an edge goes to the <strong>earlier</strong> bin. <code>cut()</code> can switch this with <code>right=False</code>, as the custom bins below show; <code>qcut()</code> has no such option.</p>
 <p>The widths are equal, about $17,700 each, but the counts are not: 751 colleges in the first bin, 21 in the second, and 5 in the third. <code>Expend</code> is strongly right-skewed, as Data Cleaning showed, so a few very high spenders stretch the range and the top two bins cover almost no one. We can give the bins names and check their counts:</p>
 <div id="prep-cut-width-means" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.546879Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.546799Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.550013Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.549594Z&quot;}}" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>width_level <span class="op">=</span> pd.cut(college[<span class="st">"Expend"</span>], <span class="dv">3</span>, labels<span class="op">=</span>[<span class="st">"Low"</span>, <span class="st">"Medium"</span>, <span class="st">"High"</span>])</span>
