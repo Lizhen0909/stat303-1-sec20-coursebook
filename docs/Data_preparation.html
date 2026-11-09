@@ -478,7 +478,7 @@ window.Quarto = {
 <p>This chapter introduces three common preparation techniques:</p>
 <ul>
 <li><strong>Binning continuous variables</strong> groups numeric values into intervals. In EDA, this helps us summarize and compare groups; here, we compare graduation rates across college spending groups. Binning can also create predictors for a model, but it discards detail and is not always helpful.</li>
-<li><strong>Scaling numeric variables</strong> puts columns on comparable scales. This is especially useful for modeling methods that depend on distances or penalize coefficient sizes, so a variable’s units do not give it disproportionate influence. Some methods, such as decision trees, generally do not need scaling.</li>
+<li><strong>Scaling numeric variables</strong> puts columns on comparable scales. This is especially useful for modeling methods that depend on distances or penalize coefficient sizes, so a variable’s units do not give it disproportionate influence.</li>
 <li><strong>Encoding categorical variables</strong> represents categories with numbers. This is primarily preparation for modeling, because many modeling methods require numeric inputs. The encoding should reflect whether the categories have a meaningful order.</li>
 </ul>
 <p>These steps are choices, not requirements for every dataset. Each changes how the data is represented and can affect what an analysis reveals. Choose transformations that serve your question, and check their results before using them.</p>
@@ -617,7 +617,14 @@ window.Quarto = {
 <section id="what-binning-is-and-why-it-helps" class="level3" data-number="11.3.1">
 <h3 data-number="11.3.1" class="anchored" data-anchor-id="what-binning-is-and-why-it-helps"><span class="header-section-number">11.3.1</span> What binning is, and why it helps</h3>
 <p><strong>Data binning</strong> groups the values of a numeric column into a few intervals, called <strong>bins</strong>, and records which bin each value falls into instead of the value itself. Think of it as sorting a long list of numbers into a few labelled jars. Binning simplifies a column so that patterns become visible and comparisons become easy to state.</p>
-<p><strong>Why bin?</strong> Bins make it easier to describe and compare groups. For example, a retailer might classify customers as low, medium, or high spenders, or a college might use tuition bands in a report. The boundaries should serve the question being asked. Binning assigns observations to groups; calculating a total or average for each group is a separate step called <strong>aggregation</strong>, covered in the next chapter.</p>
+<p><strong>Why bin?</strong> Bins make it easier to describe and compare groups, and to apply a different rule to each group. Federal income tax brackets are a familiar example. Taxable income is split into ranges, and each range is taxed at its own rate. For a single filer in 2024 with a taxable income of $50,000, the first $11,600 is taxed at 10%, the part from $11,600 to $47,150 at 12%, and the last $2,850 at 22%:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/binning-tax-brackets.png" class="img-fluid figure-img" width="300"></p>
+<figcaption>Tax brackets bin a taxable income of $50,000 into three ranges, each taxed at its own rate.</figcaption>
+</figure>
+</div>
+<p>The bin edges ($11,600 and $47,150) are not arbitrary: they are thresholds set by tax law, and each bin carries a rule. In the same way, a retailer might classify customers as low, medium, or high spenders, or a college might use tuition bands in a report. The boundaries should serve the question being asked.</p>
 <p>Here, binning <code>Expend</code> into low, medium, and high spending lets you compare one summary per group instead of reading a cloud of points. The price is detail: once a college is “medium”, its exact dollar figure is no longer represented in that label. The original <code>Expend</code> column is still available; we store the bin labels in a separate column. That makes the choice of bins, how many and where their edges fall, the important decision. There are three common ways to make it, and the rest of this section works through each:</p>
 <table class="caption-top table">
 <colgroup>
@@ -1036,6 +1043,36 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>The two transformations answer different questions: min–max scaling locates tuition within its observed range; standardization locates it relative to its mean and standard deviation. Both preserve the order of values within a column.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Formula</th>
+<th>Result</th>
+<th>Use when</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Min–max</td>
+<td><code>(x - x.min()) / (x.max() - x.min())</code></td>
+<td>Every column from 0 to 1</td>
+<td>You want values relative to their observed range</td>
+</tr>
+<tr class="even">
+<td>Standardization</td>
+<td><code>(x - x.mean()) / x.std()</code></td>
+<td>Mean 0, SD 1</td>
+<td>You want “how unusual” in common units</td>
+</tr>
+</tbody>
+</table>
 <p>Check the results. After rounding, the standardized means should be 0 and standard deviations should be 1:</p>
 <div id="prep-distance-z" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-08T20:34:33.785441Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-08T20:34:33.785368Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-08T20:34:33.792080Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-08T20:34:33.791632Z&quot;}}" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Min–max check:"</span>)</span>
@@ -1091,37 +1128,13 @@ Optional: two standard deviation conventions
 </section>
 <section id="what-not-to-rescale" class="level3" data-number="11.4.4">
 <h3 data-number="11.4.4" class="anchored" data-anchor-id="what-not-to-rescale"><span class="header-section-number">11.4.4</span> What not to rescale</h3>
-<p>For this chapter, rescale columns that measure quantities, such as applications or tuition. Leave identifiers and category labels alone: a college ID or a spending label does not measure an amount. In the next section, we will represent categories with numeric codes and indicator columns. Keep those encodings unchanged in these exercises; decisions about scaling encoded predictors depend on the modeling method.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Method</th>
-<th>Formula</th>
-<th>Result</th>
-<th>Use when</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Min–max</td>
-<td><code>(x - x.min()) / (x.max() - x.min())</code></td>
-<td>Every column from 0 to 1</td>
-<td>You want values relative to their observed range</td>
-</tr>
-<tr class="even">
-<td>Standardization</td>
-<td><code>(x - x.mean()) / x.std()</code></td>
-<td>Mean 0, SD 1</td>
-<td>You want “how unusual” in common units</td>
-</tr>
-</tbody>
-</table>
+<p>For this chapter, rescale columns that measure quantities, such as applications, tuition, or graduation rate. Leave these columns alone:</p>
+<ul>
+<li><strong>Identifiers</strong>, such as a college ID or a ZIP code. They are stored as numbers but work as names, so a scaled ID means nothing.</li>
+<li><strong>Category labels</strong>, such as <code>Private</code> or the spending bin labels. They are not amounts, so they have no mean, minimum, or standard deviation to scale by.</li>
+<li><strong>Encoded categories</strong>, the numeric codes and indicator columns you will create in the next section. Keep them unchanged in these exercises; whether to scale them depends on the modeling method.</li>
+<li><strong>Constant columns</strong>, whose range and standard deviation are zero (see the checks above).</li>
+</ul>
 <p>Not every method needs rescaling at all. Rescaling matters for methods that combine columns, through distances as in KNN or through weighted sums. Methods that look at one column at a time, such as the decision trees you will meet in later courses, which split the data at a threshold on a single column, give the same result on raw and rescaled data.</p>
 </section>
 </section>
