@@ -417,6 +417,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#named-aggregation" id="toc-named-aggregation" class="nav-link" data-scroll-target="#named-aggregation"><span class="header-section-number">12.5.1</span> Named aggregation</a></li>
   <li><a href="#your-own-statistic" id="toc-your-own-statistic" class="nav-link" data-scroll-target="#your-own-statistic"><span class="header-section-number">12.5.2</span> Your own statistic</a></li>
+  <li><a href="#goalcode-table" id="toc-goalcode-table" class="nav-link" data-scroll-target="#goalcode-table"><span class="header-section-number">12.5.3</span> Goal–code table</a></li>
   </ul></li>
   <li><a href="#group-by-two-columns" id="toc-group-by-two-columns" class="nav-link" data-scroll-target="#group-by-two-columns"><span class="header-section-number">12.6</span> Group by two columns</a></li>
   <li><a href="#what-a-group-mean-averages" id="toc-what-a-group-mean-averages" class="nav-link" data-scroll-target="#what-a-group-mean-averages"><span class="header-section-number">12.7</span> What a group mean averages</a></li>
@@ -466,7 +467,7 @@ window.Quarto = {
 
 
 <p>Many questions in data analysis ask how a measurement differs across groups: What is the mean GDP for each continent? How does graduation rate vary across spending groups? <code>groupby()</code> helps answer these questions by splitting rows into groups, computing a statistic within each group, and combining the results into a table. This split–apply–combine pattern is the foundation of grouped summaries.</p>
-<p>This chapter makes that pattern a full tool. It covers counting by category, computing several statistics at once with readable names, grouping by more than one column, and the three things you can do with groups besides summarizing them: give every row a group-level value, keep or drop whole groups, and take a few rows from each. Along the way it asks a question every grouped summary raises: what exactly is being averaged?</p>
+<p>This chapter makes that pattern a full tool. It covers counting by category, computing several statistics at once with readable names, grouping by more than one column, and the three things you can do with groups besides summarizing them: give every row a group-level value, keep or drop whole groups, and take a few rows from each.</p>
 <p>By the end of this chapter you should be able to:</p>
 <ul>
 <li>Count rows by category with <code>value_counts()</code>, <code>crosstab()</code>, and <code>groupby().size()</code>, and count distinct values with <code>nunique()</code>.</li>
@@ -490,7 +491,7 @@ window.Quarto = {
         └── data/
             └── gdp_lifeExpectancy.csv</code></pre>
 <p>Run <code>data_aggregation_examples.ipynb</code> for the lesson and complete <code>activity12.ipynb</code> for your own activity report, with <code>stat303-data-aggregation</code> as the notebook working folder. The data is read with the relative path <code>"data/gdp_lifeExpectancy.csv"</code>, so the notebooks find it only when that folder is the working folder.</p>
-<div id="agg-imports" class="cell" data-execution_count="1">
+<div id="agg-imports" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -501,14 +502,14 @@ window.Quarto = {
 <section id="the-data" class="level2" data-number="12.2">
 <h2 data-number="12.2" class="anchored" data-anchor-id="the-data"><span class="header-section-number">12.2</span> The data</h2>
 <p>This chapter uses country-level data on life expectancy, population, and GDP per capita, recorded every five years from 1952 to 2007:</p>
-<div id="agg-load" class="cell" data-execution_count="2">
+<div id="agg-load" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>gdp <span class="op">=</span> pd.read_csv(<span class="st">"data/gdp_lifeExpectancy.csv"</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(gdp.shape)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>gdp.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(1704, 6)</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
@@ -582,9 +583,9 @@ window.Quarto = {
 <h2 data-number="12.3" class="anchored" data-anchor-id="count-by-category"><span class="header-section-number">12.3</span> Count by category</h2>
 <p>The simplest summary of a group is its size. Three tools count, and they differ in what they count and how many columns they cross.</p>
 <p><code>value_counts()</code>, from <a href="./pandas_fundamentals.html">Pandas Fundamentals</a>, counts the rows in each category of one column:</p>
-<div id="agg-value-counts" class="cell" data-execution_count="3">
+<div id="agg-value-counts" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>gdp[<span class="st">"continent"</span>].value_counts()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>continent
 Africa      624
 Asia        396
@@ -595,9 +596,9 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>These are <strong>rows</strong>, not countries: Africa has 624 rows because 52 countries are each recorded in 12 years. To count distinct countries, use <code>nunique()</code>, the number of unique values, within each continent. The line uses <code>groupby()</code>, which the next section explains in full:</p>
-<div id="agg-nunique" class="cell" data-execution_count="4">
+<div id="agg-nunique" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gdp.groupby(<span class="st">"continent"</span>)[<span class="st">"country"</span>].nunique()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>continent
 Africa      52
 Americas    25
@@ -608,40 +609,26 @@ Name: country, dtype: int64</code></pre>
 </div>
 </div>
 <p>Oceania is only 2 countries, Australia and New Zealand. Any comparison involving “Oceania” is a comparison with two countries, which is worth knowing before reading a summary table.</p>
-<p><code>crosstab()</code>, which drew the island-by-species counts in <a href="./data_viz_1.html">Data Visualization I</a>, counts combinations of two columns. <code>margins=True</code> adds row and column totals labelled <code>All</code>:</p>
-<div id="agg-crosstab" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pd.crosstab(gdp[<span class="st">"continent"</span>], gdp[<span class="st">"year"</span>], margins<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
+<p><code>crosstab()</code> counts rows for every combination of two columns. It puts the first column in rows and the second in columns. Putting <code>year</code> in rows keeps the result narrow enough to read; <code>margins=True</code> adds totals labelled <code>All</code>:</p>
+<div id="agg-crosstab" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pd.crosstab(gdp[<span class="st">"year"</span>], gdp[<span class="st">"continent"</span>], margins<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
 
 <table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th">year</th>
-<th data-quarto-table-cell-role="th">1952</th>
-<th data-quarto-table-cell-role="th">1957</th>
-<th data-quarto-table-cell-role="th">1962</th>
-<th data-quarto-table-cell-role="th">1967</th>
-<th data-quarto-table-cell-role="th">1972</th>
-<th data-quarto-table-cell-role="th">1977</th>
-<th data-quarto-table-cell-role="th">1982</th>
-<th data-quarto-table-cell-role="th">1987</th>
-<th data-quarto-table-cell-role="th">1992</th>
-<th data-quarto-table-cell-role="th">1997</th>
-<th data-quarto-table-cell-role="th">2002</th>
-<th data-quarto-table-cell-role="th">2007</th>
+<th data-quarto-table-cell-role="th">continent</th>
+<th data-quarto-table-cell-role="th">Africa</th>
+<th data-quarto-table-cell-role="th">Americas</th>
+<th data-quarto-table-cell-role="th">Asia</th>
+<th data-quarto-table-cell-role="th">Europe</th>
+<th data-quarto-table-cell-role="th">Oceania</th>
 <th data-quarto-table-cell-role="th">All</th>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">continent</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">year</th>
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th"></th>
@@ -652,99 +639,120 @@ Name: country, dtype: int64</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">Africa</th>
+<th data-quarto-table-cell-role="th">1952</th>
 <td>52</td>
-<td>52</td>
-<td>52</td>
-<td>52</td>
-<td>52</td>
-<td>52</td>
-<td>52</td>
-<td>52</td>
-<td>52</td>
-<td>52</td>
-<td>52</td>
-<td>52</td>
-<td>624</td>
+<td>25</td>
+<td>33</td>
+<td>30</td>
+<td>2</td>
+<td>142</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">Americas</th>
+<th data-quarto-table-cell-role="th">1957</th>
+<td>52</td>
 <td>25</td>
-<td>25</td>
-<td>25</td>
-<td>25</td>
-<td>25</td>
-<td>25</td>
-<td>25</td>
-<td>25</td>
-<td>25</td>
-<td>25</td>
-<td>25</td>
-<td>25</td>
-<td>300</td>
+<td>33</td>
+<td>30</td>
+<td>2</td>
+<td>142</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">Asia</th>
+<th data-quarto-table-cell-role="th">1962</th>
+<td>52</td>
+<td>25</td>
 <td>33</td>
-<td>33</td>
-<td>33</td>
-<td>33</td>
-<td>33</td>
-<td>33</td>
-<td>33</td>
-<td>33</td>
-<td>33</td>
-<td>33</td>
-<td>33</td>
-<td>33</td>
-<td>396</td>
+<td>30</td>
+<td>2</td>
+<td>142</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">Europe</th>
+<th data-quarto-table-cell-role="th">1967</th>
+<td>52</td>
+<td>25</td>
+<td>33</td>
 <td>30</td>
-<td>30</td>
-<td>30</td>
-<td>30</td>
-<td>30</td>
-<td>30</td>
-<td>30</td>
-<td>30</td>
-<td>30</td>
-<td>30</td>
-<td>30</td>
-<td>30</td>
-<td>360</td>
+<td>2</td>
+<td>142</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">Oceania</th>
+<th data-quarto-table-cell-role="th">1972</th>
+<td>52</td>
+<td>25</td>
+<td>33</td>
+<td>30</td>
 <td>2</td>
-<td>2</td>
-<td>2</td>
-<td>2</td>
-<td>2</td>
-<td>2</td>
-<td>2</td>
-<td>2</td>
-<td>2</td>
-<td>2</td>
-<td>2</td>
-<td>2</td>
-<td>24</td>
+<td>142</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">1977</th>
+<td>52</td>
+<td>25</td>
+<td>33</td>
+<td>30</td>
+<td>2</td>
+<td>142</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1982</th>
+<td>52</td>
+<td>25</td>
+<td>33</td>
+<td>30</td>
+<td>2</td>
+<td>142</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1987</th>
+<td>52</td>
+<td>25</td>
+<td>33</td>
+<td>30</td>
+<td>2</td>
+<td>142</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1992</th>
+<td>52</td>
+<td>25</td>
+<td>33</td>
+<td>30</td>
+<td>2</td>
+<td>142</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1997</th>
+<td>52</td>
+<td>25</td>
+<td>33</td>
+<td>30</td>
+<td>2</td>
+<td>142</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2002</th>
+<td>52</td>
+<td>25</td>
+<td>33</td>
+<td>30</td>
+<td>2</td>
+<td>142</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2007</th>
+<td>52</td>
+<td>25</td>
+<td>33</td>
+<td>30</td>
+<td>2</td>
+<td>142</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">All</th>
-<td>142</td>
-<td>142</td>
-<td>142</td>
-<td>142</td>
-<td>142</td>
-<td>142</td>
-<td>142</td>
-<td>142</td>
-<td>142</td>
-<td>142</td>
-<td>142</td>
-<td>142</td>
+<td>624</td>
+<td>300</td>
+<td>396</td>
+<td>360</td>
+<td>24</td>
 <td>1704</td>
 </tr>
 </tbody>
@@ -754,32 +762,12 @@ Name: country, dtype: int64</code></pre>
 </div>
 </div>
 <p>Every continent has the same number of rows in every year, so the data is <strong>balanced</strong>: no country drops in or out over time. That is worth checking, because a continent whose countries appear only in later years would show a “trend” made by the changing membership rather than by change within countries.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Question</th>
-<th>Tool</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>How many rows in each category?</td>
-<td><code>df["col"].value_counts()</code></td>
-</tr>
-<tr class="even">
-<td>How many distinct values in each group?</td>
-<td><code>df.groupby("g")["col"].nunique()</code></td>
-</tr>
-<tr class="odd">
-<td>How many rows in each combination of two columns?</td>
-<td><code>pd.crosstab(df["a"], df["b"])</code></td>
-</tr>
-</tbody>
-</table>
+<p><strong>Choose a counting tool based on what you want to count:</strong></p>
+<ul>
+<li><strong>Rows in one column:</strong> <code>df["col"].value_counts()</code></li>
+<li><strong>Distinct values within each group:</strong> <code>df.groupby("g")["col"].nunique()</code></li>
+<li><strong>Rows across two columns:</strong> <code>pd.crosstab(df["row"], df["col"])</code></li>
+</ul>
 </section>
 <section id="split-apply-combine" class="level2" data-number="12.4">
 <h2 data-number="12.4" class="anchored" data-anchor-id="split-apply-combine"><span class="header-section-number">12.4</span> Split, apply, combine</h2>
@@ -797,11 +785,11 @@ Name: country, dtype: int64</code></pre>
 </figure>
 </div>
 <p>The diagram’s six rows, as a DataFrame, give exactly its result:</p>
-<div id="agg-toy" class="cell" data-execution_count="6">
+<div id="agg-toy" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>toy <span class="op">=</span> pd.DataFrame({<span class="st">"ID"</span>: [<span class="st">"X"</span>, <span class="st">"Y"</span>, <span class="st">"Z"</span>, <span class="st">"X"</span>, <span class="st">"Y"</span>, <span class="st">"Z"</span>],</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Values"</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>]})</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>toy.groupby(<span class="st">"ID"</span>)[<span class="st">"Values"</span>].<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>ID
 X    50
 Y    70
@@ -811,10 +799,21 @@ Name: Values, dtype: int64</code></pre>
 </div>
 <p>Split puts rows with the same <code>ID</code> together (X holds 10 and 40), apply sums each group, and combine stacks the three sums into one Series labelled by <code>ID</code>: X = 50, Y = 70, Z = 90. The same three steps run on the GDP data, only with more rows.</p>
 <p><code>gdp.groupby("continent")</code> does only the first step. It returns a <em>GroupBy object</em> that records which rows belong to which group but computes nothing until you ask:</p>
-<div id="agg-groupby-object" class="cell" data-execution_count="7">
+<div id="agg-groupby-object" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>by_continent <span class="op">=</span> gdp.groupby(<span class="st">"continent"</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>by_continent.size()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>( <span class="bu">type</span>( by_continent ) )</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>by_continent</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.api.typing.DataFrameGroupBy'&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>&lt;pandas.api.typing.DataFrameGroupBy object at 0x11d0c76b0&gt;</code></pre>
+</div>
+</div>
+<p><code>size()</code> counts the rows in each group, the same numbers as <code>value_counts()</code>.</p>
+<div id="f0f34981" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>by_continent.size()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>continent
 Africa      624
 Americas    300
@@ -824,10 +823,10 @@ Oceania      24
 dtype: int64</code></pre>
 </div>
 </div>
-<p><code>size()</code> counts the rows in each group, the same numbers as <code>value_counts()</code>. To see the rows of one group, <code>get_group()</code> returns them as an ordinary DataFrame:</p>
-<div id="agg-get-group" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>by_continent.get_group(<span class="st">"Oceania"</span>).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<p>To see the rows of one group, <code>get_group()</code> returns them as an ordinary DataFrame:</p>
+<div id="agg-get-group" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>by_continent.get_group(<span class="st">"Oceania"</span>).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
 <div>
 
 
@@ -895,9 +894,9 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<p>The apply and combine steps happen when you pick a column and a statistic. This is the form from the last two chapters, here giving the mean life expectancy in each continent over all years:</p>
+<p><strong>The apply and combine steps happen when you pick a column and a statistic</strong>. This is the form from the last two chapters, here giving the mean life expectancy in each continent over all years:</p>
 <div id="agg-mean-one" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>by_continent[<span class="st">"lifeExp"</span>].mean().<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>by_continent[<span class="st">"lifeExp"</span>].mean().<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>continent
 Africa      48.9
@@ -910,7 +909,7 @@ Name: lifeExp, dtype: float64</code></pre>
 </div>
 <p>Any statistic you have used on a whole column works per group: <code>mean()</code>, <code>median()</code>, <code>std()</code>, <code>min()</code>, <code>max()</code>, <code>sum()</code>, <code>count()</code> (non-missing values), and <code>size()</code> (all rows). Selecting a list of columns applies the statistic to each:</p>
 <div id="agg-mean-several" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>by_continent[[<span class="st">"lifeExp"</span>, <span class="st">"gdpPercap"</span>]].median().<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>by_continent[[<span class="st">"lifeExp"</span>, <span class="st">"gdpPercap"</span>]].median().<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 
@@ -965,15 +964,15 @@ Name: lifeExp, dtype: float64</code></pre>
 <h2 data-number="12.5" class="anchored" data-anchor-id="summarize-with-agg"><span class="header-section-number">12.5</span> Summarize with <code>agg()</code></h2>
 <p>One statistic per group is often not enough. GDP per capita in 2007 shows why: a mean alone hides how unequal the countries within a continent are. The rest of this section works with that single year:</p>
 <div id="agg-gdp-2007" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>gdp_2007 <span class="op">=</span> gdp[gdp[<span class="st">"year"</span>] <span class="op">==</span> <span class="dv">2007</span>]</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>gdp_2007.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>gdp_2007 <span class="op">=</span> gdp[gdp[<span class="st">"year"</span>] <span class="op">==</span> <span class="dv">2007</span>]</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>gdp_2007.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>(142, 6)</code></pre>
 </div>
 </div>
 <p><code>agg()</code> takes a list of statistics and returns one column for each:</p>
 <div id="agg-agg-list-code" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>gdp_2007.groupby(<span class="st">"continent"</span>)[<span class="st">"gdpPercap"</span>].agg([<span class="st">"mean"</span>, <span class="st">"median"</span>, <span class="st">"max"</span>]).<span class="bu">round</span>(<span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>gdp_2007.groupby(<span class="st">"continent"</span>)[<span class="st">"gdpPercap"</span>].agg([<span class="st">"mean"</span>, <span class="st">"median"</span>, <span class="st">"max"</span>]).<span class="bu">round</span>(<span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <div>
 
@@ -1035,13 +1034,13 @@ Name: lifeExp, dtype: float64</code></pre>
 <h3 data-number="12.5.1" class="anchored" data-anchor-id="named-aggregation"><span class="header-section-number">12.5.1</span> Named aggregation</h3>
 <p>When the summary is going into a report, give each result a name. <strong>Named aggregation</strong> passes one argument per output column, written as <code>name=(column, statistic)</code>. It also lets each output come from a different column:</p>
 <div id="agg-named-agg" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>summary_2007 <span class="op">=</span> gdp_2007.groupby(<span class="st">"continent"</span>).agg(</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    countries<span class="op">=</span>(<span class="st">"country"</span>, <span class="st">"nunique"</span>),</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    median_gdp<span class="op">=</span>(<span class="st">"gdpPercap"</span>, <span class="st">"median"</span>),</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    mean_life<span class="op">=</span>(<span class="st">"lifeExp"</span>, <span class="st">"mean"</span>),</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    total_pop<span class="op">=</span>(<span class="st">"pop"</span>, <span class="st">"sum"</span>),</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>summary_2007.<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>summary_2007 <span class="op">=</span> gdp_2007.groupby(<span class="st">"continent"</span>).agg(</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    countries<span class="op">=</span>(<span class="st">"country"</span>, <span class="st">"nunique"</span>),</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    median_gdp<span class="op">=</span>(<span class="st">"gdpPercap"</span>, <span class="st">"median"</span>),</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    mean_life<span class="op">=</span>(<span class="st">"lifeExp"</span>, <span class="st">"mean"</span>),</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    total_pop<span class="op">=</span>(<span class="st">"pop"</span>, <span class="st">"sum"</span>),</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>summary_2007.<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <div>
 
@@ -1111,11 +1110,11 @@ Name: lifeExp, dtype: float64</code></pre>
 <h3 data-number="12.5.2" class="anchored" data-anchor-id="your-own-statistic"><span class="header-section-number">12.5.2</span> Your own statistic</h3>
 <p>A statistic that pandas does not provide can be written as a function, and <code>agg()</code> will apply it to each group. A lambda, from <a href="./pandas_intermediate.html">Pandas Intermediate</a>, is the short form. The range of GDP per capita within each continent:</p>
 <div id="agg-agg-lambda" class="cell" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>gdp_2007.groupby(<span class="st">"continent"</span>).agg(</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    lowest_gdp<span class="op">=</span>(<span class="st">"gdpPercap"</span>, <span class="st">"min"</span>),</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    highest_gdp<span class="op">=</span>(<span class="st">"gdpPercap"</span>, <span class="st">"max"</span>),</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    gdp_range<span class="op">=</span>(<span class="st">"gdpPercap"</span>, <span class="kw">lambda</span> x: x.<span class="bu">max</span>() <span class="op">-</span> x.<span class="bu">min</span>()),</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>).<span class="bu">round</span>(<span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>gdp_2007.groupby(<span class="st">"continent"</span>).agg(</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    lowest_gdp<span class="op">=</span>(<span class="st">"gdpPercap"</span>, <span class="st">"min"</span>),</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    highest_gdp<span class="op">=</span>(<span class="st">"gdpPercap"</span>, <span class="st">"max"</span>),</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    gdp_range<span class="op">=</span>(<span class="st">"gdpPercap"</span>, <span class="kw">lambda</span> x: x.<span class="bu">max</span>() <span class="op">-</span> x.<span class="bu">min</span>()),</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>).<span class="bu">round</span>(<span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <div>
 
@@ -1173,6 +1172,10 @@ Name: lifeExp, dtype: float64</code></pre>
 </div>
 </div>
 <p>The lambda receives each continent’s <code>gdpPercap</code> values as a Series <code>x</code> and returns one number. The same works for any rule you can write in a line: a percentile with <code>lambda x: x.quantile(0.9)</code>, or the share above a threshold with <code>lambda x: (x &gt; 10_000).mean()</code>.</p>
+</section>
+<section id="goalcode-table" class="level3" data-number="12.5.3">
+<h3 data-number="12.5.3" class="anchored" data-anchor-id="goalcode-table"><span class="header-section-number">12.5.3</span> Goal–code table</h3>
+<p>Use the goal to choose an aggregation pattern:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -1186,7 +1189,7 @@ Name: lifeExp, dtype: float64</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td>One statistic</td>
+<td>One statistic per group</td>
 <td><code>df.groupby("g")["col"].mean()</code></td>
 </tr>
 <tr class="even">
@@ -1194,11 +1197,11 @@ Name: lifeExp, dtype: float64</code></pre>
 <td><code>df.groupby("g")["col"].agg(["mean", "median"])</code></td>
 </tr>
 <tr class="odd">
-<td>Named results, any columns</td>
+<td>Named results from any columns</td>
 <td><code>df.groupby("g").agg(name=("col", "mean"), ...)</code></td>
 </tr>
 <tr class="even">
-<td>Your own statistic</td>
+<td>A custom statistic per group</td>
 <td><code>name=("col", lambda x: x.max() - x.min())</code></td>
 </tr>
 </tbody>
@@ -1209,8 +1212,8 @@ Name: lifeExp, dtype: float64</code></pre>
 <h2 data-number="12.6" class="anchored" data-anchor-id="group-by-two-columns"><span class="header-section-number">12.6</span> Group by two columns</h2>
 <p>Grouping by continent alone mixes 55 years together. To follow each continent over time, group by continent <em>and</em> year by passing a list:</p>
 <div id="agg-two-keys-code" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>life_by_year <span class="op">=</span> gdp.groupby([<span class="st">"continent"</span>, <span class="st">"year"</span>])[<span class="st">"lifeExp"</span>].mean().<span class="bu">round</span>(<span class="dv">1</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>life_by_year.head(<span class="dv">14</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>life_by_year <span class="op">=</span> gdp.groupby([<span class="st">"continent"</span>, <span class="st">"year"</span>])[<span class="st">"lifeExp"</span>].mean().<span class="bu">round</span>(<span class="dv">1</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>life_by_year.head(<span class="dv">14</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>continent  year
 Africa     1952    39.1
@@ -1232,8 +1235,8 @@ Name: lifeExp, dtype: float64</code></pre>
 </div>
 <p>The result has one row per continent–year combination, 5 × 12 = 60 in all, and a <strong>two-level index</strong> (also called a MultiIndex): continent on the outer level and year on the inner. <code>.loc[]</code> selects from it. One label selects a whole outer group; a tuple selects a single row:</p>
 <div id="agg-multiindex-loc" class="cell" data-execution_count="16">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(life_by_year.loc[<span class="st">"Oceania"</span>])</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Africa, 2007:"</span>, life_by_year.loc[(<span class="st">"Africa"</span>, <span class="dv">2007</span>)])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(life_by_year.loc[<span class="st">"Oceania"</span>])</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Africa, 2007:"</span>, life_by_year.loc[(<span class="st">"Africa"</span>, <span class="dv">2007</span>)])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>year
 1952    69.3
@@ -1254,8 +1257,8 @@ Africa, 2007: 54.8</code></pre>
 </div>
 <p>For most further work — plotting, filtering, merging — ordinary columns are easier than a two-level index. <code>reset_index()</code>, from Pandas Fundamentals, moves the index levels back into columns:</p>
 <div id="agg-reset-index-code" class="cell" data-execution_count="17">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>life_trend <span class="op">=</span> life_by_year.reset_index()</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>life_trend.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>life_trend <span class="op">=</span> life_by_year.reset_index()</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>life_trend.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <div>
 
@@ -1308,16 +1311,16 @@ Africa, 2007: 54.8</code></pre>
 </div>
 <p>In that form the summary goes straight into a seaborn plot from <a href="./data_viz_1.html">Data Visualization I</a>. The <code>ax.legend(loc="upper left", ncols=5)</code> line lays the legend out in one row above the lines, using the <code>ncols=</code> from the shared legend in <a href="./data_viz_2.html">Data Visualization II</a>, so it covers none of the data:</p>
 <div id="agg-trend-plot" class="cell" data-execution_count="18">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="fl">4.5</span>), layout<span class="op">=</span><span class="st">"constrained"</span>)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>sns.lineplot(data<span class="op">=</span>life_trend, x<span class="op">=</span><span class="st">"year"</span>, y<span class="op">=</span><span class="st">"lifeExp"</span>, hue<span class="op">=</span><span class="st">"continent"</span>, marker<span class="op">=</span><span class="st">"o"</span>, ax<span class="op">=</span>ax)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"Year"</span>, ylabel<span class="op">=</span><span class="st">"Mean life expectancy (years)"</span>, ylim<span class="op">=</span>(<span class="dv">35</span>, <span class="dv">89</span>),</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>       title<span class="op">=</span><span class="st">"Life expectancy rose everywhere, but Africa stalled after 1987"</span>)</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>ax.legend(title<span class="op">=</span><span class="va">None</span>, loc<span class="op">=</span><span class="st">"upper left"</span>, ncols<span class="op">=</span><span class="dv">5</span>)   <span class="co"># one row, clear of the lines</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="fl">4.5</span>), layout<span class="op">=</span><span class="st">"constrained"</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>sns.lineplot(data<span class="op">=</span>life_trend, x<span class="op">=</span><span class="st">"year"</span>, y<span class="op">=</span><span class="st">"lifeExp"</span>, hue<span class="op">=</span><span class="st">"continent"</span>, marker<span class="op">=</span><span class="st">"o"</span>, ax<span class="op">=</span>ax)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"Year"</span>, ylabel<span class="op">=</span><span class="st">"Mean life expectancy (years)"</span>, ylim<span class="op">=</span>(<span class="dv">35</span>, <span class="dv">89</span>),</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>       title<span class="op">=</span><span class="st">"Life expectancy rose everywhere, but Africa stalled after 1987"</span>)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>ax.legend(title<span class="op">=</span><span class="va">None</span>, loc<span class="op">=</span><span class="st">"upper left"</span>, ncols<span class="op">=</span><span class="dv">5</span>)   <span class="co"># one row, clear of the lines</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Data aggregation_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="Data aggregation_files/figure-html/cell-20-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1331,15 +1334,15 @@ Africa, 2007: 54.8</code></pre>
 <p><span class="math display">\[\text{weighted mean} = \frac{\sum (\text{pop} \times \text{lifeExp})}{\sum \text{pop}}\]</span></p>
 <p><code>groupby()</code> can compute both sums at once. Make a column of the products, sum it and <code>pop</code> by group, and divide:</p>
 <div id="agg-weighted" class="cell" data-execution_count="19">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>gdp[<span class="st">"pop_x_life"</span>] <span class="op">=</span> gdp[<span class="st">"pop"</span>] <span class="op">*</span> gdp[<span class="st">"lifeExp"</span>]</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>sums <span class="op">=</span> gdp.groupby([<span class="st">"continent"</span>, <span class="st">"year"</span>])[[<span class="st">"pop_x_life"</span>, <span class="st">"pop"</span>]].<span class="bu">sum</span>()</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>weighted_life <span class="op">=</span> sums[<span class="st">"pop_x_life"</span>] <span class="op">/</span> sums[<span class="st">"pop"</span>]</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>asia <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"per country (unweighted)"</span>: life_by_year.loc[<span class="st">"Asia"</span>],</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"per person (weighted by population)"</span>: weighted_life.loc[<span class="st">"Asia"</span>],</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>}).<span class="bu">round</span>(<span class="dv">1</span>)</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>asia.loc[[<span class="dv">1952</span>, <span class="dv">1982</span>, <span class="dv">2007</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>gdp[<span class="st">"pop_x_life"</span>] <span class="op">=</span> gdp[<span class="st">"pop"</span>] <span class="op">*</span> gdp[<span class="st">"lifeExp"</span>]</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>sums <span class="op">=</span> gdp.groupby([<span class="st">"continent"</span>, <span class="st">"year"</span>])[[<span class="st">"pop_x_life"</span>, <span class="st">"pop"</span>]].<span class="bu">sum</span>()</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>weighted_life <span class="op">=</span> sums[<span class="st">"pop_x_life"</span>] <span class="op">/</span> sums[<span class="st">"pop"</span>]</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>asia <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"per country (unweighted)"</span>: life_by_year.loc[<span class="st">"Asia"</span>],</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"per person (weighted by population)"</span>: weighted_life.loc[<span class="st">"Asia"</span>],</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>}).<span class="bu">round</span>(<span class="dv">1</span>)</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>asia.loc[[<span class="dv">1952</span>, <span class="dv">1982</span>, <span class="dv">2007</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
 <div>
 
@@ -1382,15 +1385,15 @@ Africa, 2007: 54.8</code></pre>
 <p>In 1952 the typical Asian <em>country</em> had a life expectancy of 46.3 years, but the typical Asian <em>person</em> only 42.9, because the most populous countries had some of the lowest values. Dividing two group sums keeps everything aligned by the shared continent–year index, so each weighted mean uses its own group’s numbers.</p>
 <p>Plotting both versions over every year shows something the three rows hide. <code>asia.plot()</code>, the pandas plotting from Data Visualization I, draws one line per column against the index:</p>
 <div id="agg-weighted-plot" class="cell" data-execution_count="20">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="fl">4.5</span>), layout<span class="op">=</span><span class="st">"constrained"</span>)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>asia.plot(ax<span class="op">=</span>ax, marker<span class="op">=</span><span class="st">"o"</span>)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"Year"</span>, ylabel<span class="op">=</span><span class="st">"Life expectancy in Asia (years)"</span>,</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>       title<span class="op">=</span><span class="st">"Per person, Asia's life expectancy fell in 1962; per country, it rose"</span>)</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="fl">4.5</span>), layout<span class="op">=</span><span class="st">"constrained"</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>asia.plot(ax<span class="op">=</span>ax, marker<span class="op">=</span><span class="st">"o"</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"Year"</span>, ylabel<span class="op">=</span><span class="st">"Life expectancy in Asia (years)"</span>,</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>       title<span class="op">=</span><span class="st">"Per person, Asia's life expectancy fell in 1962; per country, it rose"</span>)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Data aggregation_files/figure-html/cell-21-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="Data aggregation_files/figure-html/cell-22-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1402,14 +1405,14 @@ Africa, 2007: 54.8</code></pre>
 <h2 data-number="12.8" class="anchored" data-anchor-id="give-every-row-a-group-value-transform"><span class="header-section-number">12.8</span> Give every row a group value: <code>transform()</code></h2>
 <p>Summaries return one row per group. Sometimes you want the group value on <strong>every row</strong> instead, to compare each row with its own group. Data Cleaning used <code>transform("mean")</code> to fill a missing GDP with its continent’s mean; the same tool answers “how does each country compare with its continent in the same year?”:</p>
 <div id="agg-transform-code" class="cell" data-execution_count="21">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>continent_year_mean <span class="op">=</span> gdp.groupby([<span class="st">"continent"</span>, <span class="st">"year"</span>])[<span class="st">"gdpPercap"</span>].transform(<span class="st">"mean"</span>)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>gdp[<span class="st">"gdp_vs_continent"</span>] <span class="op">=</span> gdp[<span class="st">"gdpPercap"</span>] <span class="op">/</span> continent_year_mean</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>(gdp[gdp[<span class="st">"year"</span>] <span class="op">==</span> <span class="dv">2007</span>]</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">"gdp_vs_continent"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    [[<span class="st">"country"</span>, <span class="st">"continent"</span>, <span class="st">"gdpPercap"</span>, <span class="st">"gdp_vs_continent"</span>]]</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    .head()</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">round</span>(<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>continent_year_mean <span class="op">=</span> gdp.groupby([<span class="st">"continent"</span>, <span class="st">"year"</span>])[<span class="st">"gdpPercap"</span>].transform(<span class="st">"mean"</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>gdp[<span class="st">"gdp_vs_continent"</span>] <span class="op">=</span> gdp[<span class="st">"gdpPercap"</span>] <span class="op">/</span> continent_year_mean</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>(gdp[gdp[<span class="st">"year"</span>] <span class="op">==</span> <span class="dv">2007</span>]</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">"gdp_vs_continent"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    [[<span class="st">"country"</span>, <span class="st">"continent"</span>, <span class="st">"gdpPercap"</span>, <span class="st">"gdp_vs_continent"</span>]]</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    .head()</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">round</span>(<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
 <div>
 
@@ -1474,11 +1477,11 @@ Africa, 2007: 54.8</code></pre>
 <h2 data-number="12.9" class="anchored" data-anchor-id="keep-or-drop-whole-groups-filter"><span class="header-section-number">12.9</span> Keep or drop whole groups: <code>filter()</code></h2>
 <p><code>filter()</code> tests each group against a rule and keeps <strong>all</strong> the rows of the groups that pass. The rule is a function that receives one group as a DataFrame and returns <code>True</code> or <code>False</code>. Which countries gained more than 30 years of life expectancy between 1952 and 2007? The rows are in year order within each country, so <code>iloc[0]</code> is a country’s 1952 value and <code>iloc[-1]</code> its 2007 value:</p>
 <div id="agg-filter-code" class="cell" data-execution_count="22">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>big_gainers <span class="op">=</span> gdp.groupby(<span class="st">"country"</span>).<span class="bu">filter</span>(</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> g: g[<span class="st">"lifeExp"</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> g[<span class="st">"lifeExp"</span>].iloc[<span class="dv">0</span>] <span class="op">&gt;</span> <span class="dv">30</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(big_gainers[<span class="st">"country"</span>].nunique(), <span class="st">"countries"</span>)</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="bu">list</span>(big_gainers[<span class="st">"country"</span>].unique())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>big_gainers <span class="op">=</span> gdp.groupby(<span class="st">"country"</span>).<span class="bu">filter</span>(</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> g: g[<span class="st">"lifeExp"</span>].iloc[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> g[<span class="st">"lifeExp"</span>].iloc[<span class="dv">0</span>] <span class="op">&gt;</span> <span class="dv">30</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(big_gainers[<span class="st">"country"</span>].nunique(), <span class="st">"countries"</span>)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="bu">list</span>(big_gainers[<span class="st">"country"</span>].unique())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>9 countries</code></pre>
 </div>
@@ -1496,8 +1499,8 @@ Africa, 2007: 54.8</code></pre>
 </div>
 <p>Every row of those 9 countries is kept, all 12 years each, so the result can be plotted or summarized like the full data. A Boolean mask on rows, by contrast, tests each row on its own:</p>
 <div id="agg-mask-contrast" class="cell" data-execution_count="23">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>over_75 <span class="op">=</span> gdp[gdp[<span class="st">"lifeExp"</span>] <span class="op">&gt;</span> <span class="dv">75</span>]</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(over_75), <span class="st">"rows from"</span>, over_75[<span class="st">"country"</span>].nunique(), <span class="st">"countries"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>over_75 <span class="op">=</span> gdp[gdp[<span class="st">"lifeExp"</span>] <span class="op">&gt;</span> <span class="dv">75</span>]</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(over_75), <span class="st">"rows from"</span>, over_75[<span class="st">"country"</span>].nunique(), <span class="st">"countries"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>173 rows from 45 countries</code></pre>
 </div>
@@ -1508,10 +1511,10 @@ Africa, 2007: 54.8</code></pre>
 <h2 data-number="12.10" class="anchored" data-anchor-id="take-rows-from-each-group-head-and-sample"><span class="header-section-number">12.10</span> Take rows from each group: <code>head()</code> and <code>sample()</code></h2>
 <p>To take the top rows of each group, sort first, then take <code>head()</code> within each group:</p>
 <div id="agg-head-code" class="cell" data-execution_count="24">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>(gdp[gdp[<span class="st">"year"</span>] <span class="op">==</span> <span class="dv">2007</span>]</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">"lifeExp"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">"continent"</span>)</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    .head(<span class="dv">2</span>)[[<span class="st">"continent"</span>, <span class="st">"country"</span>, <span class="st">"lifeExp"</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>(gdp[gdp[<span class="st">"year"</span>] <span class="op">==</span> <span class="dv">2007</span>]</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">"lifeExp"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">"continent"</span>)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    .head(<span class="dv">2</span>)[[<span class="st">"continent"</span>, <span class="st">"country"</span>, <span class="st">"lifeExp"</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="24">
 <div>
 
@@ -1595,8 +1598,8 @@ Africa, 2007: 54.8</code></pre>
 <p>That is the two longest-lived countries of each continent in 2007. As in the <code>transform()</code> example, the parentheses let each step sit on its own line.</p>
 <p><code>sample()</code> draws rows at random within each group. A plain random sample of the whole table reflects the continents’ sizes, so Oceania, with 24 rows, would barely appear. A <strong>stratified sample</strong> takes the same number from every group instead:</p>
 <div id="agg-sample-code" class="cell" data-execution_count="25">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>stratified <span class="op">=</span> gdp.groupby(<span class="st">"continent"</span>).sample(n<span class="op">=</span><span class="dv">24</span>, random_state<span class="op">=</span><span class="dv">303</span>)</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>stratified[<span class="st">"continent"</span>].value_counts()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>stratified <span class="op">=</span> gdp.groupby(<span class="st">"continent"</span>).sample(n<span class="op">=</span><span class="dv">24</span>, random_state<span class="op">=</span><span class="dv">303</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>stratified[<span class="st">"continent"</span>].value_counts()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="25">
 <pre><code>continent
 Africa      24
@@ -1608,47 +1611,6 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p><code>random_state=303</code> fixes the random draw, so the sample is the same every time the cell runs. Here <code>n=24</code> takes every Oceania row, since that is all there is.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Goal</th>
-<th>Result</th>
-<th>Code</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>One row per group</td>
-<td>Summary table</td>
-<td><code>df.groupby("g").agg(...)</code></td>
-</tr>
-<tr class="even">
-<td>Group value on every row</td>
-<td>Same rows, new column</td>
-<td><code>df.groupby("g")["col"].transform("mean")</code></td>
-</tr>
-<tr class="odd">
-<td>Keep whole groups that pass a rule</td>
-<td>Fewer rows, whole groups</td>
-<td><code>df.groupby("g").filter(lambda g: ...)</code></td>
-</tr>
-<tr class="even">
-<td>First rows of each group</td>
-<td>A few rows per group</td>
-<td><code>df.sort_values(...).groupby("g").head(n)</code></td>
-</tr>
-<tr class="odd">
-<td>Random rows from each group</td>
-<td>A few rows per group</td>
-<td><code>df.groupby("g").sample(n=..., random_state=...)</code></td>
-</tr>
-</tbody>
-</table>
 </section>
 <section id="summary-cheat-sheet" class="level2" data-number="12.11">
 <h2 data-number="12.11" class="anchored" data-anchor-id="summary-cheat-sheet"><span class="header-section-number">12.11</span> Summary Cheat Sheet</h2>
