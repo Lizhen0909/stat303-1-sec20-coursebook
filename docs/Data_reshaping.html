@@ -381,25 +381,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#set-up-your-chapter-files" id="toc-set-up-your-chapter-files" class="nav-link active" data-scroll-target="#set-up-your-chapter-files"><span class="header-section-number">13.1</span> Set Up Your Chapter Files</a></li>
-  <li><a href="#what-reshaping-is" id="toc-what-reshaping-is" class="nav-link" data-scroll-target="#what-reshaping-is"><span class="header-section-number">13.2</span> What reshaping is</a></li>
-  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data"><span class="header-section-number">13.3</span> The data</a></li>
-  <li><a href="#long-to-wide" id="toc-long-to-wide" class="nav-link" data-scroll-target="#long-to-wide"><span class="header-section-number">13.4</span> Long to wide</a>
-  <ul class="collapse">
-  <li><a href="#rearranging-values-pivot" id="toc-rearranging-values-pivot" class="nav-link" data-scroll-target="#rearranging-values-pivot"><span class="header-section-number">13.4.1</span> Rearranging values: <code>pivot()</code></a></li>
-  <li><a href="#why-wide-two-years-side-by-side" id="toc-why-wide-two-years-side-by-side" class="nav-link" data-scroll-target="#why-wide-two-years-side-by-side"><span class="header-section-number">13.4.2</span> Why wide: two years side by side</a></li>
-  <li><a href="#summarizing-while-reshaping-pivot_table" id="toc-summarizing-while-reshaping-pivot_table" class="nav-link" data-scroll-target="#summarizing-while-reshaping-pivot_table"><span class="header-section-number">13.4.3</span> Summarizing while reshaping: <code>pivot_table()</code></a></li>
-  <li><a href="#the-same-table-from-a-grouped-result-unstack" id="toc-the-same-table-from-a-grouped-result-unstack" class="nav-link" data-scroll-target="#the-same-table-from-a-grouped-result-unstack"><span class="header-section-number">13.4.4</span> The same table from a grouped result: <code>unstack()</code></a></li>
-  <li><a href="#rearrange-or-summarize-what-a-duplicate-does" id="toc-rearrange-or-summarize-what-a-duplicate-does" class="nav-link" data-scroll-target="#rearrange-or-summarize-what-a-duplicate-does"><span class="header-section-number">13.4.5</span> Rearrange or summarize? What a duplicate does</a></li>
+  <li><a href="#introduction-to-data-reshaping" id="toc-introduction-to-data-reshaping" class="nav-link" data-scroll-target="#introduction-to-data-reshaping"><span class="header-section-number">13.2</span> Introduction to Data Reshaping</a>
+  <ul>
+  <li><a href="#why-data-reshaping-matters" id="toc-why-data-reshaping-matters" class="nav-link" data-scroll-target="#why-data-reshaping-matters"><span class="header-section-number">13.2.1</span> Why Data Reshaping Matters</a></li>
+  <li><a href="#understanding-wide-vs-long-format" id="toc-understanding-wide-vs-long-format" class="nav-link" data-scroll-target="#understanding-wide-vs-long-format"><span class="header-section-number">13.2.2</span> Understanding Wide vs.&nbsp;Long Format</a></li>
+  <li><a href="#reshaping-tools-in-pandas" id="toc-reshaping-tools-in-pandas" class="nav-link" data-scroll-target="#reshaping-tools-in-pandas"><span class="header-section-number">13.2.3</span> Reshaping Tools in Pandas</a></li>
   </ul></li>
-  <li><a href="#wide-to-long" id="toc-wide-to-long" class="nav-link" data-scroll-target="#wide-to-long"><span class="header-section-number">13.5</span> Wide to long</a>
-  <ul class="collapse">
-  <li><a href="#melt" id="toc-melt" class="nav-link" data-scroll-target="#melt"><span class="header-section-number">13.5.1</span> <code>melt()</code></a></li>
-  <li><a href="#melting-back-and-checking-the-result" id="toc-melting-back-and-checking-the-result" class="nav-link" data-scroll-target="#melting-back-and-checking-the-result"><span class="header-section-number">13.5.2</span> Melting back, and checking the result</a></li>
-  <li><a href="#stack" id="toc-stack" class="nav-link" data-scroll-target="#stack"><span class="header-section-number">13.5.3</span> <code>stack()</code></a></li>
+  <li><a href="#stacking-and-unstacking" id="toc-stacking-and-unstacking" class="nav-link" data-scroll-target="#stacking-and-unstacking"><span class="header-section-number">13.3</span> Stacking and Unstacking using <code>stack()</code> and <code>unstack()</code></a>
+  <ul>
+  <li><a href="#unstacking-rows-to-columns-unstack" id="toc-unstacking-rows-to-columns-unstack" class="nav-link" data-scroll-target="#unstacking-rows-to-columns-unstack"><span class="header-section-number">13.3.1</span> Unstacking (Rows to Columns): <code>unstack()</code></a></li>
+  <li><a href="#stacking-columns-to-rows-stack" id="toc-stacking-columns-to-rows-stack" class="nav-link" data-scroll-target="#stacking-columns-to-rows-stack"><span class="header-section-number">13.3.2</span> Stacking (Columns to Rows): <code>stack()</code></a></li>
+  <li><a href="#understanding-levels" id="toc-understanding-levels" class="nav-link" data-scroll-target="#understanding-levels"><span class="header-section-number">13.3.3</span> Understanding the <code>level</code> in Multi-Level Index and Columns</a></li>
+  <li><a href="#back-to-a-single-level-table" id="toc-back-to-a-single-level-table" class="nav-link" data-scroll-target="#back-to-a-single-level-table"><span class="header-section-number">13.3.4</span> Back to a Single-Level Table</a></li>
+  <li><a href="#transposing-using-the-.t-attribute" id="toc-transposing-using-the-.t-attribute" class="nav-link" data-scroll-target="#transposing-using-the-.t-attribute"><span class="header-section-number">13.3.5</span> Transposing using the <code>.T</code> Attribute</a></li>
+  </ul></li>
+  <li><a href="#pivoting" id="toc-pivoting" class="nav-link" data-scroll-target="#pivoting"><span class="header-section-number">13.4</span> Pivoting from Long to Wide: <code>pivot_table()</code></a>
+  <ul>
+  <li><a href="#what-is-pivoting" id="toc-what-is-pivoting" class="nav-link" data-scroll-target="#what-is-pivoting"><span class="header-section-number">13.4.1</span> What is Pivoting?</a></li>
+  <li><a href="#example-1-simple-pivot-with-single-index" id="toc-example-1-simple-pivot-with-single-index" class="nav-link" data-scroll-target="#example-1-simple-pivot-with-single-index"><span class="header-section-number">13.4.2</span> Example 1: Simple Pivot with Single Index</a></li>
+  <li><a href="#example-2-multi-level-index-hierarchical-pivot" id="toc-example-2-multi-level-index-hierarchical-pivot" class="nav-link" data-scroll-target="#example-2-multi-level-index-hierarchical-pivot"><span class="header-section-number">13.4.3</span> Example 2: Multi-Level Index (Hierarchical Pivot)</a></li>
+  <li><a href="#practical-use-temporal-comparisons" id="toc-practical-use-temporal-comparisons" class="nav-link" data-scroll-target="#practical-use-temporal-comparisons"><span class="header-section-number">13.4.4</span> Practical Use: Temporal Comparisons</a></li>
+  <li><a href="#visualizing-pivot-tables-with-heatmaps" id="toc-visualizing-pivot-tables-with-heatmaps" class="nav-link" data-scroll-target="#visualizing-pivot-tables-with-heatmaps"><span class="header-section-number">13.4.5</span> Visualizing Pivot Tables with Heatmaps</a></li>
+  <li><a href="#choosing-the-aggregation-function" id="toc-choosing-the-aggregation-function" class="nav-link" data-scroll-target="#choosing-the-aggregation-function"><span class="header-section-number">13.4.6</span> Choosing the Aggregation Function</a></li>
+  <li><a href="#when-each-cell-holds-one-value-pivot" id="toc-when-each-cell-holds-one-value-pivot" class="nav-link" data-scroll-target="#when-each-cell-holds-one-value-pivot"><span class="header-section-number">13.4.7</span> When Each Cell Holds One Value: <code>pivot()</code></a></li>
+  <li><a href="#check-the-keys-duplicate-observations" id="toc-check-the-keys-duplicate-observations" class="nav-link" data-scroll-target="#check-the-keys-duplicate-observations"><span class="header-section-number">13.4.8</span> Check the Keys: Duplicate Observations</a></li>
+  <li><a href="#missing-combinations-become-empty-cells" id="toc-missing-combinations-become-empty-cells" class="nav-link" data-scroll-target="#missing-combinations-become-empty-cells"><span class="header-section-number">13.4.9</span> Missing Combinations Become Empty Cells</a></li>
+  </ul></li>
+  <li><a href="#melting" id="toc-melting" class="nav-link" data-scroll-target="#melting"><span class="header-section-number">13.5</span> Melting from Wide to Long: <code>melt()</code></a>
+  <ul>
+  <li><a href="#key-parameters" id="toc-key-parameters" class="nav-link" data-scroll-target="#key-parameters"><span class="header-section-number">13.5.1</span> Key Parameters</a></li>
+  <li><a href="#why-melt-your-data" id="toc-why-melt-your-data" class="nav-link" data-scroll-target="#why-melt-your-data"><span class="header-section-number">13.5.2</span> Why Melt Your Data?</a></li>
+  <li><a href="#example-1-basic-melt" id="toc-example-1-basic-melt" class="nav-link" data-scroll-target="#example-1-basic-melt"><span class="header-section-number">13.5.3</span> Example 1: Basic Melt</a></li>
+  <li><a href="#example-2-using-melted-data-for-visualization" id="toc-example-2-using-melted-data-for-visualization" class="nav-link" data-scroll-target="#example-2-using-melted-data-for-visualization"><span class="header-section-number">13.5.4</span> Example 2: Using Melted Data for Visualization</a></li>
+  <li><a href="#pivot-melt-the-full-circle" id="toc-pivot-melt-the-full-circle" class="nav-link" data-scroll-target="#pivot-melt-the-full-circle"><span class="header-section-number">13.5.5</span> Pivot ↔︎ Melt: The Full Circle</a></li>
+  <li><a href="#melting-an-incomplete-grid" id="toc-melting-an-incomplete-grid" class="nav-link" data-scroll-target="#melting-an-incomplete-grid"><span class="header-section-number">13.5.6</span> Melting an Incomplete Grid</a></li>
   </ul></li>
   <li><a href="#summary-cheat-sheet" id="toc-summary-cheat-sheet" class="nav-link" data-scroll-target="#summary-cheat-sheet"><span class="header-section-number">13.6</span> Summary Cheat Sheet</a></li>
   <li><a href="#practice-activity-long-wide-and-back" id="toc-practice-activity-long-wide-and-back" class="nav-link" data-scroll-target="#practice-activity-long-wide-and-back"><span class="header-section-number">13.7</span> Practice Activity: Long, Wide, and Back</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#a.-long-to-wide-two-ways" id="toc-a.-long-to-wide-two-ways" class="nav-link" data-scroll-target="#a.-long-to-wide-two-ways">A. Long to Wide, Two Ways</a></li>
   <li><a href="#b.-compare-two-years" id="toc-b.-compare-two-years" class="nav-link" data-scroll-target="#b.-compare-two-years">B. Compare Two Years</a></li>
   <li><a href="#c.-wide-to-long-and-check" id="toc-c.-wide-to-long-and-check" class="nav-link" data-scroll-target="#c.-wide-to-long-and-check">C. Wide to Long, and Check</a></li>
@@ -407,7 +426,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#render-and-submit" id="toc-render-and-submit" class="nav-link" data-scroll-target="#render-and-submit">Render and Submit</a></li>
   </ul></li>
   <li><a href="#extended-practice" id="toc-extended-practice" class="nav-link" data-scroll-target="#extended-practice"><span class="header-section-number">13.8</span> Extended Practice</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#several-values-at-once" id="toc-several-values-at-once" class="nav-link" data-scroll-target="#several-values-at-once"><span class="header-section-number">13.8.1</span> Several Values at Once</a></li>
   <li><a href="#a-heatmap-of-change" id="toc-a-heatmap-of-change" class="nav-link" data-scroll-target="#a-heatmap-of-change"><span class="header-section-number">13.8.2</span> A Heatmap of Change</a></li>
   <li><a href="#melt-only-part-of-a-table" id="toc-melt-only-part-of-a-table" class="nav-link" data-scroll-target="#melt-only-part-of-a-table"><span class="header-section-number">13.8.3</span> Melt Only Part of a Table</a></li>
@@ -439,14 +458,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><a href="./Data aggregation.html">Data Grouping and Aggregation</a> ended with a grouped result indexed by continent and year, and a promise: turning it into a table with one column per year is reshaping. The same information can be laid out with many rows and few columns, or few rows and many columns, and different tasks need different layouts. A plot that colours lines by group wants one layout; a comparison of two years side by side wants the other.</p>
-<p>This chapter is about moving data between those layouts without changing a single value. It covers turning a long table wide, turning a wide table long, and the checks that confirm nothing was lost, duplicated, or quietly averaged along the way.</p>
+<p>Data reshaping changes how values are organized into rows and columns. For example, life expectancy data might have one row per country and year, or one row per country with a separate column for each year. Both layouts contain the same measurements, but they support different tasks: the first makes it easy to plot trends over time, while the second makes it easy to compare years side by side.</p>
+<p>This chapter introduces tools for moving between these layouts, distinguishes reshaping from aggregation, and shows how to check the results.</p>
 <p>By the end of this chapter you should be able to:</p>
 <ul>
 <li>Tell long format from wide format, and say which one a task needs: plotting by group, comparing columns side by side, or summarizing.</li>
-<li>Turn long data wide with <code>pivot()</code> when each cell holds one value, with <code>pivot_table()</code> and an explicit <code>aggfunc</code> when several rows must be summarized, and with <code>unstack()</code> on a grouped result.</li>
-<li>Turn wide data long with <code>melt()</code> (<code>id_vars</code>, <code>var_name</code>, <code>value_name</code>) and with <code>stack()</code>.</li>
-<li>Check a reshape: count rows before and after, check what each <code>pivot_table()</code> cell combined, and restore column types that reshaping changes.</li>
+<li>Reshape a grouped result with <code>unstack()</code> and <code>stack()</code>, choose which index level moves with <code>level=</code>, and turn multi-level labels back into ordinary columns.</li>
+<li>Turn a long table wide with <code>pivot_table()</code> and an explicit <code>aggfunc</code>, and with <code>pivot()</code> when each cell holds exactly one value.</li>
+<li>Turn a wide table long with <code>melt()</code> (<code>id_vars</code>, <code>var_name</code>, <code>value_name</code>).</li>
+<li>Check a reshape: count rows before and after, check what each cell combined, and restore column types that reshaping changes.</li>
 </ul>
 <p>Complete the <a href="#practice-activity-long-wide-and-back">practice activity</a> after the worked examples.</p>
 <section id="set-up-your-chapter-files" class="level2" data-number="13.1">
@@ -463,7 +483,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         └── data/
             └── gdp_lifeExpectancy.csv</code></pre>
 <p>Run <code>data_reshaping_examples.ipynb</code> for the lesson and complete <code>activity13.ipynb</code> for your own activity report, with <code>stat303-data-reshaping</code> as the notebook working folder. The data is read with the relative path <code>"data/gdp_lifeExpectancy.csv"</code>, so the notebooks find it only when that folder is the working folder.</p>
-<div id="reshape-imports" class="cell" data-execution_count="1">
+<div id="afa23bc3" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.015564Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.015413Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.783894Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.783473Z&quot;}}" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -471,15 +491,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><strong>Environment check:</strong> This chapter uses NumPy, pandas, matplotlib, and seaborn, all of which are already in the course environment. If an import fails, check the selected notebook kernel first: it must be the course environment, <code>stat303-1/.venv</code>, as in <a href="./python_venv.html#install-packages-in-the-intended-environment">Project Environments, Packages, and File Paths</a>.</p>
 </section>
-<section id="what-reshaping-is" class="level2" data-number="13.2">
-<h2 data-number="13.2" class="anchored" data-anchor-id="what-reshaping-is"><span class="header-section-number">13.2</span> What reshaping is</h2>
-<p>Reshaping changes the <strong>structure</strong> of a table without changing the information in it. Think of rearranging the furniture in a room: every piece is still there, but the layout suits a different purpose. The same values can be arranged in two basic layouts:</p>
+<section id="introduction-to-data-reshaping" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="introduction-to-data-reshaping"><span class="header-section-number">13.2</span> Introduction to Data Reshaping</h2>
+<p>The two layouts differ in where the year values appear:</p>
 <ul>
 <li><strong>Long format</strong> stacks the values into few columns and many rows. Each row is one observation: one country in one year, with its life expectancy.</li>
 <li><strong>Wide format</strong> spreads the values across many columns and few rows. Each row is one unit, such as a country, with one column per year.</li>
 </ul>
-<p>A small example with three countries and three years shows both. The data starts long:</p>
-<div id="reshape-toy-long" class="cell" data-execution_count="2">
+<p>Neither format is better in general; the right one depends on what you are about to do.</p>
+<section id="why-data-reshaping-matters" class="level3" data-number="13.2.1">
+<h3 data-number="13.2.1" class="anchored" data-anchor-id="why-data-reshaping-matters"><span class="header-section-number">13.2.1</span> Why Data Reshaping Matters</h3>
+<ul>
+<li><strong>Different tools need different layouts.</strong> Seaborn’s <code>hue=</code> and <code>col=</code>, from the visualization chapters, expect long data: one column holding the group. A comparison of 1957 with 2007 is one subtraction in wide data, where each year is its own column.</li>
+<li><strong>Some calculations are easy in one layout and awkward in the other.</strong> Change over time per country is a column difference when wide; a mean per year is a <code>groupby()</code> when long.</li>
+<li><strong>Combining datasets requires clear identifiers.</strong> A country–year table can be joined to country-level information using country as the key. The next chapter explains how to choose keys and check the resulting matches.</li>
+</ul>
+</section>
+<section id="understanding-wide-vs-long-format" class="level3" data-number="13.2.2">
+<h3 data-number="13.2.2" class="anchored" data-anchor-id="understanding-wide-vs-long-format"><span class="header-section-number">13.2.2</span> Understanding Wide vs.&nbsp;Long Format</h3>
+<p>A small example with three countries and three years shows both layouts. The data starts long:</p>
+<div id="f694ae84" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.785389Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.785281Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.789899Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.789584Z&quot;}}" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>toy_long <span class="op">=</span> pd.DataFrame({</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"country"</span>: [<span class="st">"USA"</span>, <span class="st">"USA"</span>, <span class="st">"USA"</span>, <span class="st">"Canada"</span>, <span class="st">"Canada"</span>, <span class="st">"Canada"</span>, <span class="st">"Mexico"</span>, <span class="st">"Mexico"</span>, <span class="st">"Mexico"</span>],</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"year"</span>: [<span class="dv">2000</span>, <span class="dv">2005</span>, <span class="dv">2010</span>] <span class="op">*</span> <span class="dv">3</span>,</span>
@@ -560,8 +591,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Nine rows, three columns. <code>pivot()</code>, explained fully below, turns the year values into column headers:</p>
-<div id="reshape-toy-wide" class="cell" data-execution_count="3">
+<p>Nine rows and three columns: each row is one country in one year. <code>pivot()</code>, explained in the pivoting section below, turns the year values into column headers:</p>
+<div id="8ff3f4a3" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.790842Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.790782Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.794416Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.794069Z&quot;}}" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>toy_wide <span class="op">=</span> toy_long.pivot(index<span class="op">=</span><span class="st">"country"</span>, columns<span class="op">=</span><span class="st">"year"</span>, values<span class="op">=</span><span class="st">"lifeExp"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>toy_wide</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -662,12 +693,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>You will often see long format described as <strong>tidy data</strong>: each variable is a column, each observation is a row, and each value is a cell. In the long table, <code>country</code>, <code>year</code>, and <code>lifeExp</code> are each one column, and each row is one observation. In the wide table, the single variable “year” is spread across three column headers. Tidy data is what <code>groupby()</code>, seaborn, and most statistical tools expect, which is why data is so often melted before it is analysed.</p>
 </div>
 </div>
-<p><strong>Why reshaping matters.</strong></p>
-<ul>
-<li><strong>Different tools need different layouts.</strong> Seaborn’s <code>hue=</code> and <code>col=</code>, from the visualization chapters, expect long data: one column holding the group. A comparison of 1957 with 2007 is one subtraction in wide data, with each year its own column.</li>
-<li><strong>Some calculations are easy in one layout and awkward in the other.</strong> Change over time per country is a column difference when wide; a mean per year is a <code>groupby()</code> when long.</li>
-<li><strong>Combining datasets needs matching layouts.</strong> Two tables can only be joined row by row once each row means the same thing in both, the subject of the next chapter.</li>
-</ul>
+</section>
+<section id="reshaping-tools-in-pandas" class="level3" data-number="13.2.3">
+<h3 data-number="13.2.3" class="anchored" data-anchor-id="reshaping-tools-in-pandas"><span class="header-section-number">13.2.3</span> Reshaping Tools in Pandas</h3>
+<p>Pandas has two pairs of reshaping tools. The first pair works on labels that are already in the index, such as a grouped result; the second works on ordinary columns of a table. The chapter takes them in this order:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -676,29 +705,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </colgroup>
 <thead>
 <tr class="header">
+<th>Function</th>
 <th>Direction</th>
-<th>From a grouped result</th>
-<th>From a table</th>
+<th>Works on</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Long → wide</td>
 <td><code>unstack()</code></td>
-<td><code>pivot()</code>, or <code>pivot_table()</code> to summarize</td>
+<td>Long → Wide</td>
+<td>Moves an index level into the column labels</td>
 </tr>
 <tr class="even">
-<td>Wide → long</td>
 <td><code>stack()</code></td>
+<td>Wide → Long</td>
+<td>Moves a column level into the index</td>
+</tr>
+<tr class="odd">
+<td><code>pivot_table()</code>, <code>pivot()</code></td>
+<td>Long → Wide</td>
+<td>Columns of a long table; <code>pivot_table()</code> summarizes, <code>pivot()</code> only rearranges</td>
+</tr>
+<tr class="even">
 <td><code>melt()</code></td>
+<td>Wide → Long</td>
+<td>Columns of a wide table</td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="the-data" class="level2" data-number="13.3">
-<h2 data-number="13.3" class="anchored" data-anchor-id="the-data"><span class="header-section-number">13.3</span> The data</h2>
 <p>The rest of the chapter uses the Gapminder data from <a href="./Data aggregation.html">Data Grouping and Aggregation</a>: 142 countries every five years from 1952 to 2007. It arrives in long format, one row per country-year:</p>
-<div id="reshape-load" class="cell" data-execution_count="4">
+<div id="3e0d2c7c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.795205Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.795154Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.799096Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.798814Z&quot;}}" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>gdp <span class="op">=</span> pd.read_csv(<span class="st">"data/gdp_lifeExpectancy.csv"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(gdp.shape)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>gdp.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -774,236 +810,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="long-to-wide" class="level2" data-number="13.4">
-<h2 data-number="13.4" class="anchored" data-anchor-id="long-to-wide"><span class="header-section-number">13.4</span> Long to wide</h2>
-<section id="rearranging-values-pivot" class="level3" data-number="13.4.1">
-<h3 data-number="13.4.1" class="anchored" data-anchor-id="rearranging-values-pivot"><span class="header-section-number">13.4.1</span> Rearranging values: <code>pivot()</code></h3>
-<p><a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot.html"><code>pivot()</code></a> turns the values of one column into column headers. In the Gapminder data each country has exactly one life expectancy per year, so a country-by-year table has one value for each cell, and <code>pivot()</code> only has to move each value to its new place. <code>index=</code> takes a list, so each row keeps its continent as well as its country:</p>
-<div id="reshape-country-wide" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>country_wide <span class="op">=</span> gdp.pivot(index<span class="op">=</span>[<span class="st">"continent"</span>, <span class="st">"country"</span>], columns<span class="op">=</span><span class="st">"year"</span>, values<span class="op">=</span><span class="st">"lifeExp"</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(country_wide.shape)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>country_wide.iloc[:<span class="dv">3</span>, :<span class="dv">6</span>].<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>(142, 12)</code></pre>
-</div>
+</section>
+<section id="stacking-and-unstacking" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="stacking-and-unstacking"><span class="header-section-number">13.3</span> Stacking and Unstacking using <code>stack()</code> and <code>unstack()</code></h2>
+<p>The previous chapter grouped life expectancy by continent and year. We start with that result: <code>unstack()</code> moves an index level into the columns, and <code>stack()</code> moves a column level into the index. First watch the year labels move; then we will examine how to choose a level when both axes have multiple levels.</p>
+<section id="unstacking-rows-to-columns-unstack" class="level3" data-number="13.3.1">
+<h3 data-number="13.3.1" class="anchored" data-anchor-id="unstacking-rows-to-columns-unstack"><span class="header-section-number">13.3.1</span> Unstacking (Rows to Columns): <code>unstack()</code></h3>
+<p><code>unstack()</code> turns a long grouped result wide by moving one level of its row index into the columns. Here is the previous chapter’s mean life expectancy per continent and year, a Series whose index has two levels: <code>continent</code> is level <code>0</code> and <code>year</code> is level <code>1</code> (or <code>-1</code>):</p>
+<div id="eb226d46" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.800005Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.799943Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.802599Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.802289Z&quot;}}" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>life_by_year <span class="op">=</span> gdp.groupby([<span class="st">"continent"</span>, <span class="st">"year"</span>])[<span class="st">"lifeExp"</span>].mean()</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>life_by_year.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">year</th>
-<th data-quarto-table-cell-role="th">1952</th>
-<th data-quarto-table-cell-role="th">1957</th>
-<th data-quarto-table-cell-role="th">1962</th>
-<th data-quarto-table-cell-role="th">1967</th>
-<th data-quarto-table-cell-role="th">1972</th>
-<th data-quarto-table-cell-role="th">1977</th>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">continent</th>
-<th data-quarto-table-cell-role="th">country</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th rowspan="3" data-quarto-table-cell-role="th" data-valign="top">Africa</th>
-<th data-quarto-table-cell-role="th">Algeria</th>
-<td>43.1</td>
-<td>45.7</td>
-<td>48.3</td>
-<td>51.4</td>
-<td>54.5</td>
-<td>58.0</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">Angola</th>
-<td>30.0</td>
-<td>32.0</td>
-<td>34.0</td>
-<td>36.0</td>
-<td>37.9</td>
-<td>39.5</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">Benin</th>
-<td>38.2</td>
-<td>40.4</td>
-<td>42.6</td>
-<td>44.9</td>
-<td>47.0</td>
-<td>49.2</td>
-</tr>
-</tbody>
-</table>
-
+<pre><code>continent  year
+Africa     1952    39.135500
+           1957    41.266346
+           1962    43.319442
+           1967    45.334538
+           1972    47.450942
+Name: lifeExp, dtype: float64</code></pre>
 </div>
 </div>
-</div>
-<p>142 rows, one per country, and 12 year columns: 142 × 12 = 1,704 cells, one for each row of <code>gdp</code>. The three arguments name the parts of the result:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Argument</th>
-<th>Becomes</th>
-<th>Here</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>index=</code></td>
-<td>The row labels</td>
-<td>One row per country, labelled with its continent too</td>
-</tr>
-<tr class="even">
-<td><code>columns=</code></td>
-<td>The column headers</td>
-<td>One column per year</td>
-</tr>
-<tr class="odd">
-<td><code>values=</code></td>
-<td>What fills the cells</td>
-<td><code>lifeExp</code></td>
-</tr>
-</tbody>
-</table>
-<p>Nothing is calculated: every number in the table is a number from <code>gdp</code>, moved to a new position. That is what reshaping means.</p>
-</section>
-<section id="why-wide-two-years-side-by-side" class="level3" data-number="13.4.2">
-<h3 data-number="13.4.2" class="anchored" data-anchor-id="why-wide-two-years-side-by-side"><span class="header-section-number">13.4.2</span> Why wide: two years side by side</h3>
-<p>With one row per country and one column per year, comparing any two years is easy. A scatter plot of 1957 against 2007 shows every country’s 50-year change at once. <code>reset_index()</code> turns the two index levels back into columns for seaborn:</p>
-<div id="reshape-scatter-years" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>plot_data <span class="op">=</span> country_wide.reset_index()</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="fl">7.5</span>, <span class="dv">6</span>), layout<span class="op">=</span><span class="st">"constrained"</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(data<span class="op">=</span>plot_data, x<span class="op">=</span><span class="dv">1957</span>, y<span class="op">=</span><span class="dv">2007</span>, hue<span class="op">=</span><span class="st">"continent"</span>, alpha<span class="op">=</span><span class="fl">0.75</span>, ax<span class="op">=</span>ax)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>ax.axline((<span class="dv">40</span>, <span class="dv">40</span>), slope<span class="op">=</span><span class="dv">1</span>, color<span class="op">=</span><span class="st">"gray"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">"no change"</span>)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"Life expectancy in 1957 (years)"</span>, ylabel<span class="op">=</span><span class="st">"Life expectancy in 2007 (years)"</span>,</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>       title<span class="op">=</span><span class="st">"Almost every country gained; four did not"</span>)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>ax.legend(loc<span class="op">=</span><span class="st">"lower right"</span>)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Data_reshaping_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Points above the dashed line gained life expectancy over 50 years; points below it lost. Selecting the countries below the line is one comparison of two columns:</p>
-<div id="reshape-declined" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>declined <span class="op">=</span> country_wide[country_wide[<span class="dv">2007</span>] <span class="op">&lt;</span> country_wide[<span class="dv">1957</span>]]</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>declined[[<span class="dv">1957</span>, <span class="dv">2007</span>]].<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">year</th>
-<th data-quarto-table-cell-role="th">1957</th>
-<th data-quarto-table-cell-role="th">2007</th>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">continent</th>
-<th data-quarto-table-cell-role="th">country</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th rowspan="4" data-quarto-table-cell-role="th" data-valign="top">Africa</th>
-<th data-quarto-table-cell-role="th">Lesotho</th>
-<td>45.0</td>
-<td>42.6</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">Swaziland</th>
-<td>43.4</td>
-<td>39.6</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">Zambia</th>
-<td>44.1</td>
-<td>42.4</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">Zimbabwe</th>
-<td>50.5</td>
-<td>43.5</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<p>Four countries, all in southern Africa — Lesotho, Swaziland, Zambia, and Zimbabwe — had lower life expectancy in 2007 than in 1957. This is the region the HIV/AIDS epidemic of the 1990s and 2000s hit hardest, and it is why Africa’s average stalled in the last chapter’s trend plot. In long format, finding these four would take a filter, a <code>groupby()</code>, and a comparison across rows; in wide format it is one line.</p>
-<p>A wide table is also exactly what a heatmap draws, as in <a href="./data_viz_1.html">Data Visualization I</a>. Europe’s 30 countries, each a row:</p>
-<div id="reshape-heatmap" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>europe_wide <span class="op">=</span> country_wide.loc[<span class="st">"Europe"</span>]</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">8</span>), layout<span class="op">=</span><span class="st">"constrained"</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>sns.heatmap(europe_wide, cmap<span class="op">=</span><span class="st">"YlGnBu"</span>, cbar_kws<span class="op">=</span>{<span class="st">"label"</span>: <span class="st">"Life expectancy (years)"</span>}, ax<span class="op">=</span>ax)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"Year"</span>, ylabel<span class="op">=</span><span class="st">""</span>)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Data_reshaping_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><code>country_wide.loc["Europe"]</code> selects one outer level of the two-level index, as in the last chapter, leaving one row per European country. Each row darkens from left to right as life expectancy rises. The lightest rows at the start — Turkey, Bosnia and Herzegovina, and Albania — show where Europe’s lowest life expectancies were in 1952.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Turning a wide table on its side
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>A wide table with many columns can be easier to read turned on its side. <code>.T</code>, the transpose from <a href="./numpy_fundamentals.html">NumPy Fundamentals</a>, swaps rows and columns: <code>country_wide.T</code> has one row per year and one column per country. Unlike <code>pivot()</code> and <code>melt()</code>, it does not change which values sit together; it only turns the table.</p>
-</div>
-</div>
-</section>
-<section id="summarizing-while-reshaping-pivot_table" class="level3" data-number="13.4.3">
-<h3 data-number="13.4.3" class="anchored" data-anchor-id="summarizing-while-reshaping-pivot_table"><span class="header-section-number">13.4.3</span> Summarizing while reshaping: <code>pivot_table()</code></h3>
-<p>A continent-by-year table is a different request. Each continent-year cell would have to hold every country of that continent in that year — 52 for Africa — and <code>pivot()</code> will not choose among them:</p>
-<div id="reshape-pivot-error" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    gdp.pivot(index<span class="op">=</span><span class="st">"continent"</span>, columns<span class="op">=</span><span class="st">"year"</span>, values<span class="op">=</span><span class="st">"lifeExp"</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ValueError</span> <span class="im">as</span> error:</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"ValueError:"</span>, error)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>ValueError: Index contains duplicate entries, cannot reshape</code></pre>
-</div>
-</div>
-<p>To fill such a cell, the rows that land in it must be summarized into one number, and only you know which summary you want. <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html"><code>pivot_table()</code></a> takes the same three arguments as <code>pivot()</code>, plus <code>aggfunc=</code>, the function that combines the rows in each cell. Here it is the mean life expectancy of each continent’s countries:</p>
-<div id="reshape-pivot-table" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>life_pivot <span class="op">=</span> gdp.pivot_table(index<span class="op">=</span><span class="st">"continent"</span>, columns<span class="op">=</span><span class="st">"year"</span>,</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                             values<span class="op">=</span><span class="st">"lifeExp"</span>, aggfunc<span class="op">=</span><span class="st">"mean"</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>life_pivot.<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<p>Sixty rows, one per continent–year pair. With no argument, <code>unstack()</code> moves the <strong>innermost</strong> index level, <code>year</code>, into the column labels, giving one row per continent and one column per year:</p>
+<div id="e50ebede" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.803433Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.803364Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.807167Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.806817Z&quot;}}" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>life_wide <span class="op">=</span> life_by_year.unstack()</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>life_wide.<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
 
@@ -1122,41 +953,1211 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Five rows and 12 year columns, each cell the mean over a continent’s countries. The fourth argument says how each cell is filled:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Argument</th>
-<th>Becomes</th>
-<th>Here</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>aggfunc=</code></td>
-<td>How the rows in each cell are combined</td>
-<td>The mean</td>
-</tr>
-</tbody>
-</table>
+<p>To move a different level, specify it with <code>level=</code>. You can use either its number or its name: <code>level=0</code> and <code>level="continent"</code> both select the continent level; <code>level=1</code> and <code>level="year"</code> both select the year level. The next example uses <code>level=0</code> to move the continents into the columns.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Always name <code>aggfunc=</code>
+<span class="screen-reader-only">Tip</span>Predict before running
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><code>pivot_table()</code> has a default, the mean, so a call without <code>aggfunc=</code> still runs and returns a table. But the code no longer says what the table holds: a reader, or you a week later, cannot tell whether a mean was intended or whether a total was meant and forgotten. Writing <code>aggfunc="mean"</code>, <code>aggfunc="sum"</code>, <code>aggfunc="median"</code>, or <code>aggfunc="count"</code> puts the calculation in the code, where it can be checked. This book names it in every <code>pivot_table()</code> call.</p>
+<p>After <code>life_by_year.unstack(level=0)</code> (equivalently, <code>level="continent"</code>), what will one row represent, and how many rows and columns will the result have? Check your prediction against the output.</p>
 </div>
 </div>
-<p>A summary hides how many rows went into it. Asking for <code>aggfunc="count"</code> shows that:</p>
-<div id="reshape-pivot-count" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>gdp.pivot_table(index<span class="op">=</span><span class="st">"continent"</span>, columns<span class="op">=</span><span class="st">"year"</span>, values<span class="op">=</span><span class="st">"lifeExp"</span>,</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                aggfunc<span class="op">=</span><span class="st">"count"</span>).iloc[:, :<span class="dv">4</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div id="c9b964bd" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.807962Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.807915Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.810678Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.810396Z&quot;}}" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>life_by_year.unstack(level<span class="op">=</span><span class="dv">0</span>).<span class="bu">round</span>(<span class="dv">1</span>).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">continent</th>
+<th data-quarto-table-cell-role="th">Africa</th>
+<th data-quarto-table-cell-role="th">Americas</th>
+<th data-quarto-table-cell-role="th">Asia</th>
+<th data-quarto-table-cell-role="th">Europe</th>
+<th data-quarto-table-cell-role="th">Oceania</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1952</th>
+<td>39.1</td>
+<td>53.3</td>
+<td>46.3</td>
+<td>64.4</td>
+<td>69.3</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1957</th>
+<td>41.3</td>
+<td>56.0</td>
+<td>49.3</td>
+<td>66.7</td>
+<td>70.3</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1962</th>
+<td>43.3</td>
+<td>58.4</td>
+<td>51.6</td>
+<td>68.5</td>
+<td>71.1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1967</th>
+<td>45.3</td>
+<td>60.4</td>
+<td>54.7</td>
+<td>69.7</td>
+<td>71.3</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1972</th>
+<td>47.5</td>
+<td>62.4</td>
+<td>57.3</td>
+<td>70.8</td>
+<td>71.9</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Same sixty values, now with one row per year and one column per continent: the layout you would want for comparing continents within a year. Because the index levels have names, <code>level="continent"</code> refers to the same level and builds the same table:</p>
+<div id="e9d5142c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.811550Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.811490Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.813676Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.813375Z&quot;}}" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>life_by_year.unstack(level<span class="op">=</span><span class="st">"continent"</span>).equals(life_by_year.unstack(level<span class="op">=</span><span class="dv">0</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>True</code></pre>
+</div>
+</div>
+<p><code>equals()</code> checks that the objects have matching shapes, labels, and values, with matching data dtypes. Row and column order matter, and missing values in matching positions compare as equal. It is a useful check that these two reshapes agree.</p>
+</section>
+<section id="stacking-columns-to-rows-stack" class="level3" data-number="13.3.2">
+<h3 data-number="13.3.2" class="anchored" data-anchor-id="stacking-columns-to-rows-stack"><span class="header-section-number">13.3.2</span> Stacking (Columns to Rows): <code>stack()</code></h3>
+<p><code>stack()</code> is the inverse reshape: it turns a wide table long by moving one level of the column labels down into the row index, and it uses the same <code>level=</code> rules as <code>unstack()</code>. <code>life_wide</code> has a single column level, <code>year</code>, so stacking it sends the years back into the index and returns the original long Series:</p>
+<div id="6ce1b81f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.814401Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.814354Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.816406Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.816022Z&quot;}}" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>life_long <span class="op">=</span> life_wide.stack()</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(life_long.shape)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>life_long.equals(life_by_year)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(60,)</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>True</code></pre>
+</div>
+</div>
+<p>Together, these examples show the two directions: <code>unstack()</code> moves the year level from the index into the columns, and <code>stack()</code> moves it back. The figure summarizes the round trip using a small slice of the data; the moving year labels are shaded gold.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/reshaping-stack-unstack.png" class="img-fluid figure-img" width="900"></p>
+<figcaption>A slice of mean life expectancy by continent and year. unstack() moves the innermost index level, year, up into the column labels, giving one row per continent; stack() moves the year columns back down into the innermost index level. The year labels, shaded gold, are the level that moves.</figcaption>
+</figure>
+</div>
+</section>
+<section id="understanding-levels" class="level3" data-number="13.3.3">
+<h3 data-number="13.3.3" class="anchored" data-anchor-id="understanding-levels"><span class="header-section-number">13.3.3</span> Understanding the <code>level</code> in Multi-Level Index and Columns</h3>
+<p>The examples above moved <code>year</code> or <code>continent</code> using <code>level=</code>. Levels are easier to identify when they have names; the same idea also applies to numbered column levels. Aggregating several columns with several functions, as <code>agg()</code> does in the previous chapter, returns a table with a two-level index <strong>and</strong> two-level column labels, which makes a good example:</p>
+<div id="07eb0671" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.817236Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.817167Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.822180Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.821803Z&quot;}}" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>country_summary <span class="op">=</span> (</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    gdp.groupby([<span class="st">"continent"</span>, <span class="st">"country"</span>])[[<span class="st">"lifeExp"</span>, <span class="st">"pop"</span>, <span class="st">"gdpPercap"</span>]]</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    .agg([<span class="st">"mean"</span>, <span class="st">"std"</span>])</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>country_summary.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">lifeExp</th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">pop</th>
+<th colspan="2" data-quarto-table-cell-role="th" data-halign="left">gdpPercap</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">std</th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">std</th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">std</th>
+</tr>
+<tr class="header">
+<th data-quarto-table-cell-role="th">continent</th>
+<th data-quarto-table-cell-role="th">country</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th rowspan="5" data-quarto-table-cell-role="th" data-valign="top">Africa</th>
+<th data-quarto-table-cell-role="th">Algeria</th>
+<td>59.030167</td>
+<td>10.340069</td>
+<td>1.987541e+07</td>
+<td>8.613355e+06</td>
+<td>4426.025973</td>
+<td>1310.337656</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Angola</th>
+<td>37.883500</td>
+<td>4.005276</td>
+<td>7.309390e+06</td>
+<td>2.672281e+06</td>
+<td>3607.100529</td>
+<td>1165.900251</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Benin</th>
+<td>48.779917</td>
+<td>6.128681</td>
+<td>4.017497e+06</td>
+<td>2.105002e+06</td>
+<td>1155.395107</td>
+<td>159.741306</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Botswana</th>
+<td>54.597500</td>
+<td>5.929476</td>
+<td>9.711862e+05</td>
+<td>4.710965e+05</td>
+<td>5031.503557</td>
+<td>4178.136987</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Burkina Faso</th>
+<td>44.694000</td>
+<td>6.845792</td>
+<td>7.548677e+06</td>
+<td>3.247808e+06</td>
+<td>843.990665</td>
+<td>183.430087</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>The <code>nlevels</code> attribute counts the levels of the row index and of the column labels:</p>
+<div id="4b95d7b2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.823000Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.822949Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.824408Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.824114Z&quot;}}" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(country_summary.index.nlevels, country_summary.columns.nlevels)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2 2</code></pre>
+</div>
+</div>
+<p>Two levels each. Printing the <code>columns</code> attribute shows what that means: every column label is a pair, one part from each level.</p>
+<div id="c34aa157" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.825115Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.825056Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.826862Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.826505Z&quot;}}" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>country_summary.columns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>MultiIndex([(  'lifeExp', 'mean'),
+            (  'lifeExp',  'std'),
+            (      'pop', 'mean'),
+            (      'pop',  'std'),
+            ('gdpPercap', 'mean'),
+            ('gdpPercap',  'std')],
+           )</code></pre>
+</div>
+</div>
+<p><strong>Levels are numbered from the outside in.</strong> The outermost level is <code>0</code>, the next one is <code>1</code>, and so on. The innermost level can also be written <code>-1</code>, which is handy because it always means “the innermost” however many levels there are. For <code>country_summary</code>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/reshaping-levels.png" class="img-fluid figure-img" width="900"></p>
+<figcaption>The first rows of <code>country_summary</code>. The row index has two levels, continent (level 0) and country (level 1, also -1); the column labels have two levels, the variable (level 0) and the statistic (level 1, also -1). The gold cell is selected with one tuple per axis, outermost level first.</figcaption>
+</figure>
+</div>
+<p><code>get_level_values()</code> lists the labels at one level, which is a quick way to check which level a number refers to. Level <code>0</code> of the columns holds the variables, and level <code>-1</code> holds the statistics:</p>
+<div id="7222ec0e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.827684Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.827621Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.829210Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.828964Z&quot;}}" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>country_summary.columns.get_level_values(<span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>Index(['lifeExp', 'lifeExp', 'pop', 'pop', 'gdpPercap', 'gdpPercap'], dtype='str')</code></pre>
+</div>
+</div>
+<div id="cf933482" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.829940Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.829886Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.831521Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.831205Z&quot;}}" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>country_summary.columns.get_level_values(<span class="op">-</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>Index(['mean', 'std', 'mean', 'std', 'mean', 'std'], dtype='str')</code></pre>
+</div>
+</div>
+<p><strong>Levels can also have names.</strong> The <code>names</code> attribute shows them. The index levels are named after the columns you grouped by, but the two column levels that <code>agg()</code> created have no names, shown as <code>None</code>:</p>
+<div id="4c87bf0e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.832208Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.832164Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.833694Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.833371Z&quot;}}" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(country_summary.index.names)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(country_summary.columns.names)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['continent', 'country']
+[None, None]</code></pre>
+</div>
+</div>
+<p>So <code>level=</code> accepts either form: a name, such as <code>level="continent"</code>, when the level has one, or a number, such as <code>level=0</code>, which always works. In this chapter, unnamed column levels are referred to by number.</p>
+<p>Finally, because each label is a tuple with one part per level, selecting a single cell takes one tuple for the row and one for the column, from the outermost level inward, just as selecting from a two-level index did in the previous chapter:</p>
+<div id="2c52a637" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.834428Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.834364Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.836224Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.835912Z&quot;}}" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>country_summary.loc[(<span class="st">"Americas"</span>, <span class="st">"United States"</span>), (<span class="st">"lifeExp"</span>, <span class="st">"mean"</span>)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>np.float64(73.4785)</code></pre>
+</div>
+</div>
+<p>With two column levels there is a choice. By default <code>stack()</code> moves the <strong>innermost</strong> column level, level <code>-1</code>, the statistic, into the rows: each country now has a <code>mean</code> row and a <code>std</code> row, with one column per variable.</p>
+<div id="0eda4d82" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.836958Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.836914Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.840239Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.839949Z&quot;}}" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>country_summary.stack().head(<span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">lifeExp</th>
+<th data-quarto-table-cell-role="th">pop</th>
+<th data-quarto-table-cell-role="th">gdpPercap</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">continent</th>
+<th data-quarto-table-cell-role="th">country</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th rowspan="4" data-quarto-table-cell-role="th" data-valign="top">Africa</th>
+<th rowspan="2" data-quarto-table-cell-role="th" data-valign="top">Algeria</th>
+<th data-quarto-table-cell-role="th">mean</th>
+<td>59.030167</td>
+<td>1.987541e+07</td>
+<td>4426.025973</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">std</th>
+<td>10.340069</td>
+<td>8.613355e+06</td>
+<td>1310.337656</td>
+</tr>
+<tr class="odd">
+<th rowspan="2" data-quarto-table-cell-role="th" data-valign="top">Angola</th>
+<th data-quarto-table-cell-role="th">mean</th>
+<td>37.883500</td>
+<td>7.309390e+06</td>
+<td>3607.100529</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">std</th>
+<td>4.005276</td>
+<td>2.672281e+06</td>
+<td>1165.900251</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Passing <code>level=0</code> moves the outermost column level, the variable, instead. Each country now has one row per variable, with <code>mean</code> and <code>std</code> as the columns, a convenient layout for reading a variable’s centre and spread side by side:</p>
+<div id="1cfebd08" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.841064Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.841016Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.844262Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.843953Z&quot;}}" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>country_summary.stack(level<span class="op">=</span><span class="dv">0</span>).head(<span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">std</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">continent</th>
+<th data-quarto-table-cell-role="th">country</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th rowspan="6" data-quarto-table-cell-role="th" data-valign="top">Africa</th>
+<th rowspan="3" data-quarto-table-cell-role="th" data-valign="top">Algeria</th>
+<th data-quarto-table-cell-role="th">lifeExp</th>
+<td>5.903017e+01</td>
+<td>1.034007e+01</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">pop</th>
+<td>1.987541e+07</td>
+<td>8.613355e+06</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">gdpPercap</th>
+<td>4.426026e+03</td>
+<td>1.310338e+03</td>
+</tr>
+<tr class="even">
+<th rowspan="3" data-quarto-table-cell-role="th" data-valign="top">Angola</th>
+<th data-quarto-table-cell-role="th">lifeExp</th>
+<td>3.788350e+01</td>
+<td>4.005276e+00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">pop</th>
+<td>7.309390e+06</td>
+<td>2.672281e+06</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">gdpPercap</th>
+<td>3.607101e+03</td>
+<td>1.165900e+03</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>In both results the moved level becomes the new innermost level of the row index. Since <code>unstack()</code> by default moves the innermost index level back to the innermost column level, stacking and then unstacking with the defaults restores the original table:</p>
+<div id="77ceacc5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.844974Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.844929Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.847330Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.847038Z&quot;}}" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>country_summary.stack().unstack().equals(country_summary)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>True</code></pre>
+</div>
+</div>
+</section>
+<section id="back-to-a-single-level-table" class="level3" data-number="13.3.4">
+<h3 data-number="13.3.4" class="anchored" data-anchor-id="back-to-a-single-level-table"><span class="header-section-number">13.3.4</span> Back to a Single-Level Table</h3>
+<p>Multi-level labels are compact for reading but awkward for plotting, filtering, and merging, which expect plain column names. The index part has a tool you already know: <code>reset_index()</code> moves every index level back into an ordinary column. The column part needs one more step: each column label is a pair such as <code>("lifeExp", "mean")</code>, and joining its two parts with an underscore turns it into one name such as <code>lifeExp_mean</code>.</p>
+<div id="e655893c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.848103Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.848058Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.851303Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.851049Z&quot;}}" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>country_flat <span class="op">=</span> country_summary.reset_index()</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>country_flat.columns <span class="op">=</span> [<span class="st">"_"</span>.join(col).strip(<span class="st">"_"</span>) <span class="cf">for</span> col <span class="kw">in</span> country_flat.columns]</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>country_flat.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">continent</th>
+<th data-quarto-table-cell-role="th">country</th>
+<th data-quarto-table-cell-role="th">lifeExp_mean</th>
+<th data-quarto-table-cell-role="th">lifeExp_std</th>
+<th data-quarto-table-cell-role="th">pop_mean</th>
+<th data-quarto-table-cell-role="th">pop_std</th>
+<th data-quarto-table-cell-role="th">gdpPercap_mean</th>
+<th data-quarto-table-cell-role="th">gdpPercap_std</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>Africa</td>
+<td>Algeria</td>
+<td>59.030167</td>
+<td>10.340069</td>
+<td>1.987541e+07</td>
+<td>8.613355e+06</td>
+<td>4426.025973</td>
+<td>1310.337656</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>Africa</td>
+<td>Angola</td>
+<td>37.883500</td>
+<td>4.005276</td>
+<td>7.309390e+06</td>
+<td>2.672281e+06</td>
+<td>3607.100529</td>
+<td>1165.900251</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>Africa</td>
+<td>Benin</td>
+<td>48.779917</td>
+<td>6.128681</td>
+<td>4.017497e+06</td>
+<td>2.105002e+06</td>
+<td>1155.395107</td>
+<td>159.741306</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>Africa</td>
+<td>Botswana</td>
+<td>54.597500</td>
+<td>5.929476</td>
+<td>9.711862e+05</td>
+<td>4.710965e+05</td>
+<td>5031.503557</td>
+<td>4178.136987</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>Africa</td>
+<td>Burkina Faso</td>
+<td>44.694000</td>
+<td>6.845792</td>
+<td>7.548677e+06</td>
+<td>3.247808e+06</td>
+<td>843.990665</td>
+<td>183.430087</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>After <code>reset_index()</code>, the old index columns have an empty second part, <code>("continent", "")</code>, so <code>strip("_")</code> removes the trailing underscore that joining leaves on them. The pandas method <code>droplevel()</code> can also flatten labels, by deleting a level outright, but here it would lose part of the meaning: dropping the variable level leaves repeated <code>mean</code> and <code>std</code> labels, while dropping the statistic level repeats each variable name. Joining both parts preserves the variable and the statistic.</p>
+</section>
+<section id="transposing-using-the-.t-attribute" class="level3" data-number="13.3.5">
+<h3 data-number="13.3.5" class="anchored" data-anchor-id="transposing-using-the-.t-attribute"><span class="header-section-number">13.3.5</span> Transposing using the <code>.T</code> Attribute</h3>
+<p>When you simply want rows and columns swapped, without choosing a level, use the <code>.T</code> attribute. Transposing the continent-by-year table gives one row per year and one column per continent, the same table that <code>unstack(level=0)</code> built above:</p>
+<div id="f0de595b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.852117Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.852072Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.854805Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.854504Z&quot;}}" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>life_wide.T.<span class="bu">round</span>(<span class="dv">1</span>).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">continent</th>
+<th data-quarto-table-cell-role="th">Africa</th>
+<th data-quarto-table-cell-role="th">Americas</th>
+<th data-quarto-table-cell-role="th">Asia</th>
+<th data-quarto-table-cell-role="th">Europe</th>
+<th data-quarto-table-cell-role="th">Oceania</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1952</th>
+<td>39.1</td>
+<td>53.3</td>
+<td>46.3</td>
+<td>64.4</td>
+<td>69.3</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1957</th>
+<td>41.3</td>
+<td>56.0</td>
+<td>49.3</td>
+<td>66.7</td>
+<td>70.3</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1962</th>
+<td>43.3</td>
+<td>58.4</td>
+<td>51.6</td>
+<td>68.5</td>
+<td>71.1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1967</th>
+<td>45.3</td>
+<td>60.4</td>
+<td>54.7</td>
+<td>69.7</td>
+<td>71.3</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1972</th>
+<td>47.5</td>
+<td>62.4</td>
+<td>57.3</td>
+<td>70.8</td>
+<td>71.9</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="5da4b2cc" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.855538Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.855493Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.857395Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.857120Z&quot;}}" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>life_wide.T.equals(life_by_year.unstack(level<span class="op">=</span><span class="dv">0</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>True</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="pivoting" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="pivoting"><span class="header-section-number">13.4</span> Pivoting from Long to Wide: <code>pivot_table()</code></h2>
+<p><code>unstack()</code> reshapes labels that are already in the index, as in the result of <code>groupby()</code> above. A suitable index can also be created with <code>set_index()</code>. Most long tables, like <code>gdp</code> itself, keep their labels in ordinary columns. <code>pivot_table()</code> turns such a table wide in one call: it groups the rows, summarizes each group with an aggregation function, and spreads the result across columns. This section builds pivot tables with one and two row labels, uses the wide layout for comparisons and a heatmap, and then covers <code>pivot()</code> for tables that need no summarizing.</p>
+<section id="what-is-pivoting" class="level3" data-number="13.4.1">
+<h3 data-number="13.4.1" class="anchored" data-anchor-id="what-is-pivoting"><span class="header-section-number">13.4.1</span> What is Pivoting?</h3>
+<p><strong>Pivoting</strong> turns long data wide by taking the values of one column and making them the column headers:</p>
+<ul>
+<li>the unique values of the <code>index=</code> column become the row labels;</li>
+<li>the unique values of the <code>columns=</code> column become the column labels;</li>
+<li>each cell holds the <code>values=</code> column, <strong>aggregated</strong> with <code>aggfunc=</code> over every row that shares that row label and column label.</li>
+</ul>
+<p>This is the reshape the diagram in <a href="#understanding-wide-vs-long-format">Understanding Wide vs.&nbsp;Long Format</a> showed with <code>pivot()</code> on three countries, plus one step: when several rows share a row label and column label, <code>pivot_table()</code> combines them into one cell. The figure follows the 52 African countries of 1952 into a single cell, and shows what melting that cell gives back:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/reshaping-pivot-table-melt.png" class="img-fluid figure-img" width="900"></p>
+<figcaption>pivot_table() with aggfunc mean averages the 52 African countries’ 1952 life expectancies into one cell, 39.1. Melting the result returns one row per continent and year, so the 52 country values cannot be recovered. pivot() never averages; a round trip also requires checking missing combinations, order, and dtypes.</figcaption>
+</figure>
+</div>
+</section>
+<section id="example-1-simple-pivot-with-single-index" class="level3" data-number="13.4.2">
+<h3 data-number="13.4.2" class="anchored" data-anchor-id="example-1-simple-pivot-with-single-index"><span class="header-section-number">13.4.2</span> Example 1: Simple Pivot with Single Index</h3>
+<p>A table with continents as rows and years as columns, each cell holding the mean life expectancy of that continent’s countries in that year:</p>
+<div id="f32dce9e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.858161Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.858107Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.862929Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.862652Z&quot;}}" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>simple_pivot <span class="op">=</span> gdp.pivot_table(</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">"continent"</span>,   <span class="co"># row labels</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span><span class="st">"year"</span>,      <span class="co"># column labels</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    values<span class="op">=</span><span class="st">"lifeExp"</span>,    <span class="co"># what goes in the cells</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    aggfunc<span class="op">=</span><span class="st">"mean"</span>,      <span class="co"># how to combine the rows that share a cell</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>simple_pivot.<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">1952</th>
+<th data-quarto-table-cell-role="th">1957</th>
+<th data-quarto-table-cell-role="th">1962</th>
+<th data-quarto-table-cell-role="th">1967</th>
+<th data-quarto-table-cell-role="th">1972</th>
+<th data-quarto-table-cell-role="th">1977</th>
+<th data-quarto-table-cell-role="th">1982</th>
+<th data-quarto-table-cell-role="th">1987</th>
+<th data-quarto-table-cell-role="th">1992</th>
+<th data-quarto-table-cell-role="th">1997</th>
+<th data-quarto-table-cell-role="th">2002</th>
+<th data-quarto-table-cell-role="th">2007</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">continent</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Africa</th>
+<td>39.1</td>
+<td>41.3</td>
+<td>43.3</td>
+<td>45.3</td>
+<td>47.5</td>
+<td>49.6</td>
+<td>51.6</td>
+<td>53.3</td>
+<td>53.6</td>
+<td>53.6</td>
+<td>53.3</td>
+<td>54.8</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Americas</th>
+<td>53.3</td>
+<td>56.0</td>
+<td>58.4</td>
+<td>60.4</td>
+<td>62.4</td>
+<td>64.4</td>
+<td>66.2</td>
+<td>68.1</td>
+<td>69.6</td>
+<td>71.2</td>
+<td>72.4</td>
+<td>73.6</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Asia</th>
+<td>46.3</td>
+<td>49.3</td>
+<td>51.6</td>
+<td>54.7</td>
+<td>57.3</td>
+<td>59.6</td>
+<td>62.6</td>
+<td>64.9</td>
+<td>66.5</td>
+<td>68.0</td>
+<td>69.2</td>
+<td>70.7</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Europe</th>
+<td>64.4</td>
+<td>66.7</td>
+<td>68.5</td>
+<td>69.7</td>
+<td>70.8</td>
+<td>71.9</td>
+<td>72.8</td>
+<td>73.6</td>
+<td>74.4</td>
+<td>75.5</td>
+<td>76.7</td>
+<td>77.6</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Oceania</th>
+<td>69.3</td>
+<td>70.3</td>
+<td>71.1</td>
+<td>71.3</td>
+<td>71.9</td>
+<td>72.9</td>
+<td>74.3</td>
+<td>75.3</td>
+<td>76.9</td>
+<td>78.2</td>
+<td>79.7</td>
+<td>80.7</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Each cell combines every country of one continent in one year, so <code>aggfunc="mean"</code> decides what the cell reports. This is the same table that <code>groupby()</code> followed by <code>unstack()</code> built in the previous section:</p>
+<div id="2acdf469" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.863703Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.863656Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.865169Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.864914Z&quot;}}" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>simple_pivot.equals(life_wide)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<pre><code>True</code></pre>
+</div>
+</div>
+<p><code>pivot_table()</code> is the one-call version of that two-step pattern, and it works directly on the long table.</p>
+</section>
+<section id="example-2-multi-level-index-hierarchical-pivot" class="level3" data-number="13.4.3">
+<h3 data-number="13.4.3" class="anchored" data-anchor-id="example-2-multi-level-index-hierarchical-pivot"><span class="header-section-number">13.4.3</span> Example 2: Multi-Level Index (Hierarchical Pivot)</h3>
+<p>Passing a list to <code>index=</code> gives the pivot table a two-level row index, here continent on the outer level and country on the inner one, so every country gets its own row, grouped by continent:</p>
+<div id="f9517233" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.865870Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.865824Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.871071Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.870732Z&quot;}}" data-execution_count="25">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>life_by_country <span class="op">=</span> gdp.pivot_table(</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span>[<span class="st">"continent"</span>, <span class="st">"country"</span>],</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span><span class="st">"year"</span>,</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    values<span class="op">=</span><span class="st">"lifeExp"</span>,</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    aggfunc<span class="op">=</span><span class="st">"mean"</span>,</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(life_by_country.shape)</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>life_by_country.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(142, 12)</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">1952</th>
+<th data-quarto-table-cell-role="th">1957</th>
+<th data-quarto-table-cell-role="th">1962</th>
+<th data-quarto-table-cell-role="th">1967</th>
+<th data-quarto-table-cell-role="th">1972</th>
+<th data-quarto-table-cell-role="th">1977</th>
+<th data-quarto-table-cell-role="th">1982</th>
+<th data-quarto-table-cell-role="th">1987</th>
+<th data-quarto-table-cell-role="th">1992</th>
+<th data-quarto-table-cell-role="th">1997</th>
+<th data-quarto-table-cell-role="th">2002</th>
+<th data-quarto-table-cell-role="th">2007</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">continent</th>
+<th data-quarto-table-cell-role="th">country</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th rowspan="5" data-quarto-table-cell-role="th" data-valign="top">Africa</th>
+<th data-quarto-table-cell-role="th">Algeria</th>
+<td>43.077</td>
+<td>45.685</td>
+<td>48.303</td>
+<td>51.407</td>
+<td>54.518</td>
+<td>58.014</td>
+<td>61.368</td>
+<td>65.799</td>
+<td>67.744</td>
+<td>69.152</td>
+<td>70.994</td>
+<td>72.301</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Angola</th>
+<td>30.015</td>
+<td>31.999</td>
+<td>34.000</td>
+<td>35.985</td>
+<td>37.928</td>
+<td>39.483</td>
+<td>39.942</td>
+<td>39.906</td>
+<td>40.647</td>
+<td>40.963</td>
+<td>41.003</td>
+<td>42.731</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Benin</th>
+<td>38.223</td>
+<td>40.358</td>
+<td>42.618</td>
+<td>44.885</td>
+<td>47.014</td>
+<td>49.190</td>
+<td>50.904</td>
+<td>52.337</td>
+<td>53.919</td>
+<td>54.777</td>
+<td>54.406</td>
+<td>56.728</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Botswana</th>
+<td>47.622</td>
+<td>49.618</td>
+<td>51.520</td>
+<td>53.298</td>
+<td>56.024</td>
+<td>59.319</td>
+<td>61.484</td>
+<td>63.622</td>
+<td>62.745</td>
+<td>52.556</td>
+<td>46.634</td>
+<td>50.728</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Burkina Faso</th>
+<td>31.975</td>
+<td>34.906</td>
+<td>37.814</td>
+<td>40.697</td>
+<td>43.591</td>
+<td>46.137</td>
+<td>48.122</td>
+<td>49.557</td>
+<td>50.260</td>
+<td>50.324</td>
+<td>50.650</td>
+<td>52.295</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>142 rows, one per country, and 12 columns, one per year. Each country has exactly one life expectancy per year, so here each cell combines a single row and the mean simply returns it.</p>
+</section>
+<section id="practical-use-temporal-comparisons" class="level3" data-number="13.4.4">
+<h3 data-number="13.4.4" class="anchored" data-anchor-id="practical-use-temporal-comparisons"><span class="header-section-number">13.4.4</span> Practical Use: Temporal Comparisons</h3>
+<p>With each year in its own column, comparing two years is a matter of putting one column on each axis. The scatter plot below places every country’s 1957 life expectancy against its 2007 value; points above the dashed line <code>y = x</code> improved over the 50 years.</p>
+<div id="68a49530" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.871829Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.871785Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.949119Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.948776Z&quot;}}" data-execution_count="26">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>plot_data <span class="op">=</span> life_by_country.reset_index()  <span class="co"># continent back to a column for hue=</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">6</span>))</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(data<span class="op">=</span>plot_data, x<span class="op">=</span><span class="dv">1957</span>, y<span class="op">=</span><span class="dv">2007</span>, hue<span class="op">=</span><span class="st">"continent"</span>, s<span class="op">=</span><span class="dv">60</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">30</span>, <span class="dv">85</span>], [<span class="dv">30</span>, <span class="dv">85</span>], <span class="st">"k--"</span>, linewidth<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span><span class="st">"No change"</span>)</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Life expectancy in 1957"</span>)</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Life expectancy in 2007"</span>)</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"50-year change in life expectancy by country"</span>)</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>plt.legend(bbox_to_anchor<span class="op">=</span>(<span class="fl">1.02</span>, <span class="dv">1</span>), loc<span class="op">=</span><span class="st">"upper left"</span>)</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Data_reshaping_files/figure-html/cell-27-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Almost every country sits above the line. The four below it, where life expectancy was lower in 2007 than in 1957, are all in Africa: Lesotho, Swaziland, Zambia, and Zimbabwe. In the long table this comparison would need the 1957 and 2007 rows of each country matched up first; in the wide table they are already side by side.</p>
+</section>
+<section id="visualizing-pivot-tables-with-heatmaps" class="level3" data-number="13.4.5">
+<h3 data-number="13.4.5" class="anchored" data-anchor-id="visualizing-pivot-tables-with-heatmaps"><span class="header-section-number">13.4.5</span> Visualizing Pivot Tables with Heatmaps</h3>
+<p>A wide table of numbers is also a grid, and <code>sns.heatmap()</code> colours each cell by its value, so patterns across rows and columns are visible at a glance:</p>
+<div id="f730a258" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.950157Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.950085Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:13.251847Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:13.251500Z&quot;}}" data-execution_count="27">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">20</span>))</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>sns.heatmap(</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    life_by_country,</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    cmap<span class="op">=</span><span class="st">"YlGnBu"</span>,</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    cbar_kws<span class="op">=</span>{<span class="st">"label"</span>: <span class="st">"Life expectancy (years)"</span>},</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Life expectancy by country and year"</span>)</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Year"</span>)</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Continent – country"</span>)</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Data_reshaping_files/figure-html/cell-28-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Reading across a row follows one country over time; reading down a column compares countries within a year. The colours darken from left to right almost everywhere, as life expectancy rose, and the African block at the top stays lightest throughout, with a few rows fading in the later years.</p>
+</section>
+<section id="choosing-the-aggregation-function" class="level3" data-number="13.4.6">
+<h3 data-number="13.4.6" class="anchored" data-anchor-id="choosing-the-aggregation-function"><span class="header-section-number">13.4.6</span> Choosing the Aggregation Function</h3>
+<p><code>aggfunc=</code> accepts the same names as <code>agg()</code> in the previous chapter: <code>"mean"</code>, <code>"median"</code>, <code>"sum"</code>, <code>"count"</code>, <code>"min"</code>, <code>"max"</code>, and a lambda for a statistic of your own. If you leave it out, <code>pivot_table()</code> uses the mean. To calculate total population within each continent and year, use <code>"sum"</code>; to calculate the average country population, use <code>"mean"</code>. Choose the aggregation to answer your question, and <strong>always name <code>aggfunc=</code></strong>. A lambda receives the values of one cell as a Series, so the 90th percentile of life expectancy per continent and year is:</p>
+<div id="d8631e65" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:13.252829Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:13.252775Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:13.262804Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:13.262479Z&quot;}}" data-execution_count="28">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>gdp.pivot_table(</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">"continent"</span>, columns<span class="op">=</span><span class="st">"year"</span>, values<span class="op">=</span><span class="st">"lifeExp"</span>,</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    aggfunc<span class="op">=</span><span class="kw">lambda</span> x: x.quantile(<span class="fl">0.9</span>),</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>).<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">1952</th>
+<th data-quarto-table-cell-role="th">1957</th>
+<th data-quarto-table-cell-role="th">1962</th>
+<th data-quarto-table-cell-role="th">1967</th>
+<th data-quarto-table-cell-role="th">1972</th>
+<th data-quarto-table-cell-role="th">1977</th>
+<th data-quarto-table-cell-role="th">1982</th>
+<th data-quarto-table-cell-role="th">1987</th>
+<th data-quarto-table-cell-role="th">1992</th>
+<th data-quarto-table-cell-role="th">1997</th>
+<th data-quarto-table-cell-role="th">2002</th>
+<th data-quarto-table-cell-role="th">2007</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">continent</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Africa</th>
+<td>45.0</td>
+<td>47.9</td>
+<td>49.9</td>
+<td>52.1</td>
+<td>55.5</td>
+<td>58.0</td>
+<td>61.3</td>
+<td>63.5</td>
+<td>65.2</td>
+<td>67.6</td>
+<td>69.8</td>
+<td>71.3</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Americas</th>
+<td>65.4</td>
+<td>67.9</td>
+<td>69.1</td>
+<td>69.8</td>
+<td>71.1</td>
+<td>73.1</td>
+<td>73.7</td>
+<td>74.7</td>
+<td>75.2</td>
+<td>76.5</td>
+<td>77.8</td>
+<td>78.7</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Asia</th>
+<td>60.0</td>
+<td>63.0</td>
+<td>65.7</td>
+<td>67.9</td>
+<td>69.5</td>
+<td>70.8</td>
+<td>72.1</td>
+<td>74.1</td>
+<td>75.7</td>
+<td>77.0</td>
+<td>78.4</td>
+<td>79.7</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Europe</th>
+<td>71.9</td>
+<td>72.5</td>
+<td>73.2</td>
+<td>73.7</td>
+<td>73.8</td>
+<td>75.4</td>
+<td>76.2</td>
+<td>76.9</td>
+<td>77.6</td>
+<td>78.8</td>
+<td>80.1</td>
+<td>80.9</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Oceania</th>
+<td>69.4</td>
+<td>70.3</td>
+<td>71.2</td>
+<td>71.5</td>
+<td>71.9</td>
+<td>73.4</td>
+<td>74.6</td>
+<td>76.1</td>
+<td>77.4</td>
+<td>78.7</td>
+<td>80.2</td>
+<td>81.1</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p><code>margins=True</code> adds an <code>All</code> row and an <code>All</code> column that apply the same <code>aggfunc</code> to all the rows behind them, as <code>crosstab()</code> margins did for counts in the previous chapter:</p>
+<div id="b2776e54" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:13.263821Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:13.263760Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:13.271664Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:13.271361Z&quot;}}" data-execution_count="29">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>gdp.pivot_table(</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">"continent"</span>, columns<span class="op">=</span><span class="st">"year"</span>, values<span class="op">=</span><span class="st">"lifeExp"</span>,</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    aggfunc<span class="op">=</span><span class="st">"mean"</span>, margins<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>).<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">1952</th>
+<th data-quarto-table-cell-role="th">1957</th>
+<th data-quarto-table-cell-role="th">1962</th>
+<th data-quarto-table-cell-role="th">1967</th>
+<th data-quarto-table-cell-role="th">1972</th>
+<th data-quarto-table-cell-role="th">1977</th>
+<th data-quarto-table-cell-role="th">1982</th>
+<th data-quarto-table-cell-role="th">1987</th>
+<th data-quarto-table-cell-role="th">1992</th>
+<th data-quarto-table-cell-role="th">1997</th>
+<th data-quarto-table-cell-role="th">2002</th>
+<th data-quarto-table-cell-role="th">2007</th>
+<th data-quarto-table-cell-role="th">All</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">continent</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Africa</th>
+<td>39.1</td>
+<td>41.3</td>
+<td>43.3</td>
+<td>45.3</td>
+<td>47.5</td>
+<td>49.6</td>
+<td>51.6</td>
+<td>53.3</td>
+<td>53.6</td>
+<td>53.6</td>
+<td>53.3</td>
+<td>54.8</td>
+<td>48.9</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Americas</th>
+<td>53.3</td>
+<td>56.0</td>
+<td>58.4</td>
+<td>60.4</td>
+<td>62.4</td>
+<td>64.4</td>
+<td>66.2</td>
+<td>68.1</td>
+<td>69.6</td>
+<td>71.2</td>
+<td>72.4</td>
+<td>73.6</td>
+<td>64.7</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Asia</th>
+<td>46.3</td>
+<td>49.3</td>
+<td>51.6</td>
+<td>54.7</td>
+<td>57.3</td>
+<td>59.6</td>
+<td>62.6</td>
+<td>64.9</td>
+<td>66.5</td>
+<td>68.0</td>
+<td>69.2</td>
+<td>70.7</td>
+<td>60.1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Europe</th>
+<td>64.4</td>
+<td>66.7</td>
+<td>68.5</td>
+<td>69.7</td>
+<td>70.8</td>
+<td>71.9</td>
+<td>72.8</td>
+<td>73.6</td>
+<td>74.4</td>
+<td>75.5</td>
+<td>76.7</td>
+<td>77.6</td>
+<td>71.9</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Oceania</th>
+<td>69.3</td>
+<td>70.3</td>
+<td>71.1</td>
+<td>71.3</td>
+<td>71.9</td>
+<td>72.9</td>
+<td>74.3</td>
+<td>75.3</td>
+<td>76.9</td>
+<td>78.2</td>
+<td>79.7</td>
+<td>80.7</td>
+<td>74.3</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">All</th>
+<td>49.1</td>
+<td>51.5</td>
+<td>53.6</td>
+<td>55.7</td>
+<td>57.6</td>
+<td>59.6</td>
+<td>61.5</td>
+<td>63.2</td>
+<td>64.2</td>
+<td>65.0</td>
+<td>65.7</td>
+<td>67.0</td>
+<td>59.5</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Read the margins carefully. The <code>All</code> row for 1952 is 49.1, the mean over all 142 countries in 1952, not the mean of the five continent values above it (54.5). Africa has 52 countries and Oceania two, so the <code>All</code> row is weighted toward Africa: a margin summarizes rows, not groups.</p>
+</section>
+<section id="when-each-cell-holds-one-value-pivot" class="level3" data-number="13.4.7">
+<h3 data-number="13.4.7" class="anchored" data-anchor-id="when-each-cell-holds-one-value-pivot"><span class="header-section-number">13.4.7</span> When Each Cell Holds One Value: <code>pivot()</code></h3>
+<p><code>pivot()</code> takes the same <code>index=</code>, <code>columns=</code>, and <code>values=</code> but has no <code>aggfunc</code>: it only rearranges values and never summarizes them. Use it when each row label and column label pair should match exactly one row, as each country and year does here:</p>
+<div id="ef7b5200" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:13.272671Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:13.272620Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:13.276025Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:13.275742Z&quot;}}" data-execution_count="30">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>gdp_wide <span class="op">=</span> gdp.pivot(index<span class="op">=</span><span class="st">"country"</span>, columns<span class="op">=</span><span class="st">"year"</span>, values<span class="op">=</span><span class="st">"gdpPercap"</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>gdp_wide.iloc[:<span class="dv">5</span>, :<span class="dv">4</span>].<span class="bu">round</span>(<span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="30">
 <div>
 
 
@@ -1170,7 +2171,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <th data-quarto-table-cell-role="th">1967</th>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">continent</th>
+<th data-quarto-table-cell-role="th">country</th>
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th"></th>
@@ -1179,39 +2180,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">Africa</th>
-<td>52</td>
-<td>52</td>
-<td>52</td>
-<td>52</td>
+<th data-quarto-table-cell-role="th">Afghanistan</th>
+<td>779.0</td>
+<td>821.0</td>
+<td>853.0</td>
+<td>836.0</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">Americas</th>
-<td>25</td>
-<td>25</td>
-<td>25</td>
-<td>25</td>
+<th data-quarto-table-cell-role="th">Albania</th>
+<td>1601.0</td>
+<td>1942.0</td>
+<td>2313.0</td>
+<td>2760.0</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">Asia</th>
-<td>33</td>
-<td>33</td>
-<td>33</td>
-<td>33</td>
+<th data-quarto-table-cell-role="th">Algeria</th>
+<td>2449.0</td>
+<td>3014.0</td>
+<td>2551.0</td>
+<td>3247.0</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">Europe</th>
-<td>30</td>
-<td>30</td>
-<td>30</td>
-<td>30</td>
+<th data-quarto-table-cell-role="th">Angola</th>
+<td>3521.0</td>
+<td>3828.0</td>
+<td>4269.0</td>
+<td>5523.0</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">Oceania</th>
-<td>2</td>
-<td>2</td>
-<td>2</td>
-<td>2</td>
+<th data-quarto-table-cell-role="th">Argentina</th>
+<td>5911.0</td>
+<td>6857.0</td>
+<td>7133.0</td>
+<td>8053.0</td>
 </tr>
 </tbody>
 </table>
@@ -1219,53 +2220,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Each Africa cell combines 52 countries, each Oceania cell two. Here the summarizing is intended: each cell is meant to describe a continent.</p>
-<p><code>aggfunc=</code> takes any statistic name, or a lambda, as in <code>agg()</code> from the last chapter. The 90th percentile of life expectancy among each continent’s countries:</p>
-<div id="reshape-pivot-lambda" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>gdp.pivot_table(index<span class="op">=</span><span class="st">"continent"</span>, columns<span class="op">=</span><span class="st">"year"</span>, values<span class="op">=</span><span class="st">"lifeExp"</span>,</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>                aggfunc<span class="op">=</span><span class="kw">lambda</span> x: x.quantile(<span class="fl">0.9</span>))[[<span class="dv">1952</span>, <span class="dv">2007</span>]].<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
+<p>What <code>pivot()</code> adds over <code>pivot_table()</code> is a safety check. If two rows share a country and year, <code>pivot()</code> stops with <code>ValueError: Index contains duplicate entries</code>, while <code>pivot_table()</code> would quietly average the duplicates into one cell. Choose <code>pivot()</code> when a duplicate would mean a mistake in the data, and <code>pivot_table()</code> with a named <code>aggfunc=</code> when you intend each cell to summarize several rows.</p>
+</section>
+<section id="check-the-keys-duplicate-observations" class="level3" data-number="13.4.8">
+<h3 data-number="13.4.8" class="anchored" data-anchor-id="check-the-keys-duplicate-observations"><span class="header-section-number">13.4.8</span> Check the Keys: Duplicate Observations</h3>
+<p>Before pivoting, ask whether the proposed row and column labels identify a single observation. The complete Gapminder table has no repeated country–year pairs:</p>
+<div id="178a4904" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:13.276930Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:13.276883Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:13.279438Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:13.279132Z&quot;}}" data-execution_count="31">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>gdp[gdp.duplicated([<span class="st">"country"</span>, <span class="st">"year"</span>], keep<span class="op">=</span><span class="va">False</span>)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="31">
 <div>
 
 
 <table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th">year</th>
-<th data-quarto-table-cell-role="th">1952</th>
-<th data-quarto-table-cell-role="th">2007</th>
-</tr>
-<tr class="even">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">country</th>
 <th data-quarto-table-cell-role="th">continent</th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">lifeExp</th>
+<th data-quarto-table-cell-role="th">pop</th>
+<th data-quarto-table-cell-role="th">gdpPercap</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>An empty result means the keys are unique. To see what a problem looks like, append one row to the small teaching table and inspect all rows sharing its key:</p>
+<div id="412c7c31" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:13.280297Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:13.280247Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:13.282848Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:13.282526Z&quot;}}" data-execution_count="32">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>toy_duplicate <span class="op">=</span> pd.concat([toy_long, toy_long.iloc[[<span class="dv">0</span>]]], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>toy_duplicate[toy_duplicate.duplicated([<span class="st">"country"</span>, <span class="st">"year"</span>], keep<span class="op">=</span><span class="va">False</span>)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="32">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">country</th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">lifeExp</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">Africa</th>
-<td>45.0</td>
-<td>71.3</td>
+<th data-quarto-table-cell-role="th">0</th>
+<td>USA</td>
+<td>2000</td>
+<td>76.8</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">Americas</th>
-<td>65.4</td>
-<td>78.7</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">Asia</th>
-<td>60.0</td>
-<td>79.7</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">Europe</th>
-<td>71.9</td>
-<td>80.9</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">Oceania</th>
-<td>69.4</td>
-<td>81.1</td>
+<th data-quarto-table-cell-role="th">9</th>
+<td>USA</td>
+<td>2000</td>
+<td>76.8</td>
 </tr>
 </tbody>
 </table>
@@ -1273,65 +2286,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p><code>margins=True</code> adds an <code>All</code> row and column. Notice what the <code>All</code> row averages:</p>
-<div id="reshape-margins" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>life_margins <span class="op">=</span> gdp.pivot_table(index<span class="op">=</span><span class="st">"continent"</span>, columns<span class="op">=</span><span class="st">"year"</span>, values<span class="op">=</span><span class="st">"lifeExp"</span>,</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                               aggfunc<span class="op">=</span><span class="st">"mean"</span>, margins<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"All row, 2007:"</span>, <span class="bu">round</span>(life_margins.loc[<span class="st">"All"</span>, <span class="dv">2007</span>], <span class="dv">1</span>))</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"mean of the five continent means, 2007:"</span>, <span class="bu">round</span>(life_pivot[<span class="dv">2007</span>].mean(), <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>All row, 2007: 67.0
-mean of the five continent means, 2007: 71.5</code></pre>
-</div>
-</div>
-<p>The <code>All</code> row is the mean over all 142 countries, 67.0 years in 2007, not the mean of the five continent means, 71.5. Africa’s 52 countries count 26 times as much as Oceania’s two. It is the same question as in the last chapter — what does this mean average? — and the margin answers it differently from what a reader of the table might assume.</p>
+<p><code>keep=False</code> marks every row in a repeated key, including the first. A <code>pivot()</code> on this table would raise a duplicate-entry error. If the repeated record is an accidental copy, correct it after checking its source. If repeated keys represent legitimate measurements, decide how to summarize them and use an explicit <code>aggfunc</code>. Averaging automatically can hide the difference between these two situations.</p>
 </section>
-<section id="the-same-table-from-a-grouped-result-unstack" class="level3" data-number="13.4.4">
-<h3 data-number="13.4.4" class="anchored" data-anchor-id="the-same-table-from-a-grouped-result-unstack"><span class="header-section-number">13.4.4</span> The same table from a grouped result: <code>unstack()</code></h3>
-<p>The last chapter built this table in two steps. Grouping by two columns gives a Series with a two-level index: continent on the outer level and year on the inner. <code>unstack()</code> moves the inner level up into the column headers, so each continent becomes one row and each year one column:</p>
-<div id="reshape-unstack" class="cell" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>life_by_year <span class="op">=</span> gdp.groupby([<span class="st">"continent"</span>, <span class="st">"year"</span>])[<span class="st">"lifeExp"</span>].mean()</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>life_wide <span class="op">=</span> life_by_year.unstack()</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(life_wide.equals(life_pivot))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>True</code></pre>
-</div>
-</div>
-<p><code>equals()</code> confirms the two tables are identical: <code>pivot_table()</code> does the grouping and the unstacking in one call. Use <code>unstack()</code> when you already have a grouped result. Either way, with years as columns, change over time is one subtraction:</p>
-<div id="reshape-year-diff" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>(life_wide[<span class="dv">2007</span>] <span class="op">-</span> life_wide[<span class="dv">1952</span>]).<span class="bu">round</span>(<span class="dv">1</span>).sort_values()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
-<pre><code>continent
-Oceania     11.5
-Europe      13.2
-Africa      15.7
-Americas    20.3
-Asia        24.4
-dtype: float64</code></pre>
-</div>
-</div>
-<p>Africa gained 15.7 years over the period and Asia 24.4.</p>
-</section>
-<section id="rearrange-or-summarize-what-a-duplicate-does" class="level3" data-number="13.4.5">
-<h3 data-number="13.4.5" class="anchored" data-anchor-id="rearrange-or-summarize-what-a-duplicate-does"><span class="header-section-number">13.4.5</span> Rearrange or summarize? What a duplicate does</h3>
-<p>The choice between <code>pivot()</code> and <code>pivot_table()</code> matters most when the data has a mistake. Suppose the three-country table had Canada’s 2005 value entered twice, with a typo in the second entry. <code>pd.concat()</code>, from <a href="./pandas_fundamentals.html">Pandas Fundamentals</a>, adds the extra row; <code>ignore_index=True</code> numbers the rows afresh. <code>pivot()</code> stops at the duplicate:</p>
-<div id="reshape-dup-pivot" class="cell" data-execution_count="16">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>toy_dup <span class="op">=</span> pd.concat([toy_long,</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                     pd.DataFrame({<span class="st">"country"</span>: [<span class="st">"Canada"</span>], <span class="st">"year"</span>: [<span class="dv">2005</span>], <span class="st">"lifeExp"</span>: [<span class="fl">80.5</span>]})],</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                    ignore_index<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    toy_dup.pivot(index<span class="op">=</span><span class="st">"country"</span>, columns<span class="op">=</span><span class="st">"year"</span>, values<span class="op">=</span><span class="st">"lifeExp"</span>)</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ValueError</span> <span class="im">as</span> error:</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"ValueError:"</span>, error)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>ValueError: Index contains duplicate entries, cannot reshape</code></pre>
-</div>
-</div>
-<p><code>pivot_table()</code> does not stop. It does what it was told, and averages the two rows:</p>
-<div id="reshape-dup-pivot-table" class="cell" data-execution_count="17">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>toy_dup.pivot_table(index<span class="op">=</span><span class="st">"country"</span>, columns<span class="op">=</span><span class="st">"year"</span>, values<span class="op">=</span><span class="st">"lifeExp"</span>, aggfunc<span class="op">=</span><span class="st">"mean"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
+<section id="missing-combinations-become-empty-cells" class="level3" data-number="13.4.9">
+<h3 data-number="13.4.9" class="anchored" data-anchor-id="missing-combinations-become-empty-cells"><span class="header-section-number">13.4.9</span> Missing Combinations Become Empty Cells</h3>
+<p>Now remove Canada’s 2005 observation from the original teaching table. Predict what will occupy that position in the wide result:</p>
+<div id="27986923" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:13.283658Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:13.283606Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:13.286733Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:13.286456Z&quot;}}" data-execution_count="33">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>toy_incomplete <span class="op">=</span> toy_long.loc[</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">~</span>((toy_long[<span class="st">"country"</span>] <span class="op">==</span> <span class="st">"Canada"</span>) <span class="op">&amp;</span> (toy_long[<span class="st">"year"</span>] <span class="op">==</span> <span class="dv">2005</span>))</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>toy_incomplete_wide <span class="op">=</span> toy_incomplete.pivot(</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">"country"</span>, columns<span class="op">=</span><span class="st">"year"</span>, values<span class="op">=</span><span class="st">"lifeExp"</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>toy_incomplete_wide</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
 <div>
 
 
@@ -1354,7 +2322,7 @@ dtype: float64</code></pre>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Canada</th>
 <td>79.2</td>
-<td>80.3</td>
+<td>NaN</td>
 <td>81.0</td>
 </tr>
 <tr class="even">
@@ -1375,10 +2343,56 @@ dtype: float64</code></pre>
 </div>
 </div>
 </div>
-<p>The table looks complete, and Canada’s 2005 cell says 80.3: a value that appears nowhere in the data, the mean of 80.1 and 80.5. Nothing warns you. The counts do:</p>
-<div id="reshape-dup-count" class="cell" data-execution_count="18">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>toy_dup.pivot_table(index<span class="op">=</span><span class="st">"country"</span>, columns<span class="op">=</span><span class="st">"year"</span>, values<span class="op">=</span><span class="st">"lifeExp"</span>, aggfunc<span class="op">=</span><span class="st">"count"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
+<p>The Canada–2005 cell is <code>NaN</code>: no observation supplied a value for that combination. It is not zero. The wide table is a rectangular grid, so it has nine cells even though only eight observations were supplied. We will return to this example after learning <code>melt()</code>.</p>
+</section>
+</section>
+<section id="melting" class="level2" data-number="13.5">
+<h2 data-number="13.5" class="anchored" data-anchor-id="melting"><span class="header-section-number">13.5</span> Melting from Wide to Long: <code>melt()</code></h2>
+<p>Pivoting turned years into column headers; <code>melt()</code> turns column headers back into values. It moves in the opposite direction to pivoting, following the <code>melt()</code> arrow in <a href="#understanding-wide-vs-long-format">Understanding Wide vs.&nbsp;Long Format</a>: it takes a wide table and stacks chosen columns into two new columns, one holding the old column names and one holding the cell values. This section melts the country-by-year table back to long format, uses the long result for a grouped plot, and checks that pivoting and melting form a complete round trip.</p>
+<section id="key-parameters" class="level3" data-number="13.5.1">
+<h3 data-number="13.5.1" class="anchored" data-anchor-id="key-parameters"><span class="header-section-number">13.5.1</span> Key Parameters</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>id_vars</code></td>
+<td>Columns that stay as identifiers and are repeated on every new row</td>
+</tr>
+<tr class="even">
+<td><code>value_vars</code></td>
+<td>Columns to melt (default: every column not in <code>id_vars</code>)</td>
+</tr>
+<tr class="odd">
+<td><code>var_name</code></td>
+<td>Name for the new column holding the old column names</td>
+</tr>
+<tr class="even">
+<td><code>value_name</code></td>
+<td>Name for the new column holding the cell values</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="why-melt-your-data" class="level3" data-number="13.5.2">
+<h3 data-number="13.5.2" class="anchored" data-anchor-id="why-melt-your-data"><span class="header-section-number">13.5.2</span> Why Melt Your Data?</h3>
+<p>Melting puts the year labels into one column so we can use <code>groupby("year")</code> or seaborn’s <code>x="year"</code>. The wide layout remains useful for comparisons between year columns.</p>
+</section>
+<section id="example-1-basic-melt" class="level3" data-number="13.5.3">
+<h3 data-number="13.5.3" class="anchored" data-anchor-id="example-1-basic-melt"><span class="header-section-number">13.5.3</span> Example 1: Basic Melt</h3>
+<p><code>melt()</code> works on ordinary columns, so the first step is <code>reset_index()</code>, which turns <code>continent</code> and <code>country</code> from the index of <code>life_by_country</code> back into columns:</p>
+<div id="477de4ac" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:13.287588Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:13.287543Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:13.290343Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:13.290016Z&quot;}}" data-execution_count="34">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>life_by_country_flat <span class="op">=</span> life_by_country.reset_index()</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>life_by_country_flat.iloc[:<span class="dv">3</span>, :<span class="dv">6</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="34">
 <div>
 
 
@@ -1386,35 +2400,41 @@ dtype: float64</code></pre>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th">year</th>
-<th data-quarto-table-cell-role="th">2000</th>
-<th data-quarto-table-cell-role="th">2005</th>
-<th data-quarto-table-cell-role="th">2010</th>
-</tr>
-<tr class="even">
+<th data-quarto-table-cell-role="th">continent</th>
 <th data-quarto-table-cell-role="th">country</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">1952</th>
+<th data-quarto-table-cell-role="th">1957</th>
+<th data-quarto-table-cell-role="th">1962</th>
+<th data-quarto-table-cell-role="th">1967</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">Canada</th>
-<td>1</td>
-<td>2</td>
-<td>1</td>
+<th data-quarto-table-cell-role="th">0</th>
+<td>Africa</td>
+<td>Algeria</td>
+<td>43.077</td>
+<td>45.685</td>
+<td>48.303</td>
+<td>51.407</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">Mexico</th>
-<td>1</td>
-<td>1</td>
-<td>1</td>
+<th data-quarto-table-cell-role="th">1</th>
+<td>Africa</td>
+<td>Angola</td>
+<td>30.015</td>
+<td>31.999</td>
+<td>34.000</td>
+<td>35.985</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">USA</th>
-<td>1</td>
-<td>1</td>
-<td>1</td>
+<th data-quarto-table-cell-role="th">2</th>
+<td>Africa</td>
+<td>Benin</td>
+<td>38.223</td>
+<td>40.358</td>
+<td>42.618</td>
+<td>44.885</td>
 </tr>
 </tbody>
 </table>
@@ -1422,23 +2442,19 @@ dtype: float64</code></pre>
 </div>
 </div>
 </div>
-<p>One cell holds 2. So the rule is: when each cell should hold one value, use <code>pivot()</code>, which stops at a duplicate. When you mean to summarize, use <code>pivot_table()</code>, name the summary in <code>aggfunc=</code>, and check the counts if any cell should have held one row. A duplicate is the kind of row <code>duplicated(subset=["country", "year"])</code> from <a href="./Data_cleaning.html">Data Cleaning</a> finds before you reshape.</p>
-</section>
-</section>
-<section id="wide-to-long" class="level2" data-number="13.5">
-<h2 data-number="13.5" class="anchored" data-anchor-id="wide-to-long"><span class="header-section-number">13.5</span> Wide to long</h2>
-<section id="melt" class="level3" data-number="13.5.1">
-<h3 data-number="13.5.1" class="anchored" data-anchor-id="melt"><span class="header-section-number">13.5.1</span> <code>melt()</code></h3>
-<p>Data often arrives wide because that is how people record and publish it: a spreadsheet with one row per student and one column per quiz, or a public data download — from the World Bank or the Census Bureau, say — with one row per country or state and one column per year. With such data, <code>melt()</code> is usually the first step. <a href="https://pandas.pydata.org/docs/reference/api/pandas.melt.html"><code>melt()</code></a> turns those columns into rows, the inverse of pivoting. A small gradebook shows the idea:</p>
-<div id="reshape-gradebook" class="cell" data-execution_count="19">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>grades <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"student"</span>: [<span class="st">"Ana"</span>, <span class="st">"Ben"</span>, <span class="st">"Chen"</span>, <span class="st">"Dee"</span>],</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"quiz1"</span>: [<span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">7</span>],</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"quiz2"</span>: [<span class="dv">9</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">6</span>],</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"quiz3"</span>: [<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">8</span>],</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>grades</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
+<p>Now <code>continent</code> and <code>country</code> are the identifiers to keep, and every year column is melted:</p>
+<div id="869884af" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:13.291182Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:13.291126Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:13.294677Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:13.294320Z&quot;}}" data-execution_count="35">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>life_long <span class="op">=</span> life_by_country_flat.melt(</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    id_vars<span class="op">=</span>[<span class="st">"continent"</span>, <span class="st">"country"</span>],  <span class="co"># repeated on every new row</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>    var_name<span class="op">=</span><span class="st">"year"</span>,                   <span class="co"># old column names go here</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    value_name<span class="op">=</span><span class="st">"lifeExp"</span>,              <span class="co"># cell values go here</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(life_long.shape)</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>life_long.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(1704, 4)</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="35">
 <div>
 
 
@@ -1446,135 +2462,47 @@ dtype: float64</code></pre>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">student</th>
-<th data-quarto-table-cell-role="th">quiz1</th>
-<th data-quarto-table-cell-role="th">quiz2</th>
-<th data-quarto-table-cell-role="th">quiz3</th>
+<th data-quarto-table-cell-role="th">continent</th>
+<th data-quarto-table-cell-role="th">country</th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">lifeExp</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">0</th>
-<td>Ana</td>
-<td>8</td>
-<td>9</td>
-<td>7</td>
+<td>Africa</td>
+<td>Algeria</td>
+<td>1952</td>
+<td>43.077</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">1</th>
-<td>Ben</td>
-<td>6</td>
-<td>7</td>
-<td>8</td>
+<td>Africa</td>
+<td>Angola</td>
+<td>1952</td>
+<td>30.015</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">2</th>
-<td>Chen</td>
-<td>9</td>
-<td>9</td>
-<td>10</td>
+<td>Africa</td>
+<td>Benin</td>
+<td>1952</td>
+<td>38.223</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">3</th>
-<td>Dee</td>
-<td>7</td>
-<td>6</td>
-<td>8</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<div id="reshape-melt" class="cell" data-execution_count="20">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>grades_long <span class="op">=</span> grades.melt(id_vars<span class="op">=</span><span class="st">"student"</span>, var_name<span class="op">=</span><span class="st">"quiz"</span>, value_name<span class="op">=</span><span class="st">"score"</span>)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>grades_long</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="20">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">student</th>
-<th data-quarto-table-cell-role="th">quiz</th>
-<th data-quarto-table-cell-role="th">score</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>Ana</td>
-<td>quiz1</td>
-<td>8</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>Ben</td>
-<td>quiz1</td>
-<td>6</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
-<td>Chen</td>
-<td>quiz1</td>
-<td>9</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>Dee</td>
-<td>quiz1</td>
-<td>7</td>
+<td>Africa</td>
+<td>Botswana</td>
+<td>1952</td>
+<td>47.622</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">4</th>
-<td>Ana</td>
-<td>quiz2</td>
-<td>9</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">5</th>
-<td>Ben</td>
-<td>quiz2</td>
-<td>7</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">6</th>
-<td>Chen</td>
-<td>quiz2</td>
-<td>9</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">7</th>
-<td>Dee</td>
-<td>quiz2</td>
-<td>6</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">8</th>
-<td>Ana</td>
-<td>quiz3</td>
-<td>7</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">9</th>
-<td>Ben</td>
-<td>quiz3</td>
-<td>8</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">10</th>
-<td>Chen</td>
-<td>quiz3</td>
-<td>10</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">11</th>
-<td>Dee</td>
-<td>quiz3</td>
-<td>8</td>
+<td>Africa</td>
+<td>Burkina Faso</td>
+<td>1952</td>
+<td>31.975</td>
 </tr>
 </tbody>
 </table>
@@ -1582,117 +2510,123 @@ dtype: float64</code></pre>
 </div>
 </div>
 </div>
-<p>Four students × three quizzes = 12 rows. The three arguments say what to keep and what to call the new columns:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Argument</th>
-<th>Meaning</th>
-<th>Here</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>id_vars=</code></td>
-<td>Columns that identify a row and stay as they are</td>
-<td><code>student</code></td>
-</tr>
-<tr class="even">
-<td><code>var_name=</code></td>
-<td>Name for the new column that holds the old column headers</td>
-<td><code>quiz</code></td>
-</tr>
-<tr class="odd">
-<td><code>value_name=</code></td>
-<td>Name for the new column that holds the values</td>
-<td><code>score</code></td>
-</tr>
-</tbody>
-</table>
-<p>Every column not listed in <code>id_vars</code> is melted; <code>value_vars=</code> limits the melt to some of them. In long form, the questions a gradebook raises become one familiar line each — the mean score on each quiz is a <code>groupby()</code>:</p>
-<div id="reshape-melt-groupby" class="cell" data-execution_count="21">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>grades_long.groupby(<span class="st">"quiz"</span>)[<span class="st">"score"</span>].mean()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
-<pre><code>quiz
-quiz1    7.50
-quiz2    7.75
-quiz3    8.25
-Name: score, dtype: float64</code></pre>
-</div>
-</div>
-<p>Long format is also what seaborn’s <code>hue=</code> needs, here to draw one line per student:</p>
-<div id="reshape-melt-plot" class="cell" data-execution_count="22">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>), layout<span class="op">=</span><span class="st">"constrained"</span>)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>sns.lineplot(data<span class="op">=</span>grades_long, x<span class="op">=</span><span class="st">"quiz"</span>, y<span class="op">=</span><span class="st">"score"</span>, hue<span class="op">=</span><span class="st">"student"</span>, marker<span class="op">=</span><span class="st">"o"</span>, ax<span class="op">=</span>ax)</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">""</span>, ylabel<span class="op">=</span><span class="st">"Score (out of 10)"</span>)</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Data_reshaping_files/figure-html/cell-23-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="melting-back-and-checking-the-result" class="level3" data-number="13.5.2">
-<h3 data-number="13.5.2" class="anchored" data-anchor-id="melting-back-and-checking-the-result"><span class="header-section-number">13.5.2</span> Melting back, and checking the result</h3>
-<p>The country-by-year table melts back into the original long layout. <code>reset_index()</code> first turns <code>continent</code> and <code>country</code> into ordinary columns, so they can be <code>id_vars</code>:</p>
-<div id="reshape-melt-gdp-code" class="cell" data-execution_count="23">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>life_long <span class="op">=</span> country_wide.reset_index().melt(id_vars<span class="op">=</span>[<span class="st">"continent"</span>, <span class="st">"country"</span>],</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>                                           var_name<span class="op">=</span><span class="st">"year"</span>, value_name<span class="op">=</span><span class="st">"lifeExp"</span>)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(life_long.shape)</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(life_long.dtypes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>(1704, 4)
-continent        str
+<p>142 countries × 12 years = 1,704 rows: one per country–year, with the old year headers in the <code>year</code> column and the cell values in <code>lifeExp</code>. That row count is the first check on any melt: the number of id rows times the number of melted columns.</p>
+<p>Check the column types too:</p>
+<div id="699bcc6e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:13.295514Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:13.295450Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:13.297304Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:13.296958Z&quot;}}" data-execution_count="36">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>life_long.dtypes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="36">
+<pre><code>continent        str
 country          str
 year          object
 lifeExp      float64
 dtype: object</code></pre>
 </div>
 </div>
-<p>142 countries × 12 years = 1,704 rows, matching the original data. But <code>year</code> came back as <code>object</code>, not as integers: the year labels passed through column headers, where they were stored alongside the text headers <code>continent</code> and <code>country</code>. A reshape can change a column’s type without any warning, so check <code>dtypes</code> afterwards and restore it:</p>
-<div id="reshape-restore-type" class="cell" data-execution_count="24">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>life_long[<span class="st">"year"</span>] <span class="op">=</span> life_long[<span class="st">"year"</span>].astype(<span class="bu">int</span>)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>original <span class="op">=</span> gdp.sort_values([<span class="st">"country"</span>, <span class="st">"year"</span>]).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>restored <span class="op">=</span> life_long.sort_values([<span class="st">"country"</span>, <span class="st">"year"</span>]).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"same years:"</span>, (original[<span class="st">"year"</span>] <span class="op">==</span> restored[<span class="st">"year"</span>]).<span class="bu">all</span>())</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"same values:"</span>, np.allclose(original[<span class="st">"lifeExp"</span>], restored[<span class="st">"lifeExp"</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>same years: True
-same values: True</code></pre>
+<p><code>year</code> has dtype <code>object</code>, but that does not mean its values are strings: here the values are Python integers stored in an object column. Convert the column to an integer dtype for consistent numeric operations and comparison with the original data:</p>
+<div id="95d070c0" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:13.298005Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:13.297959Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:13.299906Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:13.299603Z&quot;}}" data-execution_count="37">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>life_long[<span class="st">"year"</span>] <span class="op">=</span> life_long[<span class="st">"year"</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>life_long.dtypes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="37">
+<pre><code>continent        str
+country          str
+year           int64
+lifeExp      float64
+dtype: object</code></pre>
 </div>
 </div>
-<p>Sorted the same way, the melted table matches the original row for row: long to wide and back again lost nothing. This <strong>round-trip check</strong> — reshape, reshape back, compare — is the surest way to confirm a reshape did only what you meant.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Predict before running
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you melt only 1952, 1977, and 2007 for all 142 countries, how many rows will you get? Which column will contain those year labels? Use <code>value_vars=[1952, 1977, 2007]</code> to check.</p>
+</div>
+</div>
 </section>
-<section id="stack" class="level3" data-number="13.5.3">
-<h3 data-number="13.5.3" class="anchored" data-anchor-id="stack"><span class="header-section-number">13.5.3</span> <code>stack()</code></h3>
-<p><code>stack()</code> is the counterpart of <code>unstack()</code>: it moves the column headers down into the inner level of the row index, turning the continent-by-year table back into a Series:</p>
-<div id="reshape-stack" class="cell" data-execution_count="25">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>life_stacked <span class="op">=</span> life_wide.stack()</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(life_stacked.shape)</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>life_stacked.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="example-2-using-melted-data-for-visualization" class="level3" data-number="13.5.4">
+<h3 data-number="13.5.4" class="anchored" data-anchor-id="example-2-using-melted-data-for-visualization"><span class="header-section-number">13.5.4</span> Example 2: Using Melted Data for Visualization</h3>
+<p>With year and continent each in a single column, seaborn can draw one line per continent directly. <code>lineplot()</code> averages the countries within each continent and year and shades one standard deviation around each mean:</p>
+<div id="8555185c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:13.300793Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:13.300736Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:13.362518Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:13.362134Z&quot;}}" data-execution_count="38">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>sns.lineplot(data<span class="op">=</span>life_long, x<span class="op">=</span><span class="st">"year"</span>, y<span class="op">=</span><span class="st">"lifeExp"</span>, hue<span class="op">=</span><span class="st">"continent"</span>,</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>             estimator<span class="op">=</span><span class="st">"mean"</span>, errorbar<span class="op">=</span><span class="st">"sd"</span>)</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Life expectancy by continent, 1952–2007"</span>)</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Year"</span>)</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Mean life expectancy (years)"</span>)</span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>plt.legend(bbox_to_anchor<span class="op">=</span>(<span class="fl">1.02</span>, <span class="dv">1</span>), loc<span class="op">=</span><span class="st">"upper left"</span>)</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Data_reshaping_files/figure-html/cell-39-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Every continent rises and Oceania and Europe stay on top. Africa starts lowest and gains least, and by 2007 its countries are the most spread out of any continent. The wide table holds exactly the same values, but <code>hue="continent"</code> and <code>x="year"</code> need each of those variables in its own column.</p>
+</section>
+<section id="pivot-melt-the-full-circle" class="level3" data-number="13.5.5">
+<h3 data-number="13.5.5" class="anchored" data-anchor-id="pivot-melt-the-full-circle"><span class="header-section-number">13.5.5</span> Pivot ↔︎ Melt: The Full Circle</h3>
+<p>For this complete country–year grid, pivoting and melting can recover the selected data. A round trip checks that the values and identifiers survived. <code>life_long</code> came from <code>gdp</code> by pivoting wide and melting back, so after sorting both the same way and keeping the same columns, the two tables should be identical:</p>
+<div id="69609fde" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:13.363481Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:13.363420Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:13.366766Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:13.366408Z&quot;}}" data-execution_count="39">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> [<span class="st">"continent"</span>, <span class="st">"country"</span>, <span class="st">"year"</span>, <span class="st">"lifeExp"</span>]</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>original <span class="op">=</span> gdp[cols].sort_values(cols[:<span class="dv">3</span>]).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>round_trip <span class="op">=</span> life_long[cols].sort_values(cols[:<span class="dv">3</span>]).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>round_trip.equals(original)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="39">
+<pre><code>True</code></pre>
+</div>
+</div>
+<p><code>True</code>: every row, value, and type matches. Without the <code>astype(int)</code> step above, the same check returns <code>False</code>, because the <code>year</code> column would have object dtype in one table and integer dtype in the other, even though its values are integers in both.</p>
+<p>The round trip works because each cell of <code>life_by_country</code> held exactly one country’s value. When <code>pivot_table()</code> averages several rows into a cell, as in the figure at the start of the pivoting section, <code>melt()</code> returns those averages, not the rows behind them, so no reshape can recover the original table.</p>
+</section>
+<section id="melting-an-incomplete-grid" class="level3" data-number="13.5.6">
+<h3 data-number="13.5.6" class="anchored" data-anchor-id="melting-an-incomplete-grid"><span class="header-section-number">13.5.6</span> Melting an Incomplete Grid</h3>
+<p>Melting the incomplete teaching table includes its empty Canada–2005 cell:</p>
+<div id="da6d7577" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:13.367588Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:13.367536Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:13.370550Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:13.370264Z&quot;}}" data-execution_count="40">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>toy_incomplete_long <span class="op">=</span> toy_incomplete_wide.reset_index().melt(</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>    id_vars<span class="op">=</span><span class="st">"country"</span>, var_name<span class="op">=</span><span class="st">"year"</span>, value_name<span class="op">=</span><span class="st">"lifeExp"</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Original rows:"</span>, <span class="bu">len</span>(toy_incomplete))</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Rows after pivot and melt:"</span>, <span class="bu">len</span>(toy_incomplete_long))</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>toy_incomplete_long[toy_incomplete_long[<span class="st">"lifeExp"</span>].isna()]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>(60,)</code></pre>
+<pre><code>Original rows: 8
+Rows after pivot and melt: 9</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="25">
-<pre><code>continent  year
-Africa     1952    39.135500
-           1957    41.266346
-           1962    43.319442
-           1967    45.334538
-           1972    47.450942
-dtype: float64</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="40">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">country</th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">lifeExp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">3</th>
+<td>Canada</td>
+<td>2005</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
 </div>
 </div>
-<p>60 values again, indexed by continent and year: exactly the grouped result the section started from. Use <code>stack()</code> and <code>unstack()</code> when the data already has a two-level index, as grouped results do, and <code>melt()</code>, <code>pivot()</code>, and <code>pivot_table()</code> when it has ordinary columns.</p>
+</div>
+<p>Eight input rows became nine rows after the round trip. Melting creates one row for every selected cell, including cells containing missing values. Here we know the extra row represents an absent observation. In other data, a <code>NaN</code> might belong to an observed record with a missing measurement. Do not automatically drop all missing values to force the row count to match: retain the original keys when that distinction matters.</p>
 </section>
 </section>
 <section id="summary-cheat-sheet" class="level2" data-number="13.6">
@@ -1710,24 +2644,48 @@ dtype: float64</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Long table to wide, one value per cell</td>
-<td><code>df.pivot(index="a", columns="b", values="v")</code></td>
+<td>Count the levels</td>
+<td><code>df.index.nlevels</code>, <code>df.columns.nlevels</code></td>
+</tr>
+<tr class="even">
+<td>See the labels at one level</td>
+<td><code>df.columns.get_level_values(0)</code>; <code>0</code> is outermost, <code>-1</code> innermost</td>
+</tr>
+<tr class="odd">
+<td>See the level names</td>
+<td><code>df.index.names</code>, <code>df.columns.names</code> (<code>None</code> means unnamed)</td>
+</tr>
+<tr class="even">
+<td>Grouped result to wide</td>
+<td><code>df.groupby(["a", "b"])["v"].mean().unstack()</code></td>
+</tr>
+<tr class="odd">
+<td>Choose which index level moves</td>
+<td><code>unstack(level=0)</code> or <code>unstack(level="a")</code>; default is the innermost</td>
+</tr>
+<tr class="even">
+<td>Wide with a two-level index to long</td>
+<td><code>wide.stack()</code>, or <code>stack(level=0)</code> for the outer column level</td>
+</tr>
+<tr class="odd">
+<td>Select from multi-level labels</td>
+<td><code>df.loc[("row_outer", "row_inner"), ("col_outer", "col_inner")]</code></td>
+</tr>
+<tr class="even">
+<td>Multi-level labels to plain columns</td>
+<td><code>flat = df.reset_index()</code> then <code>flat.columns = ["_".join(c).strip("_") for c in flat.columns]</code></td>
+</tr>
+<tr class="odd">
+<td>Swap rows and columns</td>
+<td><code>df.T</code></td>
 </tr>
 <tr class="even">
 <td>Long table to wide, summarizing each cell</td>
 <td><code>df.pivot_table(index="a", columns="b", values="v", aggfunc="mean")</code></td>
 </tr>
 <tr class="odd">
-<td>Grouped result to wide</td>
-<td><code>df.groupby(["a", "b"])["v"].mean().unstack()</code></td>
-</tr>
-<tr class="even">
 <td>Several row labels</td>
-<td><code>pivot(index=["a", "c"], ...)</code>, and the same in <code>pivot_table()</code></td>
-</tr>
-<tr class="odd">
-<td>See how many rows each cell combined</td>
-<td><code>pivot_table(..., aggfunc="count")</code></td>
+<td><code>pivot_table(index=["a", "c"], ...)</code></td>
 </tr>
 <tr class="even">
 <td>Your own statistic</td>
@@ -1738,28 +2696,24 @@ dtype: float64</code></pre>
 <td><code>pivot_table(..., margins=True)</code></td>
 </tr>
 <tr class="even">
+<td>Long table to wide, one value per cell</td>
+<td><code>df.pivot(index="a", columns="b", values="v")</code></td>
+</tr>
+<tr class="odd">
 <td>Wide table to long</td>
 <td><code>df.melt(id_vars="id", var_name="name", value_name="value")</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Melt only some columns</td>
 <td><code>melt(..., value_vars=["c1", "c2"])</code></td>
 </tr>
-<tr class="even">
-<td>Wide with a two-level index to long</td>
-<td><code>wide.stack()</code></td>
-</tr>
 <tr class="odd">
-<td>Index levels back to columns</td>
-<td><code>reset_index()</code></td>
-</tr>
-<tr class="even">
 <td>Restore a type changed by reshaping</td>
 <td><code>df["year"] = df["year"].astype(int)</code></td>
 </tr>
-<tr class="odd">
-<td>Swap rows and columns</td>
-<td><code>df.T</code></td>
+<tr class="even">
+<td>Check a round trip</td>
+<td><code>reshaped.equals(original)</code> after sorting both the same way</td>
 </tr>
 </tbody>
 </table>
@@ -1791,7 +2745,7 @@ dtype: float64</code></pre>
 <h3 class="unnumbered anchored" data-anchor-id="c.-wide-to-long-and-check">C. Wide to Long, and Check</h3>
 <ul>
 <li>Melt <code>rainfall</code> into a long table with columns <code>city</code>, <code>month</code>, and <code>rainfall_mm</code>. Confirm the number of rows is the number of cities times the number of months.</li>
-<li>Use the long table to compute mean rainfall per month with <code>groupby()</code>, and draw one line per city with seaborn.</li>
+<li>Use the long table to compute mean rainfall per month with <code>groupby()</code>, and draw one line per city with seaborn. Keep the months in January–April order in both the summary and the plot; alphabetical order is not chronological order.</li>
 </ul>
 </section>
 <section id="d.-when-a-pivot-summarizes" class="level3 unnumbered">
@@ -1831,19 +2785,17 @@ dtype: float64</code></pre>
 </section>
 <section id="before-you-move-on" class="level2" data-number="13.9">
 <h2 data-number="13.9" class="anchored" data-anchor-id="before-you-move-on"><span class="header-section-number">13.9</span> Before You Move On</h2>
-<p>The habit to carry forward is checking a reshape. Every tool in this chapter can return a perfectly shaped table that is wrong: <code>pivot_table()</code> averages a duplicate without saying so, <code>margins=True</code> averages over rows rather than groups, and <code>melt()</code> can bring numbers back as text. Count the rows, look at what each cell combined, and check the types — or reshape back and compare.</p>
-<p>Choose <code>pivot()</code> when each cell should hold one value, so a duplicate stops it, and <code>pivot_table()</code> with a named <code>aggfunc=</code> when you mean to summarize.</p>
-<p>The other habit is choosing the layout by the task. Long data suits <code>groupby()</code>, seaborn, and models; wide data suits comparisons between columns and tables for a reader.</p>
-<p>For any reshape you make, you should be able to answer five questions:</p>
+<p>Choose a tool by where the labels are and what each output cell should represent: <code>stack()</code> and <code>unstack()</code> move index or column levels; <code>pivot()</code> rearranges unique combinations; <code>pivot_table()</code> summarizes groups; and <code>melt()</code> turns columns into rows.</p>
+<p>Before accepting a result, answer five questions:</p>
 <ol type="1">
-<li>Is the starting table long or wide, and what is one row?</li>
-<li>What will one row and one column be after the reshape?</li>
-<li>Did any cell combine more than one value, and if so, how?</li>
-<li>Does the row count after the reshape match what you expected?</li>
-<li>Did any column change type?</li>
+<li>What does one row represent before and after the reshape?</li>
+<li>Which identifiers should uniquely identify an observation?</li>
+<li>Did any cell combine several observations, and was that intentional?</li>
+<li>Do the row count and missing combinations match what you expected?</li>
+<li>Are the column dtypes appropriate?</li>
 </ol>
-<p>Continue to <a href="./Data wrangling.html">Combining Datasets</a>, where tables in matching layouts are joined together.</p>
-<p>References: <a href="https://pandas.pydata.org/docs/user_guide/reshaping.html">pandas: reshaping and pivot tables</a>, <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot.html"><code>DataFrame.pivot</code></a>, <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html"><code>DataFrame.pivot_table</code></a>, <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.melt.html"><code>DataFrame.melt</code></a>, <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.stack.html"><code>DataFrame.stack</code></a>, <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.unstack.html"><code>DataFrame.unstack</code></a>, and <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.T.html"><code>DataFrame.T</code></a>.</p>
+<p>Continue to <a href="./Data wrangling.html">Combining Datasets</a>, where you will choose join keys and check how matching rows affects the result.</p>
+<p>References: <a href="https://pandas.pydata.org/docs/user_guide/reshaping.html">pandas: reshaping and pivot tables</a>, <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.unstack.html"><code>DataFrame.unstack</code></a>, <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.stack.html"><code>DataFrame.stack</code></a>, <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.T.html"><code>DataFrame.T</code></a>, <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html"><code>DataFrame.pivot_table</code></a>, <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot.html"><code>DataFrame.pivot</code></a>, <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.melt.html"><code>DataFrame.melt</code></a>, and <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.equals.html"><code>DataFrame.equals</code></a>.</p>
 
 
 </section>
