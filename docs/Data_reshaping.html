@@ -414,7 +414,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#example-1-basic-melt" id="toc-example-1-basic-melt" class="nav-link" data-scroll-target="#example-1-basic-melt"><span class="header-section-number">13.5.3</span> Example 1: Basic Melt</a></li>
   <li><a href="#example-2-using-melted-data-for-visualization" id="toc-example-2-using-melted-data-for-visualization" class="nav-link" data-scroll-target="#example-2-using-melted-data-for-visualization"><span class="header-section-number">13.5.4</span> Example 2: Using Melted Data for Visualization</a></li>
   <li><a href="#pivot-melt-the-full-circle" id="toc-pivot-melt-the-full-circle" class="nav-link" data-scroll-target="#pivot-melt-the-full-circle"><span class="header-section-number">13.5.5</span> Pivot ↔︎ Melt: The Full Circle</a></li>
-  <li><a href="#melting-an-incomplete-grid" id="toc-melting-an-incomplete-grid" class="nav-link" data-scroll-target="#melting-an-incomplete-grid"><span class="header-section-number">13.5.6</span> Melting an Incomplete Grid</a></li>
   </ul></li>
   <li><a href="#summary-cheat-sheet" id="toc-summary-cheat-sheet" class="nav-link" data-scroll-target="#summary-cheat-sheet"><span class="header-section-number">13.6</span> Summary Cheat Sheet</a></li>
   <li><a href="#practice-activity-long-wide-and-back" id="toc-practice-activity-long-wide-and-back" class="nav-link" data-scroll-target="#practice-activity-long-wide-and-back"><span class="header-section-number">13.7</span> Practice Activity: Long, Wide, and Back</a>
@@ -646,40 +645,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>The same nine values in long and wide format. <code>pivot()</code> turns the year values into column headers; <code>melt()</code> turns the year columns back into rows. Canada’s 2005 value, 80.1, is highlighted in both.</figcaption>
 </figure>
 </div>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Format</th>
-<th>Rows</th>
-<th>Columns</th>
-<th>Each row is</th>
-<th>Suits</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Long</strong></td>
-<td>9</td>
-<td>3</td>
-<td>One country in one year</td>
-<td>Plotting by group, <code>groupby()</code>, statistical models</td>
-</tr>
-<tr class="even">
-<td><strong>Wide</strong></td>
-<td>3</td>
-<td>3</td>
-<td>One country</td>
-<td>Comparing years side by side, reading as a table</td>
-</tr>
-</tbody>
-</table>
+<p>The two layouts hold the same values but suit different tasks. With one column per year, a change over time is one subtraction; with one column per variable, seaborn draws one line per country:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/reshaping-why-layouts.png" class="img-fluid figure-img" width="820"></p>
+<figcaption>Wide format, 3 rows with one column per year, suits comparing columns: <code>toy_wide[2010] - toy_wide[2000]</code> is one subtraction per country, and Mexico gained the most, 2.4 years. Long format, 9 rows with one row per country and year, suits grouping and plotting: <code>hue="country"</code> and <code>x="year"</code> draw one line per country, and <code>groupby()</code>, seaborn, and statistical models expect this layout. The long table is circled as tidy data.</figcaption>
+</figure>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -690,7 +662,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You will often see long format described as <strong>tidy data</strong>: each variable is a column, each observation is a row, and each value is a cell. In the long table, <code>country</code>, <code>year</code>, and <code>lifeExp</code> are each one column, and each row is one observation. In the wide table, the single variable “year” is spread across three column headers. Tidy data is what <code>groupby()</code>, seaborn, and most statistical tools expect, which is why data is so often melted before it is analysed.</p>
+<p>You will often see long format described as <strong>tidy data</strong>: each variable is a column, each observation is a row, and each value is a cell. In the long table, circled in the figure above, <code>country</code>, <code>year</code>, and <code>lifeExp</code> are each one column, and each row is one observation. In the wide table, the single variable “year” is spread across three column headers. Tidy data is what <code>groupby()</code>, seaborn, and most statistical tools expect, which is why data is so often melted before it is analysed.</p>
 </div>
 </div>
 </section>
@@ -733,6 +705,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
+<p>To choose among them, start with where the labels you want to move are, then which direction you are going:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/reshaping-decision-guide.png" class="img-fluid figure-img" width="700"></p>
+<figcaption>Choosing a reshaping tool. Labels in the index call for <code>unstack()</code> or <code>stack()</code>; labels in ordinary columns call for <code>melt()</code> to go long, or for <code>pivot()</code> or <code>pivot_table()</code> to go wide, depending on whether each cell gets exactly one row. After every reshape, check the number of rows, what each cell combined, and the column dtypes.</figcaption>
+</figure>
+</div>
 <p>The rest of the chapter uses the Gapminder data from <a href="./Data aggregation.html">Data Grouping and Aggregation</a>: 142 countries every five years from 1952 to 2007. It arrives in long format, one row per country-year:</p>
 <div id="3e0d2c7c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:12.795205Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:12.795154Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:12.799096Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:12.798814Z&quot;}}" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>gdp <span class="op">=</span> pd.read_csv(<span class="st">"data/gdp_lifeExpectancy.csv"</span>)</span>
@@ -1443,6 +1422,13 @@ Name: lifeExp, dtype: float64</code></pre>
 </div>
 </div>
 <p>After <code>reset_index()</code>, the old index columns have an empty second part, <code>("continent", "")</code>, so <code>strip("_")</code> removes the trailing underscore that joining leaves on them. The pandas method <code>droplevel()</code> can also flatten labels, by deleting a level outright, but here it would lose part of the meaning: dropping the variable level leaves repeated <code>mean</code> and <code>std</code> labels, while dropping the statistic level repeats each variable name. Joining both parts preserves the variable and the statistic.</p>
+<p>The figure traces the column labels through both steps:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/reshaping-flatten-columns.png" class="img-fluid figure-img" width="806"></p>
+<figcaption>After <code>reset_index()</code>, each column label is a pair, such as <code>("continent", "")</code> or <code>("lifeExp", "mean")</code>. Joining each pair with an underscore and stripping the trailing underscore gives plain names: <code>continent</code>, <code>country</code>, <code>lifeExp_mean</code>, <code>lifeExp_std</code>.</figcaption>
+</figure>
+</div>
 </section>
 <section id="transposing-using-the-.t-attribute" class="level3" data-number="13.3.5">
 <h3 data-number="13.3.5" class="anchored" data-anchor-id="transposing-using-the-.t-attribute"><span class="header-section-number">13.3.5</span> Transposing using the <code>.T</code> Attribute</h3>
@@ -2250,7 +2236,7 @@ Name: lifeExp, dtype: float64</code></pre>
 </div>
 </div>
 </div>
-<p>An empty result means the keys are unique. To see what a problem looks like, append one row to the small teaching table and inspect all rows sharing its key:</p>
+<p>An empty result means the keys are unique. To see what a problem looks like, append one row to <code>toy_long</code>, the three-country table from the start of the chapter, and inspect all rows sharing its key:</p>
 <div id="412c7c31" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:13.280297Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:13.280247Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:13.282848Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:13.282526Z&quot;}}" data-execution_count="32">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>toy_duplicate <span class="op">=</span> pd.concat([toy_long, toy_long.iloc[[<span class="dv">0</span>]]], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>toy_duplicate[toy_duplicate.duplicated([<span class="st">"country"</span>, <span class="st">"year"</span>], keep<span class="op">=</span><span class="va">False</span>)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2290,7 +2276,7 @@ Name: lifeExp, dtype: float64</code></pre>
 </section>
 <section id="missing-combinations-become-empty-cells" class="level3" data-number="13.4.9">
 <h3 data-number="13.4.9" class="anchored" data-anchor-id="missing-combinations-become-empty-cells"><span class="header-section-number">13.4.9</span> Missing Combinations Become Empty Cells</h3>
-<p>Now remove Canada’s 2005 observation from the original teaching table. Predict what will occupy that position in the wide result:</p>
+<p>Now remove Canada’s 2005 observation from <code>toy_long</code>. Predict what will occupy that position in the wide result:</p>
 <div id="27986923" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:13.283658Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:13.283606Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:13.286733Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:13.286456Z&quot;}}" data-execution_count="33">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>toy_incomplete <span class="op">=</span> toy_long.loc[</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">~</span>((toy_long[<span class="st">"country"</span>] <span class="op">==</span> <span class="st">"Canada"</span>) <span class="op">&amp;</span> (toy_long[<span class="st">"year"</span>] <span class="op">==</span> <span class="dv">2005</span>))</span>
@@ -2343,7 +2329,7 @@ Name: lifeExp, dtype: float64</code></pre>
 </div>
 </div>
 </div>
-<p>The Canada–2005 cell is <code>NaN</code>: no observation supplied a value for that combination. It is not zero. The wide table is a rectangular grid, so it has nine cells even though only eight observations were supplied. We will return to this example after learning <code>melt()</code>.</p>
+<p>The Canada–2005 cell is <code>NaN</code>: no observation supplied a value for that combination. It is not zero. The wide table is a rectangular grid, so it has nine cells even though only eight observations were supplied. We will return to this example in <a href="#pivot-melt-the-full-circle">the round trip after <code>melt()</code></a>.</p>
 </section>
 </section>
 <section id="melting" class="level2" data-number="13.5">
@@ -2351,36 +2337,13 @@ Name: lifeExp, dtype: float64</code></pre>
 <p>Pivoting turned years into column headers; <code>melt()</code> turns column headers back into values. It moves in the opposite direction to pivoting, following the <code>melt()</code> arrow in <a href="#understanding-wide-vs-long-format">Understanding Wide vs.&nbsp;Long Format</a>: it takes a wide table and stacks chosen columns into two new columns, one holding the old column names and one holding the cell values. This section melts the country-by-year table back to long format, uses the long result for a grouped plot, and checks that pivoting and melting form a complete round trip.</p>
 <section id="key-parameters" class="level3" data-number="13.5.1">
 <h3 data-number="13.5.1" class="anchored" data-anchor-id="key-parameters"><span class="header-section-number">13.5.1</span> Key Parameters</h3>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>id_vars</code></td>
-<td>Columns that stay as identifiers and are repeated on every new row</td>
-</tr>
-<tr class="even">
-<td><code>value_vars</code></td>
-<td>Columns to melt (default: every column not in <code>id_vars</code>)</td>
-</tr>
-<tr class="odd">
-<td><code>var_name</code></td>
-<td>Name for the new column holding the old column names</td>
-</tr>
-<tr class="even">
-<td><code>value_name</code></td>
-<td>Name for the new column holding the cell values</td>
-</tr>
-</tbody>
-</table>
+<p>Each parameter names a set of columns, before or after the melt. The figure colours each parameter to match those columns, using the call from Example 1 below:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/reshaping-melt-parameters.png" class="img-fluid figure-img" width="820"></p>
+<figcaption>The <code>melt()</code> call from Example 1, with each parameter colour-matched to its columns. <code>id_vars=["continent", "country"]</code> names the identifier columns, which are repeated on every new row. <code>value_vars</code> names the year columns to melt; leaving it out melts every non-identifier column. <code>var_name="year"</code> names the new column that holds the old column headers, 1952 and 1957, and <code>value_name="lifeExp"</code> names the new column that holds the cell values. Two wide rows with two melted columns become four long rows.</figcaption>
+</figure>
+</div>
 </section>
 <section id="why-melt-your-data" class="level3" data-number="13.5.2">
 <h3 data-number="13.5.2" class="anchored" data-anchor-id="why-melt-your-data"><span class="header-section-number">13.5.2</span> Why Melt Your Data?</h3>
@@ -2585,10 +2548,7 @@ dtype: object</code></pre>
 </div>
 <p><code>True</code>: every row, value, and type matches. Without the <code>astype(int)</code> step above, the same check returns <code>False</code>, because the <code>year</code> column would have object dtype in one table and integer dtype in the other, even though its values are integers in both.</p>
 <p>The round trip works because each cell of <code>life_by_country</code> held exactly one country’s value. When <code>pivot_table()</code> averages several rows into a cell, as in the figure at the start of the pivoting section, <code>melt()</code> returns those averages, not the rows behind them, so no reshape can recover the original table.</p>
-</section>
-<section id="melting-an-incomplete-grid" class="level3" data-number="13.5.6">
-<h3 data-number="13.5.6" class="anchored" data-anchor-id="melting-an-incomplete-grid"><span class="header-section-number">13.5.6</span> Melting an Incomplete Grid</h3>
-<p>Melting the incomplete teaching table includes its empty Canada–2005 cell:</p>
+<p>The round trip also needs a complete grid. Melting <code>toy_incomplete_wide</code>, the wide table from the pivoting section with Canada’s 2005 observation removed, includes its empty cell:</p>
 <div id="da6d7577" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:05:13.367588Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:05:13.367536Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:05:13.370550Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:05:13.370264Z&quot;}}" data-execution_count="40">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>toy_incomplete_long <span class="op">=</span> toy_incomplete_wide.reset_index().melt(</span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>    id_vars<span class="op">=</span><span class="st">"country"</span>, var_name<span class="op">=</span><span class="st">"year"</span>, value_name<span class="op">=</span><span class="st">"lifeExp"</span></span>
