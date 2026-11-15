@@ -381,7 +381,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#set-up-your-chapter-files" id="toc-set-up-your-chapter-files" class="nav-link active" data-scroll-target="#set-up-your-chapter-files"><span class="header-section-number">14.1</span> Set Up Your Chapter Files</a></li>
-  <li><a href="#why-combine-datasets" id="toc-why-combine-datasets" class="nav-link" data-scroll-target="#why-combine-datasets"><span class="header-section-number">14.2</span> Why combine datasets</a></li>
+  <li><a href="#stack-or-match" id="toc-stack-or-match" class="nav-link" data-scroll-target="#stack-or-match"><span class="header-section-number">14.2</span> Stack or match?</a></li>
   <li><a href="#stack-rows-pd.concat" id="toc-stack-rows-pd.concat" class="nav-link" data-scroll-target="#stack-rows-pd.concat"><span class="header-section-number">14.3</span> Stack rows: <code>pd.concat()</code></a></li>
   <li><a href="#match-rows-on-a-key-merge" id="toc-match-rows-on-a-key-merge" class="nav-link" data-scroll-target="#match-rows-on-a-key-merge"><span class="header-section-number">14.4</span> Match rows on a key: <code>merge()</code></a>
   <ul class="collapse">
@@ -437,8 +437,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><a href="./Data_reshaping.html">Data Reshaping</a> ended with a condition: two tables can be joined row by row only once each row means the same thing in both. This chapter does the joining. Real analyses rarely start from a single table. The information you need is split across files — one per region or per year, one holding measurements and another holding descriptions — and the first job is often to put it back together.</p>
-<p>There are two basic ways to combine tables. When they hold the same kind of rows, you stack them. When they hold different information about the same things, you match their rows on a shared key. Matching is where the surprises live: rows that find no partner, keys that appear twice, names spelled differently in two sources. So, as in the last two chapters, the habit to build is checking the result before you trust it.</p>
+<p>The data you need for an analysis often lives in more than one table. To compare life expectancy across continents, for example, you may first need to combine five regional files. To study how life expectancy relates to income, you may need to bring measurements from two tables together for each country and year. Both tasks combine datasets, but they combine them in different ways.</p>
+<p>This chapter introduces two operations: <strong>stacking rows</strong> with <code>pd.concat()</code> and <strong>matching rows</strong> with <code>merge()</code>. Stacking brings together observations spread across files with the same columns. Matching uses a shared <strong>key</strong>, such as country and year, to connect related information, even when the rows appear in a different order.</p>
+<p>In <a href="./Data_reshaping.html">Data Reshaping</a>, you changed how values were arranged within a table. Here, you will bring separate tables together. Before each combination, ask: <strong>What does one row represent, and which rows belong together?</strong> Afterward, check the result: a command can run without errors and still leave out observations, create extra rows, or introduce missing values.</p>
 <p>By the end of this chapter you should be able to:</p>
 <ul>
 <li>Stack tables that share their columns with <code>pd.concat()</code>, record which piece each row came from, and check the row count.</li>
@@ -466,7 +467,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             ├── gdp_lifeExpec_Oceania.csv
             └── country-capital-lat-long-population.csv</code></pre>
 <p>Run <code>combining_datasets_examples.ipynb</code> for the lesson and complete <code>activity14.ipynb</code> for your own activity report, with <code>stat303-combining-datasets</code> as the notebook working folder. Every file is read with a relative path such as <code>"data/gdp_lifeExpec_Asia.csv"</code>, so the notebooks find their data only when that folder is the working folder.</p>
-<div id="combine-imports" class="cell" data-execution_count="1">
+<div id="combine-imports" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:30:05.354034Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:30:05.353974Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:30:06.151207Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:30:06.150751Z&quot;}}" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -474,16 +475,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><strong>Environment check:</strong> This chapter uses NumPy, pandas, matplotlib, and seaborn, all of which are already in the course environment. If an import fails, check the selected notebook kernel first: it must be the course environment, <code>stat303-1/.venv</code>, as in <a href="./python_venv.html#install-packages-in-the-intended-environment">Project Environments, Packages, and File Paths</a>.</p>
 </section>
-<section id="why-combine-datasets" class="level2" data-number="14.2">
-<h2 data-number="14.2" class="anchored" data-anchor-id="why-combine-datasets"><span class="header-section-number">14.2</span> Why combine datasets</h2>
-<p><strong>Why combine?</strong></p>
-<ul>
-<li><strong>Information is distributed.</strong> Customer details live in one table and purchases in another; product descriptions are separate from sales; a survey’s answers are split across several files.</li>
-<li><strong>Data comes from several sources.</strong> Internal records meet external data — a company’s sales with public economic indicators, or a course’s grades with its attendance log.</li>
-<li><strong>Data is split for storage.</strong> One file per month, per region, or per year is common, and an analysis across all of them needs them in one table.</li>
-<li><strong>An analysis needs more columns.</strong> Adding a population, a region, or a category from a second table makes new comparisons possible.</li>
-</ul>
-<p>Two operations cover nearly every case:</p>
+<section id="stack-or-match" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="stack-or-match"><span class="header-section-number">14.2</span> Stack or match?</h2>
+<p>Choose the operation by asking what the tables contain:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
@@ -493,43 +487,94 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </colgroup>
 <thead>
 <tr class="header">
+<th>Your task</th>
 <th>Operation</th>
 <th>Tool</th>
-<th>The tables share</th>
-<th>Result</th>
+<th>What to check</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>Stack</strong></td>
+<td>Bring observations from separate files into one table</td>
+<td><strong>Stack rows</strong></td>
 <td><code>pd.concat()</code></td>
-<td>The same columns, different rows</td>
-<td>More rows</td>
+<td>Column names agree; row counts add up</td>
 </tr>
 <tr class="even">
-<td><strong>Match</strong></td>
+<td>Attach related information using shared identifiers</td>
+<td><strong>Match rows</strong></td>
 <td><code>df.merge()</code></td>
-<td>A key column, different information</td>
-<td>More columns, rows paired by key</td>
+<td>The keys match the intended observations; the row count depends on the matches</td>
 </tr>
 </tbody>
 </table>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/combine-stack-vs-match.png" class="img-fluid figure-img" width="640"></p>
+<figcaption>Stacking with pd.concat(): an Africa file and an Asia file with the same columns become one table with more rows. Matching with merge(): a life table and a money table share country and year, so values match even when their rows appear in different orders.</figcaption>
+</figure>
+</div>
 </section>
 <section id="stack-rows-pd.concat" class="level2" data-number="14.3">
 <h2 data-number="14.3" class="anchored" data-anchor-id="stack-rows-pd.concat"><span class="header-section-number">14.3</span> Stack rows: <code>pd.concat()</code></h2>
-<p>The Gapminder data from the last two chapters arrives here in pieces: one file per continent, each with the same five columns. Combining them is stacking, and <code>pd.concat()</code>, which you met adding a row in Data Reshaping, does it for a whole list of tables.</p>
-<p>None of the files has a <code>continent</code> column — the continent is in the file name. Adding it as each file is read keeps that information once the pieces are stacked. A <code>for</code> loop reads each file, adds the column, and collects the pieces in a list:</p>
-<div id="combine-concat" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pieces <span class="op">=</span> []</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> continent <span class="kw">in</span> [<span class="st">"Africa"</span>, <span class="st">"Americas"</span>, <span class="st">"Asia"</span>, <span class="st">"Europe"</span>, <span class="st">"Oceania"</span>]:</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    piece <span class="op">=</span> pd.read_csv(<span class="ss">f"data/gdp_lifeExpec_</span><span class="sc">{</span>continent<span class="sc">}</span><span class="ss">.csv"</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    piece[<span class="st">"continent"</span>] <span class="op">=</span> continent</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(continent, piece.shape)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    pieces.append(piece)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>gapminder <span class="op">=</span> pd.concat(pieces, ignore_index<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"stacked:"</span>, gapminder.shape)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>gapminder.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Start with two small tables that have the same columns. Each row describes one country in 2007. Put the tables in a list and pass that list to <code>pd.concat()</code>:</p>
+<div id="combine-concat-small" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:30:06.152465Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:30:06.152360Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:30:06.157033Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:30:06.156670Z&quot;}}" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>africa_sample <span class="op">=</span> pd.DataFrame({<span class="st">"country"</span>: [<span class="st">"Algeria"</span>, <span class="st">"Angola"</span>], <span class="st">"year"</span>: [<span class="dv">2007</span>, <span class="dv">2007</span>]})</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>asia_sample <span class="op">=</span> pd.DataFrame({<span class="st">"country"</span>: [<span class="st">"Afghanistan"</span>, <span class="st">"Bahrain"</span>], <span class="st">"year"</span>: [<span class="dv">2007</span>, <span class="dv">2007</span>]})</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>pd.concat([africa_sample, asia_sample], ignore_index<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">country</th>
+<th data-quarto-table-cell-role="th">year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>Algeria</td>
+<td>2007</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>Angola</td>
+<td>2007</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>Afghanistan</td>
+<td>2007</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>Bahrain</td>
+<td>2007</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>The result has four rows and the same two columns. <code>ignore_index=True</code> gives the combined table a fresh sequence of row labels; it does not change the country values.</p>
+<p>Now apply the same operation to the full Gapminder data: five files, one per continent, each with the same five columns. None has a <code>continent</code> column; that information is in the filename. The loop below reads each file, adds its continent, and collects the tables in a list. The final <code>pd.concat()</code> stacks that list just as it stacked the two small tables above.</p>
+<div id="combine-concat" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:30:06.157971Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:30:06.157902Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:30:06.164373Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:30:06.163947Z&quot;}}" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pieces <span class="op">=</span> []</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> continent <span class="kw">in</span> [<span class="st">"Africa"</span>, <span class="st">"Americas"</span>, <span class="st">"Asia"</span>, <span class="st">"Europe"</span>, <span class="st">"Oceania"</span>]:</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    piece <span class="op">=</span> pd.read_csv(<span class="ss">f"data/gdp_lifeExpec_</span><span class="sc">{</span>continent<span class="sc">}</span><span class="ss">.csv"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    piece[<span class="st">"continent"</span>] <span class="op">=</span> continent</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(continent, piece.shape)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    pieces.append(piece)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>gapminder <span class="op">=</span> pd.concat(pieces, ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"stacked:"</span>, gapminder.shape)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>gapminder.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Africa (624, 6)
 Americas (300, 6)
@@ -538,7 +583,7 @@ Europe (360, 6)
 Oceania (24, 6)
 stacked: (1704, 6)</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
@@ -608,34 +653,40 @@ stacked: (1704, 6)</code></pre>
 </div>
 <p>624 + 300 + 396 + 360 + 24 = 1,704 rows: the stacked table has exactly the rows of its pieces, which is the check to make after any stack. <code>ignore_index=True</code> numbers the stacked rows 0 to 1,703; without it, each piece keeps its own numbering and row labels repeat.</p>
 <p><code>concat()</code> lines up columns <strong>by name</strong>. A column that some pieces lack is filled with <code>NaN</code> in the rows from those pieces. Suppose the Africa file had spelled one column differently:</p>
-<div id="combine-concat-mismatch" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>renamed <span class="op">=</span> pieces[<span class="dv">0</span>].rename(columns<span class="op">=</span>{<span class="st">"lifeExp"</span>: <span class="st">"life_expectancy"</span>})   <span class="co"># the Africa piece</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>mixed <span class="op">=</span> pd.concat([renamed] <span class="op">+</span> pieces[<span class="dv">1</span>:], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mixed.columns.tolist())</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>mixed[[<span class="st">"lifeExp"</span>, <span class="st">"life_expectancy"</span>]].isna().<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="combine-concat-mismatch" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:30:06.165111Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:30:06.165055Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:30:06.168226Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:30:06.167893Z&quot;}}" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>renamed <span class="op">=</span> pieces[<span class="dv">0</span>].rename(columns<span class="op">=</span>{<span class="st">"lifeExp"</span>: <span class="st">"life_expectancy"</span>})   <span class="co"># the Africa piece</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mixed <span class="op">=</span> pd.concat([renamed] <span class="op">+</span> pieces[<span class="dv">1</span>:], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mixed.columns.tolist())</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>mixed[[<span class="st">"lifeExp"</span>, <span class="st">"life_expectancy"</span>]].isna().<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>['country', 'year', 'life_expectancy', 'pop', 'gdpPercap', 'continent', 'lifeExp']</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>lifeExp             624
 life_expectancy    1080
 dtype: int64</code></pre>
 </div>
 </div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/concat-column-names.png" class="img-fluid figure-img" width="760"></p>
+<figcaption>concat() lines up columns by name. The Africa piece calls the column life_expectancy and the Americas piece calls it lifeExp, so the stacked table has both columns, each half empty: life_expectancy is NaN in the 1,080 non-African rows and lifeExp is NaN in Africa’s 624 rows.</figcaption>
+</figure>
+</div>
 <p>No error, the right number of rows, and life expectancy split across two half-empty columns: <code>lifeExp</code> is missing for Africa’s 624 rows and <code>life_expectancy</code> for the other 1,080. Any analysis of <code>lifeExp</code> would silently leave out Africa. After stacking files you did not make yourself, check <code>columns</code> and count missing values per column.</p>
 <p>The correctly stacked table goes straight into the tools of the last chapters:</p>
-<div id="combine-concat-plot" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="fl">4.5</span>), layout<span class="op">=</span><span class="st">"constrained"</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>sns.lineplot(data<span class="op">=</span>gapminder, x<span class="op">=</span><span class="st">"year"</span>, y<span class="op">=</span><span class="st">"lifeExp"</span>, hue<span class="op">=</span><span class="st">"continent"</span>,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>             errorbar<span class="op">=</span><span class="va">None</span>, marker<span class="op">=</span><span class="st">"o"</span>, ax<span class="op">=</span>ax)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"Year"</span>, ylabel<span class="op">=</span><span class="st">"Mean life expectancy (years)"</span>,</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>       title<span class="op">=</span><span class="st">"Five files, one table, one plot"</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="combine-concat-plot" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:30:06.169056Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:30:06.168999Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:30:06.255402Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:30:06.254957Z&quot;}}" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="fl">4.5</span>), layout<span class="op">=</span><span class="st">"constrained"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>sns.lineplot(data<span class="op">=</span>gapminder, x<span class="op">=</span><span class="st">"year"</span>, y<span class="op">=</span><span class="st">"lifeExp"</span>, hue<span class="op">=</span><span class="st">"continent"</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>             errorbar<span class="op">=</span><span class="va">None</span>, marker<span class="op">=</span><span class="st">"o"</span>, ax<span class="op">=</span>ax)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"Year"</span>, ylabel<span class="op">=</span><span class="st">"Mean life expectancy (years)"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>       title<span class="op">=</span><span class="st">"Five files, one table, one plot"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Data wrangling_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="Data wrangling_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -644,20 +695,20 @@ dtype: int64</code></pre>
 </section>
 <section id="match-rows-on-a-key-merge" class="level2" data-number="14.4">
 <h2 data-number="14.4" class="anchored" data-anchor-id="match-rows-on-a-key-merge"><span class="header-section-number">14.4</span> Match rows on a key: <code>merge()</code></h2>
-<p>Stacking needs tables with the same columns. Matching needs something different: a <strong>key</strong>, a column whose values identify the same thing in both tables. Two small tables about members of the Fellowship from <em>The Lord of the Rings</em> show how it works. One lists skills, the other ages, and both identify members by <code>FellowshipID</code>:</p>
-<div id="combine-fellowship" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>skills <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FellowshipID"</span>: [<span class="dv">1001</span>, <span class="dv">1002</span>, <span class="dv">1003</span>, <span class="dv">1004</span>],</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FirstName"</span>: [<span class="st">"Frodo"</span>, <span class="st">"Samwise"</span>, <span class="st">"Gandalf"</span>, <span class="st">"Pippin"</span>],</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Skills"</span>: [<span class="st">"Hiding"</span>, <span class="st">"Gardening"</span>, <span class="st">"Spells"</span>, <span class="st">"Fireworks"</span>],</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>ages <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FellowshipID"</span>: [<span class="dv">1001</span>, <span class="dv">1002</span>, <span class="dv">1006</span>, <span class="dv">1007</span>, <span class="dv">1008</span>],</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FirstName"</span>: [<span class="st">"Frodo"</span>, <span class="st">"Samwise"</span>, <span class="st">"Legolas"</span>, <span class="st">"Elrond"</span>, <span class="st">"Boromir"</span>],</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Age"</span>: [<span class="dv">50</span>, <span class="dv">39</span>, <span class="dv">2931</span>, <span class="dv">6520</span>, <span class="dv">51</span>],</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(skills, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ages)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Stacking works best when column names agree. Matching uses a <strong>merge key</strong>: one or more columns whose values determine which rows pair across the two tables. A merge key can repeat; whether it should be unique depends on what one row represents. Two small tables about members of the Fellowship from <em>The Lord of the Rings</em> show how it works. One lists skills, the other ages, and both identify members by <code>FellowshipID</code>:</p>
+<div id="combine-fellowship" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:30:06.256327Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:30:06.256255Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:30:06.259100Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:30:06.258766Z&quot;}}" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>skills <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FellowshipID"</span>: [<span class="dv">1001</span>, <span class="dv">1002</span>, <span class="dv">1003</span>, <span class="dv">1004</span>],</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FirstName"</span>: [<span class="st">"Frodo"</span>, <span class="st">"Samwise"</span>, <span class="st">"Gandalf"</span>, <span class="st">"Pippin"</span>],</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Skills"</span>: [<span class="st">"Hiding"</span>, <span class="st">"Gardening"</span>, <span class="st">"Spells"</span>, <span class="st">"Fireworks"</span>],</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>ages <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FellowshipID"</span>: [<span class="dv">1001</span>, <span class="dv">1002</span>, <span class="dv">1006</span>, <span class="dv">1007</span>, <span class="dv">1008</span>],</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FirstName"</span>: [<span class="st">"Frodo"</span>, <span class="st">"Samwise"</span>, <span class="st">"Legolas"</span>, <span class="st">"Elrond"</span>, <span class="st">"Boromir"</span>],</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Age"</span>: [<span class="dv">50</span>, <span class="dv">39</span>, <span class="dv">2931</span>, <span class="dv">6520</span>, <span class="dv">51</span>],</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(skills, <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ages)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   FellowshipID FirstName     Skills
 0          1001     Frodo     Hiding
@@ -674,9 +725,9 @@ dtype: int64</code></pre>
 </div>
 </div>
 <p>Frodo and Samwise appear in both tables; Gandalf and Pippin only in <code>skills</code>; Legolas, Elrond, and Boromir only in <code>ages</code>. <code>merge()</code> pairs rows whose key values are equal:</p>
-<div id="combine-merge-on-id" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>skills.merge(ages, on<span class="op">=</span><span class="st">"FellowshipID"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div id="combine-merge-on-id" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:30:06.260031Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:30:06.259954Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:30:06.263069Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:30:06.262694Z&quot;}}" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>skills.merge(ages, on<span class="op">=</span><span class="st">"FellowshipID"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 
 
@@ -717,10 +768,12 @@ dtype: int64</code></pre>
 <p>Two rows: by default <code>merge()</code> keeps only keys found in <strong>both</strong> tables. Notice <code>FirstName_x</code> and <code>FirstName_y</code>. Both tables have a <code>FirstName</code> column that is not part of the key, so pandas keeps both and adds suffixes: <code>_x</code> from the left table, <code>_y</code> from the right. Here the two columns agree, because a name belongs to its ID.</p>
 <section id="several-key-columns" class="level3" data-number="14.4.1">
 <h3 data-number="14.4.1" class="anchored" data-anchor-id="several-key-columns"><span class="header-section-number">14.4.1</span> Several key columns</h3>
-<p>When two tables share more than one identifying column, list them all in <code>on=</code>. Rows then pair only when every key matches, and the shared columns appear once:</p>
-<div id="combine-merge-two-keys" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>skills.merge(ages, on<span class="op">=</span>[<span class="st">"FellowshipID"</span>, <span class="st">"FirstName"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<p>Use several columns when they are needed together to identify the intended match. For Gapminder, a country appears in several years, so matching measurements requires both <code>country</code> and <code>year</code>. Here are three observations from the stacked data:</p>
+<div id="combine-merge-two-keys" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:30:06.263963Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:30:06.263896Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:30:06.267860Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:30:06.267469Z&quot;}}" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>life_sample <span class="op">=</span> gapminder[[<span class="st">"country"</span>, <span class="st">"year"</span>, <span class="st">"lifeExp"</span>]].head(<span class="dv">3</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>money_sample <span class="op">=</span> gapminder[[<span class="st">"country"</span>, <span class="st">"year"</span>, <span class="st">"gdpPercap"</span>]].head(<span class="dv">3</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>life_sample.merge(money_sample, on<span class="op">=</span>[<span class="st">"country"</span>, <span class="st">"year"</span>], validate<span class="op">=</span><span class="st">"one_to_one"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 
 
@@ -728,26 +781,33 @@ dtype: int64</code></pre>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">FellowshipID</th>
-<th data-quarto-table-cell-role="th">FirstName</th>
-<th data-quarto-table-cell-role="th">Skills</th>
-<th data-quarto-table-cell-role="th">Age</th>
+<th data-quarto-table-cell-role="th">country</th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">lifeExp</th>
+<th data-quarto-table-cell-role="th">gdpPercap</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">0</th>
-<td>1001</td>
-<td>Frodo</td>
-<td>Hiding</td>
-<td>50</td>
+<td>Algeria</td>
+<td>1952</td>
+<td>43.077</td>
+<td>2449.008185</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">1</th>
-<td>1002</td>
-<td>Samwise</td>
-<td>Gardening</td>
-<td>39</td>
+<td>Algeria</td>
+<td>1957</td>
+<td>45.685</td>
+<td>3013.976023</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>Algeria</td>
+<td>1962</td>
+<td>48.303</td>
+<td>2550.816880</td>
 </tr>
 </tbody>
 </table>
@@ -755,15 +815,16 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<p>Several key columns are common: a sale is identified by store <strong>and</strong> date, a grade by student <strong>and</strong> course, a Gapminder row by country <strong>and</strong> year.</p>
+<p>Each life expectancy pairs with GDP for the same country <strong>and</strong> year. The <code>validate="one_to_one"</code> check requires that the pair of key values be unique in each table; we will examine validation below.</p>
+<p>Choose keys from what a row represents, rather than including every shared column. <code>FellowshipID</code> already identifies a person, so adding <code>FirstName</code> is unnecessary and could prevent a valid match if the name differs between sources. Keep the two name columns when you need to compare them. Other genuine composite identifiers include store and date for a daily store summary, or student and course for a final course grade.</p>
 </section>
 <section id="keys-with-different-names" class="level3" data-number="14.4.2">
 <h3 data-number="14.4.2" class="anchored" data-anchor-id="keys-with-different-names"><span class="header-section-number">14.4.2</span> Keys with different names</h3>
 <p>Two sources rarely name their key the same way: <code>FellowshipID</code> in one file, <code>ID</code> in another. <code>left_on=</code> and <code>right_on=</code> name the key in each table:</p>
-<div id="combine-merge-left-right-on" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ages_renamed <span class="op">=</span> ages.rename(columns<span class="op">=</span>{<span class="st">"FellowshipID"</span>: <span class="st">"ID"</span>})</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>skills.merge(ages_renamed, left_on<span class="op">=</span><span class="st">"FellowshipID"</span>, right_on<span class="op">=</span><span class="st">"ID"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div id="combine-merge-left-right-on" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:30:06.268634Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:30:06.268583Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:30:06.271622Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:30:06.271287Z&quot;}}" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ages_renamed <span class="op">=</span> ages.rename(columns<span class="op">=</span>{<span class="st">"FellowshipID"</span>: <span class="st">"ID"</span>})</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>skills.merge(ages_renamed, left_on<span class="op">=</span><span class="st">"FellowshipID"</span>, right_on<span class="op">=</span><span class="st">"ID"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 
 
@@ -815,53 +876,11 @@ dtype: int64</code></pre>
 <figcaption>The four join types on the fellowship tables. Purple rows have a key in both tables, blue rows only in the left table, gold rows only in the right; NaN marks values with no partner.</figcaption>
 </figure>
 </div>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><code>how=</code></th>
-<th>Keeps</th>
-<th><code>NaN</code> appears in</th>
-<th>Rows here</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>"inner"</code> (default)</td>
-<td>Keys in both tables</td>
-<td>Nowhere</td>
-<td>2</td>
-</tr>
-<tr class="even">
-<td><code>"left"</code></td>
-<td>Every left key</td>
-<td>Right-hand columns of unmatched rows</td>
-<td>4</td>
-</tr>
-<tr class="odd">
-<td><code>"right"</code></td>
-<td>Every right key</td>
-<td>Left-hand columns of unmatched rows</td>
-<td>5</td>
-</tr>
-<tr class="even">
-<td><code>"outer"</code></td>
-<td>Every key in either table</td>
-<td>Both sides</td>
-<td>7</td>
-</tr>
-</tbody>
-</table>
-<p>The counts are worth confirming in code, and <code>indicator=True</code> adds a <code>_merge</code> column that says where each row came from:</p>
-<div id="combine-indicator" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fellowship <span class="op">=</span> skills.merge(ages, on<span class="op">=</span>[<span class="st">"FellowshipID"</span>, <span class="st">"FirstName"</span>], how<span class="op">=</span><span class="st">"outer"</span>, indicator<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>fellowship</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<p>The row counts in the diagram, 2, 4, 5, and 7, are worth confirming in code, and <code>indicator=True</code> adds a <code>_merge</code> column that says where each row came from:</p>
+<div id="combine-indicator" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:30:06.272452Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:30:06.272401Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:30:06.276734Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:30:06.276428Z&quot;}}" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fellowship <span class="op">=</span> skills.merge(ages, on<span class="op">=</span><span class="st">"FellowshipID"</span>, how<span class="op">=</span><span class="st">"outer"</span>, indicator<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>fellowship</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 
 
@@ -870,8 +889,9 @@ dtype: int64</code></pre>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th">FellowshipID</th>
-<th data-quarto-table-cell-role="th">FirstName</th>
+<th data-quarto-table-cell-role="th">FirstName_x</th>
 <th data-quarto-table-cell-role="th">Skills</th>
+<th data-quarto-table-cell-role="th">FirstName_y</th>
 <th data-quarto-table-cell-role="th">Age</th>
 <th data-quarto-table-cell-role="th">_merge</th>
 </tr>
@@ -882,6 +902,7 @@ dtype: int64</code></pre>
 <td>1001</td>
 <td>Frodo</td>
 <td>Hiding</td>
+<td>Frodo</td>
 <td>50.0</td>
 <td>both</td>
 </tr>
@@ -890,6 +911,7 @@ dtype: int64</code></pre>
 <td>1002</td>
 <td>Samwise</td>
 <td>Gardening</td>
+<td>Samwise</td>
 <td>39.0</td>
 <td>both</td>
 </tr>
@@ -899,6 +921,7 @@ dtype: int64</code></pre>
 <td>Gandalf</td>
 <td>Spells</td>
 <td>NaN</td>
+<td>NaN</td>
 <td>left_only</td>
 </tr>
 <tr class="even">
@@ -907,29 +930,33 @@ dtype: int64</code></pre>
 <td>Pippin</td>
 <td>Fireworks</td>
 <td>NaN</td>
+<td>NaN</td>
 <td>left_only</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">4</th>
 <td>1006</td>
-<td>Legolas</td>
 <td>NaN</td>
+<td>NaN</td>
+<td>Legolas</td>
 <td>2931.0</td>
 <td>right_only</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">5</th>
 <td>1007</td>
-<td>Elrond</td>
 <td>NaN</td>
+<td>NaN</td>
+<td>Elrond</td>
 <td>6520.0</td>
 <td>right_only</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">6</th>
 <td>1008</td>
-<td>Boromir</td>
 <td>NaN</td>
+<td>NaN</td>
+<td>Boromir</td>
 <td>51.0</td>
 <td>right_only</td>
 </tr>
@@ -939,9 +966,9 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="combine-indicator-counts" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fellowship[<span class="st">"_merge"</span>].value_counts()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div id="combine-indicator-counts" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:30:06.277527Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:30:06.277474Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:30:06.279574Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:30:06.279259Z&quot;}}" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fellowship[<span class="st">"_merge"</span>].value_counts()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>_merge
 right_only    3
 left_only     2
@@ -949,44 +976,15 @@ both          2
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<p><code>both</code>, <code>left_only</code>, and <code>right_only</code> are the three colours of the diagram. Counting the <code>_merge</code> column is the quickest way to see how well two tables matched: a merge you expected to pair almost everything, but that shows many <code>left_only</code> rows, is usually a sign that the keys are written differently in the two tables.</p>
-<p><strong>Which <code>how=</code> to use.</strong></p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><code>how=</code></th>
-<th>Use when</th>
-<th>Examples</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>"inner"</code></td>
-<td>The analysis needs both pieces of information for every row</td>
-<td>Relating vaccination rates to infection rates: only countries with both can contribute. An A/B test: only users with both a group assignment and an outcome count.</td>
-</tr>
-<tr class="even">
-<td><code>"left"</code></td>
-<td>The left table is your primary data and every row must stay</td>
-<td>All customers with their purchases: a customer with no purchases spent $0. All employees with their reviews: an employee not yet reviewed is “pending”, not missing.</td>
-</tr>
-<tr class="odd">
-<td><code>"outer"</code></td>
-<td>Nothing may be lost from either table</td>
-<td>Mid- and end-of-semester surveys: keep every student who answered either one. Auditing expected against actual records: find what is missing on each side.</td>
-</tr>
-<tr class="even">
-<td><code>"right"</code></td>
-<td>The right table is primary</td>
-<td>The same as a left join with the tables swapped; writing it as a left join, primary table first, usually reads more clearly.</td>
-</tr>
-</tbody>
-</table>
+<p><code>both</code>, <code>left_only</code>, and <code>right_only</code> describe whether a result row has a matching key in each source. Unexpected unmatched rows deserve investigation: they may reflect spelling differences, incomplete coverage, or genuinely different groups of records. With repeated keys, these are counts of result rows, not necessarily distinct people.</p>
+<p><strong>Which <code>how=</code> to use.</strong> Choose based on the records your analysis needs to retain:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/merge-how-guide.png" class="img-fluid figure-img" width="860"></p>
+<figcaption>Four cards, one per how= option, each with a two-circle diagram shading the keys it retains. inner, the default, retains keys in both tables, adds no NaN from unmatched keys, gives 2 rows in this example, and is used to require a matching record from each source. left retains every left key, adds NaN in the right-hand columns of unmatched rows, gives 4 rows, and attaches information to a primary table. right retains every right key, adds NaN in the left-hand columns, gives 5 rows, and is often clearer as a left join with the tables swapped. outer retains keys in either table, can add NaN on either side, gives 7 rows, and audits coverage in both sources.</figcaption>
+</figure>
+</div>
+<p>An inner join introduces no missing values from unmatched keys, but <strong>existing missing values can remain in matched records</strong>. Left and right joins fill the other table’s columns with <code>NaN</code> where no match exists; an outer join can do this on either side. These row counts assume the unique IDs in this example. Repeated keys can create several output rows for one input row.</p>
 </section>
 </section>
 <section id="check-a-merge" class="level2" data-number="14.5">
@@ -995,25 +993,34 @@ Name: count, dtype: int64</code></pre>
 <section id="the-row-count-and-keys-that-repeat" class="level3" data-number="14.5.1">
 <h3 data-number="14.5.1" class="anchored" data-anchor-id="the-row-count-and-keys-that-repeat"><span class="header-section-number">14.5.1</span> The row count, and keys that repeat</h3>
 <p>Suppose life expectancy and GDP arrived in two separate tables, both keyed by country and year:</p>
-<div id="combine-split" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>life <span class="op">=</span> gapminder[[<span class="st">"country"</span>, <span class="st">"year"</span>, <span class="st">"lifeExp"</span>]]</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>money <span class="op">=</span> gapminder[[<span class="st">"country"</span>, <span class="st">"year"</span>, <span class="st">"gdpPercap"</span>]]</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>both_keys <span class="op">=</span> life.merge(money, on<span class="op">=</span>[<span class="st">"country"</span>, <span class="st">"year"</span>])</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(life.shape, money.shape, <span class="st">"-&gt;"</span>, both_keys.shape)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="combine-split" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:30:06.280366Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:30:06.280306Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:30:06.284817Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:30:06.284523Z&quot;}}" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>life <span class="op">=</span> gapminder[[<span class="st">"country"</span>, <span class="st">"year"</span>, <span class="st">"lifeExp"</span>]]</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>money <span class="op">=</span> gapminder[[<span class="st">"country"</span>, <span class="st">"year"</span>, <span class="st">"gdpPercap"</span>]]</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>both_keys <span class="op">=</span> life.merge(money, on<span class="op">=</span>[<span class="st">"country"</span>, <span class="st">"year"</span>],</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                       how<span class="op">=</span><span class="st">"outer"</span>, validate<span class="op">=</span><span class="st">"one_to_one"</span>, indicator<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"rows:"</span>, <span class="bu">len</span>(life), <span class="bu">len</span>(money), <span class="st">"-&gt;"</span>, <span class="bu">len</span>(both_keys))</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(both_keys[<span class="st">"_merge"</span>].value_counts())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>(1704, 3) (1704, 3) -&gt; (1704, 4)</code></pre>
+<pre><code>rows: 1704 1704 -&gt; 1704
+_merge
+both          1704
+left_only        0
+right_only       0
+Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<p>1,704 rows in, 1,704 rows out: every country-year found exactly one partner. Now the same merge with an incomplete key, <code>country</code> alone:</p>
-<div id="combine-explode" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>country_only <span class="op">=</span> life.merge(money, on<span class="op">=</span><span class="st">"country"</span>)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(country_only.shape)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>country_only.head(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>All three checks agree: the result has 1,704 rows, <code>validate="one_to_one"</code> confirms unique country-year keys on both sides, and <code>_merge</code> reports 1,704 <code>both</code> rows with no unmatched rows. Together, these show that every observation found exactly one partner. The outer join makes unmatched rows from either source visible during this check.</p>
+<p><strong>The row count alone is not proof.</strong> In an inner join, one lost observation and one observation with two matches can cancel out, leaving the expected total. Validation checks how often keys occur; the indicator checks whether records matched.</p>
+<p>Now try the same tables with an incomplete key, <code>country</code> alone:</p>
+<div id="combine-explode" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:30:06.285645Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:30:06.285594Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:30:06.289112Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:30:06.288812Z&quot;}}" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>country_only <span class="op">=</span> life.merge(money, on<span class="op">=</span><span class="st">"country"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(country_only.shape)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>country_only.head(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(20448, 5)</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="12">
+<div class="cell-output cell-output-display" data-execution_count="13">
 <div>
 
 
@@ -1059,13 +1066,19 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<p>20,448 rows: twelve times too many, and no error. Each country has 12 rows in each table, so every row in <code>life</code> pairs with all 12 rows of the same country in <code>money</code>, and 12 × 12 = 144 rows per country × 142 countries = 20,448. The <code>year_x</code> and <code>year_y</code> columns are the giveaway: a 1952 life expectancy sits beside a 2007 GDP. A <strong>key</strong> must identify one row; <code>country</code> alone does not.</p>
-<p><code>validate=</code> tells <code>merge()</code> what you expect and raises an error when the keys disagree. <code>"one_to_one"</code> means each key appears at most once in each table; <code>"many_to_one"</code> means the right table’s keys are unique, as for a lookup table. A <code>try</code>/<code>except</code> block shows the error and lets the notebook keep running:</p>
-<div id="combine-validate" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    life.merge(money, on<span class="op">=</span><span class="st">"country"</span>, validate<span class="op">=</span><span class="st">"one_to_one"</span>)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> pd.errors.MergeError <span class="im">as</span> error:</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"MergeError:"</span>, <span class="bu">str</span>(error).splitlines()[<span class="dv">0</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>20,448 rows: twelve times too many, and no error. Each country has 12 rows in each table, so every row in <code>life</code> pairs with all 12 rows of the same country in <code>money</code>, and 12 × 12 = 144 rows per country × 142 countries = 20,448. The <code>year_x</code> and <code>year_y</code> columns are the giveaway: a 1952 life expectancy sits beside a 2007 GDP. For this task, the intended match is one country-year observation. <code>country</code> alone does not distinguish years.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/merge-key-explosion.png" class="img-fluid figure-img" width="700"></p>
+<figcaption>Merging three years of Algeria on country and year gives three rows, each life expectancy beside the GDP of the same year. Merging on country alone gives nine rows: every year pairs with every year, and six of the nine rows put a GDP from a different year beside the life expectancy.</figcaption>
+</figure>
+</div>
+<p><code>validate=</code> tells <code>merge()</code> what you expect and raises an error when the required key uniqueness does not hold. <code>"one_to_one"</code> means each key appears at most once in each table; <code>"many_to_one"</code> means the right table’s keys are unique, as for a lookup table. A <code>try</code>/<code>except</code> block shows the error and lets the notebook keep running:</p>
+<div id="combine-validate" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:30:06.289906Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:30:06.289861Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:30:06.292581Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:30:06.292315Z&quot;}}" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    life.merge(money, on<span class="op">=</span><span class="st">"country"</span>, validate<span class="op">=</span><span class="st">"one_to_one"</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> pd.errors.MergeError <span class="im">as</span> error:</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"MergeError:"</span>, <span class="bu">str</span>(error).splitlines()[<span class="dv">0</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>MergeError: Merge keys are not unique in either left or right dataset; not a one-to-one merge.</code></pre>
 </div>
@@ -1074,28 +1087,40 @@ Name: count, dtype: int64</code></pre>
 </section>
 <section id="many-rows-to-one-a-lookup-table" class="level3" data-number="14.5.2">
 <h3 data-number="14.5.2" class="anchored" data-anchor-id="many-rows-to-one-a-lookup-table"><span class="header-section-number">14.5.2</span> Many rows to one: a lookup table</h3>
-<p>The most common merge in practice attaches a small <strong>lookup table</strong> to many rows: a region for each state, a price for each product code, a group summary for each member. Each row of the large table matches exactly one row of the lookup table, while each lookup row matches many — the <code>"many_to_one"</code> relationship.</p>
+<p>The most common merge in practice attaches a small <strong>lookup table</strong> to many rows: a region for each state, a price for each product code, a group summary for each member. Each row of the large table can match at most one lookup row, while a lookup row can serve many rows — the <code>"many_to_one"</code> relationship. Validation requires unique keys in the lookup table; it does not require every key in the large table to find a match.</p>
 <p>A summary from <a href="./Data aggregation.html">Data Grouping and Aggregation</a> makes a lookup table: mean life expectancy for each continent and year, 60 rows. <code>rename()</code> gives its value column a distinct name before the merge:</p>
-<div id="combine-lookup" class="cell" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>continent_mean <span class="op">=</span> (gapminder.groupby([<span class="st">"continent"</span>, <span class="st">"year"</span>])[<span class="st">"lifeExp"</span>].mean()</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                  .reset_index()</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                  .rename(columns<span class="op">=</span>{<span class="st">"lifeExp"</span>: <span class="st">"continent_lifeExp"</span>}))</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>with_mean <span class="op">=</span> gapminder.merge(continent_mean, on<span class="op">=</span>[<span class="st">"continent"</span>, <span class="st">"year"</span>],</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>                            how<span class="op">=</span><span class="st">"left"</span>, validate<span class="op">=</span><span class="st">"many_to_one"</span>)</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(continent_mean.shape, <span class="st">"-&gt;"</span>, with_mean.shape)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="combine-lookup" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:30:06.293347Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:30:06.293286Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:30:06.297501Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:30:06.297145Z&quot;}}" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>continent_mean <span class="op">=</span> (gapminder.groupby([<span class="st">"continent"</span>, <span class="st">"year"</span>])[<span class="st">"lifeExp"</span>].mean()</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>                  .reset_index()</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>                  .rename(columns<span class="op">=</span>{<span class="st">"lifeExp"</span>: <span class="st">"continent_lifeExp"</span>}))</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>with_mean <span class="op">=</span> gapminder.merge(continent_mean, on<span class="op">=</span>[<span class="st">"continent"</span>, <span class="st">"year"</span>],</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>                            how<span class="op">=</span><span class="st">"left"</span>, validate<span class="op">=</span><span class="st">"many_to_one"</span>, indicator<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"rows:"</span>, <span class="bu">len</span>(gapminder), <span class="st">"-&gt;"</span>, <span class="bu">len</span>(with_mean))</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(with_mean[<span class="st">"_merge"</span>].value_counts())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>(60, 3) -&gt; (1704, 7)</code></pre>
+<pre><code>rows: 1704 -&gt; 1704
+_merge
+both          1704
+left_only        0
+right_only       0
+Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<p><code>validate="many_to_one"</code> passes because each continent-year appears once in the lookup table, and the row count is still 1,704: every country row gained one value and none was duplicated. That is the check for any lookup merge — the row count must not change.</p>
+<p><code>validate="many_to_one"</code> passes because each continent-year appears once in the lookup table. With <code>how="left"</code>, that uniqueness guarantees that the 1,704 input rows are retained without duplication. The indicator separately confirms that all 1,704 rows found a match. A left lookup merge can keep the correct row count even when some keys are absent from the lookup; validation alone would not catch those missing matches.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/merge-lookup-many-to-one.png" class="img-fluid figure-img" width="700"></p>
+<figcaption>A lookup merge. The continent_mean table has one row per continent and year. Merging it into gapminder with how left and validate many_to_one gives each country row its continent’s mean: Africa’s single 1952 row fills the Algeria, Angola, and Benin rows, Asia’s fills Afghanistan, and the table keeps its 1,704 rows.</figcaption>
+</figure>
+</div>
 <p>Each country can now be compared with its continent in the same year:</p>
-<div id="combine-lookup-gap" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>with_mean[<span class="st">"gap"</span>] <span class="op">=</span> with_mean[<span class="st">"lifeExp"</span>] <span class="op">-</span> with_mean[<span class="st">"continent_lifeExp"</span>]</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>(with_mean.sort_values(<span class="st">"gap"</span>)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    [[<span class="st">"country"</span>, <span class="st">"continent"</span>, <span class="st">"year"</span>, <span class="st">"lifeExp"</span>, <span class="st">"continent_lifeExp"</span>, <span class="st">"gap"</span>]]</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    .head(<span class="dv">3</span>).<span class="bu">round</span>(<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
+<div id="combine-lookup-gap" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:30:06.298342Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:30:06.298294Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:30:06.301582Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:30:06.301257Z&quot;}}" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>with_mean[<span class="st">"gap"</span>] <span class="op">=</span> with_mean[<span class="st">"lifeExp"</span>] <span class="op">-</span> with_mean[<span class="st">"continent_lifeExp"</span>]</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>(with_mean.sort_values(<span class="st">"gap"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    [[<span class="st">"country"</span>, <span class="st">"continent"</span>, <span class="st">"year"</span>, <span class="st">"lifeExp"</span>, <span class="st">"continent_lifeExp"</span>, <span class="st">"gap"</span>]]</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    .head(<span class="dv">3</span>).<span class="bu">round</span>(<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
 <div>
 
 
@@ -1149,11 +1174,11 @@ Name: count, dtype: int64</code></pre>
 </section>
 <section id="missing-values-from-unmatched-keys" class="level3" data-number="14.5.3">
 <h3 data-number="14.5.3" class="anchored" data-anchor-id="missing-values-from-unmatched-keys"><span class="header-section-number">14.5.3</span> Missing values from unmatched keys</h3>
-<p>A left or outer merge fills the columns of unmatched rows with <code>NaN</code>. Unlike the gaps in Data Cleaning, these mean something specific: <em>this key was not found in the other table</em>. The right handling depends on what absence means.</p>
-<div id="combine-unmatched" class="cell" data-execution_count="16">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>left_join <span class="op">=</span> skills.merge(ages, on<span class="op">=</span>[<span class="st">"FellowshipID"</span>, <span class="st">"FirstName"</span>], how<span class="op">=</span><span class="st">"left"</span>)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>left_join</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
+<p>A merge can introduce <code>NaN</code> where a key has no partner. A matched record can also contain a value that was already missing in the source. Use <code>indicator=True</code> to distinguish these cases; <code>isna()</code> alone cannot tell you why a value is missing.</p>
+<div id="combine-unmatched" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-15T19:30:06.302321Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-15T19:30:06.302274Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-15T19:30:06.305944Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-15T19:30:06.305686Z&quot;}}" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>left_join <span class="op">=</span> skills.merge(ages, on<span class="op">=</span><span class="st">"FellowshipID"</span>, how<span class="op">=</span><span class="st">"left"</span>, indicator<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>left_join</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
 <div>
 
 
@@ -1162,9 +1187,11 @@ Name: count, dtype: int64</code></pre>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th">FellowshipID</th>
-<th data-quarto-table-cell-role="th">FirstName</th>
+<th data-quarto-table-cell-role="th">FirstName_x</th>
 <th data-quarto-table-cell-role="th">Skills</th>
+<th data-quarto-table-cell-role="th">FirstName_y</th>
 <th data-quarto-table-cell-role="th">Age</th>
+<th data-quarto-table-cell-role="th">_merge</th>
 </tr>
 </thead>
 <tbody>
@@ -1173,14 +1200,18 @@ Name: count, dtype: int64</code></pre>
 <td>1001</td>
 <td>Frodo</td>
 <td>Hiding</td>
+<td>Frodo</td>
 <td>50.0</td>
+<td>both</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">1</th>
 <td>1002</td>
 <td>Samwise</td>
 <td>Gardening</td>
+<td>Samwise</td>
 <td>39.0</td>
+<td>both</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">2</th>
@@ -1188,6 +1219,8 @@ Name: count, dtype: int64</code></pre>
 <td>Gandalf</td>
 <td>Spells</td>
 <td>NaN</td>
+<td>NaN</td>
+<td>left_only</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">3</th>
@@ -1195,6 +1228,8 @@ Name: count, dtype: int64</code></pre>
 <td>Pippin</td>
 <td>Fireworks</td>
 <td>NaN</td>
+<td>NaN</td>
+<td>left_only</td>
 </tr>
 </tbody>
 </table>
@@ -1205,8 +1240,8 @@ Name: count, dtype: int64</code></pre>
 <p>Gandalf’s and Pippin’s ages are <code>NaN</code> because the <code>ages</code> table has no row for them, not because their age is zero. Three choices, from Data Cleaning:</p>
 <ul>
 <li><strong>Keep</strong> the <code>NaN</code> when absence is informative and should be reported, as here: the ages table is incomplete.</li>
-<li><strong>Fill</strong> when absence has a known meaning: a customer with no purchase rows spent $0, so <code>fillna(0)</code> is correct for spend, though it would be wrong for age.</li>
-<li><strong>Drop</strong> with <code>dropna(subset=[...])</code> when an analysis needs both values — which is the same as having used an inner join.</li>
+<li><strong>Fill</strong> only when absence has a known meaning. If purchase records are complete for the period and customer IDs match reliably, no purchase record can mean $0 spent. Fill those unmatched spending values with zero; do not automatically fill every missing value or use zero for an unknown age.</li>
+<li><strong>Drop</strong> with <code>dropna(subset=[...])</code> when an analysis requires observed measurements, and report the exclusions. This can also remove matched records whose measurements were already missing. An inner join only requires matching keys; it does not ensure complete measurements.</li>
 </ul>
 <p>Whichever you choose, count how many rows were unmatched before deciding.</p>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -1335,8 +1370,10 @@ Name: count, dtype: int64</code></pre>
 <section id="d.-check-the-keys" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="d.-check-the-keys">D. Check the Keys</h3>
 <ul>
-<li>Count the repeated values in <code>capitals["Country"]</code> with <code>duplicated()</code>, and show the repeated rows.</li>
-<li>Show that the Part B merge raises a <code>MergeError</code> with <code>validate="many_to_one"</code> (catch it with <code>try</code>/<code>except</code>), then remove the repeat with <code>drop_duplicates(subset="Country")</code> and show that the validated merge succeeds.</li>
+<li>Count repeated values in <code>capitals["Country"]</code> with <code>duplicated()</code>. Display all rows belonging to repeated keys using <code>duplicated(subset="Country", keep=False)</code>.</li>
+<li>Compare their capital names. Explain why these are different records sharing a country label, rather than identical records that can simply be deleted.</li>
+<li>Show that the Part B merge raises a <code>MergeError</code> with <code>validate="many_to_one"</code> (catch it with <code>try</code>/<code>except</code>). Validation checks the entire right table, including country keys that do not occur in <code>gapminder_2007</code>.</li>
+<li>Preserve <code>capitals</code>. For the narrower question “Is this country listed in the capitals source?”, create <code>country_lookup = capitals[["Country"]].drop_duplicates()</code>. Merge <code>gapminder_2007</code> with this lookup using the Part B keys, <code>how="left"</code>, <code>indicator=True</code>, and <code>validate="many_to_one"</code>. Show that validation succeeds and report the match counts. Explain why this lookup can check country coverage but cannot supply a single capital city for every country label.</li>
 </ul>
 </section>
 <section id="render-and-submit" class="level3 unnumbered">
@@ -1344,7 +1381,7 @@ Name: count, dtype: int64</code></pre>
 <p>Restart the kernel, run all cells in order, resolve unexpected errors, and save. Include your outputs and explanations for A–D, and a short Markdown completion note. From <code>stat303-combining-datasets</code> in the terminal, run:</p>
 <pre class="text"><code>quarto render activity14.ipynb --to html</code></pre>
 <p>Follow the <a href="./vscode_setup.html#render-and-submit-with-quarto">Quarto refresher</a>: inspect the HTML and a copy opened outside the project folder, and confirm that every output appears and your name is on the report. Upload only <code>activity14.html</code> to the Combining Datasets Canvas quiz; keep your notebook locally.</p>
-<p><strong>HTML grading (16 points):</strong> the stacked table with its row and missing-value checks (4); the left merge, the matched and unmatched counts, and the two explained mismatches (4); inner and outer row counts with their explanation (4); the repeated key, the validated merge failing and then succeeding (3); name, readable report, and completion note (1).</p>
+<p><strong>HTML grading (16 points):</strong> the stacked table with its row and missing-value checks (4); the left merge, the matched and unmatched counts, and the two explained mismatches (4); inner and outer row counts with their explanation (4); the repeated-key explanation, failed validation, and justified country lookup with successful validation (3); name, readable report, and completion note (1).</p>
 </section>
 </section>
 <section id="extended-practice" class="level2" data-number="14.8">
@@ -1374,7 +1411,7 @@ Name: count, dtype: int64</code></pre>
 <p>For any combination you make, you should be able to answer five questions:</p>
 <ol type="1">
 <li>Are you stacking tables with the same columns, or matching tables on a key?</li>
-<li>What is the key, and does it identify exactly one row in each table?</li>
+<li>What are the merge keys, and are they unique in the left table, the right table, or both?</li>
 <li>Which <code>how=</code> did you choose, and how many rows did you expect?</li>
 <li>How many rows matched, and why did the others not?</li>
 <li>What do the missing values from unmatched keys mean, and what did you do with them?</li>
